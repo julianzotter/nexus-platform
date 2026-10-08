@@ -1,148 +1,164 @@
 # TASK-00004: INVENTAR — Agent D / Curator
 
-**Status:** IN_PROGRESS  
-**Owner:** ID-02 Gemini + deterministischer Python-Indexer  
-**ETA:** 2–3 Tage  
-**Start:** 2026-10-08  
+**Status:** READY_FOR_EXECUTION
+**Owner:** ID-02 (Agent D / Curator)
+**Implementation Support:** Coding Agent (nur Tooling, kein Rollenträger)
+**Reviewer:** ID-01 (Human Gate)
+**Start:** 2026-10-08
+
+> **Regel: Evidenzmetriken werden nie vorab befüllt.** Alle Zahlen (Coverage, Duplikate, Dateianzahlen) stehen in dieser Spezifikation als Platzhalter `[MEASURED_AFTER_SCAN]` und werden ausschließlich aus dem tatsächlichen Scan erzeugt.
 
 ---
 
+## Rollen
+
+| Rolle | Verantwortung | Status |
+|---|---|---|
+| ID-02 / Agent D (Curator) | Task-Ownership, Datenqualität, Evidence-Kette, Signatur | OWNER |
+| Coding Agent | Implementierung der deterministischen Skripte (Scan, Duplikate, Coverage, Katalog) | SUPPORT |
+| ID-01 | Review, Approval, Merge-Entscheidung | HUMAN GATE |
+
+*D owns the task; coding support implements tooling.*
+
+## Governance
+
+1. Spezifikation liegt auf `main`.
+2. Die gesamte Inventar-Arbeit erfolgt ausschließlich auf `feature/TASK-00004-inventory`.
+3. PR nach `main`, Review durch ID-01, Status `AWAITING_REVIEW`.
+4. **Kein automatischer Merge.**
+
 ## Aufgabe
 
-Alle Quellen inventarisieren: Repos, Obsidian-Vault, Google Drive.  
-Output: `registry/file-registry.jsonl` + `catalog-draft.yaml` + Duplikat-Report.
+Quellen inventarisieren: Repos, Obsidian-Vault, Google Drive (soweit zugänglich).
+
+**Wichtig:** Quellrepos bleiben read-only. Keine Änderungen an Quellen. Nur Metadaten erfassen.
 
 ## Input
 
-- `julianzotter/julianzotter/tools/01_scan_registry.py` (atomares Scan-Skript)
-- Quellen:
-  - `julianzotter/NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH` (TypeScript UI + Solver)
-  - `julianzotter/julianzotter` (Docs, Tools, Routines, Quellenlog)
-  - Obsidian-Vault (lokal oder Drive: `_SEILSTATIK_BOEBLINGEN`, `_code`, etc.)
-  - Google Drive (bei Zugang verfügbar)
+- `julianzotter/julianzotter/tools/01_scan_registry.py` (atomarer Scanner)
+- Quellen (Zugänglichkeit je Quelle im Report ausweisen):
+  - `julianzotter/NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH`
+  - `julianzotter/julianzotter`
+  - Obsidian-Vault (lokal oder Drive)
+  - Google Drive (falls Zugang vorhanden)
 
-## Output (Expected)
+## Output
 
 ```
 registry/
-├─ file-registry.jsonl         ← 1 Zeile = 1 Datei, SHA-256, Metadaten
-├─ duplicates-report.md         ← Hash-basierte Duplikat-Kandidaten
-├─ catalog-draft.yaml           ← Erste YAML-Fassung, Status=DRAFT
-└─ inventory-summary.txt        ← Statistik: X Dateien, Y Duplikate, Z Größe
+├─ file-registry.jsonl        # 1 Zeile = 1 Datei
+├─ duplicates-report.md       # alle Duplikat-Kandidaten, deterministisch
+├─ catalog-draft.yaml         # Status = DRAFT
+├─ inventory-summary.txt      # Coverage je Quelle
+└─ coverage-per-source.json   # maschinenlesbar
 ```
 
-## Abnahmekriterium
+## Datensatz je Datei (file-registry.jsonl)
 
-- [ ] `file-registry.jsonl` erfasst ≥90% aller Dateien aus Quellen
-- [ ] Jeder Datensatz:
-  - `id`: SHA-256(root + relpath)[:16] (stabil, eindeutig)
-  - `root`: Quellname (z.B. "NEXUS-AI-AEC", "julianzotter", "Obsidian_SEILSTATIK")
-  - `path`: Relativpfad
-  - `name`: Dateiname
-  - `ext`: Dateiendung (lowercased)
-  - `size`: Bytes
-  - `mtime`: ISO 8601
-  - `sha256`: Hex-Hash (Dateien < 500 MB)
-  - `status`: "FOUND" | "SKIPPED" | "ERROR"
-- [ ] SHA-256 Hashes für Dateien < 500 MB korrekt
-- [ ] Duplikate identifiziert: gleicher SHA-256 = gleiche Datei
-- [ ] Duplikate gekennzeichnet (nicht gelöscht): `supersedes` Feld
-- [ ] Ausschlüsse: `__pycache__`, `.git`, `node_modules`, `$RECYCLE.BIN`, System-Ordner
-- [ ] Credentials-Dateien ausgeschlossen: `token.json`, `credentials.json`, `.env*`
-- [ ] Atomar geschrieben: `.jsonl.tmp` → `file-registry.jsonl`
-- [ ] `catalog-draft.yaml`: Struktur folgt `registry/README.md`, Objekt-IDs nach Schema
-- [ ] Duplikat-Report: Kandidaten mit Hash, Größe, Quelle(n), Empfehlung
-- [ ] Signiert: Kürzel (ID-02), Datum (ISO), Evidence-Ref (PR)
+| Feld | Beschreibung |
+|---|---|
+| `id` | SHA-256(root + relpath)[:16], stabil |
+| `root`, `path`, `name`, `ext` | Herkunft |
+| `size`, `mtime` | Metadaten (mtime ISO 8601) |
+| `sha256` | Hash über Bytes, `null` bei Datei > 500 MB |
+| `status` | `FOUND` / `SKIPPED` / `ERROR` / `INCOMPLETE` (bei Zugriff verweigert) |
+| `duplicate_of` | id der Referenzdatei bei gleichem SHA-256 |
+| `duplicate_group` | Gruppen-ID bei mehreren Duplikaten |
 
-## Tools & Scripts
+`supersedes` wird **nicht** für Duplikate verwendet, nur für echte Versionsnachfolge.
 
-```bash
-# Beispiel-Aufruf:
-python tools/01_scan_registry.py \
-  --root "/path/to/NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH" \
-  --root "/path/to/julianzotter" \
-  --root "/path/to/Obsidian-Vault" \
-  --out registry/file-registry.jsonl \
-  --hash \
-  --exclude __pycache__ .git node_modules
+## Coverage-Definition
 
-# Duplikat-Erkennung (separate, deterministischer Python):
-python tools/detect_duplicates.py \
-  --input registry/file-registry.jsonl \
-  --output registry/duplicates-report.md \
-  --min-size 1000  # nur Dateien > 1 KB
+**Explizite Formel (verbindlich):**
+
+```
+Coverage % = ( indexed / accessible ) × 100
 ```
 
-## Workflow
+**Definitionen:**
+- `discovered`: Dateien auf Quelle laut Dateisystem sichtbar
+- `accessible`: Dateien, die lesbar sind (keine Permission-Fehler, keine Locks)
+- `indexed`: Dateien, die erfolgreich in `file-registry.jsonl` aufgenommen wurden
+- `skipped`: Dateien, die per Ausschlussregel bewusst übersprungen (z.B. `__pycache__`)
+- `error`: Dateien, die Fehler beim Lesen erzeugt haben
+- `INCOMPLETE`: Quelle war nicht zugänglich (z.B. Google Drive offline, Obsidian-Pfad nicht gefunden)
 
-1. **Scan ausführen**
-   - `01_scan_registry.py` auf alle 3–4 Quellen laufen lassen
-   - Atomar in `file-registry.jsonl` schreiben
-   - Fehler protokollieren, nicht abbrechen
+**Beispiel:**
+```
+Quelle A: discovered=100, accessible=98, indexed=95, skipped=2, error=1
+Coverage = 95 / 98 = 96.9 %
 
-2. **Duplikate erkennen**
-   - Python-Skript: Lese `file-registry.jsonl`, Gruppiere nach SHA-256
-   - Schreibe `duplicates-report.md` mit Kandidaten
+Quelle B: INCOMPLETE (kein Zugriff)
+Coverage = INCOMPLETE
+```
 
-3. **YAML-Katalog erzeugen**
-   - Lese `file-registry.jsonl`
-   - Erzeuge `catalog-draft.yaml` mit Struktur:
-     ```yaml
-     version: "0.1.0-draft"
-     generated_at: "2026-10-08T..."
-     agent: "ID-02-Gemini"
-     objects:
-       - id: SNP-0001  # oder KNW-, RUL-, DAT-Präfix
-         title: "Quelle / Dateiname"
-         type: "snippet | knowledge | rule | dataset | prompt"
-         source_file: "path/to/file"
-         source_hash: "sha256..."
-         status: "DRAFT"
-         owner: "ID-02"
-         version: "0.1.0"
-         description: "(auto-generated oder leer)"
-     ```
+## Abnahmekriterien
 
-4. **PR einreichen**
-   - Branch: `feature/TASK-00004-inventory`
-   - 3 neue Dateien + `.gitignore` Update (falls nötig)
-   - PR-Template ausfüllen (Agent D, Task, Evidence, Signatur)
-   - Reviewer: ID-01 (Human Gate)
+- [ ] Coverage je Quelle ausgewiesen nach Formel: `indexed / accessible`
+- [ ] Inaccessible Quellen als `INCOMPLETE` gekennzeichnet (nicht geraten)
+- [ ] Gesamtquote indexed/accessible wird berichtet (Zielwert ≥ 90 %, Abweichungen begründet)
+- [ ] Alle Duplikat-Kandidaten deterministisch gelistet (kein Mindestwert)
+- [ ] Gleicher SHA-256 → `duplicate_of` bzw. `duplicate_group`
+- [ ] Ausschlüsse: `__pycache__`, `.git`, `node_modules`, `$RECYCLE.BIN`, `System Volume Information`
+- [ ] Credentials ausgeschlossen: `token.json`, `credentials.json`, `.env*`
+- [ ] Atomares Schreiben (`.tmp` → `replace`)
+- [ ] Rohdateien unverändert, read-only
+- [ ] Alle Metriken stammen aus dem realen Lauf, nichts vorbefüllt
+- [ ] Keine Metriken geraten (report `INCOMPLETE` bei Zugriff verweigert)
+- [ ] Skript-Versionen und Aufrufparameter im Report dokumentiert (Reproduzierbarkeit)
+- [ ] PR gegen `main`, Reviewer ID-01, Status `AWAITING_REVIEW`
+- [ ] Nur Task-erforderliche Dateien in PR (keine unrelated changes)
+
+## Coverage-Tabelle (Vorlage, wird vom Scan befüllt)
+
+| Quelle | discovered | accessible | indexed | skipped | error | coverage |
+|---|---|---|---|---|---|---|
+| NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] |
+| julianzotter | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] |
+| Obsidian-Vault | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] |
+| Google Drive | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] | [MEASURED_AFTER_SCAN] |
+
+Duplikat-Kandidaten gesamt: `[MEASURED_AFTER_SCAN]`
+
+## Tooling (durch Coding Agent zu implementieren, deterministisch)
+
+- `tools/01_scan_registry.py` (vorhanden, ggf. um Coverage-Zähler erweitern)
+- `tools/detect_duplicates.py` (neu): Gruppierung nach SHA-256, Report und Felder
+- `tools/coverage_stats.py` (neu): Zähler je Quelle nach Formel, JSON und TXT
+- Katalog-Generator für `catalog-draft.yaml` (Status = DRAFT)
+- Unit-Tests für alle neuen Skripte (Muster: `tests/test_scan_registry.py`)
+
+## PR-Vorlage (Platzhalter bleiben, bis gemessen)
+
+```markdown
+## Task
+- Agent: D (Curator, ID-02)
+- Task: TASK-00004
+- Support: Coding Agent (Tooling)
+
+## Coverage (Formula: indexed / accessible)
+Siehe registry/inventory-summary.txt: [MEASURED_AFTER_SCAN]
+
+## Duplikate
+Siehe registry/duplicates-report.md: [MEASURED_AFTER_SCAN]
+
+## Reproduzierbarkeit
+Skript-Versionen, Aufrufe, Datum: [FILLED_FROM_RUN]
+
+## Status
+AWAITING_REVIEW, Reviewer ID-01, kein automatischer Merge
+```
 
 ## Dependencies
 
 - Keine vorgelagerten Tasks
-- Blockiert: TASK-00001 (A braucht Registry für Kontext)
+- Blockiert: TASK-00001 (Agent A / Reference), startet erst nach Merge durch ID-01
 
-## Hinweise
-
-- `01_scan_registry.py` existiert bereits in `julianzotter/julianzotter/tools/`
-- Keine Dateien editieren, nur Metadaten erfassen
-- Atomar schreiben schützt vor korrupten Dateien bei Abbruch
-- Duplikat-Kandidaten können False-Positives sein (z.B. zwei identische README.md)
-  → Report muss „RECOMMENDATION" haben (z.B. „Merge diese zwei?")
-
-## Erfolgsmetriken (für Review)
-
-| Metrik | Schwelle |
-|---|---|
-| Erfassungs-Quote | ≥90% |
-| Duplikat-Kandidaten | ≥5 (realistisch für diesen Bestand) |
-| Größe registry.jsonl | < 10 MB (komprimierbar) |
-| Runtime | < 5 Minuten (auf normalem Rechner) |
-
----
-
-## Signatur (nach Abschluss)
+## Signatur (erst nach realem Lauf)
 
 ```
-✓ Agent: D (Curator / Gemini + Python)
-✓ Kürzel: ID-02
-✓ Datum: [Abschluss-Datum]
-✓ Evidence: [PR-Link]
-✓ Registry live: ja/nein
+Agent: D (ID-02)
+Datum: [FILLED_AT_SUBMISSION]
+Evidence: [PR-LINK]
+Status: AWAITING_REVIEW
 ```
-
----
-
-**NEXT TASK:** Nach Merge von TASK-00004 → TASK-00001 (Agent A / Reference) starten
