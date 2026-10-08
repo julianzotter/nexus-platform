@@ -1,0 +1,10 @@
+Inventory coverage (formula: indexed / accessible)
+NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH: INCOMPLETE — No local read-only source mount is available; required per-file metadata could not be measured.
+julianzotter: INCOMPLETE — No local read-only source mount is available; required per-file metadata could not be measured.
+Obsidian-Vault: INCOMPLETE — No accessible local vault mount was present.
+Google Drive: INCOMPLETE — No authenticated Drive mount was present.
+Total: INCOMPLETE (one or more sources are incomplete)
+
+Reproducibility
+Tool: coverage_stats.py v1; Python 3.12.3
+Command: /usr/bin/python3 tools/coverage_stats.py --registry registry/file-registry.jsonl --output registry/coverage-per-source.json --summary registry/inventory-summary.txt --incomplete 'NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH=No local read-only source mount is available; required per-file metadata could not be measured.' --incomplete 'julianzotter=No local read-only source mount is available; required per-file metadata could not be measured.' --incomplete 'Obsidian-Vault=No accessible local vault mount was present.' --incomplete 'Google Drive=No authenticated Drive mount was present.'
