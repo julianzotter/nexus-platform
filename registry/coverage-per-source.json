@@ -1,0 +1,55 @@
+{
+  "formula": "indexed / accessible",
+  "coverage_unit": "percent",
+  "sources": {
+    "NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH": {
+      "status": "INCOMPLETE",
+      "discovered": null,
+      "accessible": null,
+      "indexed": null,
+      "skipped": null,
+      "error": null,
+      "coverage_percent": null,
+      "reason": "No local read-only source mount is available; required per-file metadata could not be measured."
+    },
+    "julianzotter": {
+      "status": "INCOMPLETE",
+      "discovered": null,
+      "accessible": null,
+      "indexed": null,
+      "skipped": null,
+      "error": null,
+      "coverage_percent": null,
+      "reason": "No local read-only source mount is available; required per-file metadata could not be measured."
+    },
+    "Obsidian-Vault": {
+      "status": "INCOMPLETE",
+      "discovered": null,
+      "accessible": null,
+      "indexed": null,
+      "skipped": null,
+      "error": null,
+      "coverage_percent": null,
+      "reason": "No accessible local vault mount was present."
+    },
+    "Google Drive": {
+      "status": "INCOMPLETE",
+      "discovered": null,
+      "accessible": null,
+      "indexed": null,
+      "skipped": null,
+      "error": null,
+      "coverage_percent": null,
+      "reason": "No authenticated Drive mount was present."
+    }
+  },
+  "total": {
+    "status": "INCOMPLETE",
+    "discovered": null,
+    "accessible": null,
+    "indexed": null,
+    "skipped": null,
+    "error": null,
+    "coverage_percent": null
+  }
+}
