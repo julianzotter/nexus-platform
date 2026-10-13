@@ -29,7 +29,9 @@ Nur Python-Standardbibliothek; `pytest` für Tests. Modellnamen in `routing.json
 
 ## Drive-Sync (Windows)
 ```powershell
-.\sync_nexus.ps1   # main pullen, Tests, Kopie nach G:\Meine Ablage\_developement\LLM-LOCAL-SSOT und _INDEX_LNK\BENCHMARK Multi-LLM-Orchestrierung (+SYNC_STAMP.txt)
+.\sync_nexus.ps1              # main pullen, Tests, dann: orchestrator -> LLM-LOCAL-SSOT + BENCHMARK, komplettes Repo -> LLM-LOCAL-SSOT\nexus-platform
+.\sync_nexus.ps1 -NoFullRepo  # nur orchestrator
+# ausgeschlossen: .git, Caches, venv, node_modules, .env/*.key/*.pem; kein Loeschen in Drive
 ```
 
 ## SSOT
