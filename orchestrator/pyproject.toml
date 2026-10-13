@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-orch"
+version = "1.2.0"
+description = "NEXUS-AI Multi-LLM Orchestrator (Perplexity, Claude, GPT, Gemini, Vision, Ollama)"
+requires-python = ">=3.10"
+
+[project.scripts]
+nexus = "nexus_orch.cli:main"
+
+[tool.setuptools]
+packages = ["nexus_orch"]

@@ -1,4 +1,4 @@
-# NEXUS-AI Multi-LLM Orchestrator v1.1.0
+# NEXUS-AI Multi-LLM Orchestrator v1.2.0
 
 Integrationsschicht des NEXUS AI-OS: ein Einstiegspunkt, der Aufgaben deterministisch (T=0.0) an Perplexity, Claude, GPT, Gemini oder ein lokales Modell (Ollama) routet.
 
@@ -14,6 +14,12 @@ Integrationsschicht des NEXUS AI-OS: ein Einstiegspunkt, der Aufgaben determinis
 | OCR (Google Cloud Vision) | Route `ocr`: Vision `DOCUMENT_TEXT_DETECTION` (Bild-URL, gs:// oder lokaler Pfad), Fallback Gemini; vertraulich → lokal |
 | Audit | `COMMUNICATION/audit/YY_MM_DD_audit.jsonl` (nur Prompt-Hash, kein Klartext) |
 | Workflow-Registry | `registry/workflow-registry.json` – 17 Workflows (nexus-mvp, nexus-skill-family, nexus-platform, Control Tower, Mail-Triage) mit Route |
+
+## Installation als Befehl `nexus`
+```powershell
+cd "$env:USERPROFILE\nexus-platform\orchestrator"; python -m pip install -e .
+nexus status   # funktioniert danach in jedem Ordner
+```
 
 ## Start
 ```powershell
