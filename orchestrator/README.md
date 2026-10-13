@@ -40,5 +40,23 @@ Nur Python-Standardbibliothek; `pytest` für Tests. Modellnamen in `routing.json
 # ausgeschlossen: .git, Caches, venv, node_modules, .env/*.key/*.pem; kein Loeschen in Drive
 ```
 
+## Drive-Sync per rclone (ohne Laufwerk G:)
+Für Rechner ohne Google Drive for desktop, Server/VM oder Aufgabenplanung. Ziele per Drive-Ordner-ID in `config/sync_targets.json` (orchestrator, reports, evaluation → SSOT + BENCHMARK). Nur `rclone copy`, kein Löschen.
+```powershell
+# einmalig: rclone installieren (ohne winget)
+$d="$env:LOCALAPPDATA\rclone"; New-Item -ItemType Directory -Force $d | Out-Null
+Invoke-WebRequest https://downloads.rclone.org/rclone-current-windows-amd64.zip -OutFile "$env:TEMP\rclone.zip"
+Expand-Archive "$env:TEMP\rclone.zip" "$env:TEMP\rclone" -Force
+Copy-Item "$env:TEMP\rclone\rclone-*-windows-amd64\rclone.exe" $d -Force
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path","User")+";$d", "User")
+rclone config                      # n → gdrive → drive → scope 1 → Browser-Login
+python -m pip install pytest
+
+.\sync_nexus_rclone.ps1 -DryRun    # anzeigen
+.\sync_nexus_rclone.ps1            # ausführen
+.\sync_nexus_rclone.ps1 -Only reports
+```
+Wann welcher Weg: `sync_nexus.ps1` = Arbeits-PC mit Laufwerk G: · `sync_nexus_rclone.ps1` = PC ohne G:, Server, geplante Läufe, Ziel unabhängig von Ordnernamen.
+
 ## SSOT
 Google Drive `/LLM-LOCAL-SSOT` = Wahrheit · GitHub `julianzotter/nexus-platform` = Versionierung · OneDrive/Dropbox = Spiegel · Perplexity-Projekt „NEXUS-AI Multi-LLM System“ = Orchestrator-Kontext.
