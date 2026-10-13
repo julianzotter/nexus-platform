@@ -83,3 +83,20 @@ def test_ollama_num_ctx(monkeypatch):
     cfg = load_config()["providers"]["local"]
     r = providers.Provider("local", cfg).complete("Q")
     assert r["text"] == "OK" and seen["url"].endswith("/api/chat") and seen["body"]["options"]["num_ctx"] == 16384
+
+EVAL_JSON = '{"modell":"mock","datum":"2026-10-13","repo_zugriff":false,"noten":{"K1":2,"K2":3,"K3":2,"K4":3},"gesamt":2.5,"ko_regel":false,"pruefpunkte":{"K1.1":"erfuellt"},"kritisch":[],"massnahmen":[{"rang":1,"massnahme":"Retries","datei":"providers.py","kriterium":"K1","wirkung":"hoch","aufwand":"S"}]}'
+
+def test_eval_prompt_fresh_pack():
+    from nexus_orch import evaluate as ev
+    pr = ev.build_prompt()
+    assert "## 0 Anweisung" in pr and "Kontextpaket (automatisch erzeugt" in pr
+    assert "### FILE: orchestrator/nexus_orch/core.py" in pr and pr.count("\n## 6 Kontextpaket") == 1
+
+def test_eval_run_and_aggregate(tmp_path):
+    from nexus_orch import evaluate as ev
+    cfg = load_config()
+    prov = {n: MockProvider(n, answer="# Bericht\n```json\n" + EVAL_JSON + "\n```") for n in cfg["providers"]}
+    prov["gemini"] = MockProvider("gemini", fail=True)
+    o = Orchestrator(cfg, prov, root=tmp_path)
+    r = ev.run(o, ["perplexity", "claude", "gemini"], outdir=tmp_path)
+    assert len(r["berichte"]) == 2 and r["fehler"] and (tmp_path / "NEXUS_EVAL_AUSWERTUNG.md").exists()

@@ -12,6 +12,10 @@ def main(argv=None):
     p = sp.add_parser("lesson"); [p.add_argument(f"--{k}", required=True) for k in ("agent", "context", "condition", "pattern", "evidence")]
     p = sp.add_parser("lessons"); p.add_argument("query", nargs="?", default="")
     sp.add_parser("registry")
+    p = sp.add_parser("eval", help="Evaluierung an alle Modelle mit Key senden, Berichte + Auswertung schreiben")
+    p.add_argument("--models", default="", help="z.B. perplexity,claude (Standard: alle Cloud-Modelle mit Key)")
+    p.add_argument("--dry-run", action="store_true", help="nur Prompt bauen und Groesse/Modelle anzeigen")
+    sp.add_parser("eval-summary", help="vorhandene Berichte in evaluation/berichte auswerten")
     a = ap.parse_args(argv)
     o = Orchestrator()
     if a.cmd == "status":
@@ -30,6 +34,18 @@ def main(argv=None):
         r = write_lesson({k: getattr(a, k) for k in ("agent", "context", "condition", "pattern", "evidence")})
     elif a.cmd == "lessons":
         r = search_lessons(a.query)
+    elif a.cmd == "eval":
+        from . import evaluate as ev
+        models = [m for m in a.models.split(",") if m] or None
+        if a.dry_run:
+            pr = ev.build_prompt()
+            r = {"commit": ev.commit(), "prompt_zeichen": len(pr), "ca_tokens": len(pr) // 4,
+                 "modelle": {n: o.providers[n].available() for n in (models or ev.CLOUD)}}
+        else:
+            r = ev.run(o, models)
+    elif a.cmd == "eval-summary":
+        from . import evaluate as ev
+        r = {"auswertung": ev.aggregate(ev.EVAL / "berichte")}
     else:
         r = json.loads((ROOT / "registry/workflow-registry.json").read_text(encoding="utf-8"))
     print(json.dumps(r, ensure_ascii=False, indent=2))

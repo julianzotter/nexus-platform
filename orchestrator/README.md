@@ -60,3 +60,15 @@ Wann welcher Weg: `sync_nexus.ps1` = Arbeits-PC mit Laufwerk G: · `sync_nexus_r
 
 ## SSOT
 Google Drive `/LLM-LOCAL-SSOT` = Wahrheit · GitHub `julianzotter/nexus-platform` = Versionierung · OneDrive/Dropbox = Spiegel · Perplexity-Projekt „NEXUS-AI Multi-LLM System“ = Orchestrator-Kontext.
+
+## Automatisierung
+| Ziel | Befehl | Wirkung |
+|---|---|---|
+| Drive-Sync ohne Handarbeit | `.\install_autosync.ps1` (einmalig) | Windows-Aufgabe `NEXUS-AutoSync`: täglich 07:00 + bei Anmeldung `sync_nexus.ps1`; Log `%LOCALAPPDATA%\NEXUS\autosync.log`; `-Rclone` für Rechner ohne G:, `-Remove` zum Entfernen |
+| Evaluierung an alle Modelle | `nexus eval` | Bogen `evaluation/NEXUS_EVAL_BOGEN_v1.0.md` + frisch erzeugtes Kontextpaket (aktueller Commit) an alle Cloud-Modelle mit Key; Berichte `evaluation/berichte/EVAL_<modell>_<JJMMTT>.md`, Auswertung `NEXUS_EVAL_AUSWERTUNG.md` |
+| Vorschau | `nexus eval --dry-run` | Prompt-Größe und verfügbare Modelle, ohne Versand |
+| Auswahl | `nexus eval --models perplexity,claude` | nur diese Modelle |
+| Nur Auswertung | `nexus eval-summary` | wertet manuell abgelegte Berichte (z. B. aus ChatGPT-Web) in `evaluation/berichte` aus |
+
+`nexus eval` sendet nur Repo-Inhalt (Code/Doku). Das Privacy-Gate gilt dafür bewusst nicht; Projektdaten gehören nicht ins Repo. Das lokale Modell ist ausgenommen (Paket > 16k Kontext).
+Drive-Sync kopiert zusätzlich `reports/` und `evaluation/` nach `LLM-LOCAL-SSOT\nexus-reports|nexus-evaluation` und `BENCHMARK…\nexus-reports|nexus-evaluation`.
