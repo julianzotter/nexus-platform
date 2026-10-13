@@ -1,5 +1,5 @@
 """Provider adapters (stdlib only). temperature=0.0 default, deterministic."""
-import base64, json, os, urllib.request
+import base64, json, os, urllib.error, urllib.request
 
 class ProviderError(RuntimeError):
     pass
@@ -9,8 +9,12 @@ def _post(url, headers, body, timeout=120):
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             return json.loads(r.read())
-    except Exception as e:  # network, HTTP, JSON
-        raise ProviderError(f"{url}: {e}") from e
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")[:300]
+        hint = " -> Modell fehlt: 'ollama pull <model>' bzw. 'ollama list' pruefen" if e.code == 404 and "11434" in url else ""
+        raise ProviderError(f"{url.split('?')[0]}: HTTP {e.code} {detail}{hint}") from e
+    except Exception as e:  # network, JSON
+        raise ProviderError(f"{url.split('?')[0]}: {e}") from e
 
 class Provider:
     def __init__(self, name, cfg):

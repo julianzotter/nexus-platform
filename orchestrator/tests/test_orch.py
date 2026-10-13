@@ -63,3 +63,13 @@ def test_cli_clean_error(monkeypatch, capsys):
     assert cli.main(["run", "research", "Q"]) == 2
     out = json.loads(capsys.readouterr().out)
     assert out["ok"] is False and "PERPLEXITY_API_KEY" in out["missing_keys"]
+
+def test_http_error_detail(monkeypatch):
+    import io, urllib.error, urllib.request
+    from nexus_orch import providers
+    def boom(*a, **k):
+        raise urllib.error.HTTPError("http://localhost:11434/v1/chat/completions", 404, "Not Found", {}, io.BytesIO(b'{"error":"model \'qwen2.5:7b\' not found"}'))
+    monkeypatch.setattr(urllib.request, "urlopen", boom)
+    with pytest.raises(ProviderError) as e:
+        providers._post("http://localhost:11434/v1/chat/completions", {}, {})
+    assert "not found" in str(e.value) and "ollama pull" in str(e.value)
