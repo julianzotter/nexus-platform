@@ -29,7 +29,7 @@
     "local": {
       "kind": "openai_compat",
       "base_url": "http://localhost:11434/v1",
-      "model": "qwen2.5:14b",
+      "model": "qwen2.5:7b",
       "env_key": null
     },
     "vision": {
