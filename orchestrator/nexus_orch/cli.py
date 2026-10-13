@@ -1,6 +1,7 @@
 """python -m nexus_orch.cli {status|run|council|lesson|lessons|registry}"""
 import argparse, json, pathlib, sys
 from .core import Orchestrator, write_lesson, search_lessons, ROOT
+from .providers import ProviderError
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="nexus")
@@ -16,10 +17,15 @@ def main(argv=None):
     if a.cmd == "status":
         r = {"providers": {n: p.available() for n, p in o.providers.items()},
              "routes": {k: o.chain(k) for k in o.cfg["routes"]}}
-    elif a.cmd == "run":
-        r = o.run(a.task, a.prompt, a.system)
-    elif a.cmd == "council":
-        r = o.council(a.task, a.prompt, a.system)
+    elif a.cmd in ("run", "council"):
+        try:
+            r = (o.run if a.cmd == "run" else o.council)(a.task, a.prompt, a.system)
+        except (ProviderError, KeyError) as e:
+            missing = [p.cfg["env_key"] for p in o.providers.values() if p.cfg.get("env_key") and not p.available()]
+            print(json.dumps({"ok": False, "error": str(e).strip("'\""), "missing_keys": missing,
+                              "hint": "Keys setzen: .\\setup.ps1, danach neues PowerShell-Fenster; lokal: Ollama starten"},
+                             ensure_ascii=False, indent=2))
+            return 2
     elif a.cmd == "lesson":
         r = write_lesson({k: getattr(a, k) for k in ("agent", "context", "condition", "pattern", "evidence")})
     elif a.cmd == "lessons":
