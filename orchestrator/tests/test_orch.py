@@ -55,3 +55,11 @@ def test_ocr_fallback(tmp_path):
 
 def test_ocr_confidential_local(tmp_path):
     assert mk(tmp_path).run("ocr", "VERTRAULICH C:/scan.png")["provider"] == "local"
+
+def test_cli_clean_error(monkeypatch, capsys):
+    from nexus_orch import cli
+    for k in ("PERPLEXITY_API_KEY", "GEMINI_API_KEY", "OPENAI_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    assert cli.main(["run", "research", "Q"]) == 2
+    out = json.loads(capsys.readouterr().out)
+    assert out["ok"] is False and "PERPLEXITY_API_KEY" in out["missing_keys"]
