@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "status": "draft_text_review",
+  "reviewed_on": "2026-10-13",
+  "repository": "julianzotter/nexus-platform",
+  "base_commit": "c3ed2c5757478852040b2f6bb7e40bab5729fa32",
+  "source_folder": "https://drive.google.com/drive/folders/1WQkvQDTlWfcHvKDrXtIYU8P4HZyYv0lA",
+  "sync": {
+    "mode": "manual_reviewed_snapshot",
+    "automatic_sync_enabled": false,
+    "deletion_policy": "mark_missing_never_auto_delete",
+    "conflict_policy": "block_if_source_or_target_changed",
+    "canonical_source_status": "proposed_not_confirmed"
+  },
+  "concepts": [
+    {
+      "id": "NEXUS-CONCEPT-VOICE-001",
+      "title": "Sprachdialog und asynchrone Transkriptionsnachbearbeitung",
+      "source_ids": [
+        "1tMW2Km2Kj_2JUfK-r54EN99PUGc3RoVI"
+      ],
+      "status": "concept_reviewed_implementation_pending",
+      "related_concept_ids": [
+        "NEXUS-CONCEPT-NORM-001"
+      ],
+      "module_boundaries": [
+        "realtime_session",
+        "async_transcription_jobs",
+        "evidence_registry"
+      ]
+    },
+    {
+      "id": "NEXUS-CONCEPT-NORM-001",
+      "title": "PDF-Normen-Parser-Pipeline",
+      "source_ids": [
+        "1ZU0Y9mhQKQJqH-XM5I2FYtQuOIOXjCH6LmliiO6yUXs",
+        "1BOgMUz-05foEsU-KFrh7DQv2YlsTNNBM",
+        "1tQNHeXXcdNPx3J4MHBACmuNrFx-j9vO6",
+        "1vo_0gccV1Vg-lUrGlCzmazYPqVlyeH7p"
+      ],
+      "status": "concept_reviewed_validation_blockers",
+      "related_concept_ids": [
+        "NEXUS-CONCEPT-VOICE-001"
+      ],
+      "proposed_editable_source_id": "1vo_0gccV1Vg-lUrGlCzmazYPqVlyeH7p"
+    }
+  ],
+  "sources": [
+    {
+      "id": "1ZU0Y9mhQKQJqH-XM5I2FYtQuOIOXjCH6LmliiO6yUXs",
+      "title": "SKILL-PDF-Normen-Parser-Pipeline.docx (Converted - 2026-10-13 11:45)",
+      "url": "https://docs.google.com/document/d/1ZU0Y9mhQKQJqH-XM5I2FYtQuOIOXjCH6LmliiO6yUXs/edit?usp=drivesdk",
+      "mime_type": "application/vnd.google-apps.document",
+      "modified_time": "2026-10-13T09:45:17.718Z",
+      "source_sha256": null,
+      "revision_id": null,
+      "access_evidence": "readable_text_fetch_succeeded",
+      "fidelity": "best_effort_connector_text_not_original_bytes",
+      "visual_review": "not_performed",
+      "relationship": "same_topic_candidate_not_verified_equivalent"
+    },
+    {
+      "id": "1BOgMUz-05foEsU-KFrh7DQv2YlsTNNBM",
+      "title": "SKILL-PDF-Normen-Parser-Pipeline.pdf",
+      "url": "https://drive.google.com/file/d/1BOgMUz-05foEsU-KFrh7DQv2YlsTNNBM/view?usp=drivesdk",
+      "mime_type": "application/pdf",
+      "modified_time": "2026-10-13T09:30:42.879Z",
+      "source_sha256": null,
+      "revision_id": null,
+      "access_evidence": "readable_text_fetch_succeeded",
+      "fidelity": "best_effort_connector_text_not_original_bytes",
+      "visual_review": "not_performed",
+      "relationship": "same_topic_candidate_not_verified_equivalent"
+    },
+    {
+      "id": "1tQNHeXXcdNPx3J4MHBACmuNrFx-j9vO6",
+      "title": "SKILL-PDF-Normen-Parser-Pipeline.docx",
+      "url": "https://docs.google.com/document/d/1tQNHeXXcdNPx3J4MHBACmuNrFx-j9vO6/edit?usp=drivesdk&ouid=110406241821899437720&rtpof=true&sd=true",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "modified_time": "2026-10-13T09:30:42.164Z",
+      "source_sha256": null,
+      "revision_id": null,
+      "access_evidence": "readable_text_fetch_succeeded",
+      "fidelity": "best_effort_connector_text_not_original_bytes",
+      "visual_review": "not_performed",
+      "relationship": "same_topic_candidate_not_verified_equivalent"
+    },
+    {
+      "id": "1vo_0gccV1Vg-lUrGlCzmazYPqVlyeH7p",
+      "title": "SKILL.md",
+      "url": "https://drive.google.com/file/d/1vo_0gccV1Vg-lUrGlCzmazYPqVlyeH7p/view?usp=drivesdk",
+      "mime_type": "text/markdown",
+      "modified_time": "2026-10-13T09:29:50.633Z",
+      "source_sha256": null,
+      "revision_id": null,
+      "access_evidence": "readable_text_fetch_succeeded",
+      "fidelity": "best_effort_connector_text_not_original_bytes",
+      "visual_review": "not_performed",
+      "relationship": "same_topic_candidate_not_verified_equivalent"
+    },
+    {
+      "id": "1tMW2Km2Kj_2JUfK-r54EN99PUGc3RoVI",
+      "title": "26_10_13_Human-Transcription+Captioning-LIVE-MCP-API-ACESS.md",
+      "url": "https://drive.google.com/file/d/1tMW2Km2Kj_2JUfK-r54EN99PUGc3RoVI/view?usp=drivesdk",
+      "mime_type": "text/markdown",
+      "modified_time": "2026-10-13T09:01:50.243Z",
+      "source_sha256": null,
+      "revision_id": null,
+      "access_evidence": "readable_text_fetch_succeeded",
+      "fidelity": "best_effort_connector_text_not_original_bytes",
+      "visual_review": "not_performed",
+      "relationship": "same_topic_candidate_not_verified_equivalent"
+    }
+  ]
+}
