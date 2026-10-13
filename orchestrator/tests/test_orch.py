@@ -46,3 +46,12 @@ def test_registry_routes_valid():
     cfg = load_config(); reg = json.loads((ROOT / "registry/workflow-registry.json").read_text())
     assert all(w["route"] in cfg["routes"] for w in reg["workflows"])
     assert all(set(r["fallback"] + [r["primary"]]) <= set(cfg["providers"]) for r in cfg["routes"].values())
+
+def test_ocr_route(tmp_path):
+    assert mk(tmp_path).run("ocr", "https://x/plan.jpg")["provider"] == "vision"
+
+def test_ocr_fallback(tmp_path):
+    assert mk(tmp_path, vision=MockProvider("vision", fail=True)).run("ocr", "https://x/p.jpg")["provider"] == "gemini"
+
+def test_ocr_confidential_local(tmp_path):
+    assert mk(tmp_path).run("ocr", "VERTRAULICH C:/scan.png")["provider"] == "local"

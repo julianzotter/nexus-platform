@@ -1,5 +1,5 @@
 """Provider adapters (stdlib only). temperature=0.0 default, deterministic."""
-import json, os, urllib.request
+import base64, json, os, urllib.request
 
 class ProviderError(RuntimeError):
     pass
@@ -46,6 +46,16 @@ class Provider:
                 body["systemInstruction"] = {"parts": [{"text": system}]}
             d = _post(f"{base}/models/{model}:generateContent?key={key}", {}, body)
             return {"text": d["candidates"][0]["content"]["parts"][0]["text"], "citations": [], "model": model}
+        if kind == "gcv_ocr":
+            # prompt = image URL (http/https/gs) or local file path
+            img = {"source": {"imageUri": prompt}} if prompt.startswith(("http://", "https://", "gs://")) \
+                else {"content": base64.b64encode(open(prompt, "rb").read()).decode()}
+            d = _post(f"{base}/images:annotate?key={key}", {},
+                      {"requests": [{"image": img, "features": [{"type": model}]}]})
+            r0 = d["responses"][0]
+            if "error" in r0:
+                raise ProviderError(f"vision: {r0['error'].get('message')}")
+            return {"text": r0.get("fullTextAnnotation", {}).get("text", ""), "citations": [prompt], "model": model}
         raise ProviderError(f"unknown kind {kind}")
 
 class MockProvider(Provider):
