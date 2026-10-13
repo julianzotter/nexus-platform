@@ -1,0 +1,217 @@
+---
+name: pdf-normen-parser-pipeline
+description: Deterministische PDF-zu-RAG-Pipeline für Normen, Richtlinien und technische Spezifikationen (Architektur/Bauwesen). Verlustfreie Ground-Truth-Extraktion, semantisches Chunking mit Kapitel-Hierarchie und Formelerkennung, auditierbare RAG-Artefakte mit Hashes. Nutzen wenn Normen-PDFs (DIN, ÖNORM, Eurocode, OIB-Richtlinien, Fachpublikationen) in LLM-lesbare, zitierfähige Wissensobjekte überführt werden sollen.
+---
+
+# PDF-Normen-Parser-Pipeline
+
+## Kernprinzip
+
+Rohwissen, Extrakt, Semantik und Code strikt trennen. Phase 1 erzeugt **keinerlei** fachliche Interpretation — ein Textblock wie `M_Ed ≤ M_Rd` wird nur mit Seite, Bounding Box und Hash gespeichert. Alle semantischen Schritte referenzieren diesen Freeze. Ohne Freeze ist keine Auditierbarkeit möglich.
+
+## Schutzregeln (lizenzierte Normtexte)
+
+1. Lizenzpflichtige Normtexte (DIN, ÖNORM B) **niemals** vollständig reproduzieren — nur Metadaten, Kapitelstruktur, Hash und kurze Zitate (≤ 1 Satz) mit Seitenreferenz.
+2. Ground-Truth-Freeze lokal, verschlüsselt oder in geschlossenem Bereich halten; keine Pfade in Artefakte schreiben, die in RAG-Systeme exportiert werden.
+3. Öffentliche Quellen (OIB-Richtlinien, Baurechtsportal, Bauprofessor) bevorzugen; frei verfügbare Eurocode-National-Anhänge (ONR, NDP) separat kennzeichnen.
+4. Jeder exportierte Chunk muss `source_doc`, `page`, `hash` tragen — Zitierfähigkeit ist Pflicht, keine Halluzination ohne Verweis.
+
+## Entscheidungsalgorithmus (Parser-Stack-Auswahl)
+
+```
+Eingabe: PDF
+├─ Test 1: textbasiert? (PyMuPDF: page.get_text() liefert > 50 Zeichen/Seite im Median)
+│   ├─ JA, Layout einfach (1 Spalte, wenig Tabellen) → PyMuPDF + pdfminer.six (Gegenprüfung)
+│   ├─ JA, Layout komplex (mehrspaltig, Tabellen, Formeln) → + pdfplumber, Docling
+│   └─ NEIN (Scan) → OCRmyPDF/Tesseract (deu+eng) → danach wie oben
+└─ Ausgabe: phase1/ mit Rohtext, Layout, Metadaten, Bildern, SHA-256
+```
+
+## Workflow (Phasen)
+
+| Phase | Schritt | Modul | Artefakt |
+|---|---|---|---|
+| 1 Ground-Truth | Rohtext, Layout, Metadaten, Bilder, Hash | `deterministic_pdf_parser.py` | `phase1/blocks.jsonl` + `manifest.json` |
+| 1 | Freeze & Validierung | `phase1_manifest.py` | `phase1/freeze/` (immutable) |
+| 2 Semantik | Kapitel-Hierarchie | `chapter_resolver.py` | `phase2/chapters.json` |
+| 2 | Formelerkennung | `formula_extractor.py` | `phase2/formulas.json` |
+| 2 | Abbildungsreferenzen | `figure_extractor.py` | `phase2/figures.json` |
+| 2 | Stabilitätsprüfung Multi-Dokument | `chapter_confidence_regression.py` | `phase2/confidence_report.json` |
+| 3 RAG | Chunk-Export | `rag_exporter.py` | `phase3/chunks.jsonl` |
+| 3 | Normreinheit filtern | `norm_profile_switcher.py` | `phase3/chunks_profiled/` |
+| 3 | Validierung + Feedback-Loop | Prompt-Modul P2/P3 | `phase3/validated/` |
+
+## Pydantic-Schema
+
+```python
+from pydantic import BaseModel, Field, HttpUrl
+from datetime import date
+from typing import Literal, Optional
+
+Hash = str  # SHA-256 hex
+
+class SourceDoc(BaseModel):
+    doc_id: str
+    title: str
+    doc_type: Literal["norm", "richtlinie", "eurocode", "publikation", "spezifikation"]
+    issuer: str  # z.B. "DIN", "OIB", "CEN/ÖNORM"
+    doc_number: str  # z.B. "EN 1992-1-1"
+    version: Optional[str] = None
+    source_url: Optional[HttpUrl] = None
+    license: Literal["public", "restricted", "unknown"] = "unknown"
+    pdf_sha256: Hash
+
+class TextBlock(BaseModel):
+    block_id: str
+    doc_id: str
+    page: int
+    bbox: tuple[float, float, float, float]
+    text_raw: str  # unverändert aus Phase 1, kein LLM-Input ohne Hash-Check
+    block_hash: Hash
+    reading_order: int
+
+class Chapter(BaseModel):
+    chapter_id: str  # stabil: "EN1992-1-1#5.2.3"
+    parent_id: Optional[str] = None
+    heading: str
+    page_start: int
+    confidence: float = Field(ge=0.0, le=1.0)
+    block_range: tuple[str, str]  # erste/letzte block_id
+
+class Formula(BaseModel):
+    formula_id: str
+    chapter_id: str
+    latex: str
+    symbols: list[str]  # ["M_Ed", "M_Rd"]
+    units: list[str]
+    page: int
+    block_ref: str
+
+class RagChunk(BaseModel):
+    chunk_id: str
+    chapter_id: str
+    doc_id: str
+    content: str  # semantisch aufbereitet
+    source_hash: Hash  # Hash des zugrundeliegenden TextBlocks
+    page: int
+    norm_profile: str  # z.B. "stahlbau", "eurocode-2", "oib-rl-6"
+    token_count: int
+```
+
+## Prompt-Modul P1 — Strukturierung & Chunking (LLM, Phase 2)
+
+Eingabe: `blocks.jsonl`-Ausschnitt + Kapitel-Kandidaten. Ausgabe: Kapitel-Hierarchie.
+
+```yaml
+prompt: |
+  Du ordnest Textblöcke einer technischen Norm einer Kapitelhierarchie zu.
+  Regeln:
+  - Nutze NUR die gelieferten Blöcke. Kein externes Wissen, keine Ergänzung.
+  - Jede block_id muss referenziert werden; keine block_id doppelt zuweisen.
+  - Kapitelnummern streng dem Muster ^(\d+(\.\d+)*) folgen.
+  - Bei Unsicherheit: confidence < 0.7 markieren statt raten.
+  Ausgabeformat: JSON nach Schema Chapter[] (siehe Pydantic).
+```
+
+## Prompt-Modul P2 — Normreinheit & Validierung (Phase 3)
+
+```yaml
+prompt: |
+  Prüfe den Chunk gegen das Norm-Profil {{norm_profile}}.
+  Harte Regeln R1–R6:
+  R1: Jede technische Aussage hat source_hash + Seitenreferenz.
+  R2: Keine Aussage, die im Quelltext-Hash nicht belegt ist (Halluzinationsfilter).
+  R3: Formeln in Original-Notation + Einheiten, keine Umformung ohne Kennzeichnung.
+  R4: Normverweise (z.B. "siehe 5.2") existieren im Dokument.
+  R5: Chunk-Größe ≤ {{max_tokens}} Token.
+  R6: Kein Volltext-Rekonstruktion lizenzierter Normen — nur Zitat + Referenz.
+  Ausgabe: {valid: bool, violations: [{rule, chunk_id, detail}]}
+```
+
+## Prompt-Modul P3 — Delta-Refinement / Feedback-Loop (Phase 3)
+
+```yaml
+loop:
+  max_iterations: 3
+  prompt: |
+    Eingabe: ungültiger Chunk + Violation-Liste aus P2 + ROH-Quellblöcke.
+    Verbesseere NUR die beanstandeten Stellen. Alle anderen Inhalte wortidentisch übernehmen.
+    Ausgabe: {chunk: str, delta: str, fixed_violations: [...], new_violations: [...]}
+  abort_if: new_violations nicht leer nach Iteration 3 → Chunk quarantänieren in chunks_quarantine/
+```
+
+## YAML-Workflow (Orchestrierung)
+
+```yaml
+# pipeline.yml — Stufen deterministisch, LLM-Schritte klar markiert
+name: normen-parser
+inputs: ["pdfs/*.pdf"]
+stages:
+  - id: parse            # Skript
+    run: scripts/deterministic_pdf_parser.py
+    out: phase1/
+  - id: freeze           # Skript
+    run: scripts/phase1_manifest.py
+    verify: hash_manifest
+  - id: structure        # LLM (P1) — nur auf Freeze
+    prompt_module: P1
+    in: phase1/freeze/
+    out: phase2/chapters.json
+    guard: block_hash_in_manifest
+  - id: formulas         # Skript (regex + sympy optional)
+    run: scripts/formula_extractor.py
+  - id: confidence       # Skript
+    run: scripts/chapter_confidence_regression.py
+  - id: chunks           # Skript
+    run: scripts/rag_exporter.py
+  - id: validate         # LLM (P2) + Loop (P3)
+    prompt_module: P2
+    loop: P3
+    out: phase3/validated/
+audit:
+  log_all: true
+  decision_records: "LLM-Entscheidungen als Decision Records speichern, keine freien CoT-Ausgaben"
+```
+
+## Datasets
+
+```
+datasets/
+├── gold/          # Handkuratierte Chunks = Referenz-Extraktion je Normprofil; KPI-Basis
+├── challenge/     # Bewusst schwierige Fälle: mehrspaltig, gebrochene Formeln, OCR-Fehler
+├── negative/      # Fälle, die verworfen werden müssen: Halluzination, falsche Seitenzuordnung
+├── retrieval/     # Q→Chunk-Paare für RAG-Eval (Recall@k, MRR)
+└── delta/         # Paare {ungültiger Chunk, violation} → erwarteter Fix (P3-Test)
+```
+
+Jedes Dataset-Item trägt `source_hash` und `norm_profile`. Eval-Gate vor Produktivnutzung: P2-Valid-Rate ≥ 0.98 auf gold/, Recall@5 ≥ 0.9 auf retrieval/.
+
+## Repository-Struktur
+
+```
+PDF-Normen-Parser-Pipeline/
+├── SKILL.md
+├── pipeline.yml
+├── scripts/            # siehe Modultabelle oben
+├── references/
+│   ├── norm_profiles.yml   # Profildefinitionen je Fachbereich
+│   └── quellen.md          # Online-Quellen (siehe unten)
+├── datasets/           # siehe oben
+├── phase1/  phase2/  phase3/
+└── audits/             # Decision Records, Diff-Reports
+```
+
+## Integration
+
+- **SSOT**: `phase1/freeze/` ist die einzige Wahrheitsquelle; alle Artefakte referenzieren Hashes.
+- **NEXUS-Artefakte**: Chunk-Ausgabe als Markdown+HTML-Kombination — Erläuterung und Code getrennt, kein Inline-Vermischen.
+- **RAG**: Export als `chunks.jsonl` (Pydantic-RagChunk); Embedding-pipeline separat, Hash als Dokument-ID.
+- **GitHub**: scripts/, pipeline.yml, datasets/{gold,challenge,retrieval} versionieren; phase1/freeze/ und restricted-PDFs per `.gitignore` ausschließen.
+- **Cloud**: Freeze + Quarantäne-Chunks niemals in öffentliche RAG-Indizes; restricted-Dokumente nur in Mandanten-getrennten Stores.
+
+## Online-Quellen (siehe references/quellen.md)
+
+- **Parsertechnologie**: PyMuPDF-Doku, pdfplumber, Docling (IBM), OCRmyPDF, Tesseract
+- **Österreich**: OIB-Richtlinien (oib.or.at), RVL/RIS Bauordnungen, Baurechtsportal
+- **Europa**: Eurocodes (EN 1990–1999 + National Anhänge), CEN/CENELEC
+- **Deutschland**: DIN-Normen-Übersicht, building-smart / bSDD für Klassifikation
