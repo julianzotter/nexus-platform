@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "default_temperature": 0.0,
   "providers": {
     "perplexity": {
@@ -27,10 +27,11 @@
       "env_key": "GEMINI_API_KEY"
     },
     "local": {
-      "kind": "openai_compat",
-      "base_url": "http://localhost:11434/v1",
+      "kind": "ollama",
+      "base_url": "http://localhost:11434",
       "model": "qwen2.5:7b",
-      "env_key": null
+      "env_key": null,
+      "num_ctx": 16384
     },
     "vision": {
       "kind": "gcv_ocr",

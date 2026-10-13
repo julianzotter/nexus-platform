@@ -73,3 +73,13 @@ def test_http_error_detail(monkeypatch):
     with pytest.raises(ProviderError) as e:
         providers._post("http://localhost:11434/v1/chat/completions", {}, {})
     assert "not found" in str(e.value) and "ollama pull" in str(e.value)
+
+def test_ollama_num_ctx(monkeypatch):
+    from nexus_orch import providers
+    seen = {}
+    def fake(url, h, body, timeout=120):
+        seen.update(url=url, body=body); return {"message": {"content": "OK"}}
+    monkeypatch.setattr(providers, "_post", fake)
+    cfg = load_config()["providers"]["local"]
+    r = providers.Provider("local", cfg).complete("Q")
+    assert r["text"] == "OK" and seen["url"].endswith("/api/chat") and seen["body"]["options"]["num_ctx"] == 16384

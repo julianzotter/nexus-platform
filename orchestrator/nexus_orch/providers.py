@@ -50,6 +50,12 @@ class Provider:
                 body["systemInstruction"] = {"parts": [{"text": system}]}
             d = _post(f"{base}/models/{model}:generateContent?key={key}", {}, body)
             return {"text": d["candidates"][0]["content"]["parts"][0]["text"], "citations": [], "model": model}
+        if kind == "ollama":
+            # native API: num_ctx per request, unabhaengig vom App-Regler
+            msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
+            d = _post(f"{base}/api/chat", {}, {"model": model, "messages": msgs, "stream": False,
+                      "options": {"temperature": temperature, "num_ctx": self.cfg.get("num_ctx", 16384)}})
+            return {"text": d["message"]["content"], "citations": [], "model": model}
         if kind == "gcv_ocr":
             # prompt = image URL (http/https/gs) or local file path
             img = {"source": {"imageUri": prompt}} if prompt.startswith(("http://", "https://", "gs://")) \
