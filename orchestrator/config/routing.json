@@ -1,23 +1,115 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "default_temperature": 0.0,
   "providers": {
-    "perplexity": {"kind": "openai_compat", "base_url": "https://api.perplexity.ai", "model": "sonar-pro", "env_key": "PERPLEXITY_API_KEY"},
-    "claude":     {"kind": "anthropic", "base_url": "https://api.anthropic.com", "model": "claude-sonnet-4-5", "env_key": "ANTHROPIC_API_KEY"},
-    "gpt":        {"kind": "openai_compat", "base_url": "https://api.openai.com/v1", "model": "gpt-5", "env_key": "OPENAI_API_KEY"},
-    "gemini":     {"kind": "gemini", "base_url": "https://generativelanguage.googleapis.com/v1beta", "model": "gemini-2.5-pro", "env_key": "GEMINI_API_KEY"},
-    "local":      {"kind": "openai_compat", "base_url": "http://localhost:11434/v1", "model": "qwen2.5:14b", "env_key": null}
+    "perplexity": {
+      "kind": "openai_compat",
+      "base_url": "https://api.perplexity.ai",
+      "model": "sonar-pro",
+      "env_key": "PERPLEXITY_API_KEY"
+    },
+    "claude": {
+      "kind": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "model": "claude-sonnet-4-5",
+      "env_key": "ANTHROPIC_API_KEY"
+    },
+    "gpt": {
+      "kind": "openai_compat",
+      "base_url": "https://api.openai.com/v1",
+      "model": "gpt-5",
+      "env_key": "OPENAI_API_KEY"
+    },
+    "gemini": {
+      "kind": "gemini",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta",
+      "model": "gemini-2.5-pro",
+      "env_key": "GEMINI_API_KEY"
+    },
+    "local": {
+      "kind": "openai_compat",
+      "base_url": "http://localhost:11434/v1",
+      "model": "qwen2.5:14b",
+      "env_key": null
+    },
+    "vision": {
+      "kind": "gcv_ocr",
+      "base_url": "https://vision.googleapis.com/v1",
+      "model": "DOCUMENT_TEXT_DETECTION",
+      "env_key": "GOOGLE_VISION_API_KEY"
+    }
   },
   "routes": {
-    "research":   {"primary": "perplexity", "fallback": ["gemini", "gpt"]},
-    "norm_check": {"primary": "perplexity", "fallback": ["claude"], "council": true},
-    "code":       {"primary": "claude", "fallback": ["gpt", "local"]},
-    "review":     {"primary": "claude", "fallback": ["gpt"]},
-    "draft":      {"primary": "gpt", "fallback": ["claude"]},
-    "long_context": {"primary": "gemini", "fallback": ["claude"]},
-    "private":    {"primary": "local", "fallback": []},
-    "engineering_decision": {"primary": "claude", "fallback": ["gpt"], "council": true, "council_members": ["perplexity", "claude", "gpt", "gemini"]}
+    "research": {
+      "primary": "perplexity",
+      "fallback": [
+        "gemini",
+        "gpt"
+      ]
+    },
+    "norm_check": {
+      "primary": "perplexity",
+      "fallback": [
+        "claude"
+      ],
+      "council": true
+    },
+    "code": {
+      "primary": "claude",
+      "fallback": [
+        "gpt",
+        "local"
+      ]
+    },
+    "review": {
+      "primary": "claude",
+      "fallback": [
+        "gpt"
+      ]
+    },
+    "draft": {
+      "primary": "gpt",
+      "fallback": [
+        "claude"
+      ]
+    },
+    "long_context": {
+      "primary": "gemini",
+      "fallback": [
+        "claude"
+      ]
+    },
+    "private": {
+      "primary": "local",
+      "fallback": []
+    },
+    "engineering_decision": {
+      "primary": "claude",
+      "fallback": [
+        "gpt"
+      ],
+      "council": true,
+      "council_members": [
+        "perplexity",
+        "claude",
+        "gpt",
+        "gemini"
+      ]
+    },
+    "ocr": {
+      "primary": "vision",
+      "fallback": [
+        "gemini"
+      ]
+    }
   },
-  "privacy": {"confidential_route": "private", "markers": ["VERTRAULICH", "CONFIDENTIAL", "[P3]"]},
+  "privacy": {
+    "confidential_route": "private",
+    "markers": [
+      "VERTRAULICH",
+      "CONFIDENTIAL",
+      "[P3]"
+    ]
+  },
   "lessons_dir": "COMMUNICATION/lessons"
 }

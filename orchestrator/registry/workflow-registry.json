@@ -1,23 +1,123 @@
 {
-  "version": "1.0.0",
-  "ssot": {"primary": "Google Drive /LLM-LOCAL-SSOT", "versioning": "github.com/julianzotter/nexus-platform", "mirror": ["OneDrive", "Dropbox"], "perplexity_project": "https://www.perplexity.ai/projects/nexus-ai-multi-llm-system-JCDYwmIfSliQifFlkLD9NA"},
-  "pipeline": ["inventory", "parse", "validate", "register", "report"],
+  "version": "1.1.0",
+  "ssot": {
+    "primary": "Google Drive /LLM-LOCAL-SSOT",
+    "versioning": "github.com/julianzotter/nexus-platform",
+    "mirror": [
+      "OneDrive",
+      "Dropbox"
+    ],
+    "perplexity_project": "https://www.perplexity.ai/projects/nexus-ai-multi-llm-system-JCDYwmIfSliQifFlkLD9NA"
+  },
+  "pipeline": [
+    "inventory",
+    "parse",
+    "validate",
+    "register",
+    "report"
+  ],
   "workflows": [
-    {"id": "WF-01", "name": "knowledge-ingestion", "route": "long_context", "source": "Drive:nexus-mvp.zip/skills/knowledge-ingestion"},
-    {"id": "WF-02", "name": "knowledge-quality-gate", "route": "review", "source": "Drive:nexus-mvp.zip/skills/knowledge-quality-gate"},
-    {"id": "WF-03", "name": "source-governance", "route": "review", "source": "Drive:nexus-mvp.zip/skills/source-governance"},
-    {"id": "WF-04", "name": "norm-chunk-validator", "route": "norm_check", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-05", "name": "ssot-github-sync", "route": "code", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-06", "name": "audit-reporter", "route": "draft", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-07", "name": "transcript-ingest", "route": "long_context", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-08", "name": "license-router", "route": "review", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-09", "name": "ko-extractor", "route": "long_context", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-10", "name": "rag-eval-harness", "route": "code", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-11", "name": "pdf-ground-truth-freeze", "route": "review", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-12", "name": "human-ocr-public", "route": "private", "source": "Drive:nexus-skill-family.zip"},
-    {"id": "WF-13", "name": "registry-inventory (TASK-00004)", "route": "code", "source": "GitHub:nexus-platform/tools"},
-    {"id": "WF-14", "name": "control-tower-daily-0700", "route": "draft", "source": "Perplexity automation"},
-    {"id": "WF-15", "name": "mail-executive-triage", "route": "draft", "source": "GitHub:EMAIL-MANAGER-DASHBAORD"},
-    {"id": "WF-16", "name": "engineering-decision-council", "route": "engineering_decision", "source": "nexus_orch.council"}
+    {
+      "id": "WF-01",
+      "name": "knowledge-ingestion",
+      "route": "long_context",
+      "source": "Drive:nexus-mvp.zip/skills/knowledge-ingestion"
+    },
+    {
+      "id": "WF-02",
+      "name": "knowledge-quality-gate",
+      "route": "review",
+      "source": "Drive:nexus-mvp.zip/skills/knowledge-quality-gate"
+    },
+    {
+      "id": "WF-03",
+      "name": "source-governance",
+      "route": "review",
+      "source": "Drive:nexus-mvp.zip/skills/source-governance"
+    },
+    {
+      "id": "WF-04",
+      "name": "norm-chunk-validator",
+      "route": "norm_check",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-05",
+      "name": "ssot-github-sync",
+      "route": "code",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-06",
+      "name": "audit-reporter",
+      "route": "draft",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-07",
+      "name": "transcript-ingest",
+      "route": "long_context",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-08",
+      "name": "license-router",
+      "route": "review",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-09",
+      "name": "ko-extractor",
+      "route": "long_context",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-10",
+      "name": "rag-eval-harness",
+      "route": "code",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-11",
+      "name": "pdf-ground-truth-freeze",
+      "route": "review",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-12",
+      "name": "human-ocr-public",
+      "route": "private",
+      "source": "Drive:nexus-skill-family.zip"
+    },
+    {
+      "id": "WF-13",
+      "name": "registry-inventory (TASK-00004)",
+      "route": "code",
+      "source": "GitHub:nexus-platform/tools"
+    },
+    {
+      "id": "WF-14",
+      "name": "control-tower-daily-0700",
+      "route": "draft",
+      "source": "Perplexity automation"
+    },
+    {
+      "id": "WF-15",
+      "name": "mail-executive-triage",
+      "route": "draft",
+      "source": "GitHub:EMAIL-MANAGER-DASHBAORD"
+    },
+    {
+      "id": "WF-16",
+      "name": "engineering-decision-council",
+      "route": "engineering_decision",
+      "source": "nexus_orch.council"
+    },
+    {
+      "id": "WF-17",
+      "name": "vision-ocr (Plaene, Scans, Fotos, Normtabellen)",
+      "route": "ocr",
+      "source": "Google Cloud Vision (Perplexity-Connector / REST)"
+    }
   ]
 }
