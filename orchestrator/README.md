@@ -27,5 +27,10 @@ python -m nexus_orch.cli registry
 ```
 Nur Python-Standardbibliothek; `pytest` für Tests. Modellnamen in `routing.json` anpassen.
 
+## Drive-Sync (Windows)
+```powershell
+.\sync_nexus.ps1   # main pullen, Tests, Kopie nach G:\Meine Ablage\_developement\LLM-LOCAL-SSOT und _INDEX_LNK\BENCHMARK Multi-LLM-Orchestrierung (+SYNC_STAMP.txt)
+```
+
 ## SSOT
 Google Drive `/LLM-LOCAL-SSOT` = Wahrheit · GitHub `julianzotter/nexus-platform` = Versionierung · OneDrive/Dropbox = Spiegel · Perplexity-Projekt „NEXUS-AI Multi-LLM System“ = Orchestrator-Kontext.
