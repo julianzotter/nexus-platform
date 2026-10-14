@@ -33,34 +33,35 @@ class Provider:
         except ProviderError:
             return False
     def complete(self, prompt, system="", temperature=0.0):
+        post = lambda u, h, body: _post(u, h, body, self.cfg.get("timeout", 120))
         kind, base, model, key = self.cfg["kind"], self.cfg["base_url"], self.cfg["model"], self.key()
         if kind == "openai_compat":
             msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
             h = {"Authorization": f"Bearer {key}"} if key else {}
-            d = _post(f"{base}/chat/completions", h, {"model": model, "messages": msgs, "temperature": temperature})
+            d = post(f"{base}/chat/completions", h, {"model": model, "messages": msgs, "temperature": temperature})
             return {"text": d["choices"][0]["message"]["content"], "citations": d.get("citations", []), "model": model}
         if kind == "anthropic":
-            d = _post(f"{base}/v1/messages", {"x-api-key": key, "anthropic-version": "2023-06-01"},
-                      {"model": model, "max_tokens": 4096, "system": system, "temperature": temperature,
+            d = post(f"{base}/v1/messages", {"x-api-key": key, "anthropic-version": "2023-06-01"},
+                      {"model": model, "max_tokens": self.cfg.get("max_tokens", 4096), "system": system, "temperature": temperature,
                        "messages": [{"role": "user", "content": prompt}]})
             return {"text": "".join(b.get("text", "") for b in d["content"]), "citations": [], "model": model}
         if kind == "gemini":
             body = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": temperature}}
             if system:
                 body["systemInstruction"] = {"parts": [{"text": system}]}
-            d = _post(f"{base}/models/{model}:generateContent?key={key}", {}, body)
+            d = post(f"{base}/models/{model}:generateContent?key={key}", {}, body)
             return {"text": d["candidates"][0]["content"]["parts"][0]["text"], "citations": [], "model": model}
         if kind == "ollama":
             # native API: num_ctx per request, unabhaengig vom App-Regler
             msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
-            d = _post(f"{base}/api/chat", {}, {"model": model, "messages": msgs, "stream": False,
+            d = post(f"{base}/api/chat", {}, {"model": model, "messages": msgs, "stream": False,
                       "options": {"temperature": temperature, "num_ctx": self.cfg.get("num_ctx", 16384)}})
             return {"text": d["message"]["content"], "citations": [], "model": model}
         if kind == "gcv_ocr":
             # prompt = image URL (http/https/gs) or local file path
             img = {"source": {"imageUri": prompt}} if prompt.startswith(("http://", "https://", "gs://")) \
                 else {"content": base64.b64encode(open(prompt, "rb").read()).decode()}
-            d = _post(f"{base}/images:annotate?key={key}", {},
+            d = post(f"{base}/images:annotate?key={key}", {},
                       {"requests": [{"image": img, "features": [{"type": model}]}]})
             r0 = d["responses"][0]
             if "error" in r0:

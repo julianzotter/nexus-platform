@@ -1,7 +1,7 @@
 # NEXUS Sync: GitHub (nexus-platform, main) -> Google Drive for desktop (G:)
 # Richtung: GitHub = Versionierung -> Drive = SSOT-Ablage + Benchmark-Kopie. Kein Push, kein Loeschen (robocopy ohne /MIR).
 #   .\sync_nexus.ps1              Orchestrator (SSOT + Benchmark) + komplettes Repo (SSOT\nexus-platform)
-#   .\sync_nexus.ps1 -NoFullRepo  nur Orchestrator
+#   .\sync_nexus.ps1 -NoFullRepo  ohne komplettes Repo (Orchestrator, reports, evaluation bleiben)
 param(
   [string]$Repo      = "$env:USERPROFILE\nexus-platform",
   [string]$Drive     = "G:\Meine Ablage",
@@ -30,5 +30,9 @@ function Sync-Dir($from, $to) {
 }
 
 $jobs = @(@($src, $Ssot), @($src, $Benchmark))
+foreach ($d in "reports", "evaluation") {           # wie sync_targets.json (rclone): nexus-reports / nexus-evaluation
+  $from = Join-Path $Repo $d
+  if (Test-Path $from) { foreach ($t in $Ssot, $Benchmark) { $jobs += ,@($from, (Join-Path (Split-Path $t) "nexus-$d")) } }
+}
 if (-not $NoFullRepo) { $jobs += ,@($Repo, $FullRepo) }
 foreach ($j in $jobs) { Sync-Dir $j[0] (Join-Path $Drive $j[1]) }
