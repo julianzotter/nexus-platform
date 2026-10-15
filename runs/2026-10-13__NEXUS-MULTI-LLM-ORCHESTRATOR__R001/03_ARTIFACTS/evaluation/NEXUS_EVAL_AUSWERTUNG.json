@@ -1,0 +1,338 @@
+{
+  "gesamt": 3.0,
+  "kriterien": {
+    "K1": {
+      "mittel": 3.0,
+      "median": 3.0,
+      "min": 2.0,
+      "max": 4.0,
+      "sd": 0.82
+    },
+    "K2": {
+      "mittel": 3.67,
+      "median": 4.0,
+      "min": 2.0,
+      "max": 5.0,
+      "sd": 1.25
+    },
+    "K3": {
+      "mittel": 2.67,
+      "median": 3.0,
+      "min": 2.0,
+      "max": 3.0,
+      "sd": 0.47
+    },
+    "K4": {
+      "mittel": 2.67,
+      "median": 3.0,
+      "min": 1.0,
+      "max": 4.0,
+      "sd": 1.25
+    }
+  },
+  "berichte": [
+    {
+      "datei": "EVAL_claude_fable_5_1_261013.md",
+      "modell": "Claude (Anthropic) – Council-Instanz claude_fable_5_1",
+      "noten": {
+        "K1": 3.0,
+        "K2": 4.0,
+        "K3": 3.0,
+        "K4": 3.0
+      },
+      "gesamt_neu": 3.2,
+      "gesamt_modell": 3.3,
+      "pp": {
+        "K1.1": "erfuellt",
+        "K1.2": "teilweise",
+        "K1.3": "teilweise",
+        "K1.4": "erfuellt",
+        "K1.5": "teilweise",
+        "K1.6": "nicht_erfuellt",
+        "K2.1": "nicht_erfuellt",
+        "K2.2": "teilweise",
+        "K2.3": "teilweise",
+        "K2.4": "teilweise",
+        "K2.5": "teilweise",
+        "K3.1": "erfuellt",
+        "K3.2": "teilweise",
+        "K3.3": "teilweise",
+        "K3.4": "teilweise",
+        "K3.5": "teilweise",
+        "K4.1": "erfuellt",
+        "K4.2": "teilweise",
+        "K4.3": "teilweise",
+        "K4.4": "teilweise",
+        "K4.5": "teilweise"
+      },
+      "mass": [
+        {
+          "rang": 1,
+          "massnahme": "Privacy-Gate: casefold, Regex-Marker, prompt+system, --private-Flag, Tests",
+          "datei": "orchestrator/nexus_orch/core.py; orchestrator/config/routing.json; orchestrator/nexus_orch/cli.py; orchestrator/tests/test_orch.py",
+          "kriterium": "K2",
+          "wirkung": "hoch",
+          "aufwand": "S"
+        },
+        {
+          "rang": 2,
+          "massnahme": "Antwort-Parsing in ProviderError kapseln; Fehllaeufe auditieren; Audit um user/host/model/members/judge/latency/usage erweitern",
+          "datei": "orchestrator/nexus_orch/providers.py; orchestrator/nexus_orch/core.py",
+          "kriterium": "K1",
+          "wirkung": "hoch",
+          "aufwand": "S"
+        },
+        {
+          "rang": 3,
+          "massnahme": "Provider-Parameter je Modell (params, supports_temperature, max_completion_tokens); gpt-5 korrigieren; nexus status --probe",
+          "datei": "orchestrator/config/routing.json; orchestrator/nexus_orch/providers.py; orchestrator/nexus_orch/cli.py",
+          "kriterium": "K1",
+          "wirkung": "hoch",
+          "aufwand": "S"
+        },
+        {
+          "rang": 4,
+          "massnahme": "Council: Quorum, consensus=None bei Unterbesetzung, Judge-basierte strukturierte Synthese (Konsens/Abweichungen/Empfehlung/Normbezug)",
+          "datei": "orchestrator/nexus_orch/core.py; orchestrator/config/routing.json; orchestrator/tests/test_orch.py",
+          "kriterium": "K1",
+          "wirkung": "mittel",
+          "aufwand": "M"
+        },
+        {
+          "rang": 5,
+          "massnahme": "Retries/Backoff 429/5xx, Token-/Kostenlog, Lessons-Review-Befehl, audit/ in .gitignore, Sync auf Tag pinnen",
+          "datei": "orchestrator/nexus_orch/providers.py; orchestrator/nexus_orch/core.py; orchestrator/nexus_orch/cli.py; .gitignore; orchestrator/sync_nexus.ps1; orchestrator/sync_nexus_rclone.ps1",
+          "kriterium": "K3",
+          "wirkung": "mittel",
+          "aufwand": "M"
+        }
+      ],
+      "krit": [
+        {
+          "befund": "Privacy Hard Gate case-sensitiv und ohne Pruefung des --system-Textes; 'Vertraulich:'/'vertraulich' gehen an Cloud (reproduziert)",
+          "datei": "orchestrator/nexus_orch/core.py:16-19",
+          "massnahme": "casefold()-Vergleich ueber prompt+system, Regex-Marker in routing.json, --private-Flag, Tests"
+        },
+        {
+          "befund": "Provider gpt mit gpt-5 + temperature 0.0 dauerhaft defekt (HTTP 400 unsupported_value); draft degradiert still, Council ohne GPT",
+          "datei": "orchestrator/config/routing.json:20; orchestrator/nexus_orch/providers.py:41",
+          "massnahme": "params/supports_temperature je Provider, gpt-5 ohne temperature oder gpt-5-chat-latest/gpt-4.1, nexus status --probe"
+        },
+        {
+          "befund": "Fallback nur bei ProviderError; KeyError/FileNotFoundError aus Antwort-Parsing/OCR brechen Kette ohne Audit ab (reproduziert)",
+          "datei": "orchestrator/nexus_orch/core.py:37; orchestrator/nexus_orch/providers.py:42-69",
+          "massnahme": "Parsing in try/except -> ProviderError kapseln, Fehllaeufe auditieren"
+        },
+        {
+          "befund": "Council meldet consensus=True bei nur einem antwortenden Mitglied; Konsens = Stringgleichheit",
+          "datei": "orchestrator/nexus_orch/core.py:51-58",
+          "massnahme": "Quorum in Route, consensus=None + warning bei Unterbesetzung, Judge-basierte Konsensbewertung"
+        },
+        {
+          "befund": "COMMUNICATION/audit nicht in .gitignore; Auto-Sync fuehrt bei Anmeldung frisch gepullten Remote-Code (pytest) mit ExecutionPolicy Bypass aus",
+          "datei": ".gitignore; orchestrator/install_autosync.ps1:13-17; orchestrator/sync_nexus.ps1:16-19",
+          "massnahme": "audit/ ignorieren, Sync auf Tag/Commit pinnen, pytest im Sync optional"
+        }
+      ]
+    },
+    {
+      "datei": "EVAL_gemini_3_7_flash_261013.md",
+      "modell": "Gemini 3.7 Flash",
+      "noten": {
+        "K1": 2.0,
+        "K2": 2.0,
+        "K3": 2.0,
+        "K4": 1.0
+      },
+      "gesamt_neu": 1.8,
+      "gesamt_modell": 1.8,
+      "pp": {
+        "K1.1": "erfuellt",
+        "K1.2": "erfuellt",
+        "K1.3": "teilweise",
+        "K1.4": "erfuellt",
+        "K1.5": "erfuellt",
+        "K1.6": "erfuellt",
+        "K2.1": "teilweise",
+        "K2.2": "erfuellt",
+        "K2.3": "erfuellt",
+        "K2.4": "erfuellt",
+        "K2.5": "teilweise",
+        "K3.1": "erfuellt",
+        "K3.2": "erfuellt",
+        "K3.3": "teilweise",
+        "K3.4": "teilweise",
+        "K3.5": "erfuellt",
+        "K4.1": "erfuellt",
+        "K4.2": "erfuellt",
+        "K4.3": "erfuellt",
+        "K4.4": "erfuellt",
+        "K4.5": "erfuellt"
+      },
+      "mass": [
+        {
+          "rang": 1,
+          "massnahme": "Privacy Gate case-insensitiv & mit Wortgrenzen absichern",
+          "datei": "orchestrator/nexus_orch/core.py",
+          "kriterium": "K2",
+          "wirkung": "hoch",
+          "aufwand": "S"
+        },
+        {
+          "rang": 2,
+          "massnahme": "Model Council Mindestquorum (>= 2) & Ausfall-Handling schärfen",
+          "datei": "orchestrator/nexus_orch/core.py",
+          "kriterium": "K1",
+          "wirkung": "hoch",
+          "aufwand": "S"
+        },
+        {
+          "rang": 3,
+          "massnahme": "HTTP-Retry mit Exponential Backoff bei 429/503 implementieren",
+          "datei": "orchestrator/nexus_orch/providers.py",
+          "kriterium": "K3",
+          "wirkung": "hoch",
+          "aufwand": "S"
+        },
+        {
+          "rang": 4,
+          "massnahme": "PEP 484 Typ-Annotationen & Schnittstellendokumentation ergänzen",
+          "datei": "orchestrator/nexus_orch/core.py, providers.py",
+          "kriterium": "K3",
+          "wirkung": "mittel",
+          "aufwand": "M"
+        },
+        {
+          "rang": 5,
+          "massnahme": "Token- und Kosten-Metadaten im Audit-Log erfassen",
+          "datei": "orchestrator/nexus_orch/core.py, providers.py",
+          "kriterium": "K4",
+          "wirkung": "mittel",
+          "aufwand": "S"
+        }
+      ],
+      "krit": [
+        {
+          "befund": "Case-Sensitive Privacy Hard Gate ermöglicht Umgehung bei Kleinschreibung",
+          "datei": "orchestrator/nexus_orch/core.py:18",
+          "massnahme": "Case-insensitive Prüfung via `m.lower() in prompt.lower()` oder Regex mit Wortgrenzen implementieren."
+        },
+        {
+          "befund": "Schein-Konsens bei Einzelausfall und naive String-Gleichheit im Model Council",
+          "datei": "orchestrator/nexus_orch/core.py:54-68",
+          "massnahme": "Mindestquorum (>= 2 Antworten) für Konsens fordern; semantische Konsensprüfung im Synthese-Prompt verankern."
+        },
+        {
+          "befund": "Fehlende HTTP-Retries bei transienten Fehlern (429 Rate Limit / 503)",
+          "datei": "orchestrator/nexus_orch/providers.py:7-17",
+          "massnahme": "Exponential-Backoff-Retries für transiente Statuscodes (429, 500, 502, 503, 504) in `_post()` einbauen."
+        }
+      ]
+    },
+    {
+      "datei": "EVAL_gpt_6_1_sol_261013.md",
+      "modell": "GPT-6.1 Sol",
+      "noten": {
+        "K1": 4.0,
+        "K2": 5.0,
+        "K3": 3.0,
+        "K4": 4.0
+      },
+      "gesamt_neu": 4.0,
+      "gesamt_modell": 4.0,
+      "pp": {
+        "K1.1": "erfuellt",
+        "K1.2": "teilweise",
+        "K1.3": "nicht_erfuellt",
+        "K1.4": "erfuellt",
+        "K1.5": "teilweise",
+        "K1.6": "erfuellt",
+        "K2.1": "nicht_erfuellt",
+        "K2.2": "teilweise",
+        "K2.3": "teilweise",
+        "K2.4": "teilweise",
+        "K2.5": "nicht_erfuellt",
+        "K3.1": "erfuellt",
+        "K3.2": "teilweise",
+        "K3.3": "teilweise",
+        "K3.4": "teilweise",
+        "K3.5": "teilweise",
+        "K4.1": "teilweise",
+        "K4.2": "teilweise",
+        "K4.3": "teilweise",
+        "K4.4": "teilweise",
+        "K4.5": "teilweise"
+      },
+      "mass": [
+        {
+          "rang": 1,
+          "massnahme": "D1: Datenschutzgrenze über alle Eingabekanäle schließen; Eval-Snapshot/Freigabe, Error-Redaction und gemeinsame Git-/Sync-Ausschlüsse.",
+          "datei": "orchestrator/nexus_orch/core.py:16-19,28-33; orchestrator/nexus_orch/evaluate.py:36-60; orchestrator/nexus_orch/providers.py:12-17; orchestrator/nexus_orch/cli.py; .gitignore:152-160,222-225; orchestrator/sync_nexus.ps1:21-22; orchestrator/sync_nexus_rclone.ps1:31-34; orchestrator/tests/test_orch.py",
+          "kriterium": "K2",
+          "wirkung": "hoch",
+          "aufwand": "M"
+        },
+        {
+          "rang": 2,
+          "massnahme": "D2: Council-Quorum, belegte Konsens-/Dissensprüfung, Fehler-/Quellenerhalt, abgesicherte Synthese und fachliche Freigabe.",
+          "datei": "orchestrator/nexus_orch/core.py:44-67; orchestrator/config/routing.json:87-98; orchestrator/tests/test_orch.py:30-37; orchestrator/README.md",
+          "kriterium": "K1",
+          "wirkung": "hoch",
+          "aufwand": "M"
+        },
+        {
+          "rang": 3,
+          "massnahme": "D3: Typisierte Adapterverträge und Capability-/Schemavalidierung, Fehlernormalisierung, transiente Retries sowie echter multimodaler OCR-Pfad.",
+          "datei": "orchestrator/nexus_orch/providers.py:7-70; orchestrator/nexus_orch/core.py:28-39; orchestrator/config/routing.json; orchestrator/tests/test_orch.py",
+          "kriterium": "K1/K3",
+          "wirkung": "hoch",
+          "aufwand": "M"
+        },
+        {
+          "rang": 4,
+          "massnahme": "D4: Immutable Evaluierungskohorte mit vollständigem Schema; Attempt-Audit, erzwungene Lessons-Metadaten/Review und Datei-Hashmanifest für SSOT.",
+          "datei": "orchestrator/nexus_orch/core.py:71-98; orchestrator/nexus_orch/evaluate.py:49-85; evaluation/nexus_eval_auswertung.py:18-36; orchestrator/sync_nexus.ps1:24-28; orchestrator/sync_nexus_rclone.ps1:47-51; orchestrator/tests/test_orch.py",
+          "kriterium": "K2/K3/K4",
+          "wirkung": "hoch",
+          "aufwand": "M"
+        },
+        {
+          "rang": 5,
+          "massnahme": "D5: Fail-fast Windows-Setup/Sync, Paketressourcen und Smokechecks, Readiness/Budget-/Latenzmessung sowie Transferdokumentation und fachlicher AEC-Goldsatz.",
+          "datei": "orchestrator/setup.ps1:2-11; orchestrator/sync_nexus.ps1:15-19; orchestrator/sync_nexus_rclone.ps1:18-19,47-51; orchestrator/pyproject.toml:14-15; orchestrator/nexus_orch/core.py; orchestrator/nexus_orch/providers.py; orchestrator/nexus_orch/cli.py; orchestrator/README.md; orchestrator/tests/",
+          "kriterium": "K4",
+          "wirkung": "hoch",
+          "aufwand": "L"
+        }
+      ],
+      "krit": [
+        {
+          "befund": "Privacy-Gate übersieht Schreibvarianten und vertraulichen Systemkontext; Cloud-Routing offline reproduziert.",
+          "datei": "orchestrator/nexus_orch/core.py:16-19,28-33,41-48",
+          "massnahme": "Vollständigen Request normalisieren und klassifizieren; explizite Privacy-Klasse, lokale Fail-closed-Prüfung und Negativtests. Aufwand M; D1."
+        },
+        {
+          "befund": "Evaluierung umgeht Router und Privacy-Gate ohne technische Inhaltsfreigabe; synthetischer vertraulicher Kommentar erreicht Cloud-Mock.",
+          "datei": "orchestrator/nexus_orch/evaluate.py:3-4,36-47,60",
+          "massnahme": "Nur freigegebenen Snapshot versenden; Inhalts-/Metadatenprüfung und Bestätigung von Empfängern samt Paket-Hash. Aufwand M; D1."
+        },
+        {
+          "befund": "Ein Council-Mitglied erzeugt consensus=true; Quellen/Fehlergründe werden verworfen und Syntheseausfall ist ungesichert.",
+          "datei": "orchestrator/nexus_orch/core.py:48-65",
+          "massnahme": "Mindestquorum, degradierter Zustand, strukturierte Evidenzprüfung, Quellen-/Fehlererhalt, Judge-Fallback und Ingenieurfreigabe. Aufwand M; D2."
+        },
+        {
+          "befund": "OCR-Fallback sendet Gemini nur Textpfad/URL statt eines multimodalen Bild-Requests.",
+          "datei": "orchestrator/nexus_orch/providers.py:49-69",
+          "massnahme": "Typisierten multimodalen OCR-Adapter einführen; ohne geprüfte Bildfähigkeit mit Capability-Fehler abbrechen. Aufwand M; D3."
+        },
+        {
+          "befund": "Auswertung akzeptiert unvollständige Berichte und vermischt unterschiedliche Prüfstände desselben Modells; synthetisch ergibt alter Stand 1 plus aktueller Stand 5 die Gesamtnote 3.0.",
+          "datei": "evaluation/nexus_eval_auswertung.py:18-36",
+          "massnahme": "Vollständiges Schema und Run-/Commit-/Prompt-Kohorte validieren; eine Stimme je Modell, getrennte Historie. Aufwand M; D4."
+        }
+      ]
+    }
+  ],
+  "fehler": []
+}

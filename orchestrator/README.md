@@ -72,3 +72,8 @@ Google Drive `/LLM-LOCAL-SSOT` = Wahrheit · GitHub `julianzotter/nexus-platform
 
 `nexus eval` sendet nur Repo-Inhalt (Code/Doku). Das Privacy-Gate gilt dafür bewusst nicht; Projektdaten gehören nicht ins Repo. Das lokale Modell ist ausgenommen (Paket > 16k Kontext).
 Drive-Sync kopiert zusätzlich `reports/` und `evaluation/` nach `LLM-LOCAL-SSOT\nexus-reports|nexus-evaluation` und `BENCHMARK…\nexus-reports|nexus-evaluation`.
+
+## IOD.01 Run-Archiv
+Jeder Agentenlauf als Run-Ordner `runs/<JJJJ-MM-TT>__<WORKSTREAM>__R<NNN>/` (00 Request … 08 Hashes, MD mit YAML-Frontmatter, Zeitstempel, SHA256).
+`python tools/iod01_finalize.py runs/<RUN>` ergänzt Frontmatter, Manifest-Dateiliste und Hashes; `--check` prüft (läuft auch in den Tests).
+Sync: Run komplett → `LLM-LOCAL-SSOT\WORK\<RUN>`; im BENCHMARK nur `runs\<RUN>\evaluation` + `BENCHMARK_LINK.md` (G:-Sync und rclone).

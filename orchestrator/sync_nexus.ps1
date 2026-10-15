@@ -8,6 +8,7 @@ param(
   [string]$Ssot      = "_developement\LLM-LOCAL-SSOT\nexus-llm-orchestrator",
   [string]$Benchmark = "_INDEX_LNK\BENCHMARK Multi-LLM-Orchestrierung\nexus-llm-orchestrator",
   [string]$FullRepo  = "_developement\LLM-LOCAL-SSOT\nexus-platform",
+  [string]$Work      = "_developement\LLM-LOCAL-SSOT\WORK",
   [switch]$NoFullRepo
 )
 $ErrorActionPreference = "Stop"
@@ -35,4 +36,16 @@ foreach ($d in "reports", "evaluation") {           # wie sync_targets.json (rcl
   if (Test-Path $from) { foreach ($t in $Ssot, $Benchmark) { $jobs += ,@($from, (Join-Path (Split-Path $t) "nexus-$d")) } }
 }
 if (-not $NoFullRepo) { $jobs += ,@($Repo, $FullRepo) }
+# IOD.01-Runs: vollstaendig nach WORK, im BENCHMARK nur evaluation/ + BENCHMARK_LINK.md
+$runs = Join-Path $Repo "runs"
+if (Test-Path $runs) {
+  foreach ($r in Get-ChildItem $runs -Directory) {
+    $jobs += ,@($r.FullName, (Join-Path $Work $r.Name))
+    $ev = Join-Path $r.FullName "03_ARTIFACTS\evaluation"
+    $bm = Join-Path (Split-Path $Benchmark) ("runs\" + $r.Name)
+    if (Test-Path $ev) { $jobs += ,@($ev, (Join-Path $bm "evaluation")) }
+    $lnk = Join-Path $r.FullName "BENCHMARK_LINK.md"
+    if (Test-Path $lnk) { New-Item -ItemType Directory -Force (Join-Path $Drive $bm) | Out-Null; Copy-Item $lnk (Join-Path $Drive $bm) -Force }
+  }
+}
 foreach ($j in $jobs) { Sync-Dir $j[0] (Join-Path $Drive $j[1]) }

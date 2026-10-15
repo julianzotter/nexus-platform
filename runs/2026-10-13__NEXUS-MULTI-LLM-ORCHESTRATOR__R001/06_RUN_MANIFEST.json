@@ -1,0 +1,62 @@
+{
+  "schema_version": "IOD.01/1.0",
+  "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001",
+  "owner": "ID-01-HUMAN",
+  "system": "NEXUS-AI-ENGINEERING-TEAM",
+  "workstream": "NEXUS-MULTI-LLM-ORCHESTRATOR",
+  "project": "NEXUS-AI Multi-LLM System",
+  "agent": "Perplexity Computer (Orchestrator)",
+  "session": "https://www.perplexity.ai/computer/tasks/a612993d-02b5-4dfb-92ac-9bc7428de58e",
+  "status": "DONE_WITH_OPEN_ITEMS",
+  "open_items": [
+    "O-01 Sicherheits-PR",
+    "O-02 API-Keys",
+    "O-03 Token widerrufen",
+    "O-04 Windows-Test autosync",
+    "O-05 Ollama Cloud aus",
+    "O-06 Eval Runde 2"
+  ],
+  "repo": {
+    "name": "julianzotter/nexus-platform",
+    "code_path": "orchestrator/",
+    "commit_evaluated": "6e8f574",
+    "main_at_archive": "b93dc5a"
+  },
+  "consensus_grade": {
+    "K1": 3,
+    "K2": 4,
+    "K3": 3,
+    "K4": 3,
+    "total": 3.3,
+    "method": "median of 3 council models"
+  },
+  "storage": {
+    "primary": "G:/Meine Ablage/_developement/LLM-LOCAL-SSOT/WORK/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001",
+    "reference": "G:/Meine Ablage/_INDEX_LNK/BENCHMARK Multi-LLM-Orchestrierung/runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001 (evaluation/ + BENCHMARK_LINK.md)",
+    "versioning": "github.com/julianzotter/nexus-platform/runs/",
+    "transport": "sync_nexus.ps1 (Sandbox-Upload nach Drive gesperrt)"
+  },
+  "not_archived": {
+    "nexus-llm-orchestrator_v1.0.0.zip": "binaer; Inhalt = Repo orchestrator/ @cd3a69d"
+  },
+  "created_ts": "2026-10-13T12:15:00+02:00",
+  "finalized_ts": "2026-10-15T06:01:02+02:00",
+  "files": [
+    "00_WORK_REQUEST.md",
+    "01_STATUS_REPORT.md",
+    "02_LESSONS_LEARNED.md",
+    "03_ARTIFACTS/evaluation/EVAL_PROMPT_SENT_6e8f574.md",
+    "03_ARTIFACTS/evaluation/EVAL_claude_fable_5_1_261013.md",
+    "03_ARTIFACTS/evaluation/EVAL_gemini_3_7_flash_261013.md",
+    "03_ARTIFACTS/evaluation/EVAL_gpt_6_1_sol_261013.md",
+    "03_ARTIFACTS/evaluation/NEXUS_EVAL_AUSWERTUNG.json",
+    "03_ARTIFACTS/evaluation/NEXUS_EVAL_AUSWERTUNG.md",
+    "03_ARTIFACTS/evaluation/NEXUS_EVAL_BOGEN_v1.0_ENTWURF-COMPUTER.md",
+    "03_ARTIFACTS/evaluation/NEXUS_EVAL_KONTEXTPAKET_v1.0_3caf813.md",
+    "03_ARTIFACTS/evaluation/NEXUS_EVAL_SYNTHESE_COUNCIL_261013.md",
+    "04_PR_REGISTER.jsonl",
+    "05_EVIDENCE_REGISTER.jsonl",
+    "07_CHANGE_LOG.jsonl",
+    "BENCHMARK_LINK.md"
+  ]
+}

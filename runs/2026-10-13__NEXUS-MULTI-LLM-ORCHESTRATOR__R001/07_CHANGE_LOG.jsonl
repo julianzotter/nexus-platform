@@ -1,0 +1,17 @@
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T12:2x+02:00", "event": "project", "detail": "Perplexity-Projekt NEXUS-AI Multi-LLM System vorhanden, Session verknüpft"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T12:3x+02:00", "event": "build", "detail": "Orchestrator v1.0.0 gebaut (Routing, Fallback, Privacy-Gate, Council, Lessons, Audit, Registry 16 WF)"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T12:47+02:00", "event": "merge", "detail": "PR #5 gemergt"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T12:50+02:00", "event": "merge", "detail": "PR #6 gemergt (Vision-OCR, sync_nexus.ps1)"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T13:06+02:00", "event": "sync", "detail": "Erster Drive-Sync vom PC"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T13:12+02:00", "event": "merge", "detail": "PR #7, #8 gemergt"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T13:1x+02:00", "event": "setup", "detail": "Ollama 0.40.3 installiert, qwen2.5:7b geladen"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T13:24+02:00", "event": "merge", "detail": "PR #9 gemergt (Repo-Komplett-Sync)"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T13:26+02:00", "event": "sync", "detail": "Drive 3 Ziele @1363166"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T15:04+02:00", "event": "merge", "detail": "PR #11 gemergt (nexus-Befehl, num_ctx)"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T15:xx+02:00", "event": "artifact", "detail": "Evaluierungsbogen v1.0 + Kontextpaket erstellt"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T16:5x+02:00", "event": "pr", "detail": "PR #12 erstellt (nexus eval, install_autosync.ps1)"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T17:04+02:00", "event": "eval", "detail": "Model Council gestartet"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-13T17:xx+02:00", "event": "eval", "detail": "Synthese erstellt, Konsensnote 3,3"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-15T01:19+02:00", "event": "merge", "detail": "PR #12 gemergt (Owner)"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-15T05:58+02:00", "event": "iod01", "detail": "Ablageort entschieden: WORK + Verweis in BENCHMARK"}
+{"schema": "IOD.01/1.0", "run_id": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001", "ts": "2026-10-15T06:00:27+02:00", "event": "iod01", "detail": "Run-Archiv R001 erstellt"}

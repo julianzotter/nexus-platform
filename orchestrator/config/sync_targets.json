@@ -2,15 +2,55 @@
   "_doc": "Ziele fuer sync_nexus_rclone.ps1 (Drive-Ordner-IDs, unabhaengig von Pfaden/Namensdubletten). remote = Name aus 'rclone config'.",
   "remote": "gdrive",
   "targets": {
-    "SSOT":      "1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV",
-    "BENCHMARK": "1ac7jYmO5SDtbXtjhfwylW_7QgpVi2i-N"
+    "SSOT": "1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV",
+    "BENCHMARK": "1ac7jYmO5SDtbXtjhfwylW_7QgpVi2i-N",
+    "WORK": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
   },
   "jobs": [
-    {"src": "orchestrator", "target": "SSOT",      "dest": "nexus-llm-orchestrator"},
-    {"src": "orchestrator", "target": "BENCHMARK", "dest": "nexus-llm-orchestrator"},
-    {"src": "reports",      "target": "SSOT",      "dest": "nexus-reports"},
-    {"src": "reports",      "target": "BENCHMARK", "dest": "nexus-reports"},
-    {"src": "evaluation",   "target": "SSOT",      "dest": "nexus-evaluation"},
-    {"src": "evaluation",   "target": "BENCHMARK", "dest": "nexus-evaluation"}
+    {
+      "src": "orchestrator",
+      "target": "SSOT",
+      "dest": "nexus-llm-orchestrator"
+    },
+    {
+      "src": "orchestrator",
+      "target": "BENCHMARK",
+      "dest": "nexus-llm-orchestrator"
+    },
+    {
+      "src": "reports",
+      "target": "SSOT",
+      "dest": "nexus-reports"
+    },
+    {
+      "src": "reports",
+      "target": "BENCHMARK",
+      "dest": "nexus-reports"
+    },
+    {
+      "src": "evaluation",
+      "target": "SSOT",
+      "dest": "nexus-evaluation"
+    },
+    {
+      "src": "evaluation",
+      "target": "BENCHMARK",
+      "dest": "nexus-evaluation"
+    },
+    {
+      "src": "runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001",
+      "target": "WORK",
+      "dest": "2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001"
+    },
+    {
+      "src": "runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation",
+      "target": "BENCHMARK",
+      "dest": "runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/evaluation"
+    },
+    {
+      "src": "runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/BENCHMARK_LINK.md",
+      "target": "BENCHMARK",
+      "dest": "runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001"
+    }
   ]
 }
