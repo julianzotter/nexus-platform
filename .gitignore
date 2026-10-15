@@ -223,3 +223,7 @@ __marimo__/
 *.enc
 nexus_secrets*.json
 .env
+
+# O-01: Audit-Logs (lokal, nie committen)
+audit/
+**/COMMUNICATION/audit/
