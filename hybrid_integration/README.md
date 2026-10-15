@@ -32,3 +32,12 @@ Do not point to untrusted database files. `immutable=1` requires a quiescent sna
 
 ## Local test evidence
 Five isolated offline unittest cases passed on 2026-10-15 (Linux test runtime). Windows, actual Atlas DB, RFEM, audio, GPU and cloud connector end-to-end remain untested.
+
+
+## ID01 implementation update — 2026-10-15
+- SQLite URL construction now uses \`Path.as_uri()\`, which percent-encodes fragments and special characters.
+- Schema handshake checks \`sqlite_master\` for a real \`files\` table, and checks \`file_name\`, \`source_system\`, \`source_class\`, \`scan_status\`, \`sha256\` before any tool query. Mismatches raise \`AtlasSchemaError\`.
+- PR branch updated with ten isolated regression tests; all 10 passed using temporary SQLite databases on Linux. No live CI, Windows test, Atlas DB snapshot, connected MCP server, RFEM or voice end-to-end tested.
+- \`zc_scan_v2_4.py\` uploaded source defines all five columns in its \`CREATE TABLE IF NOT EXISTS files\` declaration, but that does **not** verify deployed database schema.
+- Reminder: use only a transactionally consistent **inactive** copy/snapshot for immutable mode. Local \`python -m unittest -v test_hybrid_gateway.py\` runs without additional packages.
+- Existing sync scripts were not invoked. No Drive mutations, merges, installations or deployments.
