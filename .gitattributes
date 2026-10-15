@@ -1,0 +1,2 @@
+# IOD.01: Hashes muessen byte-genau bleiben (keine CRLF-Konvertierung unter Windows)
+runs/** -text

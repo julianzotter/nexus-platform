@@ -100,3 +100,10 @@ def test_eval_run_and_aggregate(tmp_path):
     o = Orchestrator(cfg, prov, root=tmp_path)
     r = ev.run(o, ["perplexity", "claude", "gemini"], outdir=tmp_path)
     assert len(r["berichte"]) == 2 and r["fehler"] and (tmp_path / "NEXUS_EVAL_AUSWERTUNG.md").exists()
+
+def test_iod01_runs_intact():
+    import subprocess, sys, pathlib
+    repo = ROOT.parent
+    for run in sorted((repo / "runs").glob("*__R*")):
+        r = subprocess.run([sys.executable, str(repo / "tools/iod01_finalize.py"), str(run), "--check"], capture_output=True, text=True)
+        assert r.returncode == 0, r.stdout
