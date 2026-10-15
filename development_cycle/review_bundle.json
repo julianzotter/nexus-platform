@@ -1,0 +1,22 @@
+{
+  "schema": "NEXUS_REVIEW_BUNDLE_V1",
+  "files": {
+    "development_cycle/CONTRACT.md": "ff95b4b4ac30aa0310acbbb2c0c47e2a310ad6dac947bb7d482e998224e3c73b",
+    "development_cycle/README.md": "94a368a10aeacab4a274417001be24276ed35213e85cb6b553354b749e651322",
+    "development_cycle/REVIEW_REQUESTS.md": "44d82bf783602f24c02f0874697b20bdf611f899603d2b552e532c0441942338",
+    "development_cycle/agent_contracts.json": "8a5f556e8bea51593a95d39930f018ee5eca755e47b8057e053d0c7513deab0f",
+    "development_cycle/cycle.py": "f78beaed237a1d6e63f6563d8c14432b266c7dd7220028db0cefe7d208d4623f",
+    "development_cycle/test_cycle.py": "658d683eb6d96362b1b0e13b9b79853f47bba437e258149f444f8ffb2a2d200a"
+  },
+  "bundle_sha256": "2cc147a26ea419fc707fe1d82f8f88d27e51b9e002fafb33f9821e8a93135185",
+  "reviews": {
+    "claude": {
+      "status": "NOT_RUN",
+      "focus": "architecture_interfaces_simplification"
+    },
+    "gemini": {
+      "status": "NOT_RUN",
+      "focus": "evidence_algorithm_tests_counterexamples"
+    }
+  }
+}
