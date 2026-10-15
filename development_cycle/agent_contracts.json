@@ -1,0 +1,37 @@
+{
+  "schema": "NEXUS_AGENT_CONTRACTS_V1",
+  "status": "REVIEW_CANDIDATE",
+  "human_authority": "ID01",
+  "system_contract": "development_cycle/CONTRACT.md",
+  "agents": [
+    {
+      "role": "knowledge_index_agent",
+      "nexus_role_id": null,
+      "actual_executor": null,
+      "requested_skill": "aec-knowledge-index-agent",
+      "skill_status": "UNVERIFIED",
+      "objective": "Produce source-backed registry candidates",
+      "inputs": ["approved_source_refs", "source_versions"],
+      "outputs": ["source_id", "version_hash", "locator", "candidate_records", "assumptions"],
+      "handoff_to": "ID03",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "role": "quality_peer_review",
+      "nexus_role_id": "ID03",
+      "actual_executor": null,
+      "objective": "Check source identity, provenance, schemas and samples independently",
+      "inputs": ["frozen_candidate_bundle", "system_contract", "baseline_reference"],
+      "outputs": ["findings", "evidence", "required_deltas", "review_status"],
+      "author_may_self_certify_independence": false,
+      "execution_status": "NOT_RUN"
+    }
+  ],
+  "shared_resources": {
+    "github": "julianzotter/nexus-platform",
+    "drive_ssot_id": "1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV",
+    "drive_work_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+  },
+  "delivery_status": "PREPARED",
+  "automatic_agent_dispatch": false
+}
