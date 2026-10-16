@@ -1,6 +1,6 @@
 # TASK-00004: INVENTAR — Agent D / Curator
 
-**Status:** READY_FOR_EXECUTION
+**Status:** TOOLING_MERGED_SCAN_PENDING (Tooling gemergt in PR #2; realer Scan steht aus, alle Quellen `INCOMPLETE`)
 **Owner:** ID-02 (Agent D / Curator)
 **Implementation Support:** Coding Agent (nur Tooling, kein Rollenträger)
 **Reviewer:** ID-01 (Human Gate)
@@ -123,6 +123,7 @@ Duplikat-Kandidaten gesamt: `[MEASURED_AFTER_SCAN]`
 ## Tooling (durch Coding Agent zu implementieren, deterministisch)
 
 - `tools/01_scan_registry.py` (vorhanden, ggf. um Coverage-Zähler erweitern)
+- `tools/generate_catalog.py` (vorhanden): erzeugt `catalog-draft.yaml` aus `coverage-per-source.json`
 - `tools/detect_duplicates.py` (neu): Gruppierung nach SHA-256, Report und Felder
 - `tools/coverage_stats.py` (neu): Zähler je Quelle nach Formel, JSON und TXT
 - Katalog-Generator für `catalog-draft.yaml` (Status = DRAFT)

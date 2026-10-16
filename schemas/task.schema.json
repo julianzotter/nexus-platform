@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task",
+  "type": "object",
+  "required": ["id", "title", "owner", "status", "gate", "depends_on"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^TASK-[0-9]{5}$"},
+    "title": {"type": "string"},
+    "owner": {"type": "string"},
+    "support": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["DRAFT", "READY_FOR_EXECUTION", "IN_PROGRESS", "AWAITING_REVIEW", "DONE", "BLOCKED"]},
+    "gate": {"type": "string", "description": "Human reviewer who approves; no automatic merge"},
+    "depends_on": {"type": "array", "items": {"type": "string", "pattern": "^TASK-[0-9]{5}$"}},
+    "acceptance": {"type": "array", "items": {"type": "string"}}
+  }
+}

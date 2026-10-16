@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Coverage report",
+  "type": "object",
+  "required": ["formula", "sources", "total"],
+  "properties": {
+    "formula": {"const": "indexed / accessible"},
+    "coverage_unit": {"const": "percent"},
+    "sources": {"type": "object", "additionalProperties": {"$ref": "#/$defs/entry"}},
+    "total": {"$ref": "#/$defs/entry"}
+  },
+  "$defs": {
+    "count": {"type": ["integer", "null"], "minimum": 0},
+    "entry": {
+      "type": "object",
+      "required": ["status", "discovered", "accessible", "indexed", "skipped", "error", "coverage_percent"],
+      "properties": {
+        "status": {"enum": ["COMPLETE", "INCOMPLETE"]},
+        "discovered": {"$ref": "#/$defs/count"},
+        "accessible": {"$ref": "#/$defs/count"},
+        "indexed": {"$ref": "#/$defs/count"},
+        "skipped": {"$ref": "#/$defs/count"},
+        "error": {"$ref": "#/$defs/count"},
+        "coverage_percent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "reason": {"type": "string"}
+      },
+      "if": {"properties": {"status": {"const": "INCOMPLETE"}}},
+      "then": {
+        "properties": {
+          "discovered": {"type": "null"}, "accessible": {"type": "null"}, "indexed": {"type": "null"},
+          "skipped": {"type": "null"}, "error": {"type": "null"}, "coverage_percent": {"type": "null"}
+        }
+      }
+    }
+  }
+}

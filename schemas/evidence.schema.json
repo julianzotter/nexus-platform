@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence",
+  "type": "object",
+  "required": ["id", "task_id", "claim", "kind", "reference", "measured_at"],
+  "properties": {
+    "id": {"type": "string"},
+    "task_id": {"type": "string", "pattern": "^TASK-[0-9]{5}$"},
+    "claim": {"type": "string"},
+    "kind": {"enum": ["measurement", "test_result", "source_citation", "human_review"]},
+    "reference": {"type": "string", "description": "Command, file path, PR link or clause"},
+    "measured_at": {"type": "string", "format": "date-time"},
+    "tool_version": {"type": "string"}
+  }
+}
