@@ -1,7 +1,7 @@
 ---
 document_id: NEXUS-CPLM-CHAT-REQUIREMENTS
-version: 0.2.0
-timestamp: '2026-10-16T17:31:00+02:00'
+version: 0.3.0
+timestamp: '2026-10-16T18:02:55.438462+02:00'
 status: EXECUTING_WITH_EXPLICIT_BLOCKERS
 author: ChatGPT-Codex
 scope: Vollständiger in dieser Sitzung verfügbarer direkter Chatverlauf und gelesene WorkOrders; keine Vollständigkeitsbehauptung
@@ -55,8 +55,8 @@ requirements:
     gap: Messwerte ohne Testreferenz bleiben NOT_MEASURED
   R12:
     goal: CPLM/CICKS mit Dispatcher, Execution Bridge, Orchestrator, Regeln, GitHub Actions oder besserer Minimallösung
-    state: PARTIAL
-    evidence: Router/CI/Cloud-Audit vorhanden; deterministischer Kernel wird implementiert
+    state: LOCAL_KERNEL_36_TESTS_PASS_CLOUD_ADAPTER_OPEN
+    evidence: Kern samt Regressionen in Review; Router und bestehender GitHub-CI-Pfad verifiziert
   R13:
     goal: Sync, Wartung, Health/Audit und Statusberichte im Hintergrund; aktuell stündliches WORK-Monitoring
     state: HOURLY_ENABLED_PILOT_OBSERVED
@@ -70,7 +70,7 @@ requirements:
     limits: Getrennte Instanzen/Kontexte; verschiedene Provider/Modelle nicht belegt; vollständiges Tokenfenster nicht erzwingbar
   R16:
     goal: Nach Konsolidierung DELTA, erneute Prüfung, Human Gate; keine Eigenfreigabe
-    state: DELTA_FIXES_RUNNING_RE_REVIEW_NEXT_HUMAN_NOT_REQUESTED
+    state: MULTIPLE_DELTA_FIXES_TESTED_FINAL_LOCAL_REVIEW_RUNNING_HUMAN_BLOCKED
   R17:
     goal: Separate LLM-ID-Kompetenz/Rechte/Account/Modell-Matrix; WORK nur Wegweiser
     state: DRAFT_STORED_AND_PR18
@@ -85,7 +85,7 @@ requirements:
     limits: Unbekannte Quotas bleiben UNKNOWN
   R20:
     goal: GitHub-versionierter überprüfbarer Stand ohne zweite unabhängig gepflegte SSOT
-    state: DRAFT_PR18_EXISTS
+    state: CODE_TESTS_FOUR_REVIEWS_IN_DRAFT_PR18_FINAL_DELTA_NEXT
     gap: Umsetzungsdelta und vollständiger Reviewbericht werden ergänzt
   R21:
     goal: Nach Fertigstellung sichtbare Benachrichtigung; Pilot sofort ausführen
@@ -106,7 +106,7 @@ requirements:
     limits: L0–L5 Entwurf; P0-Priorität davon getrennt
   R24:
     goal: Jede Anforderung prüfen, Fehler verbessern, erneut prüfen, alternative Lösung suchen
-    state: ACTIVE
+    state: ITERATIVE_FIXES_ACTUALLY_EXECUTED_EXTERNAL_BLOCKERS_REMAIN
     limits: Kein Herabsetzen der Abnahme; externe Blocker und Human Gate bleiben offen statt Erfolg zu simulieren
   R25:
     goal: Keine Memory-/History-Snippets als Status-/Fachbeleg; aktuelle vollständige Quelldatei lesen
@@ -132,8 +132,8 @@ source_refs:
 - https://drive.google.com/file/d/15EQRq80eyl6fqBj5Lnu9yBDUjgT2NbEnqF2Ii6XQfxo/view
 - https://drive.google.com/file/d/1QekWzh3XPdhoYGFOw7V7-6PqTnEM5T1F/view
 - https://drive.google.com/file/d/1JVapYaD6ezcKsH5cd8BaeezSDV1qp6Y1/view
-next_action: Fünf reproduzierte Kerneldefekte korrigieren → Tests → sequenzieller Delta-Re-Review → GitHub/WORK-Nachweise
-  → offene externe Grenzen benennen
+next_action: Finalen lokalen 36-Test-Stand drei Perspektiven prüfen lassen und in PR18/CI nachweisen; Gemini-Runtime/Accounttests/exklusive
+  Cloud-Auth/Humanfreigabe bleiben externe Voraussetzungen.
 ---
 # Abschlussregel
 Nur kriterienspezifisch bestätigte Ergebnisse als PASS melden. Ein Versandbeleg ersetzt keinen Empfangs-ACK; ein Pilot-PASS keine Produktionsfreigabe. Diese Matrix ist die vollständige verfügbare Auftragsabdeckung, kein pauschaler Erledigtvermerk.

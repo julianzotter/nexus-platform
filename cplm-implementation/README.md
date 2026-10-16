@@ -40,6 +40,21 @@ credentials or real user identities are included in test fixtures.
    blind retry; an adapter must reconcile provider evidence. No email is sent
    by this library itself.
 
+Frontmatter currently accepts exactly `task_id`, `status`, and `source_refs`;
+duplicate keys and ambiguous types are rejected. Internal artifacts use the
+run ID; published WORK reports use the separate timestamp/title convention.
+Notification policy accepts canonical email/sms/push/webhook channels only,
+not vendor aliases. Defining a channel is not an installed transport adapter.
+
+Optional `release_inputs` must define all five roles: requirements, schema,
+tests, test_receipt, dependencies. Each role is a relative file path and SHA256;
+all are checked and bound into the manifest. This binds bytes, not receipt
+authenticity or proof that a declared command ran. An authenticated evaluator
+must produce actual test evidence for a production release.
+
+Reviews are immutable within one run. A revised review requires a new logical
+run referencing its predecessor; this API does not overwrite a prior FAIL.
+
 An artifact conflict becomes RECOVERY_REQUIRED. Explicit recovery isolates and
 preserves conflicting bytes before a retry. Orphaned staging files are retained
 as crash evidence; a production retention/cleanup policy is still required.

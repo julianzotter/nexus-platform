@@ -31,7 +31,7 @@ def resolve_policy(parent: dict[str, Any], child: dict[str, Any]) -> dict[str, A
         raise GateError("STALE_PARENT")
     if child.get("folder_id") == parent["folder_id"]:
         raise GateError("POLICY_SELF_CYCLE")
-    for field in ("human_principal", "source_of_truth", "sources"):
+    for field in ("human_principal", "source_of_truth", "sources", "notifications", "release_inputs"):
         if field in child and child[field] != parent.get(field):
             raise GateError("PROTECTED_PARENT_FIELD")
     grants = child.get("grants", parent["grants"])
@@ -39,6 +39,27 @@ def resolve_policy(parent: dict[str, Any], child: dict[str, Any]) -> dict[str, A
         if actor not in parent["grants"] or not set(actions) <= set(parent["grants"][actor]):
             raise GateError("CHILD_RELAXATION")
     return {**parent, **child, "grants": grants}
+
+
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Reject ambiguous mapping keys, including nested frontmatter mappings."""
+
+
+def _unique_mapping(loader: UniqueKeyLoader, node: Any, deep: bool = False) -> dict:
+    loader.flatten_mapping(node)
+    result = {}
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        try:
+            if key in result:
+                raise GateError("DUPLICATE_FRONTMATTER_KEY")
+            result[key] = loader.construct_object(value_node, deep=deep)
+        except TypeError as exc:
+            raise GateError("INVALID_FRONTMATTER_KEY") from exc
+    return result
+
+
+UniqueKeyLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _unique_mapping)
 
 
 class Kernel:
@@ -49,6 +70,7 @@ class Kernel:
         self.policy_path = policy_path.resolve(strict=True)
         self.policy = json.loads(self.policy_path.read_text())
         self.policy_hash = digest(self.policy_path.read_bytes())
+        self._validate_notifications()
         self.db = self.root / "state.sqlite"
         with self._tx() as c:
             c.executescript("""
@@ -67,6 +89,18 @@ class Kernel:
                 CREATE TABLE IF NOT EXISTS outbox(
                   key TEXT PRIMARY KEY, run_id TEXT, state TEXT, receipt TEXT);
             """)
+
+    def _validate_notifications(self) -> None:
+        # Only canonical transports are accepted; vendor aliases cannot add a second key.
+        configs = self.policy.get("notifications", {})
+        if not isinstance(configs, dict):
+            raise GateError("INVALID_NOTIFICATION_POLICY")
+        for channel, config in configs.items():
+            if channel not in {"email", "sms", "push", "webhook"}:
+                raise GateError("NONCANONICAL_NOTIFICATION_CHANNEL")
+            if (not isinstance(config, dict) or set(config) != {"recipient"}
+                    or not isinstance(config["recipient"], str) or not config["recipient"].strip()):
+                raise GateError("INVALID_NOTIFICATION_POLICY")
 
     @contextmanager
     def _tx(self) -> Iterator[sqlite3.Connection]:
@@ -164,16 +198,26 @@ class Kernel:
             if row["actor"] != actor or row["execution"] != "RECOVERY_REQUIRED":
                 raise GateError("RECOVERY_NOT_ALLOWED")
             target = self.root / (run_id + ".md")
-            evidence = self.root / (run_id + ".conflict-" + uuid.uuid4().hex)
             if target.exists() or target.is_symlink():
-                os.replace(target, evidence)
-                self._sync_directory()
+                evidence = self.root / (run_id + ".conflict-" + uuid.uuid4().hex)
+                os.replace(target, evidence)  # Moves the link object, never its target.
+            else:
+                # Rename may have completed before a process death rolled back SQLite.
+                candidates = list(self.root.glob(run_id + ".conflict-*"))
+                if len(candidates) != 1:
+                    raise GateError("RECOVERY_EVIDENCE_MISSING_OR_AMBIGUOUS")
+                evidence = candidates[0]
+                if not (evidence.is_file() or evidence.is_symlink()):
+                    raise GateError("RECOVERY_EVIDENCE_INVALID")
+            self._sync_directory()
             c.execute("UPDATE runs SET execution='RUNNING',revision=revision+1 WHERE id=?", (run_id,))
             self._event(c, run_id, "CONFLICT_ISOLATED", {"evidence": evidence.name})
             return str(evidence)
 
     def _validate_sources(self, references: Any) -> None:
-        if not isinstance(references, list) or not references:
+        if (not isinstance(references, list) or not references
+                or any(not isinstance(ref, str) or not ref for ref in references)
+                or len(set(references)) != len(references)):
             raise GateError("SOURCES_REQUIRED")
         for ref in references:
             item = self.policy.get("sources", {}).get(ref)
@@ -190,12 +234,13 @@ class Kernel:
         if not markdown.startswith("---\n") or "\n---\n" not in markdown[4:]:
             raise GateError("MISSING_FRONTMATTER")
         try:
-            metadata = yaml.safe_load(markdown.split("---", 2)[1])
+            metadata = yaml.load(markdown.split("\n---\n", 1)[0][4:], Loader=UniqueKeyLoader)
         except yaml.YAMLError as exc:
             raise GateError("INVALID_FRONTMATTER") from exc
-        if not isinstance(metadata, dict) or not {"task_id", "status", "source_refs"} <= metadata.keys():
+        if not isinstance(metadata, dict) or set(metadata) != {"task_id", "status", "source_refs"}:
             raise GateError("MISSING_METADATA")
-        if metadata["task_id"] != self.get(run_id)["task_key"] or not metadata["source_refs"]:
+        if (not isinstance(metadata["task_id"], str)
+                or metadata["task_id"] != self.get(run_id)["task_key"] or not metadata["source_refs"]):
             raise GateError("INVALID_TASK_OR_SOURCE_LINK")
         self._validate_sources(metadata["source_refs"])
         if metadata["status"] != "RESULT":
@@ -207,9 +252,9 @@ class Kernel:
             if row["actor"] != actor or row["execution"] != "RUNNING":
                 raise GateError("WRONG_OWNER_OR_STATE")
             target = self.root / (run_id + ".md")
-            if target.is_symlink():
-                raise GateError("SYMLINK_TARGET")
             try:
+                if target.is_symlink():
+                    raise GateError("ARTIFACT_CONFLICT")
                 self._persist(target, data)
             except GateError as exc:
                 if str(exc) != "ARTIFACT_CONFLICT":
@@ -234,7 +279,7 @@ class Kernel:
         artifact = self.root / (row["id"] + ".md")
         if artifact.is_symlink() or not artifact.is_file() or digest(artifact.read_bytes()) != row["artifact_hash"]:
             raise GateError("ARTIFACT_CHANGED_OR_MISSING")
-        metadata = yaml.safe_load(artifact.read_text().split("---", 2)[1])
+        metadata = yaml.load(artifact.read_text().split("\n---\n", 1)[0][4:], Loader=UniqueKeyLoader)
         if metadata["status"] != "RESULT" or metadata["task_id"] != row["task_key"]:
             raise GateError("INVALID_RESULT")
         self._validate_sources(metadata["source_refs"])
@@ -242,7 +287,29 @@ class Kernel:
         return {"run_id": row["id"], "task_key": row["task_key"],
                 "declared_input_bundle": row["bundle_hash"], "artifact_sha256": row["artifact_hash"],
                 "policy_sha256": digest(self.policy_path.read_bytes()), "sources": sources,
-                "code_sha256": _LOADED_CODE_HASH}
+                "code_sha256": _LOADED_CODE_HASH, "release_inputs": self._release_inputs()}
+
+    def _release_inputs(self) -> dict[str, str]:
+        """Bind configured external evidence bytes; never attest their truth or execution."""
+        configured = self.policy.get("release_inputs")
+        if configured is None:
+            return {}  # Explicit bounded local mode; not a complete architecture release.
+        if not isinstance(configured, dict) or set(configured) != {
+                "requirements", "schema", "tests", "test_receipt", "dependencies"}:
+            raise GateError("INCOMPLETE_RELEASE_INPUTS")
+        hashes = {}
+        for role, item in configured.items():
+            if (not isinstance(item, dict) or set(item) != {"path", "sha256"}
+                    or not isinstance(item["path"], str) or not isinstance(item["sha256"], str)):
+                raise GateError("INVALID_RELEASE_INPUT")
+            path = (self.policy_path.parent / item["path"]).resolve()
+            if not path.is_relative_to(self.policy_path.parent) or not path.is_file():
+                raise GateError("RELEASE_INPUT_PATH_INVALID")
+            actual = digest(path.read_bytes())
+            if actual != item["sha256"]:
+                raise GateError("RELEASE_INPUT_CHANGED")
+            hashes[role] = actual
+        return hashes
 
     def validate_result(self, actor: str, run_id: str, revision: int) -> str:
         """Execute local post-result checks and seal their actual receipt.
@@ -295,6 +362,8 @@ class Kernel:
 
     def review(self, actor: str, run_id: str, perspective: str, bundle_hash: str, verdict: str) -> None:
         self._guard(actor, "review")
+        if actor == self.policy["human_principal"]:
+            raise GateError("HUMAN_REVIEW_SEPARATION_REQUIRED")
         if perspective not in {"software", "governance", "systems"} or verdict not in {"PASS", "FAIL"}:
             raise GateError("INVALID_REVIEW")
         with self._tx() as c:
@@ -362,6 +431,9 @@ class Kernel:
             key = self.notification_key(run_id, channel)
             if not receipt:
                 raise GateError("RECEIPT_REQUIRED")
+            run = c.execute("SELECT * FROM runs WHERE id=?", (run_id,)).fetchone()
+            if run is None or run["policy_hash"] != self.policy_hash:
+                raise GateError("UNKNOWN_RUN_OR_STALE_POLICY")
             row = c.execute("SELECT * FROM outbox WHERE key=? AND run_id=?", (key, run_id)).fetchone()
             if row is None or row["state"] != "OUTCOME_UNKNOWN":
                 raise GateError("INVALID_OUTBOX_STATE")

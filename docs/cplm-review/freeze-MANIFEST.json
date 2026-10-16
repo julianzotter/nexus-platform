@@ -1,0 +1,83 @@
+[
+  {
+    "id": "11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH",
+    "key": "S01",
+    "modified_time": "2026-10-16T15:07:07.134Z",
+    "name": "Folder.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S01-Folder.md",
+    "sha256_utf8_connector_text": "c399b1f42b806e34cb637b4c249a41a77ca56f8e17a35eacdaf2546c0e1a243f",
+    "url": "https://drive.google.com/file/d/11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH/view"
+  },
+  {
+    "id": "1QekWzh3XPdhoYGFOw7V7-6PqTnEM5T1F",
+    "key": "S02",
+    "modified_time": "2026-10-16T15:06:21.696Z",
+    "name": "Golden-Slice-Pilot.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S02-Golden-Slice-Pilot.md",
+    "sha256_utf8_connector_text": "731cb1d36707fdf09d1760a730f1da84927761e034129d935246f2921cabb87c",
+    "url": "https://drive.google.com/file/d/1QekWzh3XPdhoYGFOw7V7-6PqTnEM5T1F/view"
+  },
+  {
+    "id": "1zzimyJXqId7VUwrASRN0AZizhgabngPL",
+    "key": "S03",
+    "modified_time": "2026-10-16T14:52:07.521Z",
+    "name": "CPLM-Regeln-v0.3.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S03-CPLM-Regeln-v0.3.md",
+    "sha256_utf8_connector_text": "e5989a79cbba8bf92fb5e976ee359270d108b2f5000477e0aabe058fd4972131",
+    "url": "https://drive.google.com/file/d/1zzimyJXqId7VUwrASRN0AZizhgabngPL/view"
+  },
+  {
+    "id": "1fWlk-89PeLs33Hgk1q1112puWX49z_sV",
+    "key": "S04",
+    "modified_time": "2026-10-16T15:02:48.639Z",
+    "name": "Folder-Governance-v0.1.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S04-Folder-Governance-v0.1.md",
+    "sha256_utf8_connector_text": "839acb90260f6df0ec9a741660a4a317dce11dfd12b14f604554e53531726854",
+    "url": "https://drive.google.com/file/d/1fWlk-89PeLs33Hgk1q1112puWX49z_sV/view"
+  },
+  {
+    "id": "1JVapYaD6ezcKsH5cd8BaeezSDV1qp6Y1",
+    "key": "S05",
+    "modified_time": "2026-10-16T15:02:16.270Z",
+    "name": "LLM-Registry-v0.1.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S05-LLM-Registry-v0.1.md",
+    "sha256_utf8_connector_text": "0142a7f788c3fd3a6adf97b9b1a136cfafbc2b1501e244bd0cac8c1737ea2614",
+    "url": "https://drive.google.com/file/d/1JVapYaD6ezcKsH5cd8BaeezSDV1qp6Y1/view"
+  },
+  {
+    "id": "1WiKDYBN8JqPvefv5_NJYnj6zGGSHI_rU",
+    "key": "S06",
+    "modified_time": "2026-10-16T14:57:12.740Z",
+    "name": "Audit-WORK-R0002.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S06-Audit-WORK-R0002.md",
+    "sha256_utf8_connector_text": "95cf799a90fd82c992d6643ee7e25422d118d3c4575f54ba76008f85113358e7",
+    "url": "https://drive.google.com/file/d/1WiKDYBN8JqPvefv5_NJYnj6zGGSHI_rU/view"
+  },
+  {
+    "id": "1Yh3wmjxz5ajTfvHzjwgQsZf627UWmcBG",
+    "key": "S07",
+    "modified_time": "2026-10-16T15:07:02.840Z",
+    "name": "WORK-FRONT-LOG.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S07-WORK-FRONT-LOG.md",
+    "sha256_utf8_connector_text": "5a38fd08305b54e9d733d77a3bb2104a6c1a99df7ac926066c39c93b017736d5",
+    "url": "https://drive.google.com/file/d/1Yh3wmjxz5ajTfvHzjwgQsZf627UWmcBG/view"
+  },
+  {
+    "id": "15EQRq80eyl6fqBj5Lnu9yBDUjgT2NbEnqF2Ii6XQfxo",
+    "key": "S08",
+    "modified_time": "2026-10-15T09:06:45.063Z",
+    "name": "WorkOrder-Feedback-Archive-Capability.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S08-WorkOrder-Feedback-Archive-Capability.md",
+    "sha256_utf8_connector_text": "47eba0fc99514effa4d5826f69f8ea4ac27f5e476ab8aebdecbbd1bb2275ca4b",
+    "url": "https://drive.google.com/file/d/15EQRq80eyl6fqBj5Lnu9yBDUjgT2NbEnqF2Ii6XQfxo/view"
+  },
+  {
+    "id": "1CfgfRoGcpUKn0LU6-E7COAmTAAtUWIBy",
+    "key": "S09",
+    "modified_time": "2026-10-16T14:26:56.061Z",
+    "name": "NEXUS-ECOSYSTEM-CONCEPT.md",
+    "path": "/workspace/scratch/ecb96da71040/cplm-review-freeze/S09-NEXUS-ECOSYSTEM-CONCEPT.md",
+    "sha256_utf8_connector_text": "0a5ac2565bfe7af61a9562158f4705ec64f464664832188379d81e7b48a7d351",
+    "url": "https://drive.google.com/file/d/1CfgfRoGcpUKn0LU6-E7COAmTAAtUWIBy/view"
+  }
+]

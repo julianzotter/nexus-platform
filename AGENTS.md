@@ -1,0 +1,15 @@
+# NEXUS repository agent entrypoint — review candidate
+
+`AGENTS.md` is a stable-name entrypoint exception to the report timestamp rule.
+These instructions do not authenticate agents or constrain tools outside this repository.
+
+1. Read the complete current WORK `Folder.md` before action: https://drive.google.com/file/d/11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH/view. Follow its registry and current requirement links; read relevant original Work Orders, not memory snippets.
+2. If live WORK access is unavailable, report that limitation immediately. A repository snapshot permits explicitly scoped local investigation; it is not evidence of current cloud-governance compliance.
+3. Establish shared scope, terminology, boundaries and observable acceptance criteria. Prefer one small executable slice and tests of behaviour.
+4. Publish WORK communication as actual UTF-8 Markdown, never a new Google Doc. Report names use `YY_MM_DD_HH_mm_ID-XX_SEMANTIC-TITLE_vX.Y.Z.md`; `Folder.md` and its stable log are documented exceptions.
+5. Preserve previous folder states and stable idea tickets. There is one AIM concept list; do not create an independently maintained second master. Drive is document SSOT, repository documents are review snapshots.
+6. Use only verified runtime capabilities and authorized destinations. Unknown account mapping, quotas, tool rights and acknowledgments remain UNKNOWN or BLOCKED.
+7. After execution, save an evidence-linked report, reread the saved artifact, compare bytes/hash, and record actual status, changes, tests and blockers. Sent is not acknowledged; an enabled schedule is not a successful run.
+8. Before a contract or production release, require three separate review perspectives (software architecture, AI governance audit, systems/innovation), consolidation, delta correction, re-review and an explicit human decision on the final version. Never substitute fixture identities or LLM self-approval.
+9. Run relevant checks on the actual code revision. A previous green CI or review does not certify later code. Preserve failed findings and their correction evidence.
+10. Do not claim universal completion, production readiness, global sync or notifications without the corresponding current receipts. Escalate missing access or decisions and continue independent authorized work.

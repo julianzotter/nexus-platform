@@ -2,6 +2,8 @@
 import concurrent.futures
 import hashlib
 import json
+import multiprocessing
+import os
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -48,6 +50,18 @@ class CPLMTests(unittest.TestCase):
         for actor, perspective in [("review-a", "software"), ("review-b", "governance"),
                                    ("review-c", "systems")]:
             self.kernel.review(actor, run, perspective, manifest, "PASS")
+
+    def test_human_cannot_supply_peer_review_even_with_review_grant(self):
+        self.policy["grants"]["human-test"].append("review")
+        self.policy_path.write_text(json.dumps(self.policy))
+        self.kernel = Kernel(self.root / "runtime", self.policy_path)
+        run = self.prepare()
+        manifest = self.manifest(run)
+        with self.assertRaisesRegex(GateError, "HUMAN_REVIEW_SEPARATION_REQUIRED"):
+            self.kernel.review("human-test", run, "software", manifest, "PASS")
+        self.reviews(run)
+        self.kernel.release("human-test", run, self.kernel.get(run)["revision"], manifest)
+        self.assertEqual(self.kernel.get(run)["execution"], "COMPLETED")
 
     def test_read_receipt_and_unknown_actor_denied(self):
         with self.assertRaises(GateError):
@@ -312,6 +326,166 @@ class CPLMTests(unittest.TestCase):
             c.execute("UPDATE validations SET manifest=? WHERE run_id=?", ('{}', run))
         with self.assertRaisesRegex(GateError, "STALE_REVIEW_MANIFEST"):
             self.kernel.review("review-a", run, "software", manifest, "PASS")
+
+    def test_dg02_existing_and_dangling_symlinks_enter_safe_recovery(self):
+        for dangling in [False, True]:
+            with self.subTest(dangling=dangling):
+                # Distinct logical runs, one existing and one dangling link target.
+                task = "WO-LINK:" + str(dangling)
+                run = self.kernel.submit("writer", task, "bundle-v1", "receiver", self.kernel.policy_hash)
+                target = self.root / "runtime" / (run + ".md")
+                linked = self.root / ("missing.md" if dangling else "source.md")
+                before = linked.read_bytes() if linked.exists() else None
+                target.symlink_to(linked)
+                body = self.body().replace("WO-TEST:1", task)
+                with self.assertRaisesRegex(GateError, "RECOVERY_REQUIRED"):
+                    self.kernel.result("writer", run, 0, body)
+                self.assertEqual(self.kernel.get(run)["execution"], "RECOVERY_REQUIRED")
+                evidence = Path(self.kernel.recover_artifact_conflict("writer", run, 1))
+                self.assertTrue(evidence.is_symlink())
+                self.assertEqual(evidence.readlink(), linked)
+                self.assertFalse(target.is_symlink())
+                self.kernel.result("writer", run, 2, body)
+                self.assertEqual(target.read_text(), body)
+                self.assertEqual(linked.read_bytes() if linked.exists() else None, before)
+
+    def test_dg04_duplicate_keys_and_invalid_field_types_rejected(self):
+        run = self.start()
+        bad = [self.body().replace("status: RESULT", "status: FAILED\nstatus: RESULT"),
+               self.body().replace("source_refs: ['test-fixture:source-1']", "source_refs: [[nested]]"),
+               self.body().replace("source_refs: ['test-fixture:source-1']", "source_refs: [1]"),
+               self.body().replace("source_refs: ['test-fixture:source-1']", "source_refs: [null]"),
+               self.body().replace("source_refs: ['test-fixture:source-1']", "source_refs: [test-fixture:source-1, test-fixture:source-1]"),
+               self.body().replace("task_id: 'WO-TEST:1'", "task_id: []"),
+               self.body().replace("status: RESULT", "status: RESULT\nunknown: value")]
+        for body in bad:
+            with self.subTest(body=body), self.assertRaises(GateError):
+                self.kernel.result("writer", run, 0, body)
+        self.assertEqual(self.kernel.get(run)["revision"], 0)
+        self.assertFalse((self.root / "runtime" / (run + ".md")).exists())
+
+    def test_dg03_notification_vendor_alias_policy_rejected(self):
+        self.policy["notifications"]["gmail"] = dict(self.policy["notifications"]["email"])
+        self.policy_path.write_text(json.dumps(self.policy))
+        with self.assertRaisesRegex(GateError, "NONCANONICAL_NOTIFICATION_CHANNEL"):
+            Kernel(self.root / "runtime", self.policy_path)
+
+    def test_child_cannot_redirect_notifications_or_release_evidence(self):
+        parent_hash = hashlib.sha256(json.dumps(self.policy, sort_keys=True).encode()).hexdigest()
+        child = {"folder_id": "child", "parent_id": "test-root", "parent_hash": parent_hash}
+        for field, changed in [("notifications", {"email": {"recipient": "other@example.invalid"}}),
+                               ("release_inputs", {"requirements": {"path": "changed"}})]:
+            with self.subTest(field=field), self.assertRaisesRegex(GateError, "PROTECTED_PARENT_FIELD"):
+                resolve_policy(self.policy, {**child, field: changed})
+
+    def configure_release_inputs(self):
+        self.policy["release_inputs"] = {}
+        for role in ["requirements", "schema", "tests", "test_receipt", "dependencies"]:
+            path = self.root / (role + ".fixture")
+            # Hash binding only: this fixture is never presented as a genuine executed suite receipt.
+            path.write_text("explicit test fixture for " + role)
+            self.policy["release_inputs"][role] = {"path": path.name,
+                "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+        self.policy_path.write_text(json.dumps(self.policy))
+        self.kernel = Kernel(self.root / "runtime", self.policy_path)
+
+    def test_dg05_release_inputs_bound_and_mutation_blocks_review_and_release(self):
+        self.configure_release_inputs()
+        run = self.prepare()
+        self.reviews(run)
+        manifest = self.manifest(run)
+        with self.kernel._tx() as c:
+            saved = json.loads(c.execute("SELECT manifest FROM validations WHERE run_id=?", (run,)).fetchone()[0])
+        self.assertEqual(set(saved["inputs"]["release_inputs"]), set(self.policy["release_inputs"]))
+        for role, item in self.policy["release_inputs"].items():
+            path = self.root / item["path"]
+            original = path.read_bytes()
+            path.write_text("mutated evidence")
+            with self.subTest(role=role):
+                with self.assertRaisesRegex(GateError, "RELEASE_INPUT_CHANGED"):
+                    self.manifest(run)
+                with self.assertRaisesRegex(GateError, "RELEASE_INPUT_CHANGED"):
+                    self.kernel.review("review-a", run, "software", manifest, "PASS")
+                with self.assertRaisesRegex(GateError, "RELEASE_INPUT_CHANGED"):
+                    self.kernel.release("human-test", run, 5, manifest)
+            path.write_bytes(original)
+        self.kernel.release("human-test", run, 5, manifest)
+        self.assertEqual(self.kernel.get(run)["execution"], "COMPLETED")
+
+    def test_dg05_partial_or_escaping_release_input_map_denied(self):
+        self.configure_release_inputs()
+        run = self.prepare()
+        del self.kernel.policy["release_inputs"]["schema"]
+        with self.assertRaisesRegex(GateError, "INCOMPLETE_RELEASE_INPUTS"):
+            self.manifest(run)
+        self.kernel.policy["release_inputs"] = json.loads(self.policy_path.read_text())["release_inputs"]
+        self.kernel.policy["release_inputs"]["schema"]["path"] = "../outside.fixture"
+        with self.assertRaisesRegex(GateError, "RELEASE_INPUT_PATH_INVALID"):
+            self.manifest(run)
+
+    def test_ds01_actual_process_death_after_rename_reconciles_real_evidence(self):
+        run = self.start()
+        target = self.root / "runtime" / (run + ".md")
+        fragment = b"preserve actual conflicting bytes"
+        target.write_bytes(fragment)
+        with self.assertRaisesRegex(GateError, "RECOVERY_REQUIRED"):
+            self.kernel.result("writer", run, 0, self.body())
+        def die_after_rename():
+            child = Kernel(target.parent, self.policy_path)
+            replace = os.replace
+            def rename_and_die(source, destination):
+                replace(source, destination)
+                os._exit(72)  # No Python exception/finally/transaction rollback handler.
+            with patch("nexus_cplm.core.os.replace", rename_and_die):
+                child.recover_artifact_conflict("writer", run, 1)
+        child = multiprocessing.get_context("fork").Process(target=die_after_rename)
+        child.start()
+        child.join(5)
+        if child.is_alive():
+            child.terminate()
+            child.join()
+            self.fail("recovery child did not exit")
+        self.assertEqual(child.exitcode, 72)
+        restarted = Kernel(target.parent, self.policy_path)
+        self.assertEqual(restarted.get(run)["execution"], "RECOVERY_REQUIRED")
+        self.assertFalse(target.exists())
+        evidence = Path(restarted.recover_artifact_conflict("writer", run, 1))
+        self.assertTrue(evidence.is_file())
+        self.assertEqual(evidence.read_bytes(), fragment)
+        with restarted._tx() as c:
+            event = c.execute("SELECT body FROM events WHERE run_id=? AND kind='CONFLICT_ISOLATED'", (run,)).fetchone()
+        self.assertEqual(json.loads(event[0])["evidence"], evidence.name)
+        restarted.result("writer", run, 2, self.body())
+        self.assertEqual(evidence.read_bytes(), fragment)
+        self.assertEqual(target.read_text(), self.body())
+
+    def test_ds01_missing_or_ambiguous_recovery_evidence_fails_closed(self):
+        run = self.start()
+        target = self.root / "runtime" / (run + ".md")
+        target.write_bytes(b"conflict")
+        with self.assertRaisesRegex(GateError, "RECOVERY_REQUIRED"):
+            self.kernel.result("writer", run, 0, self.body())
+        target.unlink()
+        with self.assertRaisesRegex(GateError, "RECOVERY_EVIDENCE_MISSING_OR_AMBIGUOUS"):
+            self.kernel.recover_artifact_conflict("writer", run, 1)
+        for suffix in ["one", "two"]:
+            (target.parent / (run + ".conflict-" + suffix)).write_bytes(b"conflict")
+        with self.assertRaisesRegex(GateError, "RECOVERY_EVIDENCE_MISSING_OR_AMBIGUOUS"):
+            self.kernel.recover_artifact_conflict("writer", run, 1)
+        self.assertEqual(self.kernel.get(run)["execution"], "RECOVERY_REQUIRED")
+        self.assertEqual(self.kernel.get(run)["revision"], 1)
+
+    def test_ds02_policy_rotation_denies_receipt_and_preserves_unknown_outcome(self):
+        run = self.start()
+        self.kernel.reserve_notification("writer", run, "email")
+        self.policy["revision"] = 2
+        self.policy_path.write_text(json.dumps(self.policy))
+        restarted = Kernel(self.root / "runtime", self.policy_path)
+        with self.assertRaisesRegex(GateError, "UNKNOWN_RUN_OR_STALE_POLICY"):
+            restarted.notification_receipt("writer", run, "email", "fixture:sent")
+        with restarted._tx() as c:
+            row = c.execute("SELECT state,receipt FROM outbox WHERE run_id=?", (run,)).fetchone()
+        self.assertEqual(tuple(row), ("OUTCOME_UNKNOWN", None))
 
 
 if __name__ == "__main__":
