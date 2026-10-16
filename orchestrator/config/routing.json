@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "default_temperature": 0.0,
   "providers": {
     "perplexity": {
@@ -18,7 +18,8 @@
       "kind": "openai_compat",
       "base_url": "https://api.openai.com/v1",
       "model": "gpt-5",
-      "env_key": "OPENAI_API_KEY"
+      "env_key": "OPENAI_API_KEY",
+      "supports_temperature": false
     },
     "gemini": {
       "kind": "gemini",

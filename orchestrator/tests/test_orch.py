@@ -107,3 +107,50 @@ def test_iod01_runs_intact():
     for run in sorted((repo / "runs").glob("*__R*")):
         r = subprocess.run([sys.executable, str(repo / "tools/iod01_finalize.py"), str(run), "--check"], capture_output=True, text=True)
         assert r.returncode == 0, r.stdout
+
+# --- O-01 Sicherheits-Haertung ---
+@pytest.mark.parametrize("prompt", ["vertraulich Statik", "Vertraulich", "confidential x", "[p3] y", "VERTRAULICH"])
+def test_o01_privacy_case_insensitive(tmp_path, prompt):
+    assert mk(tmp_path).run("research", prompt)["provider"] == "local"
+
+def test_o01_privacy_in_system(tmp_path):
+    r = mk(tmp_path).run("research", "Q", system="Projekt ist vertraulich")
+    assert r["route"] == "private" and r["provider"] == "local"
+
+def test_o01_privacy_council_system(tmp_path):
+    assert mk(tmp_path).council("engineering_decision", "Q", system="CONFIDENTIAL")["route"] == "private"
+
+def test_o01_council_needs_two(tmp_path):
+    over = {n: MockProvider(n, fail=True) for n in ("claude", "gpt", "gemini")}
+    r = mk(tmp_path, **over).council("engineering_decision", "Q")
+    assert r["valid_answers"] == 1 and r["quorum"] is False and r["consensus"] is False
+
+def test_o01_parse_error_triggers_fallback(tmp_path, monkeypatch):
+    from nexus_orch import providers
+    monkeypatch.setattr(providers, "_post", lambda *a, **k: {"unexpected": True})
+    cfg = load_config()
+    prov = {n: MockProvider(n, answer=f"A-{n}") for n in cfg["providers"]}
+    prov["perplexity"] = providers.Provider("perplexity", {**cfg["providers"]["perplexity"], "env_key": None})
+    r = Orchestrator(cfg, prov, root=tmp_path).run("research", "Q")
+    assert r["provider"] == "gemini" and "parse error" in r["errors"][0]
+
+def test_o01_gpt5_no_temperature(monkeypatch):
+    from nexus_orch import providers
+    seen = {}
+    def fake(url, h, body, timeout=120):
+        seen.update(body=body); return {"choices": [{"message": {"content": "OK"}}]}
+    monkeypatch.setattr(providers, "_post", fake)
+    monkeypatch.setenv("OPENAI_API_KEY", "x")
+    providers.Provider("gpt", load_config()["providers"]["gpt"]).complete("Q", temperature=0.0)
+    assert "temperature" not in seen["body"]
+    providers.Provider("perplexity", {**load_config()["providers"]["perplexity"], "env_key": None}).complete("Q")
+    assert seen["body"]["temperature"] == 0.0
+
+def test_o01_lesson_always_proposed(tmp_path):
+    l = write_lesson({"agent": "a", "context": "c", "condition": "w", "pattern": "p", "evidence": "e", "status": "APPROVED"}, root=tmp_path)
+    assert l["status"] == "PROPOSED" and search_lessons("", root=tmp_path)[0]["status"] == "PROPOSED"
+
+def test_o01_audit_gitignored():
+    import subprocess
+    r = subprocess.run(["git", "check-ignore", "-q", "orchestrator/COMMUNICATION/audit/x.jsonl"], cwd=ROOT.parent)
+    assert r.returncode == 0

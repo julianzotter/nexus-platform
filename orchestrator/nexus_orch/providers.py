@@ -33,12 +33,24 @@ class Provider:
         except ProviderError:
             return False
     def complete(self, prompt, system="", temperature=0.0):
+        try:
+            return self._complete(prompt, system, temperature)
+        except ProviderError:
+            raise
+        except (KeyError, IndexError, TypeError, AttributeError, ValueError) as e:
+            # O-01: unerwartete Antwortstruktur -> ProviderError -> Fallback-Kette greift
+            raise ProviderError(f"{self.name}: parse error {type(e).__name__}: {e}") from e
+
+    def _complete(self, prompt, system="", temperature=0.0):
         post = lambda u, h, body: _post(u, h, body, self.cfg.get("timeout", 120))
         kind, base, model, key = self.cfg["kind"], self.cfg["base_url"], self.cfg["model"], self.key()
         if kind == "openai_compat":
             msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
             h = {"Authorization": f"Bearer {key}"} if key else {}
-            d = post(f"{base}/chat/completions", h, {"model": model, "messages": msgs, "temperature": temperature})
+            body = {"model": model, "messages": msgs}
+            if self.cfg.get("supports_temperature", True):  # O-01: gpt-5 akzeptiert keine Temperatur
+                body["temperature"] = temperature
+            d = post(f"{base}/chat/completions", h, body)
             return {"text": d["choices"][0]["message"]["content"], "citations": d.get("citations", []), "model": model}
         if kind == "anthropic":
             d = post(f"{base}/v1/messages", {"x-api-key": key, "anthropic-version": "2023-06-01"},
