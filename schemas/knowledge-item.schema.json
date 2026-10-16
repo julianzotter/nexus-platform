@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge item (incl. norm clause)",
+  "type": "object",
+  "required": ["id", "kind", "title", "source_file_id", "version", "status"],
+  "properties": {
+    "id": {"type": "string", "description": "Stable ID shared with the NEXUS-AI-AEC knowledge graph"},
+    "kind": {"enum": ["note", "norm_clause", "solver", "workflow"]},
+    "title": {"type": "string"},
+    "source_file_id": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+    "version": {"type": "string"},
+    "status": {"enum": ["VALID", "SUPERSEDED", "DRAFT"]},
+    "norm": {
+      "type": "object",
+      "required": ["standard", "edition", "clause"],
+      "properties": {
+        "standard": {"type": "string", "description": "e.g. EN 1992-1-1"},
+        "edition": {"type": "string"},
+        "national_annex": {"type": "string", "description": "e.g. ÖNORM B 1992-1-1, DIN EN 1992-1-1/NA"},
+        "clause": {"type": "string"}
+      }
+    }
+  }
+}

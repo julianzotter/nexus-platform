@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "File registry record (one JSONL line)",
+  "type": "object",
+  "required": ["id", "root", "path", "name", "ext", "size", "mtime", "sha256", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
+    "root": {"enum": ["NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH", "julianzotter", "Obsidian-Vault", "Google Drive"]},
+    "path": {"type": "string"},
+    "name": {"type": "string"},
+    "ext": {"type": "string"},
+    "size": {"type": "integer", "minimum": 0},
+    "mtime": {"type": "string", "format": "date-time"},
+    "sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "status": {"enum": ["FOUND", "SKIPPED", "ERROR", "INCOMPLETE"]},
+    "duplicate_of": {"type": ["string", "null"]},
+    "duplicate_group": {"type": ["string", "null"]}
+  }
+}
