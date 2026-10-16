@@ -16,3 +16,8 @@ jobs:
       - run: pip install jsonschema
       - run: python -m unittest discover -s tests
       - run: python tools/validate_registry.py
+
+      - name: CPLM local invariants
+        run: |
+          pip install -r cplm-implementation/requirements.txt
+          PYTHONPATH=cplm-implementation python -m unittest discover -s cplm-implementation/tests -v
