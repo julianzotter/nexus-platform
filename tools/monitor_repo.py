@@ -90,7 +90,7 @@ def write_report(report: dict[str, Any], directory: Path) -> None:
     lines += [f"| {name} | {check['status']} |" for name, check in report["checks"].items()]
     lines += ["", f"Commit: `{report['commit']}`", f"Observed UTC: {report['observed_at']}", "",
               "A successful workflow is not proof of complete knowledge coverage or engineering approval.",
-              "Reports are GitHub artifacts; no Drive sync, notifications or automated merge is installed."]
+              "Reports are GitHub artifacts. A separate WORK delivery workflow exists; only its verified receipts prove delivery. No automated merge is authorized."]
     text = "\n".join(lines) + "\n"
     (directory / "report.md").write_text(text, encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
