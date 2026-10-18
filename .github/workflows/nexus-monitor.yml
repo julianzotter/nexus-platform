@@ -1,0 +1,29 @@
+name: NEXUS Monitor
+on:
+  schedule:
+    - cron: "0 5 * * 1"   # wöchentlich, Montag 05:00 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install jsonschema
+      - run: python tools/validate_registry.py
+      - run: python tools/validate_knowledge.py
+      - name: Offene PRs und Mergefähigkeit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr list --state open --json number,title,mergeable > monitor_prs.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: monitor-report
+          path: monitor_prs.json
