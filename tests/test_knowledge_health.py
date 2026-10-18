@@ -96,6 +96,18 @@ class HealthTests(unittest.TestCase):
             report = build_report(root, root / 'missing', root / 'missing', NOW, 180)
             self.assertEqual(report['status'], 'FAIL')
 
+    def test_real_workflow_snapshot_is_bound_to_registry_hash(self):
+        import hashlib
+        root = Path(__file__).resolve().parents[1]
+        records = [json.loads(line) for line in (root / 'registry/file-registry.jsonl').read_text().splitlines() if line]
+        knowledge = json.loads((root / 'registry/knowledge/monitor-workflow-observation.json').read_text())
+        record = next(r for r in records if r['id'] == knowledge['source_file_id'])
+        body = (root / record['snapshot_path']).read_bytes()
+        self.assertEqual(hashlib.sha256(body).hexdigest(), record['sha256'])
+        self.assertEqual(record['sha256'], knowledge['source_sha256'])
+        self.assertEqual(knowledge['status'], 'DRAFT')
+        self.assertEqual(knowledge['source_revision'], record['source_revision'])
+
     def test_strict_rejects_incomplete(self):
         self.assertEqual(exit_code({'status': 'INCOMPLETE'}), 0)
         self.assertEqual(exit_code({'status': 'INCOMPLETE'}, strict=True), 2)
