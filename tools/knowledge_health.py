@@ -2,7 +2,11 @@
 """Knowledge health report: freshness, sign-off validity, source-link integrity, coverage.
 
 Unmeasurable metrics are reported as INCOMPLETE, never guessed.
-Exit code 1 if any item is STALE/BROKEN (CI gate); INCOMPLETE alone does not fail.
+
+States: OK (human-approved, current, linked), DRAFT (no human sign-off: an LLM or
+missing approver never yields OK), STALE, BROKEN, INCOMPLETE.
+Top-level status: NO_DATA when there are no knowledge items (never PASS).
+Exit codes: 0 healthy or NO_DATA; 1 any STALE/BROKEN; 2 NO_DATA with --require-data.
 """
 from __future__ import annotations
 
@@ -27,9 +31,11 @@ def assess_item(item: dict, registry_ids: set[str], now: datetime, max_age_days:
     """Return {id, state, reasons}; state is OK, STALE, BROKEN or INCOMPLETE."""
     reasons: list[str] = []
     state = "OK"
+    signoff = item.get("signoff")
+    if not item.get("engineering_result") and not isinstance(signoff, dict):
+        return {"id": item.get("id"), "state": "DRAFT", "reasons": ["no human sign-off recorded"]}
     if item.get("source_file_id") not in registry_ids:
         state, reasons = "BROKEN", ["source_file_id not found in file registry"]
-    signoff = item.get("signoff")
     if item.get("engineering_result") and not isinstance(signoff, dict):
         state = "BROKEN"
         reasons.append("engineering result without sign-off")
@@ -47,6 +53,9 @@ def assess_item(item: dict, registry_ids: set[str], now: datetime, max_age_days:
             if (now - decided).days > max_age_days and state == "OK":
                 state = "STALE"
                 reasons.append(f"sign-off older than {max_age_days} days")
+    if state == "OK" and (not isinstance(signoff, dict) or signoff.get("approver_type") != "human"):
+        state = "DRAFT"
+        reasons.append("sign-off not by a human approver")
     return {"id": item.get("id"), "state": state, "reasons": reasons}
 
 
@@ -78,6 +87,7 @@ def build_report(knowledge_dir: Path, registry: Path, coverage: Path, now: datet
             sources[name] = s.get("coverage_percent") if s.get("coverage_percent") is not None else "INCOMPLETE"
     total = len(results)
     return {
+        "status": "NO_DATA" if total == 0 else "DATA",
         "items": total,
         "counts": counts,
         "healthy_percent": round(100 * counts.get("OK", 0) / total, 1) if total else "INCOMPLETE",
@@ -92,11 +102,16 @@ def main() -> int:
     ap.add_argument("--registry", type=Path, default=ROOT / "registry" / "file-registry.jsonl")
     ap.add_argument("--coverage", type=Path, default=ROOT / "registry" / "coverage-per-source.json")
     ap.add_argument("--max-age-days", type=int, default=DEFAULT_MAX_AGE_DAYS)
+    ap.add_argument("--require-data", action="store_true", help="exit 2 when there are no items")
     args = ap.parse_args()
     report = build_report(args.knowledge_dir, args.registry, args.coverage, datetime.now(timezone.utc), args.max_age_days)
     print(json.dumps(report, indent=2, ensure_ascii=False))
     bad = report["counts"].get("STALE", 0) + report["counts"].get("BROKEN", 0)
-    return 1 if bad else 0
+    if bad:
+        return 1
+    if report["status"] == "NO_DATA" and args.require_data:
+        return 2
+    return 0
 
 
 if __name__ == "__main__":
