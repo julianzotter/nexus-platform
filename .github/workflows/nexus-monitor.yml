@@ -1,7 +1,7 @@
 name: NEXUS Monitor
 on:
   schedule:
-    - cron: "17 * * * *"   # hourly at :17 UTC; scheduled runs may be delayed
+    - cron: "17 * * * *"   # hourly stabilization at :17 UTC; scheduled runs may be delayed; Actions usage only
   workflow_dispatch:
   push:
     branches: [main]
