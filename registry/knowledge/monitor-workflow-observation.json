@@ -1,0 +1,19 @@
+{
+  "id": "KO-NEXUS-MONITOR-CONFIG-20261018",
+  "kind": "workflow",
+  "title": "Direct observation of NEXUS Monitor configuration at immutable main revision",
+  "source_file_id": "a48a8748013ade84",
+  "version": "1.0.0",
+  "status": "DRAFT",
+  "engineering_result": false,
+  "source_url": "https://github.com/julianzotter/nexus-platform/blob/194984ee0166954a8f4464b432d14d8c01acc4a1/.github/workflows/nexus-monitor.yml",
+  "source_revision": "194984ee0166954a8f4464b432d14d8c01acc4a1",
+  "source_sha256": "e4d1496aceb8a2695bdbe0751292f31c7f678ae752cbcd5ee44644f54cc07bc4",
+  "observations": {
+    "cron_utc": "17 * * * *",
+    "runner": "ubuntu-24.04",
+    "push_branch": "main",
+    "manual_trigger": true
+  },
+  "validation_scope": "source bytes match Git blob; workflow configuration only, not runtime or human approval"
+}

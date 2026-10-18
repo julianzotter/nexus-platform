@@ -1,29 +1,42 @@
 name: NEXUS Monitor
 on:
   schedule:
-    - cron: "0 5 * * 1"   # wöchentlich, Montag 05:00 UTC
+    - cron: "17 * * * *"   # hourly stabilization at :17 UTC; scheduled runs may be delayed; Actions usage only
   workflow_dispatch:
   push:
     branches: [main]
 permissions:
   contents: read
   pull-requests: read
+concurrency:
+  group: nexus-monitor-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   monitor:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - run: pip install jsonschema
-      - run: python tools/validate_registry.py
-      - run: python tools/validate_knowledge.py
-      - name: Offene PRs und Mergefähigkeit
+      - run: python -m pip install jsonschema
+      - name: Validate and report repository state
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh pr list --state open --json number,title,mergeable > monitor_prs.json
-      - uses: actions/upload-artifact@v4
+        run: python tools/monitor_repo.py
+      - name: Skill and agent inventory (read-only)
+        run: python tools/skill_inventory.py
+
+      - name: Preserve monitoring evidence even on failure
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v6
         with:
-          name: monitor-report
-          path: monitor_prs.json
+          name: nexus-monitor-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/monitor/
+            reports/skills/
+          if-no-files-found: error
+          retention-days: 30

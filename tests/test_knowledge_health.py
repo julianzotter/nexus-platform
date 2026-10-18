@@ -1,37 +1,113 @@
+import json
 import sys
+import tempfile
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-
-from knowledge_health import assess_item
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
+from knowledge_health import assess_item, build_report, exit_code
 
 NOW = datetime(2026, 10, 18, tzinfo=timezone.utc)
-FID = "0123456789abcdef"
+FID = '0123456789abcdef'
 
 
 def item(**kw):
-    base = {"id": "k", "version": "1.0", "source_file_id": FID, "engineering_result": True,
-            "signoff": {"result_version": "1.0", "decided_at": "2026-10-01T00:00:00Z"}}
+    base = {'id': 'k', 'kind': 'note', 'title': 'fixture', 'version': '1.0',
+            'status': 'VALID', 'source_file_id': FID, 'engineering_result': True,
+            'norm': {'standard': 'TEST ONLY', 'edition': '1', 'clause': 'fixture'},
+            'signoff': {'reviewer': 'TEST FIXTURE, NOT HUMAN APPROVAL', 'decision': 'APPROVED',
+                        'result_version': '1.0', 'decided_at': '2026-10-01T00:00:00Z'}}
     base.update(kw)
     return base
 
 
 class HealthTests(unittest.TestCase):
-    def test_ok(self):
-        self.assertEqual(assess_item(item(), {FID}, NOW, 180)["state"], "OK")
+    def assess(self, data, ids=None):
+        return assess_item(data, {FID} if ids is None else ids, NOW, 180)['state']
 
-    def test_broken_link(self):
-        self.assertEqual(assess_item(item(), set(), NOW, 180)["state"], "BROKEN")
+    def test_schema_valid_approved_fixture(self):
+        self.assertEqual(self.assess(item()), 'OK')
 
-    def test_missing_signoff(self):
-        self.assertEqual(assess_item(item(signoff=None), {FID}, NOW, 180)["state"], "BROKEN")
+    def test_rejected_valid_is_broken(self):
+        data = item(); data['signoff']['decision'] = 'REJECTED'
+        self.assertEqual(self.assess(data), 'BROKEN')
+
+    def test_draft_without_signoff_is_incomplete(self):
+        data = item(status='DRAFT'); del data['signoff']
+        self.assertEqual(self.assess(data), 'INCOMPLETE')
+
+    def test_valid_without_signoff_is_broken(self):
+        data = item(); del data['signoff']
+        self.assertEqual(self.assess(data), 'BROKEN')
+
+    def test_missing_reviewer_is_broken(self):
+        data = item(); del data['signoff']['reviewer']
+        self.assertEqual(self.assess(data), 'BROKEN')
+
+    def test_broken_source_is_not_downgraded_by_stale_signoff(self):
+        data = item(); data['signoff']['result_version'] = '0.9'
+        self.assertEqual(self.assess(data, set()), 'BROKEN')
 
     def test_stale_version(self):
-        s = {"result_version": "0.9", "decided_at": "2026-10-01T00:00:00Z"}
-        self.assertEqual(assess_item(item(signoff=s), {FID}, NOW, 180)["state"], "STALE")
+        data = item(); data['signoff']['result_version'] = '0.9'
+        self.assertEqual(self.assess(data), 'STALE')
 
     def test_stale_age(self):
-        s = {"result_version": "1.0", "decided_at": "2025-01-01T00:00:00Z"}
-        self.assertEqual(assess_item(item(signoff=s), {FID}, NOW, 180)["state"], "STALE")
+        data = item(); data['signoff']['decided_at'] = '2025-01-01T00:00:00Z'
+        self.assertEqual(self.assess(data), 'STALE')
+
+    def test_future_naive_and_invalid_dates(self):
+        for value in ['2027-01-01T00:00:00Z', '2026-10-01T00:00:00', 'garbage']:
+            with self.subTest(value=value):
+                data = item(); data['signoff']['decided_at'] = value
+                self.assertEqual(self.assess(data), 'BROKEN')
+
+    def test_unapproved_identity_extension_is_not_human_authentication(self):
+        data = item(); data['signoff']['approver_type'] = 'human'
+        self.assertEqual(self.assess(data), 'BROKEN')
+
+    def test_non_engineering_broken_source_still_checked(self):
+        data = item(engineering_result=False, status='DRAFT'); del data['signoff']
+        self.assertEqual(self.assess(data, set()), 'BROKEN')
+
+    def test_non_object(self):
+        self.assertEqual(self.assess([]), 'BROKEN')
+
+    def test_no_data_is_explicit_and_strict(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); registry = root / 'files.jsonl'; registry.write_text('')
+            report = build_report(root / 'missing', registry, root / 'coverage.json', NOW, 180)
+            self.assertEqual(report['status'], 'NO_DATA')
+            self.assertEqual(exit_code(report), 2)
+            self.assertEqual(exit_code(report, allow_empty=True), 0)
+            self.assertEqual(exit_code(report, allow_empty=True, strict=True), 2)
+
+    def test_malformed_registry_reports_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); registry = root / 'files.jsonl'; registry.write_text('{bad')
+            report = build_report(root, registry, root / 'coverage.json', NOW, 180)
+            self.assertEqual(report['status'], 'FAIL')
+            self.assertEqual(exit_code(report, allow_empty=True), 1)
+
+    def test_missing_registry_is_not_no_data_success(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            report = build_report(root, root / 'missing', root / 'missing', NOW, 180)
+            self.assertEqual(report['status'], 'FAIL')
+
+    def test_real_workflow_snapshot_is_bound_to_registry_hash(self):
+        import hashlib
+        root = Path(__file__).resolve().parents[1]
+        records = [json.loads(line) for line in (root / 'registry/file-registry.jsonl').read_text().splitlines() if line]
+        knowledge = json.loads((root / 'registry/knowledge/monitor-workflow-observation.json').read_text())
+        record = next(r for r in records if r['id'] == knowledge['source_file_id'])
+        body = (root / record['snapshot_path']).read_bytes()
+        self.assertEqual(hashlib.sha256(body).hexdigest(), record['sha256'])
+        self.assertEqual(record['sha256'], knowledge['source_sha256'])
+        self.assertEqual(knowledge['status'], 'DRAFT')
+        self.assertEqual(knowledge['source_revision'], record['source_revision'])
+
+    def test_strict_rejects_incomplete(self):
+        self.assertEqual(exit_code({'status': 'INCOMPLETE'}), 0)
+        self.assertEqual(exit_code({'status': 'INCOMPLETE'}, strict=True), 2)

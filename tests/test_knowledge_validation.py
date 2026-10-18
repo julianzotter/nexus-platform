@@ -1,6 +1,8 @@
 import json
 import sys
 import unittest
+import subprocess
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +23,28 @@ def item(**kw):
 
 
 class KnowledgeTests(unittest.TestCase):
+    def test_missing_or_empty_directory_is_no_data_not_pass(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for path in (Path(directory), Path(directory) / "missing"):
+                result = subprocess.run([sys.executable, str(ROOT / "tools/validate_knowledge.py"),
+                                         "--dir", str(path)], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("NO_DATA", result.stdout)
+                self.assertNotIn("PASS", result.stdout)
+
+    def test_allow_empty_is_explicit_and_still_reports_no_data(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result = subprocess.run([sys.executable, str(ROOT / "tools/validate_knowledge.py"),
+                                     "--dir", directory, "--allow-empty"], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0)
+            self.assertIn("NO_DATA", result.stdout)
+
+    def test_file_as_directory_is_an_error_even_with_allow_empty(self):
+        with tempfile.NamedTemporaryFile() as file:
+            result = subprocess.run([sys.executable, str(ROOT / "tools/validate_knowledge.py"),
+                                     "--dir", file.name, "--allow-empty"], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 1)
+
     def test_valid_signed_item(self):
         self.assertEqual(validate_item(item(), SCHEMA_DOC), [])
 
