@@ -38,7 +38,16 @@ def validate_dir(directory: Path) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dir", type=Path, default=Path("registry/knowledge"))
-    errors = validate_dir(parser.parse_args().dir)
+    parser.add_argument("--allow-empty", action="store_true",
+                        help="Allow an unpopulated inventory; still report NO_DATA, never PASS")
+    args = parser.parse_args()
+    if not args.dir.exists() or (args.dir.is_dir() and not any(args.dir.glob("*.json"))):
+        print("Knowledge validation: NO_DATA (no knowledge items evaluated)")
+        return 0 if args.allow_empty else 2
+    if not args.dir.is_dir():
+        print("Knowledge validation: FAIL (input path is not a directory)")
+        return 1
+    errors = validate_dir(args.dir)
     if errors:
         print("Knowledge validation: FAIL")
         for e in errors:
