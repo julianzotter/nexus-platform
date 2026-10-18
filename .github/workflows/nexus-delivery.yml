@@ -1,0 +1,62 @@
+name: NEXUS GitHub to WORK
+on:
+  workflow_run:
+    workflows: [NEXUS Monitor]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Completed NEXUS Monitor run on main to deliver or retry
+        required: true
+        type: string
+      resume_delivery_run_id:
+        description: Optional earlier delivery workflow run whose journal must be restored
+        required: false
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: nexus-work-delivery-single-writer
+  cancel-in-progress: false
+jobs:
+  deliver:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # Privileged workflow_run: execute trusted default-branch tooling only.
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Validate source run id
+        env:
+          SOURCE_RUN: ${{ github.event.workflow_run.id || inputs.source_run_id }}
+        run: |
+          [[ "$SOURCE_RUN" =~ ^[0-9]+$ ]] || exit 2
+          echo "SOURCE_RUN=$SOURCE_RUN" >> "$GITHUB_ENV"
+      - name: Restore journal from previous attempt of this delivery run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESUME_DELIVERY_RUN_ID: ${{ inputs.resume_delivery_run_id }}
+        run: python tools/restore_delivery_state.py
+      - name: Deliver and verify raw bytes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
+          NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
+          NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
+        run: python tools/deliver_work.py --run-id "$SOURCE_RUN"
+      - name: Preserve receipts, failures and preallocated IDs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: nexus-delivery-state-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/delivery/
+          if-no-files-found: error
+          retention-days: 30
