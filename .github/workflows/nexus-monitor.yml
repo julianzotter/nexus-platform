@@ -1,7 +1,7 @@
 name: NEXUS Monitor
 on:
   schedule:
-    - cron: "17 5 * * *"   # daily at 05:17 UTC; scheduled runs may be delayed (credit-saving)
+    - cron: "17 * * * *"   # hourly at :17 UTC (60-min cadence per ID-01); scheduled runs may be delayed; daily reduction possible later for credit saving
   workflow_dispatch:
   push:
     branches: [main]
