@@ -27,11 +27,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python tools/monitor_repo.py
+      - name: Skill and agent inventory (read-only)
+        run: python tools/skill_inventory.py
+
       - name: Preserve monitoring evidence even on failure
         if: ${{ always() }}
         uses: actions/upload-artifact@v6
         with:
           name: nexus-monitor-${{ github.run_id }}-${{ github.run_attempt }}
-          path: reports/monitor/
+          path: |
+            reports/monitor/
+            reports/skills/
           if-no-files-found: error
           retention-days: 30
