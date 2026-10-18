@@ -232,6 +232,16 @@ def execute(args: argparse.Namespace, output: Path) -> dict:
     return {'status': 'DELIVERY_VERIFIED', 'deliveries': receipts, 'human_acceptance': 'PENDING'}
 
 
+def failure_status(reason: str) -> str:
+    if reason.startswith('BLOCKED') or reason in {'HTTP_400', 'HTTP_401', 'HTTP_403', 'HTTP_404'}:
+        return 'BLOCKED'
+    if 'CONFLICT' in reason or 'DUPLICATE' in reason:
+        return 'CONFLICT'
+    if 'DIGEST' in reason or 'HASH_MISMATCH' in reason or 'ARCHIVE' in reason:
+        return 'INTEGRITY_FAILED'
+    return 'RETRY_REQUIRED'
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo', default=REPO)
@@ -246,7 +256,7 @@ def main() -> int:
     except (DeliveryError, OSError, ValueError, KeyError, zipfile.BadZipFile, subprocess.TimeoutExpired) as exc:
         # Only our sanitized errors are surfaced; raw service responses may contain credentials.
         reason = str(exc) if isinstance(exc, DeliveryError) else type(exc).__name__
-        report = {'status': 'BLOCKED' if reason.startswith('BLOCKED') else 'RETRY_REQUIRED',
+        report = {'status': failure_status(reason),
                   'reason': reason, 'run_id': args.run_id, 'human_acceptance': 'PENDING'}
         code = 2
     report['recorded_at'] = datetime.now(timezone.utc).isoformat()

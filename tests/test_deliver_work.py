@@ -160,3 +160,11 @@ class TransportBoundaryTests(unittest.TestCase):
             self.assertEqual(Handler.calls, 2)
         finally:
             server.shutdown(); server.server_close(); thread.join()
+
+
+class FailureClassificationTests(unittest.TestCase):
+    def test_integrity_permission_and_conflict_are_not_retry_success(self):
+        from deliver_work import failure_status
+        for reason, expected in [('HTTP_403', 'BLOCKED'), ('READBACK_HASH_MISMATCH', 'INTEGRITY_FAILED'),
+                                 ('JOURNAL_SOURCE_CONFLICT', 'CONFLICT'), ('NETWORK_RETRY_EXHAUSTED', 'RETRY_REQUIRED')]:
+            self.assertEqual(failure_status(reason), expected)
