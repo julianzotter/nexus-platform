@@ -227,3 +227,9 @@ nexus_secrets*.json
 # O-01: Audit-Logs (lokal, nie committen)
 audit/
 **/COMMUNICATION/audit/
+
+# Local credentials must never enter source control
+.env
+.env.*
+
+.nexus-credentials/

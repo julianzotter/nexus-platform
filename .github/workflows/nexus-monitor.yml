@@ -28,7 +28,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python tools/monitor_repo.py
       - name: Skill and agent inventory (read-only)
+        if: ${{ always() }}
         run: python tools/skill_inventory.py
+
+      - name: Advisory LLM analysis of monitor findings
+        if: ${{ always() }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-4.1-mini' }}
+          NEXUS_LLM_EXPORT_APPROVED: ${{ vars.NEXUS_LLM_EXPORT_APPROVED }}
+        run: python tools/monitor_llm.py
 
       - name: Preserve monitoring evidence even on failure
         if: ${{ always() }}

@@ -1,0 +1,2 @@
+# Only needed on the local workstation during one-time Google consent.
+google-auth-oauthlib>=1.2,<2
