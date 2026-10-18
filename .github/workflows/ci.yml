@@ -19,6 +19,7 @@ jobs:
       - run: python tools/validate_registry.py
       # Inventory is not populated yet; report NO_DATA rather than claim PASS.
       - run: python tools/validate_knowledge.py --allow-empty
+      - run: python tools/knowledge_health.py --allow-empty
 
       - name: CPLM local invariants
         run: |
