@@ -1,0 +1,4 @@
+interface:
+  display_name: "NEXUS Tab Prioritizer"
+  short_description: "Rank tabs against interests and NEXUS workorders"
+  default_prompt: "Use $rank-nexus-tabs to rank my open tabs against my interests and current NEXUS workorders."
