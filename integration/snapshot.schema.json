@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:registry-dashboard:1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "source",
+    "knowledge",
+    "monitor",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "nexus-registry-dashboard/1.0.0"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "revision",
+        "files"
+      ],
+      "properties": {
+        "repository": {
+          "const": "julianzotter/nexus-platform"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "knowledge": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record",
+          "health"
+        ],
+        "properties": {
+          "record": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "title": "Knowledge item (incl. norm clause)",
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "title",
+              "source_file_id",
+              "version",
+              "status"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Stable ID shared with the NEXUS-AI-AEC knowledge graph"
+              },
+              "kind": {
+                "enum": [
+                  "note",
+                  "norm_clause",
+                  "solver",
+                  "workflow"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "source_file_id": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{16}$"
+              },
+              "version": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "VALID",
+                  "SUPERSEDED",
+                  "DRAFT"
+                ]
+              },
+              "norm": {
+                "type": "object",
+                "required": [
+                  "standard",
+                  "edition",
+                  "clause"
+                ],
+                "properties": {
+                  "standard": {
+                    "type": "string",
+                    "description": "e.g. EN 1992-1-1",
+                    "minLength": 1
+                  },
+                  "edition": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Edition/year, e.g. 2015 or 2011-12"
+                  },
+                  "national_annex": {
+                    "type": "string",
+                    "description": "e.g. ÖNORM B 1992-1-1, DIN EN 1992-1-1/NA"
+                  },
+                  "clause": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "engineering_result": {
+                "type": "boolean",
+                "description": "True if the item carries a computed engineering result; requires a human sign-off before status VALID"
+              },
+              "signoff": {
+                "type": "object",
+                "required": [
+                  "reviewer",
+                  "decision",
+                  "decided_at",
+                  "result_version"
+                ],
+                "properties": {
+                  "reviewer": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "decision": {
+                    "enum": [
+                      "APPROVED",
+                      "REJECTED"
+                    ]
+                  },
+                  "decided_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "result_version": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Must equal the item's version: binds sign-off to the reviewed result"
+                  },
+                  "evidence_id": {
+                    "type": "string",
+                    "description": "Evidence record (kind human_review)"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "const": "norm_clause"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "norm"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "engineering_result": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "engineering_result"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "norm"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "engineering_result": {
+                      "const": true
+                    },
+                    "status": {
+                      "const": "VALID"
+                    }
+                  },
+                  "required": [
+                    "engineering_result",
+                    "status"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "signoff"
+                  ],
+                  "properties": {
+                    "signoff": {
+                      "properties": {
+                        "decision": {
+                          "const": "APPROVED"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "health": {
+            "enum": [
+              "OK",
+              "INCOMPLETE",
+              "STALE",
+              "BROKEN"
+            ]
+          }
+        }
+      }
+    },
+    "monitor": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observed_at",
+        "commit",
+        "run_id",
+        "run_attempt",
+        "checks"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "INCOMPLETE",
+            "ATTENTION"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "run_id": {
+          "type": "string"
+        },
+        "run_attempt": {
+          "type": "string"
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "ERROR",
+              "CONFLICT",
+              "UNKNOWN",
+              "NO_DATA",
+              "INCOMPLETE"
+            ]
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

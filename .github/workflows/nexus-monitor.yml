@@ -39,6 +39,10 @@ jobs:
           NEXUS_LLM_EXPORT_APPROVED: ${{ vars.NEXUS_LLM_EXPORT_APPROVED }}
         run: python tools/monitor_llm.py
 
+      - name: Export versioned read-only dashboard snapshot
+        if: ${{ always() }}
+        run: python tools/export_dashboard.py --monitor reports/monitor/report.json
+
       - name: Preserve monitoring evidence even on failure
         if: ${{ always() }}
         uses: actions/upload-artifact@v6
@@ -49,3 +53,4 @@ jobs:
             reports/skills/
           if-no-files-found: error
           retention-days: 30
+
