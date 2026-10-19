@@ -16,6 +16,10 @@ import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
+from nexus_ledger import Ledger, LedgerError  # noqa: E402
 
 DEFAULT_WORK = r'G:\Meine Ablage\_developement\LLM-LOCAL-SSOT\WORK'
 DEFAULT_REPO = str(Path.home() / 'nexus-platform')
@@ -32,10 +36,19 @@ class BridgeError(Exception):
 
 
 class NexusBridge:
-    def __init__(self, work_root: str | Path, repo_root: str | Path, write_enabled: bool = False):
+    def __init__(self, work_root: str | Path, repo_root: str | Path, write_enabled: bool = False,
+                 agent_id: str | None = None):
         self.work = Path(work_root).resolve()
         self.repo = Path(repo_root).resolve()
         self.write_enabled = write_enabled
+        self.agent_id = agent_id  # fixed per MCP client config; callers cannot choose their identity
+
+    def ledger(self, write: bool = False) -> Ledger:
+        if not self.agent_id:
+            raise BridgeError('NEXUS_AGENT_ID_NOT_CONFIGURED')
+        if write and not self.write_enabled:
+            raise BridgeError('WRITE_DISABLED_SET_NEXUS_MCP_WRITE_1')
+        return Ledger(self.work, self.agent_id)
 
     # ---- guards -------------------------------------------------------
     def _inside(self, root: Path, rel: str) -> Path:
@@ -53,7 +66,7 @@ class NexusBridge:
         return {'work_root': str(self.work), 'work_mounted': self.work.is_dir(),
                 'repo_root': str(self.repo), 'repo_present': (self.repo / '.git').exists(),
                 'repo_head': self._git('rev-parse', 'HEAD') if (self.repo / '.git').exists() else None,
-                'write_enabled': self.write_enabled}
+                'write_enabled': self.write_enabled, 'agent_id': self.agent_id}
 
     def list_work(self, subdir: str = '.', pattern: str = '*', limit: int = 200) -> list[dict]:
         base = self.work if subdir in ('', '.') else self._inside(self.work, subdir)
@@ -110,6 +123,8 @@ class NexusBridge:
                       subdir: str = 'REPORTS') -> dict:
         if not self.write_enabled:
             raise BridgeError('WRITE_DISABLED_SET_NEXUS_MCP_WRITE_1')
+        if self.agent_id and agent_id != self.agent_id:
+            raise BridgeError('AGENT_ID_MISMATCH_WITH_CONFIGURED_IDENTITY')
         if not SAFE_ID.fullmatch(work_order_id) or not SAFE_ID.fullmatch(agent_id) or not SAFE_NAME.fullmatch(name):
             raise BridgeError('INVALID_IDENTIFIER')
         data = content.encode('utf-8')
@@ -138,7 +153,7 @@ def build_server(bridge: NexusBridge):
         def wrapper(*a, **k):
             try:
                 return fn(*a, **k)
-            except BridgeError as exc:
+            except (BridgeError, LedgerError) as exc:
                 return {'error': str(exc)}
         wrapper.__name__, wrapper.__doc__ = fn.__name__, fn.__doc__
         return wrapper
@@ -173,13 +188,39 @@ def build_server(bridge: NexusBridge):
         """Create a NEW result file in WORK/REPORTS (status REVIEW). Requires NEXUS_MCP_WRITE=1."""
         return safe(bridge.submit_result)(work_order_id, name, content, agent_id)
 
+    @mcp.tool()
+    def my_inbox() -> list | dict:
+        """Only the open work orders addressed to (or blocked back to) this agent. Token-minimal."""
+        return safe(lambda: bridge.ledger().inbox())()
+
+    @mcp.tool()
+    def send_order(work_order_id: str, to_agent: str, title: str, input_path: str = '') -> dict:
+        """Create REQUESTED event (optional input file in WORK, sha256-bound)."""
+        return safe(lambda: bridge.ledger(True).send(work_order_id, to_agent, title, input_path or None))()
+
+    @mcp.tool()
+    def ack_order(work_order_id: str) -> dict:
+        """Receiver confirms receipt (ACK)."""
+        return safe(lambda: bridge.ledger(True).ack(work_order_id))()
+
+    @mcp.tool()
+    def complete_order(work_order_id: str, artifact_path: str) -> dict:
+        """Receiver reports DONE with artifact path in WORK (sha256 recorded). Verification is automatic."""
+        return safe(lambda: bridge.ledger(True).done(work_order_id, artifact_path))()
+
+    @mcp.tool()
+    def block_order(work_order_id: str, reason: str) -> dict:
+        """Receiver reports BLOCKED with reason (returns to sender's inbox)."""
+        return safe(lambda: bridge.ledger(True).block(work_order_id, reason))()
+
     return mcp
 
 
 def main() -> None:
     bridge = NexusBridge(os.environ.get('NEXUS_WORK_ROOT', DEFAULT_WORK),
                          os.environ.get('NEXUS_REPO_ROOT', DEFAULT_REPO),
-                         os.environ.get('NEXUS_MCP_WRITE') == '1')
+                         os.environ.get('NEXUS_MCP_WRITE') == '1',
+                         os.environ.get('NEXUS_AGENT_ID'))
     build_server(bridge).run()  # stdio
 
 
