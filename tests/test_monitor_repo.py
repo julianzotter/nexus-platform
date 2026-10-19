@@ -41,6 +41,52 @@ class MonitorTests(unittest.TestCase):
         with patch.object(monitor, "github_json", return_value=[[]]):
             self.assertEqual(monitor.inspect_prs("owner/repo"), {"status": "PASS", "items": []})
 
+    def test_workflow_inventory_reports_declared_triggers_without_runtime_claim(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "scheduled.yml").write_text(
+                "name: Scheduled poll\n"
+                "on:\n"
+                "  schedule:\n"
+                "    - cron: '17 * * * *' # hourly\n"
+                "  workflow_dispatch:\n"
+                "  push:\n"
+                "    branches: [main]\n"
+                "permissions:\n"
+                "  contents: read\n",
+                encoding="utf-8")
+            report = monitor.inspect_workflow_configuration(root)
+        self.assertEqual(report["state"], "OBSERVED")
+        self.assertFalse(report["runtime_verified"])
+        self.assertEqual(report["workflows"], [{
+            "file": "scheduled.yml",
+            "name": "Scheduled poll",
+            "events": ["schedule", "workflow_dispatch", "push"],
+            "schedules": ["17 * * * *"],
+        }])
+
+    def test_workflow_inventory_distinguishes_no_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            report = monitor.inspect_workflow_configuration(Path(directory))
+        self.assertEqual(report["state"], "NO_DATA")
+        self.assertFalse(report["runtime_verified"])
+
+    def test_report_explains_workflow_inventory_is_not_execution_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            monitor.write_report({
+                "status": "INCOMPLETE",
+                "checks": {},
+                "commit": "abc",
+                "observed_at": "2026-10-19T00:00:00+00:00",
+                "automation_configuration": {
+                    "workflows": [{"name": "Poll", "file": "poll.yml",
+                                   "events": ["schedule"], "schedules": ["*/5 * * * *"]}]
+                },
+            }, Path(directory))
+            text = (Path(directory) / "report.md").read_text(encoding="utf-8")
+        self.assertIn("does not prove that a workflow ran", text)
+        self.assertIn("`*/5 * * * *`", text)
+
     def test_validation_failure_does_not_skip_knowledge_check(self):
         results = [{"exit_code": 1, "stdout": "FAIL", "stderr": ""},
                    {"exit_code": 2, "stdout": "NO_DATA", "stderr": ""}]

@@ -75,6 +75,50 @@ def validation_checks() -> dict[str, Any]:
     return checks
 
 
+def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows") -> dict[str, Any]:
+    """Inventory declared workflow triggers; this does not prove a workflow ran."""
+    workflows = []
+    paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml"))) if directory.is_dir() else []
+    for path in paths:
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            continue
+        name = next((match.group(1).strip() for line in lines
+                     if (match := re.match(r"^name:\s*(.+?)\s*$", line))), path.stem)
+        triggers: list[str] = []
+        schedules: list[str] = []
+        in_triggers = False
+        current_trigger = None
+        for line in lines:
+            if not in_triggers:
+                if re.fullmatch(r"on:\s*(?:#.*)?", line):
+                    in_triggers = True
+                else:
+                    inline = re.match(r"^on:\s*\[([^\]]*)\]", line)
+                    if inline:
+                        triggers.extend(part.strip().strip("'\"") for part in inline.group(1).split(",")
+                                        if part.strip())
+                continue
+            if line.strip() and not line.startswith((" ", "\t", "#")):
+                break
+            event = re.match(r"^  ([A-Za-z0-9_-]+):\s*(?:#.*)?$", line)
+            if event:
+                current_trigger = event.group(1)
+                triggers.append(current_trigger)
+            elif current_trigger == "schedule":
+                cron = re.match(r"^    - cron:\s*(.+?)\s*(?:#.*)?$", line)
+                if cron:
+                    schedules.append(cron.group(1).strip().strip("'\""))
+        workflows.append({"file": path.name, "name": name, "events": triggers, "schedules": schedules})
+    return {
+        "state": "OBSERVED" if workflows else "NO_DATA",
+        "runtime_verified": False,
+        "scope": "workflow declarations only; configured schedules are not execution receipts",
+        "workflows": workflows,
+    }
+
+
 def overall_status(checks: dict[str, Any]) -> str:
     states = {check["status"] for check in checks.values()}
     if states & {"FAIL", "ERROR", "CONFLICT", "UNKNOWN"}:
@@ -88,6 +132,17 @@ def write_report(report: dict[str, Any], directory: Path) -> None:
     lines = ["# NEXUS repository monitor", "", f"Overall: **{report['status']}**", "",
              "| Check | State |", "|---|---|"]
     lines += [f"| {name} | {check['status']} |" for name, check in report["checks"].items()]
+    automation = report.get("automation_configuration", {})
+    lines += ["", "## Workflow trigger configuration", "",
+              "Declared triggers only; this inventory does not prove that a workflow ran.", "",
+              "| Workflow | Events | Schedules (UTC) |", "|---|---|---|"]
+    lines += [
+        f"| {item['name']} (`{item['file']}`) | {', '.join(item['events']) or 'none detected'} "
+        f"| {', '.join(f'`{cron}`' for cron in item['schedules']) or 'none'} |"
+        for item in automation.get("workflows", [])
+    ]
+    if not automation.get("workflows"):
+        lines.append("| — | No workflow files observed | — |")
     lines += ["", f"Commit: `{report['commit']}`", f"Observed UTC: {report['observed_at']}", "",
               "A successful workflow is not proof of complete knowledge coverage or engineering approval.",
               "Reports are GitHub artifacts. A separate WORK delivery workflow exists; only its verified receipts prove delivery. No automated merge is authorized."]
@@ -110,6 +165,7 @@ def main() -> int:
               "commit": os.environ.get("GITHUB_SHA", "UNKNOWN"),
               "run_id": os.environ.get("GITHUB_RUN_ID", "LOCAL"),
               "run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT", "1"),
+              "automation_configuration": inspect_workflow_configuration(),
               "status": overall_status(checks), "checks": checks}
     write_report(report, args.report_dir)
     print(f"NEXUS monitor: {report['status']}")
