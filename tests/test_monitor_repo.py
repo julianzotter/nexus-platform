@@ -82,6 +82,18 @@ class MonitorTests(unittest.TestCase):
                 "    - cron: '3 * * * *'\n"
                 "  workflow_dispatch:\n",
                 encoding="utf-8")
+            (root / "schedule-dispatch.yml").write_text(
+                "name: Schedule and dispatch\n"
+                "on:\n"
+                "  schedule:\n"
+                "    - cron: '4 * * * *'\n"
+                "  workflow_dispatch:\n"
+                "    inputs:\n"
+                "      mode:\n"
+                "        options:\n"
+                "          - manual\n"
+                "          - scheduled\n",
+                encoding="utf-8")
             report = monitor.inspect_workflow_configuration(root)
         self.assertEqual(report["state"], "OBSERVED")
         self.assertFalse(report["runtime_verified"])
@@ -107,6 +119,10 @@ class MonitorTests(unittest.TestCase):
             "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
         })
         self.assertEqual(report["workflows"][6], {
+            "file": "schedule-dispatch.yml", "name": "Schedule and dispatch",
+            "events": ["schedule", "workflow_dispatch"], "schedules": ["4 * * * *"],
+        })
+        self.assertEqual(report["workflows"][7], {
             "file": "scheduled.yml", "name": "Scheduled poll",
             "events": ["schedule", "workflow_dispatch", "push"],
             "schedules": ["17 * * * *", "7,37 * * * *", "11 2 * * *"],

@@ -79,8 +79,9 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
     """Inventory common workflow YAML forms without dependencies; this is not a YAML validator or run receipt."""
     workflows = []
     unreadable = []
-    paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml")), key=lambda path: path.name) \
-        if directory.is_dir() else []
+    paths = []
+    if directory.is_dir():
+        paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml")), key=lambda path: path.name)
     for path in paths:
         try:
             lines = path.read_text(encoding="utf-8").splitlines()
@@ -111,6 +112,7 @@ def _parse_workflow_name(lines: list[str], default_name: str) -> str:
             if candidate:
                 return candidate
     return default_name
+
 
 def _find_trigger_index(lines: list[str]) -> int | None:
     return next((index for index, line in enumerate(lines)
