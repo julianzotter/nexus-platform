@@ -50,6 +50,7 @@ class MonitorTests(unittest.TestCase):
                 "    schedule:\n"
                 "    - cron: '17 * * * *' # hourly\n"
                 "    - {cron: \"7,37 * * * *\"}\n"
+                "    - cron: 11 2 * * * # unquoted comment\n"
                 "    workflow_dispatch: {}\n"
                 "    push: {branches: [main]}\n"
                 "permissions:\n"
@@ -60,6 +61,8 @@ class MonitorTests(unittest.TestCase):
                 "\"on\": [push, pull_request] # PR and push\n",
                 encoding="utf-8")
             (root / "scalar.yml").write_text("name: Scalar\non: push\n", encoding="utf-8")
+            (root / "blankname.yaml").write_text(
+                "name: # use file name\non: push\n", encoding="utf-8")
             (root / "flow.yaml").write_text(
                 "name: Flow mapping\n"
                 "on: {push: {tags: [v1, v2], branches: [main, dev]}, workflow_dispatch: {}}\n",
@@ -76,23 +79,26 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(report["state"], "OBSERVED")
         self.assertFalse(report["runtime_verified"])
         self.assertEqual(report["workflows"][0], {
+            "file": "blankname.yaml", "name": "blankname", "events": ["push"], "schedules": [],
+        })
+        self.assertEqual(report["workflows"][1], {
             "file": "flow.yaml", "name": "Flow mapping",
             "events": ["push", "workflow_dispatch"], "schedules": [],
         })
-        self.assertEqual(report["workflows"][1], {
+        self.assertEqual(report["workflows"][2], {
             "file": "inline.yaml", "name": "Inline poll",
             "events": ["push", "pull_request"], "schedules": [],
         })
-        self.assertEqual(report["workflows"][2], {
+        self.assertEqual(report["workflows"][3], {
             "file": "nested.yaml", "name": "Nested sequence", "events": ["push"], "schedules": [],
         })
-        self.assertEqual(report["workflows"][3], {
+        self.assertEqual(report["workflows"][4], {
             "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
         })
-        self.assertEqual(report["workflows"][4], {
+        self.assertEqual(report["workflows"][5], {
             "file": "scheduled.yml", "name": "Scheduled poll",
             "events": ["schedule", "workflow_dispatch", "push"],
-            "schedules": ["17 * * * *", "7,37 * * * *"],
+            "schedules": ["17 * * * *", "7,37 * * * *", "11 2 * * *"],
         })
 
     def test_workflow_inventory_distinguishes_no_files(self):

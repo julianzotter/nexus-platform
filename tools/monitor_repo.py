@@ -86,40 +86,7 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
         except (OSError, UnicodeDecodeError):
             unreadable.append({"file": path.name, "reason": "UNREADABLE"})
             continue
-        name = next((_strip_yaml_comment(match.group(1)).strip().strip("'\"") for line in lines
-                     if (match := re.match(r"^name:\s*(.+?)\s*$", line))), path.stem)
-        triggers: list[str] = []
-        schedules: list[str] = []
-        trigger_index = next((index for index, line in enumerate(lines)
-                              if re.match(r"^['\"]?on['\"]?\s*:", line)), None)
-        if trigger_index is not None:
-            trigger_line = lines[trigger_index]
-            match = re.match(r"^['\"]?on['\"]?\s*:\s*(.*)$", trigger_line)
-            value = _strip_yaml_comment(match.group(1)).strip() if match else ""
-            if value:
-                triggers.extend(_inline_trigger_keys(value))
-                schedules.extend(_extract_cron_values(value))
-            else:
-                base_indent = len(trigger_line) - len(trigger_line.lstrip())
-                event_indent = None
-                current_trigger = None
-                for line in lines[trigger_index + 1:]:
-                    if not line.strip() or line.lstrip().startswith("#"):
-                        continue
-                    indent = len(line) - len(line.lstrip())
-                    if indent <= base_indent:
-                        break
-                    event = re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:\s*(.*)$", line)
-                    if event and (event_indent is None or indent == event_indent):
-                        event_indent = indent
-                        current_trigger = event.group(1).strip("'\"")
-                        triggers.append(current_trigger)
-                        if current_trigger == "schedule":
-                            schedules.extend(_extract_cron_values(event.group(2)))
-                    elif (current_trigger == "schedule" and event_indent is not None
-                          and (indent > event_indent or line.lstrip().startswith("- "))):
-                        schedules.extend(_extract_cron_values(line.lstrip()))
-        workflows.append({"file": path.name, "name": name, "events": triggers, "schedules": schedules})
+        workflows.append({"file": path.name, **_parse_workflow_lines(lines, path.stem)})
     return {
         "state": "ERROR" if unreadable else "OBSERVED" if workflows else "NO_DATA",
         "runtime_verified": False,
@@ -127,6 +94,50 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
         "workflows": workflows,
         "unreadable_files": unreadable,
     }
+
+
+def _parse_workflow_lines(lines: list[str], default_name: str) -> dict[str, Any]:
+    name = default_name
+    for line in lines:
+        match = re.match(r"^name:\s*(.+?)\s*$", line)
+        if match:
+            candidate = _strip_yaml_comment(match.group(1)).strip().strip("'\"")
+            if candidate:
+                name = candidate
+                break
+
+    triggers: list[str] = []
+    schedules: list[str] = []
+    trigger_index = next((index for index, line in enumerate(lines)
+                          if re.match(r"^['\"]?on['\"]?\s*:", line)), None)
+    if trigger_index is not None:
+        trigger_line = lines[trigger_index]
+        match = re.match(r"^['\"]?on['\"]?\s*:\s*(.*)$", trigger_line)
+        value = _strip_yaml_comment(match.group(1)).strip() if match else ""
+        if value:
+            triggers.extend(_inline_trigger_keys(value))
+            schedules.extend(_extract_cron_values(value))
+        else:
+            base_indent = len(trigger_line) - len(trigger_line.lstrip())
+            event_indent = None
+            current_trigger = None
+            for line in lines[trigger_index + 1:]:
+                if not line.strip() or line.lstrip().startswith("#"):
+                    continue
+                indent = len(line) - len(line.lstrip())
+                if indent <= base_indent:
+                    break
+                event = re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:\s*(.*)$", line)
+                if event and (event_indent is None or indent == event_indent):
+                    event_indent = indent
+                    current_trigger = event.group(1).strip("'\"")
+                    triggers.append(current_trigger)
+                    if current_trigger == "schedule":
+                        schedules.extend(_extract_cron_values(_strip_yaml_comment(event.group(2))))
+                elif (current_trigger == "schedule" and event_indent is not None
+                      and (indent > event_indent or line.lstrip().startswith("- "))):
+                    schedules.extend(_extract_cron_values(_strip_yaml_comment(line.lstrip())))
+    return {"name": name, "events": triggers, "schedules": schedules}
 
 
 def _inline_trigger_keys(value: str) -> list[str]:
