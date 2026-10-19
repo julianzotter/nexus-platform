@@ -75,6 +75,13 @@ class MonitorTests(unittest.TestCase):
                 "      - main\n"
                 "      - dev\n",
                 encoding="utf-8")
+            (root / "regular-schedule.yml").write_text(
+                "name: Regular schedule\n"
+                "on:\n"
+                "  schedule:\n"
+                "    - cron: '3 * * * *'\n"
+                "  workflow_dispatch:\n",
+                encoding="utf-8")
             report = monitor.inspect_workflow_configuration(root)
         self.assertEqual(report["state"], "OBSERVED")
         self.assertFalse(report["runtime_verified"])
@@ -93,9 +100,13 @@ class MonitorTests(unittest.TestCase):
             "file": "nested.yaml", "name": "Nested sequence", "events": ["push"], "schedules": [],
         })
         self.assertEqual(report["workflows"][4], {
-            "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
+            "file": "regular-schedule.yml", "name": "Regular schedule",
+            "events": ["schedule", "workflow_dispatch"], "schedules": ["3 * * * *"],
         })
         self.assertEqual(report["workflows"][5], {
+            "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
+        })
+        self.assertEqual(report["workflows"][6], {
             "file": "scheduled.yml", "name": "Scheduled poll",
             "events": ["schedule", "workflow_dispatch", "push"],
             "schedules": ["17 * * * *", "7,37 * * * *", "11 2 * * *"],
@@ -122,6 +133,16 @@ class MonitorTests(unittest.TestCase):
             report = monitor.inspect_workflow_configuration(Path(directory))
         self.assertEqual(report["state"], "ERROR")
         self.assertEqual(report["unreadable_files"], [{"file": "invalid.yaml", "reason": "UNREADABLE"}])
+
+    def test_workflow_inventory_reports_partial_read_when_some_files_are_unreadable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "good.yml").write_text("name: Good\non: push\n", encoding="utf-8")
+            (root / "bad.yml").write_bytes(b"\xff")
+            report = monitor.inspect_workflow_configuration(root)
+        self.assertEqual(report["state"], "PARTIAL")
+        self.assertEqual(len(report["workflows"]), 1)
+        self.assertEqual(report["unreadable_files"], [{"file": "bad.yml", "reason": "UNREADABLE"}])
 
     def test_report_explains_workflow_inventory_is_not_execution_evidence(self):
         with tempfile.TemporaryDirectory() as directory:
