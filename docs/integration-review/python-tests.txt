@@ -1,0 +1,10 @@
+Dashboard export: FAIL (invalid input; no new snapshot)
+NEXUS monitor: ATTENTION
+usage: export [-h] [--root ROOT] [--report REPORT] [--output OUTPUT]
+              --source-commit SOURCE_COMMIT
+export: error: Output must not replace the input report or source files
+.................................................................................................................
+----------------------------------------------------------------------
+Ran 113 tests in 1.321s
+
+OK

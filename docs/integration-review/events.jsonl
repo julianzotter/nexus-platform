@@ -1,0 +1,2 @@
+{"event":"scope_grounded","actor":"ChatGPT Codex Work runtime / ID_UNVERIFIED","platform_base":"a4909bea72014cb0e79a7992d155e9f8f5d54f34","dashboard_base":"83caff3c1a117518b4a28e2d757358419b9dee5c","sources":["AGENTS.md","WORK Folder.md policy 0.4.0-pilot","WORK workorder addendum v1.1.0"]}
+{"event":"local_validation","python_tests":113,"consumer_tests_including_cross_repo":7,"test_exit_code":0,"build_exit_code":0,"legacy_controller_import":"PASS","dom_smoke":"PASS","browser_layout":"NOT_EXECUTED","runtime_delivery":"NOT_EXECUTED","human_release":"NOT_GRANTED"}
