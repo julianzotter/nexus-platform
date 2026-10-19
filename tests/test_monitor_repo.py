@@ -45,11 +45,11 @@ class MonitorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "scheduled.yml").write_text(
-                "name: Scheduled poll\n"
+                "name: Scheduled poll # main monitor\n"
                 "on:\n"
                 "    schedule:\n"
-                "      - cron: '17 * * * *' # hourly\n"
-                "      - {cron: \"7,37 * * * *\"}\n"
+                "    - cron: '17 * * * *' # hourly\n"
+                "    - {cron: \"7,37 * * * *\"}\n"
                 "    workflow_dispatch: {}\n"
                 "    push: {branches: [main]}\n"
                 "permissions:\n"
@@ -64,6 +64,14 @@ class MonitorTests(unittest.TestCase):
                 "name: Flow mapping\n"
                 "on: {push: {tags: [v1, v2], branches: [main, dev]}, workflow_dispatch: {}}\n",
                 encoding="utf-8")
+            (root / "nested.yaml").write_text(
+                "name: Nested sequence\n"
+                "on:\n"
+                "  push:\n"
+                "    branches:\n"
+                "      - main\n"
+                "      - dev\n",
+                encoding="utf-8")
             report = monitor.inspect_workflow_configuration(root)
         self.assertEqual(report["state"], "OBSERVED")
         self.assertFalse(report["runtime_verified"])
@@ -76,9 +84,12 @@ class MonitorTests(unittest.TestCase):
             "events": ["push", "pull_request"], "schedules": [],
         })
         self.assertEqual(report["workflows"][2], {
-            "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
+            "file": "nested.yaml", "name": "Nested sequence", "events": ["push"], "schedules": [],
         })
         self.assertEqual(report["workflows"][3], {
+            "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
+        })
+        self.assertEqual(report["workflows"][4], {
             "file": "scheduled.yml", "name": "Scheduled poll",
             "events": ["schedule", "workflow_dispatch", "push"],
             "schedules": ["17 * * * *", "7,37 * * * *"],

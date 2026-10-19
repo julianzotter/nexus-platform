@@ -76,7 +76,7 @@ def validation_checks() -> dict[str, Any]:
 
 
 def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows") -> dict[str, Any]:
-    """Inventory declared workflow triggers; this does not prove a workflow ran."""
+    """Inventory common workflow YAML forms without dependencies; this is not a YAML validator or run receipt."""
     workflows = []
     unreadable = []
     paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml"))) if directory.is_dir() else []
@@ -86,7 +86,7 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
         except (OSError, UnicodeDecodeError):
             unreadable.append({"file": path.name, "reason": "UNREADABLE"})
             continue
-        name = next((match.group(1).strip().strip("'\"") for line in lines
+        name = next((_strip_yaml_comment(match.group(1)).strip().strip("'\"") for line in lines
                      if (match := re.match(r"^name:\s*(.+?)\s*$", line))), path.stem)
         triggers: list[str] = []
         schedules: list[str] = []
@@ -116,13 +116,14 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
                         triggers.append(current_trigger)
                         if current_trigger == "schedule":
                             schedules.extend(_extract_cron_values(event.group(2)))
-                    elif current_trigger == "schedule" and event_indent is not None and indent > event_indent:
+                    elif (current_trigger == "schedule" and event_indent is not None
+                          and (indent > event_indent or line.lstrip().startswith("- "))):
                         schedules.extend(_extract_cron_values(line.lstrip()))
         workflows.append({"file": path.name, "name": name, "events": triggers, "schedules": schedules})
     return {
         "state": "ERROR" if unreadable else "OBSERVED" if workflows else "NO_DATA",
         "runtime_verified": False,
-        "scope": "workflow declarations only; configured schedules are not execution receipts",
+        "scope": "common workflow YAML forms only; not a YAML validator or execution receipt",
         "workflows": workflows,
         "unreadable_files": unreadable,
     }

@@ -15,7 +15,9 @@ attempt and UTC observation time. The artifact upload runs even if monitoring
 fails, with a unique run/attempt name and 30-day retention.
 
 The report also inventories declared GitHub workflow triggers and cron
-expressions. This is configuration evidence only: a scheduled trigger does not
+expressions using a dependency-free reader for common workflow YAML forms; it
+is not a complete YAML validator, so unusual syntax must be checked against the
+workflow source. This is configuration evidence only: a scheduled trigger does not
 prove a successful run, delivery, acknowledgment, or a closed communication
 loop. Polling is relevant for observing external changes; push/workflow events
 reduce detection latency; scheduled runs provide bounded reconciliation when
