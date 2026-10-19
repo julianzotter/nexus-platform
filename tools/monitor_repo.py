@@ -83,7 +83,7 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
     for path in paths:
         try:
             lines = path.read_text(encoding="utf-8").splitlines()
-        except OSError:
+        except (OSError, UnicodeDecodeError):
             unreadable.append({"file": path.name, "reason": "UNREADABLE"})
             continue
         name = next((match.group(1).strip().strip("'\"") for line in lines
@@ -132,11 +132,38 @@ def _inline_trigger_keys(value: str) -> list[str]:
     """Read common scalar, sequence, and flow-mapping forms of an `on` value."""
     value = value.strip()
     if value.startswith("[") and value.endswith("]"):
-        return [part.strip().strip("'\"") for part in value[1:-1].split(",") if part.strip()]
+        return [part.strip().strip("'\"") for part in _split_flow_items(value[1:-1]) if part.strip()]
     if value.startswith("{") and value.endswith("}"):
-        return [match.group(1).strip("'\"") for part in value[1:-1].split(",")
+        return [match.group(1).strip("'\"") for part in _split_flow_items(value[1:-1])
                 if (match := re.match(r"\s*(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:", part))]
     return [value.strip("'\"")] if value else []
+
+
+def _split_flow_items(value: str) -> list[str]:
+    """Split a YAML flow collection on commas outside nested collections/quotes."""
+    items = []
+    start = depth = 0
+    quote = None
+    escaped = False
+    for index, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in ("'", '"'):
+            quote = char
+        elif char in "[{":
+            depth += 1
+        elif char in "]}":
+            depth -= 1
+        elif char == "," and depth == 0:
+            items.append(value[start:index])
+            start = index + 1
+    items.append(value[start:])
+    return items
 
 
 def _strip_yaml_comment(value: str) -> str:

@@ -61,7 +61,8 @@ class MonitorTests(unittest.TestCase):
                 encoding="utf-8")
             (root / "scalar.yml").write_text("name: Scalar\non: push\n", encoding="utf-8")
             (root / "flow.yaml").write_text(
-                "name: Flow mapping\non: {push: {branches: [main]}, workflow_dispatch: {}}\n",
+                "name: Flow mapping\n"
+                "on: {push: {tags: [v1, v2], branches: [main, dev]}, workflow_dispatch: {}}\n",
                 encoding="utf-8")
             report = monitor.inspect_workflow_configuration(root)
         self.assertEqual(report["state"], "OBSERVED")
@@ -97,6 +98,13 @@ class MonitorTests(unittest.TestCase):
                 report = monitor.inspect_workflow_configuration(Path(directory))
         self.assertEqual(report["state"], "ERROR")
         self.assertEqual(report["unreadable_files"], [{"file": "unreadable.yaml", "reason": "UNREADABLE"}])
+
+    def test_workflow_inventory_reports_non_utf8_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / "invalid.yaml").write_bytes(b"\xff")
+            report = monitor.inspect_workflow_configuration(Path(directory))
+        self.assertEqual(report["state"], "ERROR")
+        self.assertEqual(report["unreadable_files"], [{"file": "invalid.yaml", "reason": "UNREADABLE"}])
 
     def test_report_explains_workflow_inventory_is_not_execution_evidence(self):
         with tempfile.TemporaryDirectory() as directory:
