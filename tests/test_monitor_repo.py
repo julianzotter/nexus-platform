@@ -47,29 +47,56 @@ class MonitorTests(unittest.TestCase):
             (root / "scheduled.yml").write_text(
                 "name: Scheduled poll\n"
                 "on:\n"
-                "  schedule:\n"
-                "    - cron: '17 * * * *' # hourly\n"
-                "  workflow_dispatch:\n"
-                "  push:\n"
-                "    branches: [main]\n"
+                "    schedule:\n"
+                "      - cron: '17 * * * *' # hourly\n"
+                "      - {cron: \"7,37 * * * *\"}\n"
+                "    workflow_dispatch: {}\n"
+                "    push: {branches: [main]}\n"
                 "permissions:\n"
                 "  contents: read\n",
+                encoding="utf-8")
+            (root / "inline.yaml").write_text(
+                "name: Inline poll\n"
+                "\"on\": [push, pull_request] # PR and push\n",
+                encoding="utf-8")
+            (root / "scalar.yml").write_text("name: Scalar\non: push\n", encoding="utf-8")
+            (root / "flow.yaml").write_text(
+                "name: Flow mapping\non: {push: {branches: [main]}, workflow_dispatch: {}}\n",
                 encoding="utf-8")
             report = monitor.inspect_workflow_configuration(root)
         self.assertEqual(report["state"], "OBSERVED")
         self.assertFalse(report["runtime_verified"])
-        self.assertEqual(report["workflows"], [{
-            "file": "scheduled.yml",
-            "name": "Scheduled poll",
+        self.assertEqual(report["workflows"][0], {
+            "file": "flow.yaml", "name": "Flow mapping",
+            "events": ["push", "workflow_dispatch"], "schedules": [],
+        })
+        self.assertEqual(report["workflows"][1], {
+            "file": "inline.yaml", "name": "Inline poll",
+            "events": ["push", "pull_request"], "schedules": [],
+        })
+        self.assertEqual(report["workflows"][2], {
+            "file": "scalar.yml", "name": "Scalar", "events": ["push"], "schedules": [],
+        })
+        self.assertEqual(report["workflows"][3], {
+            "file": "scheduled.yml", "name": "Scheduled poll",
             "events": ["schedule", "workflow_dispatch", "push"],
-            "schedules": ["17 * * * *"],
-        }])
+            "schedules": ["17 * * * *", "7,37 * * * *"],
+        })
 
     def test_workflow_inventory_distinguishes_no_files(self):
         with tempfile.TemporaryDirectory() as directory:
             report = monitor.inspect_workflow_configuration(Path(directory))
         self.assertEqual(report["state"], "NO_DATA")
         self.assertFalse(report["runtime_verified"])
+
+    def test_workflow_inventory_reports_unreadable_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "unreadable.yaml"
+            path.touch()
+            with patch.object(monitor.Path, "read_text", side_effect=OSError):
+                report = monitor.inspect_workflow_configuration(Path(directory))
+        self.assertEqual(report["state"], "ERROR")
+        self.assertEqual(report["unreadable_files"], [{"file": "unreadable.yaml", "reason": "UNREADABLE"}])
 
     def test_report_explains_workflow_inventory_is_not_execution_evidence(self):
         with tempfile.TemporaryDirectory() as directory:

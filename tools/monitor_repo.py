@@ -78,45 +78,95 @@ def validation_checks() -> dict[str, Any]:
 def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows") -> dict[str, Any]:
     """Inventory declared workflow triggers; this does not prove a workflow ran."""
     workflows = []
+    unreadable = []
     paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml"))) if directory.is_dir() else []
     for path in paths:
         try:
             lines = path.read_text(encoding="utf-8").splitlines()
         except OSError:
+            unreadable.append({"file": path.name, "reason": "UNREADABLE"})
             continue
-        name = next((match.group(1).strip() for line in lines
+        name = next((match.group(1).strip().strip("'\"") for line in lines
                      if (match := re.match(r"^name:\s*(.+?)\s*$", line))), path.stem)
         triggers: list[str] = []
         schedules: list[str] = []
-        in_triggers = False
-        current_trigger = None
-        for line in lines:
-            if not in_triggers:
-                if re.fullmatch(r"on:\s*(?:#.*)?", line):
-                    in_triggers = True
-                else:
-                    inline = re.match(r"^on:\s*\[([^\]]*)\]", line)
-                    if inline:
-                        triggers.extend(part.strip().strip("'\"") for part in inline.group(1).split(",")
-                                        if part.strip())
-                continue
-            if line.strip() and not line.startswith((" ", "\t", "#")):
-                break
-            event = re.match(r"^  ([A-Za-z0-9_-]+):\s*(?:#.*)?$", line)
-            if event:
-                current_trigger = event.group(1)
-                triggers.append(current_trigger)
-            elif current_trigger == "schedule":
-                cron = re.match(r"^    - cron:\s*(.+?)\s*(?:#.*)?$", line)
-                if cron:
-                    schedules.append(cron.group(1).strip().strip("'\""))
+        trigger_index = next((index for index, line in enumerate(lines)
+                              if re.match(r"^['\"]?on['\"]?\s*:", line)), None)
+        if trigger_index is not None:
+            trigger_line = lines[trigger_index]
+            match = re.match(r"^['\"]?on['\"]?\s*:\s*(.*)$", trigger_line)
+            value = _strip_yaml_comment(match.group(1)).strip() if match else ""
+            if value:
+                triggers.extend(_inline_trigger_keys(value))
+                schedules.extend(_extract_cron_values(value))
+            else:
+                base_indent = len(trigger_line) - len(trigger_line.lstrip())
+                event_indent = None
+                current_trigger = None
+                for line in lines[trigger_index + 1:]:
+                    if not line.strip() or line.lstrip().startswith("#"):
+                        continue
+                    indent = len(line) - len(line.lstrip())
+                    if indent <= base_indent:
+                        break
+                    event = re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:\s*(.*)$", line)
+                    if event and (event_indent is None or indent == event_indent):
+                        event_indent = indent
+                        current_trigger = event.group(1).strip("'\"")
+                        triggers.append(current_trigger)
+                        if current_trigger == "schedule":
+                            schedules.extend(_extract_cron_values(event.group(2)))
+                    elif current_trigger == "schedule" and event_indent is not None and indent > event_indent:
+                        schedules.extend(_extract_cron_values(line.lstrip()))
         workflows.append({"file": path.name, "name": name, "events": triggers, "schedules": schedules})
     return {
-        "state": "OBSERVED" if workflows else "NO_DATA",
+        "state": "ERROR" if unreadable else "OBSERVED" if workflows else "NO_DATA",
         "runtime_verified": False,
         "scope": "workflow declarations only; configured schedules are not execution receipts",
         "workflows": workflows,
+        "unreadable_files": unreadable,
     }
+
+
+def _inline_trigger_keys(value: str) -> list[str]:
+    """Read common scalar, sequence, and flow-mapping forms of an `on` value."""
+    value = value.strip()
+    if value.startswith("[") and value.endswith("]"):
+        return [part.strip().strip("'\"") for part in value[1:-1].split(",") if part.strip()]
+    if value.startswith("{") and value.endswith("}"):
+        return [match.group(1).strip("'\"") for part in value[1:-1].split(",")
+                if (match := re.match(r"\s*(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:", part))]
+    return [value.strip("'\"")] if value else []
+
+
+def _strip_yaml_comment(value: str) -> str:
+    quote = None
+    escaped = False
+    for index, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in ("'", '"'):
+            quote = char
+        elif char == "#" and (index == 0 or value[index - 1].isspace()):
+            return value[:index].rstrip()
+    return value
+
+
+def _extract_cron_values(value: str) -> list[str]:
+    values = []
+    pattern = re.compile(
+        r"""(?:^|[-{,]\s*)['"]?cron['"]?\s*:\s*(?:"([^"]*)"|'([^']*)'|([^,}\]]+))"""
+    )
+    for match in pattern.finditer(value.strip()):
+        cron = next((group for group in match.groups() if group is not None), "").strip()
+        if cron:
+            values.append(cron)
+    return values
 
 
 def overall_status(checks: dict[str, Any]) -> str:
@@ -143,6 +193,9 @@ def write_report(report: dict[str, Any], directory: Path) -> None:
     ]
     if not automation.get("workflows"):
         lines.append("| — | No workflow files observed | — |")
+    lines += ["", f"Inventory state: **{automation.get('state', 'UNKNOWN')}**"]
+    lines += [f"Unreadable workflow file: `{item['file']}` ({item['reason']})"
+              for item in automation.get("unreadable_files", [])]
     lines += ["", f"Commit: `{report['commit']}`", f"Observed UTC: {report['observed_at']}", "",
               "A successful workflow is not proof of complete knowledge coverage or engineering approval.",
               "Reports are GitHub artifacts. A separate WORK delivery workflow exists; only its verified receipts prove delivery. No automated merge is authorized."]
