@@ -79,7 +79,8 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
     """Inventory common workflow YAML forms without dependencies; this is not a YAML validator or run receipt."""
     workflows = []
     unreadable = []
-    paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml"))) if directory.is_dir() else []
+    paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml")), key=lambda path: path.name) \
+        if directory.is_dir() else []
     for path in paths:
         try:
             lines = path.read_text(encoding="utf-8").splitlines()
@@ -102,53 +103,68 @@ def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows")
     }
 
 
-def _parse_workflow_lines(lines: list[str], default_name: str) -> dict[str, Any]:
-    name = default_name
+def _parse_workflow_name(lines: list[str], default_name: str) -> str:
     for line in lines:
         match = re.match(r"^name:\s*(.+?)\s*$", line)
         if match:
             candidate = _strip_yaml_comment(match.group(1)).strip().strip("'\"")
             if candidate:
-                name = candidate
-                break
+                return candidate
+    return default_name
 
+def _find_trigger_index(lines: list[str]) -> int | None:
+    return next((index for index, line in enumerate(lines)
+                 if re.match(r"^['\"]?on['\"]?\s*:", line)), None)
+
+
+def _parse_block_triggers(lines: list[str], start: int, base_indent: int) -> tuple[list[str], list[str]]:
+    event_indent = next((
+        len(line) - len(line.lstrip())
+        for line in lines[start:]
+        if line.strip()
+        and not line.lstrip().startswith(("#", "-"))
+        and len(line) - len(line.lstrip()) > base_indent
+        and re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:", line)
+    ), None)
     triggers: list[str] = []
     schedules: list[str] = []
-    trigger_index = next((index for index, line in enumerate(lines)
-                          if re.match(r"^['\"]?on['\"]?\s*:", line)), None)
+    current_trigger = None
+    for line in lines[start:]:
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        indent = len(line) - len(line.lstrip())
+        if indent <= base_indent:
+            break
+        event = re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:\s*(.*)$", line)
+        if event and indent == event_indent:
+            current_trigger = event.group(1).strip("'\"")
+            triggers.append(current_trigger)
+            if current_trigger == "schedule":
+                schedules.extend(_extract_cron_values(_strip_yaml_comment(event.group(2))))
+            continue
+        if current_trigger != "schedule" or event_indent is None:
+            continue
+        is_cron_item = line.lstrip().startswith("- ") and indent >= event_indent
+        if indent > event_indent or is_cron_item:
+            schedules.extend(_extract_cron_values(_strip_yaml_comment(line.lstrip())))
+    return triggers, schedules
+
+
+def _parse_workflow_lines(lines: list[str], default_name: str) -> dict[str, Any]:
+    name = _parse_workflow_name(lines, default_name)
+    triggers: list[str] = []
+    schedules: list[str] = []
+    trigger_index = _find_trigger_index(lines)
     if trigger_index is not None:
         trigger_line = lines[trigger_index]
         match = re.match(r"^['\"]?on['\"]?\s*:\s*(.*)$", trigger_line)
         value = _strip_yaml_comment(match.group(1)).strip() if match else ""
         if value:
-            triggers.extend(_inline_trigger_keys(value))
-            schedules.extend(_extract_cron_values(value))
+            triggers = _inline_trigger_keys(value)
+            schedules = _extract_cron_values(value)
         else:
             base_indent = len(trigger_line) - len(trigger_line.lstrip())
-            event_indent = next((
-                len(line) - len(line.lstrip())
-                for line in lines[trigger_index + 1:]
-                if line.strip()
-                and not line.lstrip().startswith(("#", "-"))
-                and len(line) - len(line.lstrip()) > base_indent
-                and re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:", line)
-            ), None)
-            current_trigger = None
-            for line in lines[trigger_index + 1:]:
-                if not line.strip() or line.lstrip().startswith("#"):
-                    continue
-                indent = len(line) - len(line.lstrip())
-                if indent <= base_indent:
-                    break
-                event = re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:\s*(.*)$", line)
-                if event and indent == event_indent:
-                    current_trigger = event.group(1).strip("'\"")
-                    triggers.append(current_trigger)
-                    if current_trigger == "schedule":
-                        schedules.extend(_extract_cron_values(_strip_yaml_comment(event.group(2))))
-                elif (current_trigger == "schedule" and event_indent is not None
-                      and (indent > event_indent or (indent >= event_indent and line.lstrip().startswith("- ")))):
-                    schedules.extend(_extract_cron_values(_strip_yaml_comment(line.lstrip())))
+            triggers, schedules = _parse_block_triggers(lines, trigger_index + 1, base_indent)
     return {"name": name, "events": triggers, "schedules": schedules}
 
 
