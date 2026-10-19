@@ -75,6 +75,169 @@ def validation_checks() -> dict[str, Any]:
     return checks
 
 
+def inspect_workflow_configuration(directory: Path = ROOT / ".github/workflows") -> dict[str, Any]:
+    """Inventory common workflow YAML forms without dependencies; this is not a YAML validator or run receipt."""
+    workflows = []
+    unreadable = []
+    paths = []
+    if directory.is_dir():
+        paths = sorted((*directory.glob("*.yml"), *directory.glob("*.yaml")), key=lambda path: path.name)
+    for path in paths:
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except (OSError, UnicodeDecodeError):
+            unreadable.append({"file": path.name, "reason": "UNREADABLE"})
+            continue
+        workflows.append({"file": path.name, **_parse_workflow_lines(lines, path.stem)})
+    if unreadable and workflows:
+        state = "PARTIAL"
+    elif unreadable:
+        state = "ERROR"
+    else:
+        state = "OBSERVED" if workflows else "NO_DATA"
+    return {
+        "state": state,
+        "runtime_verified": False,
+        "scope": "common workflow YAML forms only; not a YAML validator or execution receipt",
+        "workflows": workflows,
+        "unreadable_files": unreadable,
+    }
+
+
+def _parse_workflow_name(lines: list[str], default_name: str) -> str:
+    for line in lines:
+        match = re.match(r"^name:\s*(.+?)\s*$", line)
+        if match:
+            candidate = _strip_yaml_comment(match.group(1)).strip().strip("'\"")
+            if candidate:
+                return candidate
+    return default_name
+
+
+def _find_trigger_index(lines: list[str]) -> int | None:
+    return next((index for index, line in enumerate(lines)
+                 if re.match(r"^['\"]?on['\"]?\s*:", line)), None)
+
+
+def _parse_block_triggers(lines: list[str], start: int, base_indent: int) -> tuple[list[str], list[str]]:
+    event_indent = next((
+        len(line) - len(line.lstrip())
+        for line in lines[start:]
+        if line.strip()
+        and not line.lstrip().startswith(("#", "-"))
+        and len(line) - len(line.lstrip()) > base_indent
+        and re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:", line)
+    ), None)
+    triggers: list[str] = []
+    schedules: list[str] = []
+    current_trigger = None
+    for line in lines[start:]:
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        indent = len(line) - len(line.lstrip())
+        if indent <= base_indent:
+            break
+        event = re.match(r"^ *(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:\s*(.*)$", line)
+        if event and indent == event_indent:
+            current_trigger = event.group(1).strip("'\"")
+            triggers.append(current_trigger)
+            if current_trigger == "schedule":
+                schedules.extend(_extract_cron_values(_strip_yaml_comment(event.group(2))))
+            continue
+        if current_trigger != "schedule" or event_indent is None:
+            continue
+        is_cron_item = line.lstrip().startswith("- ") and indent >= event_indent
+        if indent > event_indent or is_cron_item:
+            schedules.extend(_extract_cron_values(_strip_yaml_comment(line.lstrip())))
+    return triggers, schedules
+
+
+def _parse_workflow_lines(lines: list[str], default_name: str) -> dict[str, Any]:
+    name = _parse_workflow_name(lines, default_name)
+    triggers: list[str] = []
+    schedules: list[str] = []
+    trigger_index = _find_trigger_index(lines)
+    if trigger_index is not None:
+        trigger_line = lines[trigger_index]
+        match = re.match(r"^['\"]?on['\"]?\s*:\s*(.*)$", trigger_line)
+        value = _strip_yaml_comment(match.group(1)).strip() if match else ""
+        if value:
+            triggers = _inline_trigger_keys(value)
+            schedules = _extract_cron_values(value)
+        else:
+            base_indent = len(trigger_line) - len(trigger_line.lstrip())
+            triggers, schedules = _parse_block_triggers(lines, trigger_index + 1, base_indent)
+    return {"name": name, "events": triggers, "schedules": schedules}
+
+
+def _inline_trigger_keys(value: str) -> list[str]:
+    """Read common scalar, sequence, and flow-mapping forms of an `on` value."""
+    value = value.strip()
+    if value.startswith("[") and value.endswith("]"):
+        return [part.strip().strip("'\"") for part in _split_flow_items(value[1:-1]) if part.strip()]
+    if value.startswith("{") and value.endswith("}"):
+        return [match.group(1).strip("'\"") for part in _split_flow_items(value[1:-1])
+                if (match := re.match(r"\s*(['\"]?[A-Za-z0-9_-]+['\"]?)\s*:", part))]
+    return [value.strip("'\"")] if value else []
+
+
+def _split_flow_items(value: str) -> list[str]:
+    """Split a YAML flow collection on commas outside nested collections/quotes."""
+    items = []
+    start = depth = 0
+    quote = None
+    escaped = False
+    for index, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in ("'", '"'):
+            quote = char
+        elif char in "[{":
+            depth += 1
+        elif char in "]}":
+            depth -= 1
+        elif char == "," and depth == 0:
+            items.append(value[start:index])
+            start = index + 1
+    items.append(value[start:])
+    return items
+
+
+def _strip_yaml_comment(value: str) -> str:
+    quote = None
+    escaped = False
+    for index, char in enumerate(value):
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote:
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in ("'", '"'):
+            quote = char
+        elif char == "#" and (index == 0 or value[index - 1].isspace()):
+            return value[:index].rstrip()
+    return value
+
+
+def _extract_cron_values(value: str) -> list[str]:
+    values = []
+    pattern = re.compile(
+        r"""(?:^|[-{,]\s*)['"]?cron['"]?\s*:\s*(?:"([^"]*)"|'([^']*)'|([^,}\]]+))"""
+    )
+    for match in pattern.finditer(value.strip()):
+        cron = next((group for group in match.groups() if group is not None), "").strip()
+        if cron:
+            values.append(cron)
+    return values
+
+
 def overall_status(checks: dict[str, Any]) -> str:
     states = {check["status"] for check in checks.values()}
     if states & {"FAIL", "ERROR", "CONFLICT", "UNKNOWN"}:
@@ -88,6 +251,20 @@ def write_report(report: dict[str, Any], directory: Path) -> None:
     lines = ["# NEXUS repository monitor", "", f"Overall: **{report['status']}**", "",
              "| Check | State |", "|---|---|"]
     lines += [f"| {name} | {check['status']} |" for name, check in report["checks"].items()]
+    automation = report.get("automation_configuration", {})
+    lines += ["", "## Workflow trigger configuration", "",
+              "Declared triggers only; this inventory does not prove that a workflow ran.", "",
+              "| Workflow | Events | Schedules (UTC) |", "|---|---|---|"]
+    lines += [
+        f"| {item['name']} (`{item['file']}`) | {', '.join(item['events']) or 'none detected'} "
+        f"| {', '.join(f'`{cron}`' for cron in item['schedules']) or 'none'} |"
+        for item in automation.get("workflows", [])
+    ]
+    if not automation.get("workflows"):
+        lines.append("| — | No workflow files observed | — |")
+    lines += ["", f"Inventory state: **{automation.get('state', 'UNKNOWN')}**"]
+    lines += [f"Unreadable workflow file: `{item['file']}` ({item['reason']})"
+              for item in automation.get("unreadable_files", [])]
     lines += ["", f"Commit: `{report['commit']}`", f"Observed UTC: {report['observed_at']}", "",
               "A successful workflow is not proof of complete knowledge coverage or engineering approval.",
               "Reports are GitHub artifacts. A separate WORK delivery workflow exists; only its verified receipts prove delivery. No automated merge is authorized."]
@@ -110,6 +287,7 @@ def main() -> int:
               "commit": os.environ.get("GITHUB_SHA", "UNKNOWN"),
               "run_id": os.environ.get("GITHUB_RUN_ID", "LOCAL"),
               "run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT", "1"),
+              "automation_configuration": inspect_workflow_configuration(),
               "status": overall_status(checks), "checks": checks}
     write_report(report, args.report_dir)
     print(f"NEXUS monitor: {report['status']}")
