@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NEXUS platform to dashboard snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "nexus-integration/1"
+    },
+    "repository": {
+      "const": "julianzotter/nexus-platform"
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "report_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "monitor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "checks",
+        "run_id",
+        "run_attempt"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PASS",
+            "INCOMPLETE",
+            "ATTENTION"
+          ]
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "run_attempt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checks": {
+          "type": "object",
+          "required": [
+            "registry",
+            "knowledge",
+            "coverage",
+            "pull_requests"
+          ],
+          "additionalProperties": {
+            "enum": [
+              "PASS",
+              "NO_DATA",
+              "INCOMPLETE",
+              "CONFLICT",
+              "UNKNOWN",
+              "ERROR",
+              "FAIL"
+            ]
+          }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "title",
+          "source_file_id",
+          "version",
+          "status",
+          "source_path",
+          "record_sha256",
+          "source_sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "note",
+              "norm_clause",
+              "solver",
+              "workflow"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_file_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "VALID",
+              "SUPERSEDED",
+              "DRAFT"
+            ]
+          },
+          "source_path": {
+            "type": "string",
+            "pattern": "^registry/knowledge/[^/]+\\.json$"
+          },
+          "record_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "source_sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "delivery": {
+      "const": "NOT_OBSERVED"
+    },
+    "consumer_ack": {
+      "const": "NOT_OBSERVED"
+    },
+    "human_acceptance": {
+      "const": "NOT_OBSERVED"
+    }
+  },
+  "required": [
+    "schema_version",
+    "repository",
+    "source_commit",
+    "observed_at",
+    "generated_at",
+    "report_sha256",
+    "monitor",
+    "nodes",
+    "delivery",
+    "consumer_ack",
+    "human_acceptance"
+  ]
+}
+

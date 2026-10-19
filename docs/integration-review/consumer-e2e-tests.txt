@@ -1,0 +1,15 @@
+✔ INCOMPLETE and DRAFT survive import (2.095297ms)
+✔ invalid schema, hashes, status, missing fields and duplicate IDs fail closed (1.502374ms)
+✔ native monitor maps checks and leaves missing transport evidence unknown (0.400313ms)
+✔ legacy controller preserves blocked delivery and pending ACK (0.322446ms)
+✔ stale and future evidence stay visible (0.239561ms)
+✔ Python producer output imports through the real JavaScript consumer (0.353263ms)
+✔ vendored canonical schema matches the producer digest pin (1.476555ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.662438

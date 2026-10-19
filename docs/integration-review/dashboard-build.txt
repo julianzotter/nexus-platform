@@ -1,0 +1,14 @@
+
+> nexus-ai-ecosystem-loop-(3d-studioviz)@0.0.0 build
+> vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 6 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                 2.54 kB │ gzip: 1.28 kB
+dist/assets/index-CkiSAEZT.css  2.86 kB │ gzip: 1.13 kB
+dist/assets/index-1mLHH0-X.js   9.53 kB │ gzip: 3.92 kB
+✓ built in 121ms
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.

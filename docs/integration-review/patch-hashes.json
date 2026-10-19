@@ -1,0 +1,21 @@
+{
+  "nexus-platform/tools/export_dashboard.py": "d06bcb0cdcc784f00a564eafcd96f11307aa0b390b1e825aec61d61020dba5bd",
+  "nexus-platform/schemas/dashboard-snapshot.schema.json": "65a84a50a788f71e446c4c97acf716cb997efb92f26e0c4e8f2d407563bc1006",
+  "nexus-platform/tests/test_dashboard_export.py": "2597001ea3751b1910ec283471bf91751a7c184d6cf03a5bc90310eef094d596",
+  "nexus-platform/.github/workflows/nexus-monitor.yml": "485f9baaa7b4fd509958ca37e2dfab4c7f1d0b81ed00da015cd636df5da524e4",
+  "nexus-dashboard/index.html": "9c0826b9c8c976e619718f6601f72be0409d761ae3bd8db065101fc0f313f13f",
+  "nexus-dashboard/src/contract.mjs": "140adb5914ccf20f9d960bed993db0a0c5025526d6fcc81a23790aded7002aa0",
+  "nexus-dashboard/src/main.mjs": "f26da5ecea5cd203020667176bdca206fd1a5b54f3450676d9467db29b0d2411",
+  "nexus-dashboard/src/style.css": "e912d8c6b38621749c385d233ac3f246c9915adc2b57fe2cdfc3e061891be383",
+  "nexus-dashboard/scripts/sync-platform.mjs": "f978d2f8cd4741c6d51edddbe89009b04a2c92724f921a79b1efe9a8772e24ed",
+  "nexus-dashboard/contracts/dashboard-snapshot.schema.json": "65a84a50a788f71e446c4c97acf716cb997efb92f26e0c4e8f2d407563bc1006",
+  "nexus-dashboard/contracts/contract.lock.json": "3622c6c48b71cb123af7aabafbb5f9d42a260a5af49376cbe71d9ef2ace61706",
+  "nexus-dashboard/tests/contract.test.mjs": "d68debde0b825c5217419dc0257dc8bc667c5d1a574cf8cc2dcd4e21e32fd5a7",
+  "nexus-dashboard/tests/schema-pin.test.mjs": "bc83656d3095b5cde7b1aa0dfff8c9ee3602adbed12bc744f3dd3b9e688b1614",
+  "nexus-dashboard/package.json": "6050f398c8c39994d2db579216f0545a568cdd91f26c3340bca8a2b1d0b6cecb",
+  "nexus-dashboard/package-lock.json": "0c25e21110b0f2c17e5b11619aac1820e9b9456829bc9eae13229aa1677f6026",
+  "nexus-dashboard/vite.config.ts": "820e86c205e18e1e7caf6b6cb742d742a1787811a480c47c4e2d90a7b912684e",
+  "test_logs/consumer-e2e-tests.txt": "5f21f1abc0c143f97edf391e42be11f5f821bb6ce7e977cd5c44659dca5d592b",
+  "test_logs/dashboard-build.txt": "5f6c237bf341cf2f98f39eefa20ef0d5cf7b836e122eb2b4823a7db442486828",
+  "test_logs/python-tests.txt": "431dc1d2532a9bbc650f6608bccda06106acc7fa14d55b28f33c9b8c040da69d"
+}
