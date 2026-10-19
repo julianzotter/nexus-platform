@@ -1,0 +1,3 @@
+{"fact": "No dlubal/rfem tools present in current tool registry", "consequence": "Cannot inspect active model or execute RFEM calculations"}
+{"fact": "Selected Colab UI inspected; no cells executed or edited", "consequence": "Notebook claims are not live RFEM evidence"}
+{"fact": "Offline unit tests passed: 12", "scope": "result-envelope and audit-bundle logic only"}

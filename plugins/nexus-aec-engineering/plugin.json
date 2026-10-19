@@ -1,0 +1,22 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "nexus-aec-engineering",
+  "version": "0.1.0",
+  "description": "Evidence-bound AEC dashboards, RFEM orchestration and connectivity audits. Skills only; live RFEM requires separately connected local Dlubal tools.",
+  "author": {
+    "name": "ZOTTERCONSULT"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "NEXUS AEC Engineering",
+        "shortDescription": "AEC, RFEM und Connectivity",
+        "longDescription": "Three reusable skills, version-aware RFEM setup, offline result validation and audit packaging. Does not deploy or connect a server.",
+        "developerName": "ZOTTERCONSULT",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Prüfe RFEM-, Drive- und GitHub-Capabilities für einen belegten AEC-Workflow."
+      }
+    }
+  }
+}

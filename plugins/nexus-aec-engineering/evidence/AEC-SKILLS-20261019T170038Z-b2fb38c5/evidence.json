@@ -1,0 +1,27 @@
+{
+  "status": "PRECHECK_BLOCKED",
+  "scope": "RFEM live capabilities only; independent offline skill authoring completed",
+  "observed_at": "2026-10-19T17:00:38.339159+00:00",
+  "runtime": "ChatGPT task environment; not Windows RFEM host",
+  "rfem_tools_exposed": [],
+  "rfem_health_check": "NOT_RUN",
+  "model_identification": "NOT_RUN",
+  "calculation": "NOT_RUN",
+  "results": null,
+  "observations": [
+    {
+      "fact": "No dlubal/rfem tools present in current tool registry",
+      "consequence": "Cannot inspect active model or execute RFEM calculations"
+    },
+    {
+      "fact": "Selected Colab UI inspected; no cells executed or edited",
+      "consequence": "Notebook claims are not live RFEM evidence"
+    },
+    {
+      "fact": "Offline unit tests passed: 12",
+      "scope": "result-envelope and audit-bundle logic only"
+    }
+  ],
+  "consumer_ack": "NOT_OBSERVED",
+  "human_acceptance": "PENDING"
+}
