@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "nexus-bridge": {
+      "command": "C:\\Users\\<USER>\\nexus-platform\\mcp_bridge\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\<USER>\\nexus-platform\\mcp_bridge\\nexus_mcp_server.py"],
+      "env": {
+        "NEXUS_WORK_ROOT": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK",
+        "NEXUS_REPO_ROOT": "C:\\Users\\<USER>\\nexus-platform",
+        "NEXUS_MCP_WRITE": "0"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "_note": "Offizieller GitHub-MCP-Server (Issues/PRs/Actions). Auth ueber den MCP-Client (OAuth) - kein Token in diese Datei."
+    }
+  }
+}
