@@ -28,3 +28,15 @@ Drive-Push (`changes.watch`) braucht einen oeffentlichen HTTPS-Empfaenger; GitHu
 Muster: Drive -> Relay (z. B. Cloud Run/Function, prueft `X-Goog-Channel-Token`) -> `POST /repos/julianzotter/nexus-platform/dispatches`
 mit `{"event_type":"drive_change"}` (fein-granulares Token, nur `contents:write` fuer dispatch). Kanal laeuft ab -> Erneuerung per Schedule.
 Bis dahin deckt das 30-min-Polling dieselbe Funktion ohne oeffentliche Angriffsflaeche ab.
+
+## Circular Loop: Ledger (Inbox/Outbox mit Empfangsbestaetigung)
+
+`tools/nexus_ledger.py` - eine unveraenderliche JSON-Datei pro Ereignis unter `WORK/LEDGER/<work_order_id>/`
+(exklusives Anlegen, keine gemeinsame JSONL-Datei -> keine Drive-Konfliktkopien bei parallelen Agenten).
+
+`REQUESTED -> ACK -> DONE -> VERIFIED` (+ `BLOCKED`, `TIMEOUT`). ACK/DONE/BLOCKED nur durch den Empfaenger,
+VERIFIED nur durch `SYS-VERIFY` nach sha256-Readback, Freigabe (ID01) bleibt ausserhalb des Ledgers.
+`STATUS.md` und `_FRONT_LOG.md` werden vom Verifier aus den Ereignissen generiert (ein Schreiber).
+
+MCP-Tools (Identitaet fest per `NEXUS_AGENT_ID` im Client-Eintrag): `my_inbox`, `send_order`, `ack_order`,
+`complete_order`, `block_order`. Verifier lokal: `.\install_mcp_bridge.ps1 -Verifier` (alle 15 min, 0 Tokens).

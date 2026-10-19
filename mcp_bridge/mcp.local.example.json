@@ -6,7 +6,8 @@
       "env": {
         "NEXUS_WORK_ROOT": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK",
         "NEXUS_REPO_ROOT": "C:\\Users\\<USER>\\nexus-platform",
-        "NEXUS_MCP_WRITE": "0"
+        "NEXUS_MCP_WRITE": "0",
+        "NEXUS_AGENT_ID": "ID03"
       }
     },
     "github": {
