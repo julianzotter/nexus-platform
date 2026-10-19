@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """NEXUS event ledger: Inbox/Outbox state machine without shared mutable files.
 
-One immutable JSON file per event (exclusive create) under WORK/LEDGER/<work_order_id>/.
+One immutable JSON file per event under WORK/LEDGER/<work_order_id>/<seq>.json (exclusive create =
+optimistic concurrency: two writers racing for the same seq -> one gets SEQUENCE_CONFLICT_RETRY).
 Safe on Google Drive for desktop: concurrent agents never write the same file, so no
 conflict copies. State = replay of events (sorted by time-ordered event id).
 
 States:  REQUESTED -> ACK -> DONE -> VERIFIED   (+ BLOCKED, TIMEOUT)
-- ACK/DONE/BLOCKED only by the addressed receiver; REQUESTED by anyone (sender = configured agent).
+- ACK/DONE/BLOCKED only by the addressed receiver (BLOCKED also by SYS-VERIFY on hash mismatch); REQUESTED by anyone (sender = configured agent).
 - VERIFIED only by the deterministic verifier (agent SYS-VERIFY) after sha256 readback.
 - APPROVED is NOT a ledger state: human release (ID01) stays outside agents (PR merge / signed decision).
 0 LLM tokens. Stdlib only.
@@ -18,8 +19,6 @@ import hashlib
 import json
 import os
 import re
-import time
-import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -39,10 +38,6 @@ RECEIVER_ONLY = {'ACK', 'DONE', 'BLOCKED'}
 
 class LedgerError(Exception):
     pass
-
-
-def event_id() -> str:
-    return f'{time.time_ns() // 1_000_000:013d}-{uuid.uuid4().hex[:8]}'
 
 
 def sha256_file(p: Path) -> str:
@@ -76,15 +71,16 @@ class Ledger:
         if not d.is_dir():
             return []
         out = []
-        for f in sorted(d.glob('*.json')):
+        for f in sorted(d.glob('[0-9]*.json')):
             try:
                 out.append(json.loads(f.read_text(encoding='utf-8')))
             except (ValueError, OSError):
                 out.append({'event_id': f.stem, 'state': 'CORRUPT', 'file': f.name})
-        return sorted(out, key=lambda e: e.get('event_id', ''))
+        return out  # filename order == seq order (zero-padded)
 
     def state(self, wo: str) -> dict | None:
-        evs = [e for e in self.events(wo) if e.get('state') != 'CORRUPT']
+        allev = self.events(wo)
+        evs = [e for e in allev if e.get('state') != 'CORRUPT']
         if not evs:
             return None
         req = next(e for e in reversed(evs) if e['state'] == 'REQUESTED')
@@ -92,7 +88,7 @@ class Ledger:
         return {'work_order_id': wo, 'state': last['state'], 'from': req['from'], 'to': req['to'],
                 'title': req.get('title'), 'last_event': last['event_id'], 'last_by': last['by'],
                 'artifact': next((e.get('artifact') for e in reversed(evs) if e.get('artifact')), None),
-                'ack_deadline': req.get('ack_deadline'), 'events': len(evs)}
+                'ack_deadline': req.get('ack_deadline'), 'events': len(evs), 'corrupt': len(allev) - len(evs)}
 
     def _append(self, wo: str, state: str, **fields) -> dict:
         if not SAFE.fullmatch(wo):
@@ -101,17 +97,21 @@ class Ledger:
         prev_state = cur['state'] if cur else None
         if state not in TRANSITIONS.get(prev_state, set()):
             raise LedgerError(f'INVALID_TRANSITION_{prev_state}_TO_{state}')
-        if state in RECEIVER_ONLY and self.agent != cur['to']:
+        if state in RECEIVER_ONLY and self.agent not in (cur['to'], VERIFIER):
             raise LedgerError('ONLY_RECEIVER_MAY_SET_' + state)
         if state == 'VERIFIED' and self.agent != VERIFIER:
             raise LedgerError('ONLY_SYS_VERIFY_MAY_VERIFY')
-        ev = {'event_id': event_id(), 'work_order_id': wo, 'state': state, 'by': self.agent,
+        seq = (cur['events'] + cur.get('corrupt', 0)) + 1 if cur else 1
+        ev = {'event_id': f'{wo}-{seq:06d}', 'seq': seq, 'work_order_id': wo, 'state': state, 'by': self.agent,
               'prev_event': cur['last_event'] if cur else None,
               'ts': self.now().isoformat(timespec='seconds'), **fields}
         d = self.root / wo
         d.mkdir(parents=True, exist_ok=True)
-        with open(d / f"{ev['event_id']}_{self.agent}_{state}.json", 'x', encoding='utf-8') as fh:
-            json.dump(ev, fh, indent=2, ensure_ascii=False)
+        try:
+            with open(d / f'{seq:06d}.json', 'x', encoding='utf-8') as fh:
+                json.dump(ev, fh, indent=2, ensure_ascii=False)
+        except FileExistsError:
+            raise LedgerError('SEQUENCE_CONFLICT_RETRY') from None
         return ev
 
     # ---- agent API ----------------------------------------------------
@@ -181,7 +181,7 @@ class Ledger:
             rows.append(f"| {wo} | {s['state']} | {s['from']} -> {s['to']} | {s['last_by']} | "
                         f"{(s['artifact'] or {}).get('sha256', '')[:12]} |")
             for e in self.events(wo):
-                log.append((e.get('event_id', ''), f"| {e.get('ts')} | {wo} | {e.get('state')} | {e.get('by')} |"))
+                log.append((e.get('ts', ''), f"| {e.get('ts')} | {wo} | {e.get('state')} | {e.get('by')} |"))
         stamp = self.now().isoformat(timespec='seconds')
         status = ['# NEXUS STATUS (generiert, nicht editieren)', f'Stand: {stamp}', '',
                   '| Work order | State | Route | Last by | Artifact sha256 |', '|---|---|---|---|---|', *rows]

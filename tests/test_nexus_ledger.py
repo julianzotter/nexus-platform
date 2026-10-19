@@ -58,6 +58,14 @@ class LedgerTest(unittest.TestCase):
         self.assertEqual(r['state'], 'TIMEOUT')
         self.id03.ack('WO-4')  # late ACK still possible
 
+    def test_concurrent_writer_conflict(self):
+        self.id02.send('WO-6', 'ID03', 't')
+        (self.w / 'LEDGER' / 'WO-6' / '000002.json').write_text(json.dumps(
+            {'event_id': 'WO-6-000002', 'seq': 2, 'state': 'ACK', 'by': 'ID03', 'prev_event': 'WO-6-000001'}))
+        stale = Ledger(self.w, 'ID03'); stale.state = lambda wo, _s=stale.state: {**_s(wo), 'events': 1, 'state': 'REQUESTED'}
+        with self.assertRaises(LedgerError):
+            stale.ack('WO-6')
+
     def test_no_overwrite_of_events(self):
         ev = self.id02.send('WO-5', 'ID03', 't')
         f = next((self.w / 'LEDGER' / 'WO-5').glob('*.json'))
