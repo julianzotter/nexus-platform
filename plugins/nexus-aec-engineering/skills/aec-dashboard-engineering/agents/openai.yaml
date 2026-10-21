@@ -1,0 +1,4 @@
+interface:
+  display_name: "AEC Dashboard Engineering"
+  short_description: "AEC-Dashboards mit belegten Solver-Ergebnissen"
+  default_prompt: "Nutze $aec-dashboard-engineering für ein prüfbares AEC-Dashboard."

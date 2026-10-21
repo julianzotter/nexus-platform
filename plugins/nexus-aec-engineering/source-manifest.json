@@ -1,0 +1,87 @@
+{
+  "observed_at": "2026-10-19T17:00:15.815159+00:00",
+  "items": [
+    {
+      "title": "02-PERPLEXITY-RFEM-6-MCP-Engineering-Workflow.txt",
+      "sha256": "8221535695615ab6e6594adcda680c82ce17b93ae8abca2d375927d380d361ad",
+      "scope": "uploaded snapshot; full local text inspected in sections",
+      "source_update": "none"
+    },
+    {
+      "title": "Eingefügter Text(20261019-165120).txt",
+      "sha256": "0c6cfe84659ec36ec11b9525e8cec13dcb4e95de6fd727491b479706b4a9c9b4",
+      "scope": "uploaded snapshot; full local text inspected in sections",
+      "source_update": "none"
+    },
+    {
+      "title": "Dlubal MCP installation",
+      "url": "https://apidocs.dlubal.com/installation_mcp.html",
+      "scope": "current official installation and configuration guide read 2026-10-19"
+    },
+    {
+      "title": "Dlubal authentication",
+      "url": "https://apidocs.dlubal.com/access_control.html",
+      "scope": "current official key-storage documentation read 2026-10-19"
+    },
+    {
+      "title": "NEXUS Colab notebook",
+      "url": "https://colab.research.google.com/drive/1PoPsGVaKuh4SLCatAtUZl81y81L6LW7C#scrollTo=dda950c0",
+      "scope": "visible notebook/assistant DOM; cell 6 targeted read; no execution/edit"
+    },
+    {
+      "title": "AI developers/wiki source",
+      "drive_id": "1t4W5lBMENkHAe5xKFexmsNbaFJdk6ow-",
+      "scope": "retrieved; opening architecture sections inspected"
+    },
+    {
+      "title": "EC Design Workbook concept",
+      "drive_id": "1uCc5SrB8Aaju_u7bukD2ZoponrOveSWX",
+      "scope": "retrieved; opening design requirements inspected; no formula certification"
+    },
+    {
+      "title": "Personal engineering dashboard",
+      "drive_id": "16Ivex4nIGK73SzE06dYytIYHur8sAyi4",
+      "scope": "retrieved; opening architecture sections inspected; historical percentages not adopted"
+    },
+    {
+      "title": "Personal engineering dashboard alternate",
+      "drive_id": "1FyHsLrLB0y1-MAoQyD5Jig5zXxXavTxH",
+      "scope": "retrieved; opening sections inspected"
+    },
+    {
+      "title": "Create skills for Perplexity",
+      "drive_id": "1jrbKTyNV0Aqyu0Ham88XkS8aiKGq7RpP",
+      "scope": "retrieved; skill schema and import requirements inspected; no Perplexity installation"
+    },
+    {
+      "title": "RFEM workflow alternate",
+      "drive_id": "1WHUXVIw-Sd-3Eqog8xwraJWcq5RE55h9",
+      "scope": "retrieved; blocked-run example inspected"
+    },
+    {
+      "title": "RFEM URL shortcut",
+      "drive_id": "1H30qrGPo8gfeANU4w0joArJWc8QZDpLI",
+      "scope": "metadata only; not treated as engineering content"
+    },
+    {
+      "title": "WORK Folder.md",
+      "url": "https://drive.google.com/file/d/11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH/view",
+      "scope": "complete governance read; no status/master edits"
+    },
+    {
+      "title": "WORK pilot work order",
+      "url": "https://drive.google.com/file/d/1QekWzh3XPdhoYGFOw7V7-6PqTnEM5T1F/view",
+      "scope": "complete governance read; historical pilot not re-executed"
+    },
+    {
+      "title": "Repository governance",
+      "repository": "julianzotter/nexus-platform",
+      "paths": [
+        "AGENTS.md",
+        "docs/adr/0001-evidence-and-gates.md",
+        "docs/NEXUS-GITHUB-WORK-TRANSFER.md"
+      ],
+      "scope": "complete reads; branch/PR workflow, no merge"
+    }
+  ]
+}

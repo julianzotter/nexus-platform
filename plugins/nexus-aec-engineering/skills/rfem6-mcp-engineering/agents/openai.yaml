@@ -1,0 +1,4 @@
+interface:
+  display_name: "RFEM 6 MCP Engineering"
+  short_description: "RFEM prüfen, orchestrieren und protokollieren"
+  default_prompt: "Nutze $rfem6-mcp-engineering für einen G0-Modellcheck."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AEC Connectivity Audit"
+  short_description: "Verbindungen und Zustellung mit Belegen prüfen"
+  default_prompt: "Nutze $aec-connectivity-audit für den RFEM-Drive-GitHub-Verbindungscheck."
