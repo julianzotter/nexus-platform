@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-10-21",
+  "entries": [
+    {
+      "id": "google-drive",
+      "domain": "cloud",
+      "type": "api+connector",
+      "url": "https://developers.google.com/workspace/drive/api/reference/rest/v3",
+      "priority": "P0",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "github",
+      "domain": "devops",
+      "type": "api+connector",
+      "url": "https://docs.github.com/en/rest",
+      "priority": "P0",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "microsoft-graph",
+      "domain": "cloud",
+      "type": "api",
+      "url": "https://learn.microsoft.com/en-us/graph/api/overview",
+      "priority": "P0",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "dropbox",
+      "domain": "cloud",
+      "type": "api",
+      "url": "https://www.dropbox.com/developers/documentation/http/documentation",
+      "priority": "P0",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "dlubal-rfem",
+      "domain": "structural",
+      "type": "api",
+      "url": "https://www.dlubal.com/en/products/dlubal-software/webservice-and-api",
+      "priority": "P0",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "ifcopenshell",
+      "domain": "bim",
+      "type": "library",
+      "url": "https://docs.ifcopenshell.org/",
+      "priority": "P0",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "mcp-registry",
+      "domain": "discovery",
+      "type": "mcp-registry",
+      "url": "https://registry.modelcontextprotocol.io/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "mcp-servers",
+      "domain": "discovery",
+      "type": "mcp-reference",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "mcp-specification",
+      "domain": "discovery",
+      "type": "protocol",
+      "url": "https://modelcontextprotocol.io/specification/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "agentskills",
+      "domain": "skills",
+      "type": "standard",
+      "url": "https://agentskills.io/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "buildingsmart",
+      "domain": "bim",
+      "type": "standards",
+      "url": "https://standards.buildingsmart.org/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "speckle",
+      "domain": "aec",
+      "type": "api",
+      "url": "https://speckle.systems/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "freecad",
+      "domain": "cad",
+      "type": "api",
+      "url": "https://freecad.org/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "ezdxf",
+      "domain": "cad",
+      "type": "library",
+      "url": "https://ezdxf.readthedocs.io/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "opencascade",
+      "domain": "cad",
+      "type": "library",
+      "url": "https://dev.opencascade.org/",
+      "priority": "P1",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "threejs",
+      "domain": "visualization",
+      "type": "library",
+      "url": "https://threejs.org/docs/",
+      "priority": "P2",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "pymupdf",
+      "domain": "documents",
+      "type": "library",
+      "url": "https://pymupdf.readthedocs.io/",
+      "priority": "P2",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "python-docx",
+      "domain": "documents",
+      "type": "library",
+      "url": "https://python-docx.readthedocs.io/",
+      "priority": "P2",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "openpyxl",
+      "domain": "documents",
+      "type": "library",
+      "url": "https://openpyxl.readthedocs.io/",
+      "priority": "P2",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "pandoc",
+      "domain": "documents",
+      "type": "cli",
+      "url": "https://pandoc.org/",
+      "priority": "P2",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    },
+    {
+      "id": "libreoffice-uno",
+      "domain": "documents",
+      "type": "api",
+      "url": "https://api.libreoffice.org/",
+      "priority": "P2",
+      "connection_status": "not_verified",
+      "verification_status": "catalogued_not_live_tested"
+    }
+  ]
+}
