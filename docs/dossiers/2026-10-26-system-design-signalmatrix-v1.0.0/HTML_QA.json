@@ -1,0 +1,42 @@
+{
+  "checks": [
+    [
+      "sections",
+      true
+    ],
+    [
+      "no results",
+      true
+    ],
+    [
+      "filter",
+      true
+    ],
+    [
+      "overflow 1440",
+      true
+    ],
+    [
+      "overflow 900",
+      true
+    ],
+    [
+      "overflow 390",
+      true
+    ],
+    [
+      "navigation",
+      true
+    ],
+    [
+      "no external requests",
+      true
+    ],
+    [
+      "no JS errors",
+      true
+    ]
+  ],
+  "errors": [],
+  "external": []
+}

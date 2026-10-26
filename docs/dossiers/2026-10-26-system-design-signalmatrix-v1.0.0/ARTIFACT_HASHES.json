@@ -1,0 +1,27 @@
+{
+  "dossier_content.json": {
+    "bytes": 33136,
+    "sha256": "8691dc2f0d6fdda8133d2b5a3958353dd4119a7580877c484354c89a71b9244f",
+    "md5": "08c5d257329c6dce9bcc24882ae65cd3"
+  },
+  "HTML-MANUAL_NEXUS-System-Design-Signalmatrix_2026-10-26_v1.0.0.html": {
+    "bytes": 47629,
+    "sha256": "f276445a1a6c8e2a9aba1680387222595ee0f6b7b4fcf1cc2fc2e47ab5559810",
+    "md5": "4d6a8c0e09c890790d1e5ce473d11871"
+  },
+  "HTML_QA.json": {
+    "bytes": 463,
+    "sha256": "8a19d0d9660c5a530d47255cbb715061014330f759328f2c355e8d7285a17b19",
+    "md5": "bf3284f50dfe9beeebe40e9746a6bc0c"
+  },
+  "PDF-MANUAL_NEXUS-System-Design-Signalmatrix_2026-10-26_v1.0.0.pdf": {
+    "bytes": 127867,
+    "sha256": "05c7f4dda337d8bcf31238d4255d89f28c362e52cbf2387f015f75961af74e56",
+    "md5": "450180168e0dc974f7941f066e6a0de7"
+  },
+  "SOURCE_MANIFEST.json": {
+    "bytes": 10133,
+    "sha256": "f3a708296ea6fdbafc69d68750cebb689ca44037d041eefeee7f3510d60a1de2",
+    "md5": "468f8c976c95baee7e2f5b3daa29e051"
+  }
+}

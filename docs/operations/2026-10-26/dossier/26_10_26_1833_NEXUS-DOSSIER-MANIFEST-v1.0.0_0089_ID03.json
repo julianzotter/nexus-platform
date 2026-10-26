@@ -1,0 +1,100 @@
+{
+  "title": "NEXUS AI-OS Systemarchitektur-Dossier",
+  "version": "1.0.0",
+  "status": "REVIEW",
+  "timestamp": "2026-10-26T18:33:51+01:00",
+  "pages": 19,
+  "pdf_path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0086_ID03.pdf",
+  "source_path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0087_ID03.md",
+  "generator_path": "/workspace/scratch/ce5ebad62da6/create_architecture_dossier.py",
+  "pdf_sha256": "4a949650286042ccbbc4fb7c203e1b1a380fe7d452f5b0495e0e62a269a4d0f9",
+  "source_sha256": "34a3d8462adff5b2449e1979eb7cbd69c6034910f02afa789bebc00128b54675",
+  "format": "A4 / vector text and diagrams / embedded fonts",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Betriebshandbuch v0.2.0",
+      "url": "https://drive.google.com/file/d/1Xo4gL6N_OWcnnde70baStp0ATNVwu5Wo/view",
+      "scope": "Volltextbasis; bestehende Architektur, Ablage, Betrieb und offene Nachweise."
+    },
+    {
+      "id": "S02",
+      "title": "CURRENT Manifest 28.09.2026",
+      "url": "https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit",
+      "scope": "§2 spätere Adoptionen; §4 Rollen; §§6-10 Betrieb und Änderung."
+    },
+    {
+      "id": "S03",
+      "title": "CURRENT Baseline 28.09.2026",
+      "url": "https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit",
+      "scope": "MUST-20-34, 40-55, 90-96, 130-159."
+    },
+    {
+      "id": "S04",
+      "title": "_AGBS.md v002",
+      "url": "https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view",
+      "scope": "Freigabevermerk 23.10.; Vorrang und Benennung; Abgleich mit älteren Quellen offen."
+    },
+    {
+      "id": "S05",
+      "title": "AIM v0.3.2",
+      "url": "https://drive.google.com/file/d/1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ/view",
+      "scope": "Neun Ideen; Fortschrittscodes und Dispositionen; Historie."
+    },
+    {
+      "id": "S06",
+      "title": "Reparaturcheckliste v1.0.2",
+      "url": "https://drive.google.com/file/d/1KeHVM_VC9nGHZTVyJd_5vBE6xBCG9KwX/view",
+      "scope": "Abgegrenzte Dokumentationslieferung und verbleibende Betriebsnachweise."
+    },
+    {
+      "id": "S07",
+      "title": "Technikachsen-Entscheidung v1.0.0",
+      "url": "https://drive.google.com/file/d/1prAgbIXHIOac8uJOoPClMFbke9I_DaM-/view",
+      "scope": "Technik primär, Recht ergänzend, Deutsch primär; Ledger0059."
+    },
+    {
+      "id": "S08",
+      "title": "WORK Folder-Policy 0.4.0-pilot",
+      "url": "https://drive.google.com/file/d/11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH/view",
+      "scope": "Dokument-SSOT, Spiegelrolle und bestehende Betriebsblocker; ältere Rechtetests nicht als heutiger Live-Test."
+    },
+    {
+      "id": "S09",
+      "title": "nexus-platform PR41",
+      "url": "https://github.com/julianzotter/nexus-platform/pull/41",
+      "scope": "Frisch abgefragt: offen, Draft, unmerged; Head b9286dcef8c683274e20081203aaa1fb876a16c9."
+    },
+    {
+      "id": "S10",
+      "title": "Parser PR4 / rc3",
+      "url": "https://github.com/julianzotter/AI-ENGINEERING-SYSTEM/pull/4",
+      "scope": "Frisch abgefragt: offen, unmerged; Head 336f68e4283ef521cd0508936a27431d6f2d57d0. Testzahlen sind PR-Bericht, kein neuer Testlauf."
+    },
+    {
+      "id": "S11",
+      "title": "ID-Ledger",
+      "url": "https://drive.google.com/file/d/1Uvb89wWOpte3iXWKm3qrg42dEwBb7nuG/view",
+      "scope": "Aktueller Identitätsnachweis; keine ID-Vergabe aus Dateinamen."
+    },
+    {
+      "id": "S12",
+      "title": "Dokumentations-Abschlussbeleg",
+      "url": "https://drive.google.com/file/d/1Y2C6bW_9TtQNcuRGSTQCAa_N5JlN2eZM/view",
+      "scope": "Vorangegangene Ablage-, Hash-, Register- und GitHub-Nachweise."
+    }
+  ],
+  "parser_commit": "336f68e4283ef521cd0508936a27431d6f2d57d0",
+  "documentation_commit": "b9286dcef8c683274e20081203aaa1fb876a16c9",
+  "checks": {
+    "pdf_readable": "PASS",
+    "text_extraction": "PASS",
+    "visual_qa": "PASS: all19 pages inspected in contact sheets; architecture/state/pipeline/source pages reviewed enlarged",
+    "bounds_check": "PASS"
+  },
+  "filename_prefix": "26_10_26_1833_",
+  "generator_sha256": "ef19eee9f550b290ad6a6d50b625c1201f3223984cdfa16263950f42bde02263",
+  "run_id": "DOSSIER-20261026-183351-ID03",
+  "artifact_id": "0089",
+  "scope": "PDF and reproducible source artifacts; independent engineering/production acceptance remains pending"
+}

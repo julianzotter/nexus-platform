@@ -1,0 +1,12 @@
+[
+  {
+    "kind": "PDF",
+    "sha256": "05c7f4dda337d8bcf31238d4255d89f28c362e52cbf2387f015f75961af74e56",
+    "byte_match": true
+  },
+  {
+    "kind": "HTML",
+    "sha256": "f276445a1a6c8e2a9aba1680387222595ee0f6b7b4fcf1cc2fc2e47ab5559810",
+    "byte_match": true
+  }
+]

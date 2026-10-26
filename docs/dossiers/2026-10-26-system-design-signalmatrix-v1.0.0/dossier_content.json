@@ -1,0 +1,368 @@
+{
+  "title": "NEXUS-AI-AEC-ECOSYSTEM",
+  "subtitle": "Technisches Dossier · System-Design & Signalmatrix",
+  "version": "1.0.0 · Quellenprüfung 26.10.2026",
+  "sections": [
+    {
+      "title": "Einleitung",
+      "status": "IST + SOLL",
+      "paras": [
+        "NEXUS soll Engineering-Aufgaben durch eine kontrollierte Verbindung von Wissensquellen, regelgebundenem Routing, deterministischen Fachwerkzeugen und menschlicher Freigabe bearbeiten. Dieses Dossier führt den vorgefundenen Entwicklungsstand und das Zielbild zusammen. Es ist eine technische Review-Fassung, keine Freigabe eines autonomen Bemessungssystems.",
+        "Die stärkste unmittelbar gelesene Implementierungsevidenz ist der GitHub-Quellstand 05f5194ac8013b49f681fa00bb9f0e5abdae75e5. Drive liefert aktuelle Handbücher, Arbeits- und Quellregister sowie ältere EC-Workbook-/OSR-9-Konzepte. Die Existenz eines Dokuments belegt dessen Inhalt als dokumentierte Aussage; sie belegt nicht den Betrieb der darin beschriebenen Funktion. [G01–G06, S01–S04]",
+        "Die zentrale Aussage lautet deshalb: Ein regelbasierter Orchestrierungskern ist im Code vorhanden. Die durchgängige Kette von normativ freigegebener Quelle über vollständige EC-Bemessung bis zu unabhängiger Prüfung und Engineering Release ist in diesem Dossier nicht nachgewiesen."
+      ]
+    },
+    {
+      "title": "Problemstellung",
+      "status": "BEFUND",
+      "paras": [
+        "Die Quellen verteilen sich auf Drive-Ordner, GitHub, ältere Chat-Exporte, Workbooks und Konzeptdateien. Mehrere Versionen derselben Idee tragen ähnliche Titel. Dateiname, Dokumentstatus, Teststatus und tatsächlicher Betrieb können auseinanderfallen. Der September-Handoff beschreibt bereits den Konflikt zwischen einem vorhandenen Benchmark und einem späteren Bericht mit einem vermeintlichen Nullstand. [S08, Abschnitt 2]",
+        "Für Engineering verschärft sich das Problem: Ein plausibler Text, eine formal gültige JSON-Antwort und eine bestandene Softwareprüfung sind unterschiedliche Nachweise. Einheiten, Normausgabe, österreichische nationale Festlegungen, Geometrie und Anwendungsgrenzen müssen zusammenpassen. Diese Bindung darf nicht aus LLM-Konfidenz oder Mehrheitsentscheid abgeleitet werden.",
+        "Das Projekt benötigt deshalb eine kurze, überprüfbare Beweiskette je Ergebnis. Mehr Quellen und mehr Agenten helfen nur, wenn sie relevante Informationen ergänzen und Widersprüche sichtbar halten."
+      ]
+    },
+    {
+      "title": "Zielbild und Systemdefinition",
+      "status": "SOLL",
+      "paras": [
+        "Rule-based bedeutet: Routing, Zugriffsgrenzen, Statusübergänge und Abbruchbedingungen sind explizite, versionierte Regeln. Data-driven bedeutet: Entscheidungen verweisen auf identifizierte Eingaben, Quellenausgaben und beobachtete Tests. Deterministic bezeichnet den Fachrechenkern mit fixierten Eingaben, Parametern und Softwareversionen. LLM-orchestrated bezeichnet die sprachliche Aufgabenzerlegung, Quellenerschließung und Werkzeugauswahl innerhalb dieser Grenzen.",
+        "Der Begriff deterministisch gilt nicht pauschal für das Gesamtsystem. Der gelesene Orchestrator kann dieselbe Route wählen und dennoch unterschiedliche externe Modellantworten erhalten. Temperatur 0, Textkonsens und Hashes machen eine fachliche Aussage nicht automatisch richtig. [G01, S03]",
+        "Zielvertrag: Jede Aufgabe besitzt Ziel, Scope, Eingangsdaten, Normprofil, zulässige Werkzeuge, Abnahmekriterien, Budget und Stop-Regel. Ausgabe ist ein prüfbares Ergebnispaket mit Rechenlauf, Quellenankern, QA, offenen Punkten und separatem Freigabestatus."
+      ]
+    },
+    {
+      "title": "Methodik und Evidenzklassen",
+      "status": "VERIFIED",
+      "paras": [
+        "Am 26.10.2026 wurden der referenzierte Chat, der lokale Projektordner, verbundene Drive-Suchen, direkte Ordnerlisten und ausgewählte Originaldokumente gelesen. Der lokale Projektordner enthielt zu Beginn keine Dateien; die im Chat genannten Artefakte wurden daher über Drive identifiziert. Die Suche folgte SSOT, Wegweiser, Index, Fachartefakt. Lokaler Zugriff auf G: war eingeschränkt; daraus wird keine Abwesenheit abgeleitet.",
+        "GitHub wurde über den verbundenen Dienst identifiziert und als frischer Checkout gelesen. Der vollständige Git-Baum des untersuchten Commits war verfügbar. Drive-Ordneransichten liefern maximal 100 direkte Kinder; WORK und der übergeordnete Benchmark-Bereich erreichten diese Grenze. Die Recherche ist eine gezielte Inhaltsprüfung, keine vollständige rekursive Bestandsaufnahme.",
+        "VERIFIED: in diesem Lauf direkt beobachtet oder geprüft. SOURCE_REPORTED: gelesene Quelle berichtet einen Zustand oder Test. DERIVED: nachvollziehbare eigene Ableitung. SOLL: vorgeschlagene Architektur oder Abnahme. OPEN: erforderlicher Nachweis ist im untersuchten Umfang noch nicht geschlossen.",
+        "Quelltexte wurden zur Auswertung lokal gesichert. Die Quellenliste enthält stabile Drive-IDs, Git-Commit und Locator. Hashes der Textrepräsentation sind ausdrücklich keine Originaldateihashes. Historische Fortschrittsprozente und Leistungsversprechen werden nicht zu aktuellen Kennzahlen umgedeutet."
+      ]
+    },
+    {
+      "title": "Signalmatrix und Signal-Density-Engineering",
+      "status": "KONZEPT + ABLEITUNG",
+      "paras": [
+        "Die gelesene Signalmatrix-Referenz v1.0 bezeichnet sich als CANDIDATE/DRAFT. Sie trennt operative KV01–KV30 von historischen HX001–HX016, 18 Achsenrollen von zehn historischen Kontextrollen sowie Artefaktstatus von Review-Verdikt. Die im Titel enthaltene Bezeichnung canonical hebt diese Statusangaben nicht auf. [S05, Abschnitte 1–4]",
+        "Der September-Handoff berichtet spätere Kandidatenversionen der Key-Value-Matrix und Routing-Presets. Diese Versionsangaben sind hier SOURCE_REPORTED, keine unabhängige Adoption. Er trennt die Signalmatrix als Referenz von ctx_router.py als damaliger Routing-Implementierung. Das aktuelle nexus-platform-Routing ist wiederum ein konkret anderer Codepfad. [S08, Abschnitt 2; G01]",
+        "Signal-Density-Engineering wird für dieses Dossier als Entwurfsprinzip operationalisiert: Mit möglichst wenig Kontext müssen alle entscheidungsrelevanten, belegten Bedingungen erhalten bleiben. Ein kritischer Gegenbeleg, eine ungültige Normausgabe oder eine fehlende Einheit darf bei der Verdichtung nicht verschwinden.",
+        "Vorgeschlagene Messgrößen: Evidence Coverage = belegte erforderliche Aussagen / alle erforderlichen Aussagen; Context Efficiency = belegte relevante Informationseinheiten / Kontextbudget; Contradiction Retention = erhaltene kritische Widersprüche / bekannte kritische Widersprüche. Zählregeln und Referenzkorpus sind vor Messung festzulegen. Es liegen hier keine kalibrierten Zielwerte vor.",
+        "Hard Gates haben Vorrang vor Rangfolgen. Hohe Relevanz oder eine hohe Informationsdichte kann fehlende Provenienz, falsche Einheiten oder eine ausstehende Freigabe nicht kompensieren."
+      ],
+      "table": {
+        "headers": [
+          "Signal",
+          "Beleg / Gegenbeleg",
+          "Entscheidungsfolge"
+        ],
+        "rows": [
+          [
+            "Quellenidentität",
+            "ID, Ausgabe, Locator, Hash / nur Dateititel",
+            "Freigabe stoppen, Original binden"
+          ],
+          [
+            "NAD-AT",
+            "projektgültiges EN/B-Paar / unbestätigte Faktoren",
+            "Normprofil prüfen"
+          ],
+          [
+            "Mechanik",
+            "System, Lastpfad, Randbedingungen / bloße Textplausibilität",
+            "Fachmodell prüfen"
+          ],
+          [
+            "Rechenlauf",
+            "Input- und Codeversion / historischer Testbericht",
+            "Reproduzierbaren Lauf verlangen"
+          ],
+          [
+            "Unsicherheit",
+            "qualitative Begründung / LLM-Selbstkonfidenz",
+            "Review oder Enthaltung"
+          ],
+          [
+            "Freigabe",
+            "Scope und menschlicher Entscheid / automatisches PASS",
+            "Engineering Gate separat halten"
+          ]
+        ]
+      }
+    },
+    {
+      "title": "Architektur und Schichtenmodell",
+      "status": "IST / SOLL",
+      "paras": [
+        "Das System lässt sich in sechs Verantwortungsschichten gliedern: menschliche Steuerung; Dokument- und Kontrollschicht; Wissensaufbereitung; Orchestrierung; deterministische Ausführung; Ergebnis- und Auditprojektionen. Diese Gliederung konsolidiert das aktuelle Handbuch und das Workbook-Konzept. Sie ist kein Nachweis einer bereits vollständig integrierten Laufzeit. [S01–S03]",
+        "OSR-9 beschreibt L0 MainGoal, L1 Engram-Check, L2 Retrieval, L3 MMR, L4 Context Pruning, L5 MoE-Router, L6 Schema-First, L7 Causal-Peer und L8 Confidence-Gate. Das sind Verarbeitungsschritte innerhalb der Architektur, keine alternative Ordnerstruktur. Die drei Outputachsen Mechanik, Norm und Geometrie sind ein hilfreiches Prüfraster, aber kein vollständiger Nachweisvertrag. [S02]",
+        "Ziel ist eine klare Richtung der Autorität: Original und Projektentscheidung bestimmen das Normprofil; das Normprofil bindet den Solver; der Solver liefert Zahlen; unabhängige QA prüft; der Mensch entscheidet über die Verwendung. Dashboard und LLM dürfen diese Autoritätskette nicht umkehren."
+      ],
+      "table": {
+        "headers": [
+          "Schicht",
+          "Heute belegt",
+          "Offene Abnahme"
+        ],
+        "rows": [
+          [
+            "Steuerung",
+            "Handbuch, WORK/Folder, Ticket Registry gelesen",
+            "Konflikte und Rollen verbindlich konsolidieren"
+          ],
+          [
+            "Wissen",
+            "Wegweiser und Quellregister dokumentiert",
+            "Original–Parser–Chunk vollständig binden"
+          ],
+          [
+            "Orchestrierung",
+            "core.py und routing.json gelesen",
+            "Providerbetrieb und Auswahlqualität messen"
+          ],
+          [
+            "Execution",
+            "EC-Konzepte und historisches RUN06",
+            "Aktuelle fachliche Referenzsuite"
+          ],
+          [
+            "Toolzugriff",
+            "MCP-Bridge-Code vorhanden",
+            "Zielumgebung und Ende-zu-Ende-Vertrag"
+          ],
+          [
+            "Audit / Anzeige",
+            "Logs, Exportcode, Dokumente vorhanden",
+            "Identität, Integrität und Human Release"
+          ]
+        ]
+      }
+    },
+    {
+      "title": "Daten- und Wissensfluss",
+      "status": "SOLL MIT QUELLENBASIS",
+      "paras": [
+        "Vorgesehener Fluss: Quelle → Ressourcenregister → Parserrepräsentation → fachlicher Kandidat → Validierung → Retrieval → eingefrorenes Aufgabenpaket → Fachsolver → QA → Freigabe → dokumentiertes Ergebnis. Jede Ableitung erhält DERIVED_FROM, Quellversion, Abschnitt/Seite und Verarbeitungsversion. Graph- und Vektorindizes bleiben regenerierbare Projektionen. [S03, Abschnitt 14; S06]",
+        "Der Wegweiser berichtet EN- und österreichische B-/NAD-Fundstellen für EC0 bis EC9, einschließlich EC2-Parserderivaten. Das widerlegt die Berechtigung einer pauschalen fehlt-Aussage aus einer engen Chat-Dateiliste. Es beweist aber weder die Vollständigkeit noch die Projektgültigkeit sämtlicher Normparameter. [S06]",
+        "Die konkrete Bindung pro Rechnung lautet: source_id + edition + locator + representation_hash + parser_version + project_adoption. Bei geänderter Quelle werden betroffene Parameter, Solverläufe und Berichte als STALE markiert, bis die fachliche Delta-Prüfung erfolgt. Dieses Invalidation-Verhalten ist ein Sollvertrag.",
+        "Die Recherche dieses Dossiers endet vor einer vollständigen Normeninventur und vor der Prüfung aller Originalnormen. Daher werden keine neuen Bemessungsfaktoren freigegeben und keine Normaktualität bescheinigt."
+      ]
+    },
+    {
+      "title": "LLM-, MoE- und MainGoal-Routing",
+      "status": "CODE VERIFIED / BETRIEB OFFEN",
+      "paras": [
+        "Im untersuchten core.py liefert classify den explizit übergebenen Aufgabentyp zurück, sofern er konfiguriert ist. Vertraulichkeitsmarker in Prompt und Systemtext haben Vorrang und lenken auf private. run ruft Primary und Fallback nacheinander auf. Das Feld council in der Konfiguration bewirkt in run keinen automatischen Council-Aufruf; council ist ein eigener Ausführungspfad. [G01]",
+        "council iteriert die Mitglieder sequenziell, verlangt mindestens zwei gültige Antworten für ein Quorum und vergleicht normalisierten Antworttext. Bei Abweichung erzeugt ein Mitglied eine Synthese. Das ist weder unabhängige Fachprüfung noch der parallele Drei-Experten-Mechanismus des OSR-9-Konzepts. [G01, S02]",
+        "Konfigurierte Routen: research → perplexity, norm_check → perplexity, code/review/engineering_decision → claude, draft → gpt, long_context → gemini, private → local, ocr → vision. Modellnamen sind Konfiguration, keine Bestätigung aktueller Erreichbarkeit oder Eignung. Private besitzt keine Fallback-Route. [G02]",
+        "MainGoal sollte künftig vor dem Routing als versionierter Aufgabenvertrag vorliegen: Bauteil, Nachweisumfang, Projekt, Normprofil, Eingaberevision, erwartete Ausgabe und Stop-Regel. Ein dreiwertiges Ergebnis DONE / REVIEW_REQUIRED / BLOCKED ist aussagekräftiger als eine unbegründete Konfidenzzahl.",
+        "MoE bezeichnet hier auf Anwendungsebene spezialisierte Rollen und Modellaufrufe. Es bedeutet keine Kontrolle über die internen Experten eines Anbieter-Modells. Die Auswahl muss auf eigenen Retrieval-, Routing- und Engineering-Benchmarks beruhen."
+      ]
+    },
+    {
+      "title": "Deterministische Execution Layer: Excel, Python, Eurocode",
+      "status": "ENTWURF + TEILNACHWEISE",
+      "paras": [
+        "Der Developer Guide beschreibt Named Ranges, Einheiten-Suffixe, Python-Module, strukturierte Normparameter, ein Audit-Sheet und einen möglichen Office.js-Port. Seine Statuszahlen stammen vom 31.05.2026. Die dortigen Aussagen production-ready oder bereits validiert werden als historische Autorenangaben behandelt. [S01, Abschnitte 4–8, 14]",
+        "Zielvertrag für einen Solver: ausschließlich typisierte Eingaben; explizite Einheitenkonversion; fixierte Normparameter; validierte Geometrie; erkennbare Anwendungsgrenzen; reproduzierbare Ergebnisse; keine versteckten LLM-Änderungen an Zahlen oder Formeln. Ergebnisfelder enthalten Einheit, Formel-ID, Eingaberevision, Codecommit und Prüfstatus.",
+        "Excel dient als lesbare Eingabe-, Kontroll- und Berichtsebene. Eine Formeldatei zu schreiben ist noch kein Recalc-Nachweis. Der Roundtrip muss Eingaben exportieren, mit dem freigegebenen Kern rechnen, Ergebnisse zurücklesen und erwartete Werte samt Toleranz prüfen. Arbeitsmappen- und Solverversion gehören in denselben Lauf.",
+        "Der Guide enthält eine selbstreferenzierende Verformungsgleichung mit w_II auf beiden Seiten. Der OSR-9-Beispielfall nennt für denselben Träger Zahlen, deren Zusammenhang einer eigenen Prüfung bedarf. Diese Befunde zeigen, warum Konzeptformeln nicht ungeprüft zu Golden Tests werden dürfen. [S01, Abschnitt 4.1; S02, Abschnitt 4]",
+        "Für EC2-Balken und Platten ist eine nachvollziehbare Nachweismatrix erforderlich: Tragfähigkeit, Gebrauchstauglichkeit, Detailregeln und Geltungsgrenzen je tatsächlich unterstütztem Verfahren. Dieses Dossier bestätigt keinen vollständigen EC2/NAD-AT-Solver."
+      ]
+    },
+    {
+      "title": "EC-Workbook- und OSR-9-Projektkontext",
+      "status": "SOURCE_REPORTED",
+      "paras": [
+        "Die im Vorgängerchat genannten Artefakte wurden in Drive wiedergefunden: Developer Guide, Konzeptdateien, Design-Sheet-Recherche, OSR-9-Prompt und HTML-Blueprint. Der Developer Guide und das OSR-9-Template wurden inhaltlich gelesen; weitere Treffer dienen als Discovery-Nachweis. Aus dem Chat selbst waren keine Anlagen abrufbar. [S01, S02, Q01]",
+        "Wiederverwendbar sind die Trennung Mechanik/Norm/Geometrie, Schema-first, explizite Einheiten, Named Ranges, Quellenanker und begrenzte Korrekturschleifen. Offene Prüfpunkte sind Normparameter, Referenzrechnungen, tatsächlicher Workbook-Roundtrip und eine belastbare Zuordnung von Quellcode zu den im Guide genannten Tests.",
+        "Die OSR-9-Schwellen 0,85 und 0,60 sind im Template ausdrücklich kalibrierungsbedürftig. Sie dürfen nicht als Fehlerwahrscheinlichkeit gelesen werden. Ebenso ist ein azyklischer Abhängigkeitsgraph ein Strukturcheck; daraus folgt keine physikalische oder normative Richtigkeit. [S02, Abschnitte 3 und 7]",
+        "Empfohlene Überführung: jedes Konzeptmodul bekommt einen kleinen prüfbaren Vertrag, eine konkrete Implementierungsreferenz, positive und negative Referenzfälle sowie einen Status. Das ursprüngliche Dokument bleibt erhalten; Korrekturen werden als neue Version nachvollziehbar."
+      ]
+    },
+    {
+      "title": "WORK: Aufträge, Rückläufe und Ablage",
+      "status": "VERIFIED / TEILWEISE BERICHTET",
+      "paras": [
+        "Der Zielordner WORK wurde per Metadaten als Kind der LLM-LOCAL-SSOT-ID bestätigt. Seine ID lautet 1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP. Die direkte Liste enthält aktuelle Handbücher, Dossiers, Auditberichte, Work Orders, Parserpakete und die Ticket Registry. Die ersten 100 Kinder sind ein Ausschnitt. [D01, D02]",
+        "Folder.md führt eine Pilotpolicy und zahlreiche begrenzte Testnachweise; zugleich trägt es einen blockierten Integrations- und Freigabestatus. Seine last_run-Angabe ist vom 18.10.2026. Diese Zahlen sind Quellenbericht, nicht Ergebnis eines neuen Tests. Die heutige Metadatenprüfung bestätigt die dort beschriebene Berechtigung anyone:writer. Berechtigungen wurden in diesem Auftrag nicht geändert. [S09, D01]",
+        "Die neue Lieferung ergänzt WORK um eindeutig versionierte PDF-MANUAL- und HTML-MANUAL-Dateien sowie einen Markdown-Lieferbericht. Sie ersetzt weder vorhandene Dossiers noch AIM, Registry oder Folder.md. Der Versandauftrag autorisiert diese Ablage; daraus entsteht keine allgemeine System- oder Engineering-Freigabe.",
+        "GitHub erhält denselben Dokumentstand als versionierten Review-Snapshot. Die tatsächliche erfolgreiche Speicherung wird im separaten Lieferlog mit Commit, Drive-ID und Prüfsummen dokumentiert."
+      ]
+    },
+    {
+      "title": "SKILLS: Wiederverwendbare Fähigkeiten",
+      "status": "INVENTAR VERIFIED",
+      "paras": [
+        "Im direkt gelesenen SKILLS-Ordner unter LLM-LOCAL-SSOT sind unter anderem PDF-Normen-Parser-Pipeline, eval-matrix-algorithm, rank-nexus-tabs, agent-steuerung, nexus-rf6-cable und NexusFileSearch sichtbar. Ein weiterer SKILLS-Ordner existiert auf Development-Ebene; gleiche Namen bedeuten daher keine identische Sammlung. [D03]",
+        "Im untersuchten Repository liegen skills/access-point-navigator und skills/rank-nexus-tabs sowie tools/skill_inventory.py und zugehörige Tests. Dies ist Dateibestand, kein Beleg, dass alle Skills in jeder Runtime installiert oder fachlich abgenommen sind. [G00]",
+        "Zielvertrag: Skill-ID, Version, Zweck, Eingabeschema, erlaubte Werkzeuge, Berechtigungen, Abbruchbedingungen, Beispiel, Tests und Quellen. Runtime-Capability und fachliche Freigabe werden getrennt geführt. Ein Prompt mit Prüfregeln ersetzt keinen ausführbaren Validator.",
+        "Next Action: vorhandene Inventare verbinden und pro tatsächlich genutztem Skill einen Vertragstest gegen die konkrete Runtime durchführen; Dubletten erst nach Identitäts- und Versionsvergleich behandeln."
+      ]
+    },
+    {
+      "title": "MCP-ACCESS-TOOLS: Zugriff und Werkzeugvertrag",
+      "status": "CODE + KONZEPT",
+      "paras": [
+        "README FIRST fordert einen lokalen Access-Layer, eindeutige Werkzeuge, Python-/API-Bridge, Golden Tests und fail-closed Verhalten. Der direkte Ordner enthält Registry, Lessons, Dispatcher, Testdateien und eine RFEM6-Bridge-Datei. Die Dispatcher-Textansicht war leer; daraus wird keine leere Originaldatei abgeleitet. [S07, D04]",
+        "Die separate nexus-platform-MCP-Bridge liest lokale WORK-Dateien und Repository-Inhalte. Sie begrenzt Pfade, blockiert bestimmte Secret-Dateinamen und aktiviert submit_result nur bei ausdrücklich gesetztem Schreibschalter. Ergebnisse werden neu angelegt und als REVIEW/PENDING markiert. [G03]",
+        "Diese lokale Mount-Bridge ist nicht identisch mit dem Drive-Connector dieser Sitzung. Auch ein vorhandener stdio-Server beweist keinen laufenden zentralen MCP-Dienst. Ein produktiver Vertrag benötigt authentifizierte Identität, Scope, Timeouts, Fehlerklassen, Idempotenz, vollständigen Readback und Tests für verweigerte Zugriffe.",
+        "Der gelesene Drive-Poller ist ein Änderungsleser. Beim ersten Aufruf setzt er einen Starttoken, ohne Initialinventur. Bei fehlenden Credentials kann er einen BLOCKED-Bericht mit Exitcode 0 erzeugen. Ein grüner Prozessstatus wäre deshalb allein kein Betriebsnachweis. [G04]"
+      ]
+    },
+    {
+      "title": "LLM-LOCAL-SSOT: Wissens- und Dokumentautorität",
+      "status": "QUELLENBASIS",
+      "paras": [
+        "LLM-LOCAL-SSOT ist als Drive-Root identifiziert. Der aktuelle Handbuchentwurf vom 26.10.2026 trennt Dokument-SSOT in Drive, Code und Review in GitHub sowie regenerierbare Graph-/Vektorprojektionen. Er benennt zugleich noch nicht konsolidierte Governance- und Benennungskonflikte. [S03]",
+        "Der Master Source Index v0.3 ist ein historischer Prüfbericht. Er beschreibt 13.293 Inventarrecords ohne SHA-256 und mit listed/unknown sowie ein inkonsistentes Voice-Bundle-Manifest. Diese Zahlen werden nicht als aktueller Gesamtbestand übernommen. Ihr Nutzen liegt in den präzisen offenen Nachweisketten und Wiederverwendungsankern. [S04]",
+        "Ressourcen-ID, Artefakt-ID, Chunk-ID und kanonische Agentenrolle sind verschiedene Namensräume. Ein Dateihash bindet Bytes; ein Quellen-Locator bindet eine Stelle; ein Reviewstatus bindet eine Prüfung; eine Freigabe bindet eine Entscheidung mit Scope. Eine einzige grüne Statusspalte kann diese Beziehungen nicht ersetzen.",
+        "Vorrangig ist die Konsolidierung vorhandener Register und Referenzen. Dieses Dossier erzeugt keine neue konkurrierende globale SSOT."
+      ]
+    },
+    {
+      "title": "BENCHMARKS: Nachweis statt Prozentfortschritt",
+      "status": "HISTORISCHE EVIDENZ",
+      "paras": [
+        "Drive-Suche und Ordnerlisten identifizieren Bereiche für Beton, Holz, HBV, Seilstatik, IFC und Multi-LLM-Orchestrierung. Sie belegen die Existenz von Benchmark-Ablagen, nicht deren Testabdeckung oder Gültigkeit. Das heutige Workflow+Benchmark-PDF war über den Textabruf nur als Titel lesbar und wird nicht inhaltlich ausgewertet. [D05]",
+        "RUN06_TEST_RESULTS.json wurde als Originalinhalt abgerufen. Es enthält passed=15, total=15, darunter Flexur-Sweeps, negative Eingaben, Gamma-C-Mutationen und Mindestbewehrungsprüfungen. Es klassifiziert sich ausdrücklich als SOFTWARE_AND_INDEPENDENT_FORMULATION_QA_ONLY und setzt engineering_release=false. Der Lauf ist historisch; er wurde hier nicht wiederholt. [S13]",
+        "Der September-Handoff berichtet einen Kontextbenchmark mit n=10 und Regex-Scoring sowie erheblicher Tokenreduktion. Diese Ergebnisse gelten nur für den damaligen Korpus und Versuchsaufbau; daraus folgt keine aktuelle Engineering-Accuracy. [S08, Abschnitte 2–3]",
+        "Ein lokaler Start der Orchestrator-Tests scheiterte in dieser Dokumentationsumgebung am fehlenden Paket pytest. Es wurde damit kein Test bestanden und kein fachlicher Testfehler diagnostiziert. Der Quellcode wurde statisch gelesen; Provider wurden nicht live aufgerufen.",
+        "Empfohlene Testfamilien: Retrieval mit Quellen-Locator; Routing mit Vertraulichkeit und Enthaltung; Solver mit unabhängigen Zahlenreferenzen und Grenzfällen; Excel-Roundtrip; Toolzugriff mit Negativfällen; Freigabe mit authentifizierter Entscheidung. Jede Familie braucht Nenner, Toleranz, Commit, Datenhash und Ergebnis."
+      ]
+    },
+    {
+      "title": "Governance, QA und Audit",
+      "status": "IST + SOLL",
+      "paras": [
+        "Das aktuelle Handbuch trennt Dokument-, Entwicklungs-, Aufgaben- und Evidenzstatus. Folder.md und AGENTS.md fordern nachvollziehbare Rückläufe, Quellen und tatsächliche Fähigkeiten. Ein Rollenname authentifiziert keine Instanz. Die Lieferung bleibt deshalb als Review-Dossier gekennzeichnet. [S03, S09, G06]",
+        "Der Orchestrator schreibt Zeitstempel, Prompt-Hash sowie ausgewählte Routingfelder in ein JSONL-Audit. Dieses Log enthält nicht automatisch alle Solverinputs, Modellparameter, Antwortbytes, Normausgaben und menschlichen Entscheidungen. Eine vollständige Engineering-Beweiskette ist ein zusätzlicher Vertrag. [G01, _audit]",
+        "Soll-QA je Lauf: Schema → Eingaben/Einheiten → Quellenausgabe → deterministische Ausführung → unabhängige Referenz → Ergebnisscope → menschliche Freigabe. Fehler werden erhalten, Korrekturen verknüpft und die betroffenen Tests wiederholt. Ein Test-PASS bezieht sich immer auf seine konkrete Revision.",
+        "Für dieses Dossier werden PDF-Text und Seitenlayout sowie HTML-Navigation, Suche, Filter, Offline-Fähigkeit und Bildschirmbreiten geprüft. Das ist Artefakt-QA; es zertifiziert weder NEXUS-Betrieb noch Bemessung.",
+        "Die eigene Ablage erhält Prüfsummen und Remote-Readback. Die beobachtete WORK-Schreibberechtigung bleibt als Risiko sichtbar; ein Hashvergleich prüft die gelesene Fassung, garantiert aber keine zukünftige Unveränderlichkeit."
+      ]
+    },
+    {
+      "title": "Status quo und Entwicklungslinie",
+      "status": "ZEITGEBUNDEN",
+      "paras": [
+        "S₀ bezeichnet hier den Workbook-/OSR-9-Konzeptstand Mai 2026. Sₙ₋₂ bezeichnet die September-Handoffs mit berichteten Kontext- und EC2-Teiltests. Sₙ₋₁ bezeichnet Masterindex und Pilotbefunde vom Oktober. Sₙ bezeichnet die am 26.10.2026 gelesenen Quellen und den eingefrorenen Git-Commit. Diese Zustände sind keine vergleichbare Messreihe.",
+        "Bestätigt sind Quellenzugriff, konkrete Ordneridentitäten, gelesene Dokumente und vorhandene Codepfade. Historische Tests bleiben SOURCE_REPORTED. Automatischer Gesamtbetrieb, globale Synchronisierung, aktuelle Providerverfügbarkeit und vollständige Engineering-Freigabe bleiben im untersuchten Umfang offen.",
+        "Ein Gesamtfortschritt in Prozent wäre ohne feste Komponentenliste und belastbaren Abnahmenenner irreführend. Stattdessen zeigt die folgende Matrix, welche Aussage jeweils getragen wird."
+      ],
+      "table": {
+        "headers": [
+          "Bereich",
+          "Belastbarer Status",
+          "Grenze"
+        ],
+        "rows": [
+          [
+            "Routing",
+            "Code gelesen, Konfiguration versioniert",
+            "Kein Live-Provider-Test"
+          ],
+          [
+            "OSR-9 / Signalmatrix",
+            "Konzepte und Referenzen gelesen",
+            "Keine durchgängige Runtime-Abnahme"
+          ],
+          [
+            "EC2 RUN06",
+            "15/15 im historischen Ergebnisobjekt",
+            "Keine Engineering-Freigabe"
+          ],
+          [
+            "WORK",
+            "Ziel-ID und Parent bestätigt",
+            "Writer-Risiko bestätigt"
+          ],
+          [
+            "Skills / MCP",
+            "Inventare und Bridge-Code vorhanden",
+            "Installation/Betrieb nicht umfassend geprüft"
+          ],
+          [
+            "PDF / HTML dieses Laufs",
+            "Eigene QA separat protokolliert",
+            "Dokumentenlieferung, keine Systemfreigabe"
+          ]
+        ]
+      }
+    },
+    {
+      "title": "Gap- und Risikoanalyse",
+      "status": "OFFEN",
+      "paras": [
+        "Die folgenden Prioritäten sind fachlich begründete Arbeitsvorschläge, keine gemessenen Risikoquoten. Jeder Befund verbindet Beleg, Gegenbeleg, Unsicherheit und Verifikationstest."
+      ],
+      "table": {
+        "headers": [
+          "Priorität / Befund",
+          "Beleg und Gegenbeleg",
+          "Verifikation / Abschluss"
+        ],
+        "rows": [
+          [
+            "P0 · Quellschutz WORK",
+            "anyone:writer direkt gelesen; lokale Schreibgates ersetzen Drive-ACL nicht",
+            "Legitime Writer festlegen; autorisierte ACL-Korrektur; Negativtest"
+          ],
+          [
+            "P0 · Norm-/Solverbindung",
+            "Guide und RUN06 vorhanden; keine vollständige aktuelle EN/B-Bindung geprüft",
+            "Ein Bauteil, fixiertes Normprofil, Originalanker und unabhängige Referenz"
+          ],
+          [
+            "P1 · Routinglücke",
+            "core.py vorhanden; OSR-9-Zielpfad dort nicht nachgewiesen",
+            "MainGoal-Vertrag und messbarer Routingbenchmark"
+          ],
+          [
+            "P1 · Statuskonflikte",
+            "Mai-Prozente, Oktober-Review und Folder-Pilot parallel",
+            "Ein versionsgebundener Statusvertrag; keine stille Überschreibung"
+          ],
+          [
+            "P1 · Auditumfang",
+            "Prompt-Hash vorhanden; vollständiges Input/Output-Manifest nicht automatisch",
+            "Replay eines Laufs aus Manifest"
+          ],
+          [
+            "P1 · Testumgebung",
+            "Tests vorhanden; pytest fehlt in diesem Runtimeversuch",
+            "Gepinnte Umgebung aufsetzen und exakt denselben Commit testen"
+          ],
+          [
+            "P2 · Quellenabdeckung",
+            "Gezielte Reads erfolgreich; Drive-Listen teils auf 100 begrenzt",
+            "Priorisierte Delta-Enumeration statt Vollständigkeitsbehauptung"
+          ]
+        ]
+      }
+    },
+    {
+      "title": "Roadmap und Ausblick",
+      "status": "SOLL",
+      "paras": [
+        "Phase A – Identität und Scope: Für einen einzigen EC2-Balken- oder Plattenfall Eingaben, Normausgaben, zulässige Verfahren und Abnahme festlegen. Bestehende Artefakte und Testfälle wiederverwenden. Exit-Kriterium: vollständiges Aufgaben- und Quellenmanifest ohne ungeklärte kritische Parameter.",
+        "Phase B – Deterministischer Slice: vorhandenen Solverstand identifizieren, Einheiten und Grenzfälle prüfen, unabhängige Referenz rechnen und Excel-Roundtrip protokollieren. Exit-Kriterium: reproduzierbare Zahlen innerhalb vorher definierter Toleranzen; negative Eingaben führen zu erklärtem Abbruch.",
+        "Phase C – Kontrollierte Orchestrierung: MainGoal als Schema, feste Toolverträge, Vertraulichkeits- und Fehlerpfade, begrenzte Wiederholungen. Exit-Kriterium: alle freigegebenen Referenzaufgaben und Negativfälle im gleichen Laufmanifest.",
+        "Phase D – Nachweisbare Ablage: bestehendes WORK/GitHub-Verfahren mit Identität, Idempotenz und Readback verbinden. Exit-Kriterium: Ergebnis, Registerreferenz und Bytevergleich stimmen; Versand und ACK bleiben getrennte Zustände.",
+        "Phase E – Review und Ausweitung: unabhängige Fachprüfung und Human Gate auf finaler Revision. Erst danach weitere Bauteile und Fachdomänen aufnehmen. Termine und Aufwand werden nach Scope-Freeze geschätzt; die historischen 18 Personentage aus dem Guide werden nicht fortgeschrieben."
+      ]
+    },
+    {
+      "title": "Ideen und konkrete Next Actions",
+      "status": "VORSCHLAG",
+      "paras": [
+        "1. Evidence Contract als kleines JSON-Schema: Quellenbindung, Normprofil, Inputhash, Codecommit, Testreferenz, offene Punkte, Freigabe. Zuerst an einem bestehenden RUN06-Fall ausprobieren, ohne dessen historische Evidenz zu überschreiben.",
+        "2. Signalverlust-Test: denselben Fall mit vollem und verdichtetem Kontext ausführen. Prüfen, ob Normausgabe, Einheiten, Gegenbelege und Stop-Regeln erhalten bleiben. Tokenreduktion nur gemeinsam mit Recall und Fehlentscheidungen berichten.",
+        "3. MainGoal-Diff: Bei jeder Änderung anzeigen, welche Eingaben, Normparameter oder Nachweise betroffen sind. Nur betroffene Artefakte invalidieren; die Entscheidung zur erneuten Abnahme bleibt sichtbar.",
+        "4. Rollen- und Runtime-Mapping: Capability, kanonische Rolle, tatsächliche Instanz, Provider und Toolrechte in getrennten Feldern führen. Bestehende Capability-Umfrage verwenden, keine zweite globale Liste.",
+        "5. Quellenpass pro Bericht: kompaktes, exportierbares Verzeichnis mit IDs, Ausgabe, Locators, Status und Prüfdatum. Im HTML führt jede Aussage zu ihrer Quelle; offline bleibt der Text lesbar, externe Originale benötigen Zugriff.",
+        "6. Nächste technische Entscheidung: einen konkreten Golden Slice und seine unabhängige Referenz auswählen. Diese Dokumentenlieferung implementiert keinen Solver, ändert keine Governance und aktiviert keine Automation."
+      ]
+    }
+  ]
+}
