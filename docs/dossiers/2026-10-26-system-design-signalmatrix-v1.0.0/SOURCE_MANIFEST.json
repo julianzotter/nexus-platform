@@ -1,0 +1,229 @@
+{
+  "retrieved_on": "2026-10-26",
+  "timezone": "Europe/Vienna",
+  "baseline_commit": "05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+  "coverage": "targeted, not exhaustive",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "EC_DESIGN_WORKBOOK_DEVELOPER_GUIDE.md",
+      "url": "https://drive.google.com/file/d/1IvVLdNO8V82hUpyMcaEV4u27BoTp1MWP/view",
+      "modified": "2026-05-31T13:30:36.194Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "ce3bcf0666bf23a989c4bc11862677fb060e643e68c0d2929af0d1b448690292",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "guide"
+    },
+    {
+      "id": "S02",
+      "title": "EC-WORKBOOK_System_Prompt_Template_#osr9.md",
+      "url": "https://drive.google.com/file/d/1UXbm2CVMqlBIQaVpPRsck4SeRETSOQOc/view",
+      "modified": "2026-05-31T13:27:48.526Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "a96228bf97c6835cb03d8e57438d41178e40ba33adeb1187ea4adcd3442189e9",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "osr"
+    },
+    {
+      "id": "S03",
+      "title": "26_10_26_1648_NEXUS-BETRIEBSHANDBUCH-v0.2.0_0063_ID03.md",
+      "url": "https://drive.google.com/file/d/1Xo4gL6N_OWcnnde70baStp0ATNVwu5Wo/view",
+      "modified": "2026-10-26T15:49:27.316Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "89b7411fdd430cc8ed88367a0f7d037a6afbd5301fd4a4e6065135e54d3a54b5",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "manual"
+    },
+    {
+      "id": "S04",
+      "title": "26_10_17_NEXUS_MASTER_SOURCE_INDEX_.txt",
+      "url": "https://drive.google.com/file/d/1tFVq-3GmLu4FldDgr-E3U6lhwZFP_f69/view",
+      "modified": "2026-10-18T11:28:14.493Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "4eaa3df639d9bdead21d94315f34dd34b22a0ddb56424f935529124e5c917fd1",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "index"
+    },
+    {
+      "id": "S05",
+      "title": "NEXUS_SIGNALMATRIX_REFERENZ_CANONICAL_v1.0.md",
+      "url": "https://drive.google.com/file/d/1CXiK0S5UUw4iUkSqR4pfc-Eaq4WY9quu/view",
+      "modified": "2026-07-13T14:23:42.000Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "62b5e6ef77fa4eaf18abcfa2426bf0959ba11c7a4b725a7316e3a9b7b9f56108",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "signal"
+    },
+    {
+      "id": "S06",
+      "title": "00_WEGWEISER_NORMEN_PARSER_INDEX_REUSE__2026-09-29.md",
+      "url": "https://drive.google.com/file/d/1LcigDxoDAS1v4Mb6EhufOa9i9SaZZDxl/view",
+      "modified": "2026-09-28T23:11:09.282Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "ec2c66db84881788cce691d9e84a91856ea1e66dae8489d5ddc80a0d8c035c77",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "wayfinder"
+    },
+    {
+      "id": "S07",
+      "title": "README_FIRST_MCP-ACCESS-TOOLS",
+      "url": "https://drive.google.com/file/d/1IfDxO5Cnqd6U-17dFaWzNjuWhalUhxBxgnodS0MeDxc/view",
+      "modified": "2026-09-15T20:21:17.914Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "e9c9a59b29a1ad9300cd21808d10ef5d4a37ca2b9d5e6cfa4e5ef8bc5c6a87fa",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "mcp"
+    },
+    {
+      "id": "S08",
+      "title": "26_09_20_0003_AI-STACK_SignalMatrix_MoE-Router_MVP-Ranking_Suche_Handoff_v1.0.md",
+      "url": "https://drive.google.com/file/d/19meHaIiq_XAUbddEQTify9mJcNp2BHJP/view",
+      "modified": "2026-09-20T18:12:05.710Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "0e163cb62b7c36ea7a8ddb2af7a2c397f4b0e4c0c13b298ca69ad7fc1649f478",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "density"
+    },
+    {
+      "id": "S09",
+      "title": "Folder.md",
+      "url": "https://drive.google.com/file/d/11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH/view",
+      "modified": "2026-10-18T11:04:55.547Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "ce01d983bd7c62bc103169fa653c38c032caa82bd4c9d6d769d89fbb25f51507",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "folder"
+    },
+    {
+      "id": "S10",
+      "title": "LESSONS_LEARNED.md",
+      "url": "https://drive.google.com/file/d/1THydCBzRF7pAZEVqS64dZ9spRBO4rH8k/view",
+      "modified": "2026-09-18T05:31:21.982Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "d639e4133184db8c1702b95d7dbf4257bc6c9a5645fec191a6cccfc47735b5a4",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "lessons"
+    },
+    {
+      "id": "S11",
+      "title": "26_10_26_nexus_ai_os_technisches_dossier_dashboard.html",
+      "url": "https://drive.google.com/file/d/1Ubo4DEl70yYQlPPjEOsrCHcHI3DeHdQT/view",
+      "modified": "2026-10-26T17:16:50.202Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "aca34eca9848a14e829075c658c107a39081d4670bf10240d13176d3ad097d32",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "existing"
+    },
+    {
+      "id": "S12",
+      "title": "NEXUS_CONTROL_PLANE__TICKET_REGISTRY",
+      "url": "https://docs.google.com/document/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/edit",
+      "modified": "2026-10-26T16:04:27.853Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "90051920093866f764da5fed69d2e47dce6825674a5cf0edb3c27ebed619c13a",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "ticket"
+    },
+    {
+      "id": "S13",
+      "title": "RUN06_TEST_RESULTS.json",
+      "url": "https://drive.google.com/file/d/1HhYepvwJ4T0OYWhtx67QJ3uN9lc3n-E_/view",
+      "modified": "2026-09-13T22:19:20.000Z",
+      "scope": "Gelesene Connector-Textrepräsentation; RUN06 Original-JSON",
+      "sha256": "3b1addb78e2ee49dcbea04a55c3f7f097e1c875c0f11f6b818d095634178b8b8",
+      "hash_scope": "retrieved_text_utf8",
+      "key": "run06"
+    },
+    {
+      "id": "G00",
+      "title": "Git-Baum",
+      "url": "https://github.com/julianzotter/nexus-platform/tree/05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": "Vollständiger Git-Baum, keine Laufzeitprüfung"
+    },
+    {
+      "id": "G01",
+      "title": "Orchestrator: classify / run / council / _audit",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/05f5194ac8013b49f681fa00bb9f0e5abdae75e5/orchestrator/nexus_orch/core.py",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": "orchestrator/nexus_orch/core.py"
+    },
+    {
+      "id": "G02",
+      "title": "Routing-Konfiguration v1.2.1",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/05f5194ac8013b49f681fa00bb9f0e5abdae75e5/orchestrator/config/routing.json",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": "orchestrator/config/routing.json"
+    },
+    {
+      "id": "G03",
+      "title": "MCP Bridge",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/05f5194ac8013b49f681fa00bb9f0e5abdae75e5/mcp_bridge/nexus_mcp_server.py",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": "mcp_bridge/nexus_mcp_server.py"
+    },
+    {
+      "id": "G04",
+      "title": "Drive Changefeed",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/05f5194ac8013b49f681fa00bb9f0e5abdae75e5/tools/drive_changes_poll.py",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": "tools/drive_changes_poll.py"
+    },
+    {
+      "id": "G05",
+      "title": "Drive Poll Workflow",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/05f5194ac8013b49f681fa00bb9f0e5abdae75e5/.github/workflows/nexus-drive-poll.yml",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": ".github/workflows/nexus-drive-poll.yml"
+    },
+    {
+      "id": "G06",
+      "title": "Repository-Arbeitsregeln",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/05f5194ac8013b49f681fa00bb9f0e5abdae75e5/AGENTS.md",
+      "modified": "Commit 05f5194ac8013b49f681fa00bb9f0e5abdae75e5",
+      "scope": "AGENTS.md"
+    },
+    {
+      "id": "D01",
+      "title": "WORK Metadaten",
+      "url": "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "modified": "Abruf 26.10.2026",
+      "scope": "Parent bestätigt; anyone:writer am 26.10.2026 gelesen"
+    },
+    {
+      "id": "D02",
+      "title": "WORK Ordnerliste",
+      "url": "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "modified": "Abruf 26.10.2026",
+      "scope": "100 direkte Kinder; begrenzt"
+    },
+    {
+      "id": "D03",
+      "title": "SKILLS Ordnerliste",
+      "url": "https://drive.google.com/drive/folders/1sUxxD6DGGsdJcf5seKZPnJNuNVhkgzJu",
+      "modified": "Abruf 26.10.2026",
+      "scope": "22 direkte Einträge"
+    },
+    {
+      "id": "D04",
+      "title": "MCP-ACCESS-TOOLS Ordnerliste",
+      "url": "https://drive.google.com/drive/folders/1fRa7rQvKi-BkhVIzjXPcY_u8iIJ4Vn5J",
+      "modified": "Abruf 26.10.2026",
+      "scope": "44 direkte Einträge"
+    },
+    {
+      "id": "D05",
+      "title": "Benchmark-Einstieg",
+      "url": "https://drive.google.com/drive/folders/1GcIKgilIzIh8TZsD0y9p0MMfjd5hW7SR",
+      "modified": "Abruf 26.10.2026",
+      "scope": "100 direkte Kinder; zusätzlich gezielte BENCHMARKS-Suche"
+    },
+    {
+      "id": "Q01",
+      "title": "Übersicht zur Stahlbetonbemessung",
+      "url": "chatgpt-conversation://6a886f03-0208-83eb-8d2b-7c48e42b874a",
+      "modified": "Abruf 26.10.2026",
+      "scope": "Chat-Kontext; keine verfügbaren Anlagen; frühere Fehlstellenaussage nicht übernommen"
+    }
+  ]
+}
