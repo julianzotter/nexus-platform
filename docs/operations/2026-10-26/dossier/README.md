@@ -1,0 +1,12 @@
+# NEXUS AI-OS - Systemarchitektur-Dossier
+
+19 Seiten A4, sechs Vektorarchitekturtafeln, eingebettete Fonts, technische Dossier-/Manual-/Implementierungsstruktur. Status REVIEW; keine Produktionsfreigabe. Drive bleibt Dokument-SSOT.
+
+- [26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0086_ID03.pdf](26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0086_ID03.pdf) - [Drive](https://drive.google.com/file/d/1mp44RWG_IP3C6cU4NGukmzaFs4Ta-JHM/view?usp=drivesdk); SHA256 `4a949650286042ccbbc4fb7c203e1b1a380fe7d452f5b0495e0e62a269a4d0f9`.
+- [26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0087_ID03.md](26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0087_ID03.md) - [Drive](https://drive.google.com/file/d/1sOFYGijEDvNITEPfZihe6jlCUK69X06Q/view?usp=drivesdk); SHA256 `34a3d8462adff5b2449e1979eb7cbd69c6034910f02afa789bebc00128b54675`.
+- [26_10_26_1833_NEXUS-DOSSIER-GENERATOR-v1.0.0_0088_ID03.py](26_10_26_1833_NEXUS-DOSSIER-GENERATOR-v1.0.0_0088_ID03.py) - [Drive](https://drive.google.com/file/d/1osZIinnzOELoFbZwGVMBpVYdaDpSCdUT/view?usp=drivesdk); SHA256 `ef19eee9f550b290ad6a6d50b625c1201f3223984cdfa16263950f42bde02263`.
+- [26_10_26_1833_NEXUS-DOSSIER-MANIFEST-v1.0.0_0089_ID03.json](26_10_26_1833_NEXUS-DOSSIER-MANIFEST-v1.0.0_0089_ID03.json) - [Drive](https://drive.google.com/file/d/11-X4DwVosBqn6-LeDYq2XzUQClUb98FG/view?usp=drivesdk); SHA256 `aa39f0ace6c0555e19c0ec76604de2d0f100fad681da3b63b36f89ac9686b7fe`.
+- [26_10_26_1833_NEXUS-DOSSIER-QUELLPAKET-v1.0.0_0090_ID03.zip](26_10_26_1833_NEXUS-DOSSIER-QUELLPAKET-v1.0.0_0090_ID03.zip) - [Drive](https://drive.google.com/file/d/1tlDUXVeQbD3kEBMNj1qq3zWZXPr9eFke/view?usp=drivesdk); SHA256 `664e231b548444c2080719eeefe9433cd42a30ba2055e8d7bcf0a94ce5245fc0`.
+- [26_10_26_1833_RUNLOG-NEXUS-ARCHITEKTUR-DOSSIER-v1.0.0_0091_ID03.md](26_10_26_1833_RUNLOG-NEXUS-ARCHITEKTUR-DOSSIER-v1.0.0_0091_ID03.md) - [Drive](https://drive.google.com/file/d/1bR4nGsjpS9NGS6OXaj5-gqW61u1b5Kof/view?usp=drivesdk); SHA256 `63e4dc4a5838c4bc3cab33ef15a67408f7c9d80146e7b06dce40465236b4c938`.
+
+Generator mit beiden pdf_sources_*.json im selben Ordner ausführen; Python3.11+, reportlab/pypdf und DejaVuFonts unter /usr/share/fonts/truetype/dejavu. Native Google- und Drive-Inhalte sind gelesene Quellenstände, keine zukünftige Aktualitätsgarantie. Der alte Ledgerstand bleibt im Quellpaket; der neue Snapshot liegt hier nur als nachweisbezogene Kopie.

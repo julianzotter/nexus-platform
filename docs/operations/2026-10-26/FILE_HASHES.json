@@ -1,0 +1,287 @@
+{
+  "hash_scope": "repository-relative listed payload files; manifest itself excluded",
+  "files": [
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_ABSCHLUSS-NEXUS-DOKUMENTATION-v1.0.0_0084_ID03.md",
+      "sha256": "61acdd0720341cc6009499bcd119eafa793ac6d1bab2f81558ac6efb290889ae",
+      "bytes": 5022,
+      "git_blob_sha1": "25af643844a2f32801f40971cd62fe5fdc361db6"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_LIEFERMANIFEST-NEXUS-DOKUMENTATION_0075_ID03.json",
+      "sha256": "ac5f8d2b9a434ba44bde639451f652d078bc6175f8f91d7e29f11e553522b3b8",
+      "bytes": 12041,
+      "git_blob_sha1": "f0378440fe1311e9515f6d31759a01694b7ca7b3"
+    },
+    {
+      "path": "docs/operations/2026-10-26/README.md",
+      "sha256": "10976a285845378c1846e0f92f64b5260f78fe0c54886b919f8e0540cc71c46c",
+      "bytes": 3239,
+      "git_blob_sha1": "d641a942b7f48ba067d37af110bac9b2fae22542"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_LIEFERKATALOG-NEXUS-DOKUMENTATION-v1.0.0_0069_ID03.md",
+      "sha256": "55c04c8b78c5b570c778ba19aca6d4c2314a7a11ad095ac31a5394e72ac176f0",
+      "bytes": 7297,
+      "git_blob_sha1": "691a4d464d76a719bfe09c1b6634d3e46f08aadf"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_MUSTER-MARKDOWN-HISTORY-v0.1.0_0068_ID03.md",
+      "sha256": "fd59036a6f6304b6831db2c7418e9350cf5895aeba321072b3460e36a7b537df",
+      "bytes": 4431,
+      "git_blob_sha1": "1a4408d3a41fafdb0a4f435f87210923ded805c6"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_NEXUS-BETRIEBSHANDBUCH-v0.2.0_0063_ID03.md",
+      "sha256": "89b7411fdd430cc8ed88367a0f7d037a6afbd5301fd4a4e6065135e54d3a54b5",
+      "bytes": 24087,
+      "git_blob_sha1": "11f0aabfba80dd43892423d3536570ff9f7b31c6"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_REVIEW-CHAT-KONSOLIDIERUNG-v1.0.0_0065_ID03.md",
+      "sha256": "c1e6fbba352d3aecb9e53144f1e3eafec24170bc90886f8ab395c2afcf5c9620",
+      "bytes": 6556,
+      "git_blob_sha1": "83814e60c7e44b4677d966a1c87970c2cd9a0ecb"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_RUNLOG-NEXUS-DOKUMENTATION-v1.0.0_0070_ID03.md",
+      "sha256": "f7ed913848b45cb32dc9588520f34474ee576883c9a0498c3789544794f17255",
+      "bytes": 4841,
+      "git_blob_sha1": "bf8cea5eb2fc0cc324f4363fabf6328a0654d073"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_STATUS-NEXUS-UMSETZUNG-v1.0.0_0066_ID03.md",
+      "sha256": "1c2a3c2d51bfbd46c247df9ca10c53e42404817373f57721daee49514ca219e1",
+      "bytes": 4312,
+      "git_blob_sha1": "800aaf807bc84eeb2c8a2097e52cd3aec2f963c5"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_WEGWEISER-NEXUS-ENTRY-POINTS-v0.2.0_0072_ID03.md",
+      "sha256": "c79b3d133c764ad362a3db5029a10354e91cbc12e32104c4ef47378bfb6571f9",
+      "bytes": 8901,
+      "git_blob_sha1": "5e3fe72f32b0ad000117a70cec71513abb24b30a"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_WO-NEXUS-REPAIR-SPEEDTEAM-v1.0.2_0067_ID03.md",
+      "sha256": "edc137c03e9059113f16bded3f76446ac1bda7fca83411bccfbb9487a8f95bc7",
+      "bytes": 15077,
+      "git_blob_sha1": "b116bbffe0ab22780ddedd96ebefab87a7e0ef3d"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_WO-PERPLEXITY-AIM-ANPASSUNG-v1.0.0_0064_ID03.md",
+      "sha256": "42fa9ededd788b2e07865ca8329db08a7bda1f06548c160100d4a4bf62310731",
+      "bytes": 5330,
+      "git_blob_sha1": "7b3b4cdb8124eba11de050c38cfb29f2b38a97d3"
+    },
+    {
+      "path": "docs/operations/2026-10-26/history/26_10_26_15_45_ID-03_WO-NEXUS-REPAIR-SPEEDTEAM_v1.0.0_SNAPSHOT.md",
+      "sha256": "452c94c26016e6d20c1fbe9fc65d86878e792b3bd33ffd411eb66f06d07611d4",
+      "bytes": 5098,
+      "git_blob_sha1": "55b84fe93014e6d77a487c4f9de2b05a0be521be"
+    },
+    {
+      "path": "docs/operations/2026-10-26/history/26_10_26_15_58_ID-03_AIM-NEXUS-KONZEPTREGISTER_v0.3.1_SNAPSHOT.md",
+      "sha256": "e57040191e8a0756cc1604e5c469dea75363280811bd471add45c23d1ca7509e",
+      "bytes": 9634,
+      "git_blob_sha1": "f7b36d32f847cc6544afc62fd23dcaac7edc9f17"
+    },
+    {
+      "path": "docs/operations/2026-10-26/source_manifest.json",
+      "sha256": "f69606c6504fdf363956621fc2fea6311084aa0c592f76cda388dc371319dc31",
+      "bytes": 17542,
+      "git_blob_sha1": "8d3ec3d4fc7b0bb695080cca51508a94bcb45571"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/00_ID_LEDGER.before.csv",
+      "sha256": "7d32f80e6bdc32a1cf293b105c05bab39db05ecf198786dbfe7a4cc5d1b7e522",
+      "bytes": 14013,
+      "git_blob_sha1": "e50e8b1169ac2d4074b022a3bde2a29b69b594ba"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/00_ID_LEDGER.current.csv",
+      "sha256": "5b4fec470a364864ed92984de1d0dbd11f00262ab8dfe5b2072a93db0d1f6cb7",
+      "bytes": 22683,
+      "git_blob_sha1": "a19ed9ef11a29fb21f565980a5c3788242634569"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/00_WEGWEISER_NEXUS-ENTRY-POINTS_v0.1.md",
+      "sha256": "d1b2e45830a79a55049b5c4fb17bb939773428ebbb560ba5cf44ac43dfd944df",
+      "bytes": 4779,
+      "git_blob_sha1": "1e7fae7467f9a3bf6c34d34a6db4c1f8c57b00f7"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_12_35_ID-06_WHITEPAPER_NEXUS-KG-LEITFADEN_v0.1.md",
+      "sha256": "c5cb895943b529ca31187118d681af58a79f393635930c7de19c5f116279ac1a",
+      "bytes": 7663,
+      "git_blob_sha1": "a5698fe0eee9e921487f72692579368d224dd5ce"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_12_40_ID-06_WO-NEXUS-KG-LEITFADEN-FEEDBACK_v0.1.md",
+      "sha256": "1f4ce5858e1d09a95e1902b94ce3c4cbfeea0f0fcb3923aee340c41f157590cb",
+      "bytes": 3052,
+      "git_blob_sha1": "e6cdd9c3b3037acc34c86a89b6bd087c0d0f52b2"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_12_50_LINKLISTE_WISSENSGRAPH-QUELLEN_AEC_v0.1.md",
+      "sha256": "01110b37d0b12f35c10480d3e9f66e7593bbc49e02a0901f776df24262a35e73",
+      "bytes": 5108,
+      "git_blob_sha1": "b37828c78b718b50e5064368cd9b5e7e5b8123ce"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_12_50_WHITEPAPER_WISSENSGRAPH-LEITFADEN_AEC_v0.1.md",
+      "sha256": "d8e88e01a8095231c1aca4ad0ed363d2e5b4533c59e18fd27801dc95b06999b8",
+      "bytes": 7726,
+      "git_blob_sha1": "9a26aaed6ad64cffb9a05efa4c6f9ec40c41eb9f"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_14_46_ID-03_NEXUS-REPARATURPLAN-1-PAGER_v1.0.0.md",
+      "sha256": "8ac84b2e43d767db5540fd96e75526b25af41959c93f6712680b6f8cd76bd16a",
+      "bytes": 3499,
+      "git_blob_sha1": "d40619828832384b31322362f80ea08134fcb4a6"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_15_45_ID-03_DEC-KG-TECHNIKACHSE_v1.0.0.md",
+      "sha256": "f497a11310f740cfb2a38b89bb0602a9cde47281e6fe18ed80ca93be98cc9b42",
+      "bytes": 4392,
+      "git_blob_sha1": "c8cfd0e450befc0f1968ed9c49c3b2a15d6612c2"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_15_54_ID-03_EVAL-REPARATUR-KOMMUNIKATION-PROFILE_v1.0.0.md",
+      "sha256": "419a80011c8dcc446cb598b39b2d54bd12e3de6cf80df4c7154c0ad76d658995",
+      "bytes": 7082,
+      "git_blob_sha1": "d4dae05dc274387ea758d29972cde3a92502ddc4"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_16_15_ID-03_AIM-NEXUS-KONZEPTREGISTER_v0.3.2.md",
+      "sha256": "3ff2f56cf3052e963c51eedcf6f9cf0210baf6668aaec9f4501f9586d9d1b2ed",
+      "bytes": 12562,
+      "git_blob_sha1": "13a6e2637eb495fc7eb777cfdd17703e706b2c4a"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_16_15_ID-03_WO-NEXUS-REPAIR-SPEEDTEAM_v1.0.1.md",
+      "sha256": "ef5293a7cb7c38666fad9f72be35e852fc3b68b5bd7ee23e75bc8dde2d230c3c",
+      "bytes": 11878,
+      "git_blob_sha1": "958a2b68903b37f086d4224ea306aecae81f4b5e"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_16_17_ID-03_RUNLOG-PERPLEXITY-AIM-REPARATUR_v1.0.0.md",
+      "sha256": "eea17a3f7762cf17a2862cadc2845f973e955c3f5d66170fd460189f328acdaa",
+      "bytes": 2311,
+      "git_blob_sha1": "a4433ea3589596cd7d3804a1d5e92f9d7265ff16"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/26_10_26_ID03_NEXUS_PARSER_PRUEFBERICHT_v1.0rc2.md",
+      "sha256": "6aa96f622de00389d5e9332c4f3dae512ada59b1bbf98f4354ebc5dea52e8e68",
+      "bytes": 21072,
+      "git_blob_sha1": "fb77cb224e19f28a5daeb8a3095e82b16ac861b9"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/_AGBS.md",
+      "sha256": "831e4e7b2adc4a10cd7af7294aa6a6522b45337298b76a2e399ef846ea9b0d01",
+      "bytes": 1559,
+      "git_blob_sha1": "41fbcf62ca71f53e8d3cf9af466fe6b70c0f6e88"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/_FRONTMATTER.md",
+      "sha256": "b939f3cb1119ec67d0c29977d05092ed23cc10d816d72cc39a0542e8e5fcc1ff",
+      "bytes": 284,
+      "git_blob_sha1": "ec4672162e9603590fe885897387b031f533dfbe"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/baseline.readable-snapshot.md",
+      "sha256": "e55465da5d5d5c3ee983889bc0f53d4190a5da32d7a9edd197f841860a2adba5",
+      "bytes": 16519,
+      "git_blob_sha1": "af79b5ada0dd21913a4cfbf58d4de9b7190a45fd"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/code-evidence/.github/workflows/nexus-drive-poll.yml",
+      "sha256": "26ef13ff0a93d9cc3e662850f79f89d8a3e622208ee70b109862102e85a68d13",
+      "bytes": 2288,
+      "git_blob_sha1": "ebc1b797cdbe89ce0cf026611a9fb05d7415de71"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/code-evidence/orchestrator/README.md",
+      "sha256": "304632072084f1e5b32574daee1ac329a72774117421e0d00454742afbb904db",
+      "bytes": 5591,
+      "git_blob_sha1": "51da4637a5e0e9228696d1665914b2b8c13341f5"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/code-evidence/orchestrator/nexus_orch/cli.py",
+      "sha256": "6270a88570a4e4addee9890ec6260371c458f650da1776f28302889bba7a886e",
+      "bytes": 2986,
+      "git_blob_sha1": "1ccf518ff0256e6bdec7797d05472036233a364c"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/code-evidence/orchestrator/nexus_orch/core.py",
+      "sha256": "fe5dfe1944db03be275e2d20ac8d0aa66d731eee564dd4be39b981e9080a90ac",
+      "bytes": 5352,
+      "git_blob_sha1": "d7acbbad0242be0544a1213daf042281ae6b73d8"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/code-evidence/tools/drive_changes_poll.py",
+      "sha256": "2ed05ede2ecc14daeea605abd6de2552cfe68472ad7c8e3eb23ae8ec816bda7f",
+      "bytes": 5173,
+      "git_blob_sha1": "2beac2004c4f4a6272bd84a75a370f9f6b52c082"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/manifest.readable-snapshot.md",
+      "sha256": "9a550ab87ff8acb2fd05d2d3a5b6be0fb78bde28efa92da3e916dbf250e023f9",
+      "bytes": 7226,
+      "git_blob_sha1": "0025bebf486100a51e95f37f86240b20903c4c8e"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/manualold.readable-snapshot.md",
+      "sha256": "0cc9b346c9cb5c8d1f044a770749d464ebaa9ab6e668f4b900c232ffca908b83",
+      "bytes": 2448,
+      "git_blob_sha1": "4f28585a2437acdd4ecc93f8c88935a20d124f90"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/parser-pr4-observation.json",
+      "sha256": "82a079dd6b9e849ae08f9d87a75f60e5c9092278f859eed916c40420f1ae8506",
+      "bytes": 2628,
+      "git_blob_sha1": "85918aa716603cd400ddd74335666f95bbdc5a2d"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/repo-agents.md",
+      "sha256": "c34435dcc6aa8f571f3114cfb072f91eb3f8b4697540e09b74d39849993ec581",
+      "bytes": 2312,
+      "git_blob_sha1": "872199f24850cae40d84cfe353b781d7490d1316"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/repo-manual.md",
+      "sha256": "fb55c369bc38f353727cb2f07fad8c66bd61744b3bfd4e58517a7d8a255b9d77",
+      "bytes": 4371,
+      "git_blob_sha1": "859060fe6ca04602bafadbb612cae97ccb3b668f"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/repo-transfer.md",
+      "sha256": "732f3b7eea20fec3d895a135feaceb6f3a42da82d75d2b8ac478537e4a72f28a",
+      "bytes": 6041,
+      "git_blob_sha1": "e8e2fce7000ab86232d16c2f8b3af595c5192032"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/whiteold.readable-snapshot.md",
+      "sha256": "8b55e7e8ba2d9ffdd85d505fc0747ee09d98cb346df3b235608233c7de87bbd8",
+      "bytes": 40332,
+      "git_blob_sha1": "7b6ffea7890468203fff7474039734c2d5cd2738"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/workpolicy.readable-snapshot.md",
+      "sha256": "29a8b379576c8932eb6f0964d1b083930cc7f785ceaeb2969ad45bf8690a3402",
+      "bytes": 5823,
+      "git_blob_sha1": "563456cc159d9e5e2d412d2625c0defad5961188"
+    },
+    {
+      "path": "docs/operations/2026-10-26/transport/final-registration-readback.json",
+      "sha256": "2f7f18d0f5295f15de104e66caf0b7f43eb12ff5c24cd46e37462012d36e49c8",
+      "bytes": 16548,
+      "git_blob_sha1": "2f9262abf27bc8935243acd917e586e562f80195"
+    },
+    {
+      "path": "docs/operations/2026-10-26/transport/ticket-registry-readback.json",
+      "sha256": "4fd9a8eefc0248a405f7b0c3e86656d41c25f4d5f3ce9c53b6021c0c94a2df52",
+      "bytes": 6187,
+      "git_blob_sha1": "31139c5c8a1d98276470d6257d0dbfb8c14c4f03"
+    }
+  ]
+}

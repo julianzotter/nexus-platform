@@ -1,0 +1,58 @@
+name: NEXUS Drive to GitHub
+# Read-only change feed WORK/REPORTS -> GitHub artifact + job summary. No commits, no Drive writes.
+on:
+  schedule:
+    - cron: "7,37 * * * *"   # iterative polling every 30 min (scheduled runs may be delayed)
+  workflow_dispatch:
+  repository_dispatch:
+    types: [drive_change]    # optional: Drive push-notification relay -> GitHub (see docs/NEXUS-DRIVE-GITHUB-MCP.md)
+permissions:
+  contents: read
+concurrency:
+  group: nexus-drive-poll
+  cancel-in-progress: false
+jobs:
+  poll:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Restore Drive page token
+        uses: actions/cache/restore@v4
+        with:
+          path: .nexus-state
+          key: nexus-drive-token-${{ github.run_id }}
+          restore-keys: nexus-drive-token-
+      - name: Poll Drive changes (read-only)
+        env:
+          NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
+          NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
+          NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
+        run: python tools/drive_changes_poll.py
+      - name: Save Drive page token
+        if: ${{ hashFiles('.nexus-state/drive-changes-token.json') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: .nexus-state
+          key: nexus-drive-token-${{ github.run_id }}
+      - name: Job summary
+        if: ${{ always() }}
+        run: |
+          echo '### NEXUS Drive -> GitHub' >> "$GITHUB_STEP_SUMMARY"
+          echo '```json' >> "$GITHUB_STEP_SUMMARY"
+          cat reports/drive-changes/status.json >> "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          if grep -q BLOCKED reports/drive-changes/status.json; then echo "::warning::Drive credentials missing - run tools/configure_drive_oauth.py --publish"; fi
+      - uses: actions/upload-artifact@v6
+        if: ${{ always() }}
+        with:
+          name: nexus-drive-changes-${{ github.run_id }}
+          path: reports/drive-changes/
+          if-no-files-found: error
+          retention-days: 14
