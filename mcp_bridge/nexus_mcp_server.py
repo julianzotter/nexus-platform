@@ -16,6 +16,7 @@ import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+from nexus_contract import load_governance, report_filename
 
 DEFAULT_WORK = r'G:\Meine Ablage\_developement\LLM-LOCAL-SSOT\WORK'
 DEFAULT_REPO = str(Path.home() / 'nexus-platform')
@@ -32,10 +33,12 @@ class BridgeError(Exception):
 
 
 class NexusBridge:
-    def __init__(self, work_root: str | Path, repo_root: str | Path, write_enabled: bool = False):
+    def __init__(self, work_root: str | Path, repo_root: str | Path, write_enabled: bool = False,
+                 policy_files: dict[str, str] | None = None):
         self.work = Path(work_root).resolve()
         self.repo = Path(repo_root).resolve()
         self.write_enabled = write_enabled
+        self.policy_files = policy_files
 
     # ---- guards -------------------------------------------------------
     def _inside(self, root: Path, rel: str) -> Path:
@@ -101,28 +104,36 @@ class NexusBridge:
                 files[rel] = self.read_repo_file(rel)
             except BridgeError:
                 files[rel] = None
-        agbs = sorted(self.work.parent.glob('_AGBS*.md')) if self.work.is_dir() else []
-        return {'repo': files, 'agbs_local_candidates': [str(p) for p in agbs],
-                'rule': 'REVIEW != APPROVED; human gate ID01 required'}
+        try:
+            result = load_governance(self.work, self.policy_files)
+        except (OSError, ValueError) as exc:
+            result = {'state': 'BLOCKED', 'ready': False, 'reason': type(exc).__name__}
+        return dict(result, repo=files, rule='REVIEW != APPROVED; human gate ID01 required')
 
     # ---- gated write tool ---------------------------------------------
     def submit_result(self, work_order_id: str, name: str, content: str, agent_id: str,
-                      subdir: str = 'REPORTS') -> dict:
+                      subdir: str = 'REPORTS', artifact_id: str | None = None) -> dict:
         if not self.write_enabled:
             raise BridgeError('WRITE_DISABLED_SET_NEXUS_MCP_WRITE_1')
         if not SAFE_ID.fullmatch(work_order_id) or not SAFE_ID.fullmatch(agent_id) or not SAFE_NAME.fullmatch(name):
             raise BridgeError('INVALID_IDENTIFIER')
+        governance = self.get_governance()
+        if not governance['ready']:
+            raise BridgeError('BOOTSTRAP_BLOCKED')
+        try:
+            filename = report_filename(name, artifact_id, agent_id)
+        except ValueError as exc:
+            raise BridgeError(str(exc)) from None
         data = content.encode('utf-8')
         if len(data) > MAX_WRITE:
             raise BridgeError('PAYLOAD_TOO_LARGE')
         target_dir = self._inside(self.work, subdir)
         target_dir.mkdir(parents=True, exist_ok=True)
-        stamp = datetime.now(timezone.utc).strftime('%y_%m_%d_%H%M%S')
-        target = self._inside(self.work, f'{subdir}/{stamp}_{agent_id}_{work_order_id}_{name}')
+        target = self._inside(self.work, f'{subdir}/{filename}')
         digest = hashlib.sha256(data).hexdigest()
         with open(target, 'xb') as fh:  # exclusive create: never overwrite
             fh.write(data)
-        meta = {'work_order_id': work_order_id, 'agent_id': agent_id, 'file': target.name, 'sha256': digest,
+        meta = {'artifact_id': artifact_id, 'policy_receipts': {k: v['sha256'] for k, v in governance['policies'].items()}, 'work_order_id': work_order_id, 'agent_id': agent_id, 'file': target.name, 'sha256': digest,
                 'repo_head': self.status()['repo_head'], 'status': 'REVIEW', 'approval': 'PENDING',
                 'created_utc': datetime.now(timezone.utc).isoformat()}
         with open(target.with_name(target.name + '.meta.json'), 'x', encoding='utf-8') as fh:
@@ -169,9 +180,9 @@ def build_server(bridge: NexusBridge):
         return safe(bridge.read_repo_file)(path, ref)
 
     @mcp.tool()
-    def submit_result(work_order_id: str, name: str, content: str, agent_id: str) -> dict:
+    def submit_result(work_order_id: str, name: str, content: str, agent_id: str, artifact_id: str) -> dict:
         """Create a NEW result file in WORK/REPORTS (status REVIEW). Requires NEXUS_MCP_WRITE=1."""
-        return safe(bridge.submit_result)(work_order_id, name, content, agent_id)
+        return safe(bridge.submit_result)(work_order_id, name, content, agent_id, artifact_id=artifact_id)
 
     return mcp
 
@@ -179,7 +190,8 @@ def build_server(bridge: NexusBridge):
 def main() -> None:
     bridge = NexusBridge(os.environ.get('NEXUS_WORK_ROOT', DEFAULT_WORK),
                          os.environ.get('NEXUS_REPO_ROOT', DEFAULT_REPO),
-                         os.environ.get('NEXUS_MCP_WRITE') == '1')
+                         os.environ.get('NEXUS_MCP_WRITE') == '1',
+                         policy_files=json.loads(os.environ.get('NEXUS_GOVERNANCE_FILES_JSON', '{}')))
     build_server(bridge).run()  # stdio
 
 

@@ -57,19 +57,50 @@ def authorize(client_path: Path) -> dict[str, str]:
             'NEXUS_GOOGLE_REFRESH_TOKEN': credentials.refresh_token}
 
 
+def read_existing(path: Path) -> dict[str, str]:
+    if path.is_symlink() or ROOT not in path.resolve().parents or not path.is_file():
+        raise ValueError('Credential target must be a regular private file in this checkout')
+    if os.name != 'nt' and path.stat().st_mode & 0o077:
+        raise ValueError('Credential file permissions must be owner-only')
+    values = json.loads(path.read_text())
+    expected = {'NEXUS_GOOGLE_CLIENT_ID', 'NEXUS_GOOGLE_CLIENT_SECRET', 'NEXUS_GOOGLE_REFRESH_TOKEN'}
+    if not isinstance(values, dict) or set(values) != expected or not all(isinstance(x, str) and x.strip() and '\n' not in x and '\r' not in x for x in values.values()):
+        raise ValueError('Existing file is not the exact NEXUS OAuth credential set')
+    return values
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--client-json', type=Path)
     parser.add_argument('--output', type=Path, default=ROOT / '.nexus-credentials/drive-oauth.json')
     parser.add_argument('--publish', action='store_true')
+    parser.add_argument('--publish-existing', action='store_true', help='Publish an existing private OAuth file; no new browser consent')
+    parser.add_argument('--check', action='store_true', help='Read-only token refresh and exact WORK-folder access check')
+    parser.add_argument('--require-write', action='store_true', help='Also require provider canAddChildren metadata; performs no write')
+    parser.add_argument('--check-output', type=Path)
     parser.add_argument('--openai-env', type=Path, help='Install existing OPENAI_API_KEY from a local env file')
     args = parser.parse_args()
+    if sum(bool(x) for x in (args.check, args.publish_existing, args.openai_env, args.client_json)) != 1:
+        parser.error('Choose exactly one: --check, --publish-existing, --client-json, --openai-env')
+    if args.check:
+        from drive_auth_check import check_access
+        from deliver_work import save_json
+        environment = dict(os.environ)
+        if args.output.exists():
+            environment.update(read_existing(args.output))
+        report = check_access(args.require_write, environment)
+        if args.check_output:
+            save_json(args.check_output, report)
+        print(json.dumps(report))
+        return 0 if report['status'] == 'READ_ACCESS_VERIFIED' else 2
+    if args.publish_existing:
+        values = read_existing(args.output)
+        publish_secrets(values)
+        return 0
     if args.openai_env:
         values = dict(line.split('=', 1) for line in args.openai_env.read_text().splitlines() if '=' in line and not line.startswith('#'))
         publish_secrets({'OPENAI_API_KEY': values.get('OPENAI_API_KEY', '').strip()})
         return 0
-    if not args.client_json:
-        parser.error('--client-json or --openai-env is required')
     values = authorize(args.client_json)
     write_private(args.output, values)
     if args.publish:

@@ -45,6 +45,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RESUME_DELIVERY_RUN_ID: ${{ inputs.resume_delivery_run_id }}
         run: python tools/restore_delivery_state.py
+      - name: Check Drive credentials and exact WORK capability (read-only)
+        env:
+          NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
+          NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
+          NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
+        run: python tools/configure_drive_oauth.py --check --require-write --check-output reports/delivery/preflight.json
       - name: Deliver and verify raw bytes
         env:
           GH_TOKEN: ${{ github.token }}

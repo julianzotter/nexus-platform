@@ -17,6 +17,10 @@ class BridgeTest(unittest.TestCase):
         (self.work / 'order.md').write_text('# WO-1', encoding='utf-8')
         (self.work / '.env').write_text('X=1')
         (root / 'SSOT' / 'outside.txt').write_text('no')
+        for name in ('_AGBS.md', 'Folder.md'):
+            (self.work / name).write_text('fixture policy')
+        for name in ('00_NEXUS_MANIFEST__CURRENT__2026-09-28.md', '00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28.md'):
+            (root / 'SSOT' / name).write_text('fixture policy')
         self.repo = root / 'repo'; self.repo.mkdir()
         g = lambda *a: subprocess.run(['git', '-C', str(self.repo), *a], check=True, capture_output=True)
         g('init', '-q'); (self.repo / 'AGENTS.md').write_text('rules')
@@ -44,7 +48,7 @@ class BridgeTest(unittest.TestCase):
         with self.assertRaises(BridgeError):
             NexusBridge(self.work, self.repo).submit_result('WO-1', 'r.md', 'x', 'ID-02')
         b = NexusBridge(self.work, self.repo, write_enabled=True)
-        meta = b.submit_result('WO-1', 'r.md', 'ergebnis', 'ID-02')
+        meta = b.submit_result('WO-1', 'r.md', 'ergebnis', 'ID-02', artifact_id='0123')
         self.assertEqual((meta['status'], meta['approval']), ('REVIEW', 'PENDING'))
         out = self.work / 'REPORTS' / meta['file']
         self.assertEqual(out.read_text(encoding='utf-8'), 'ergebnis')
