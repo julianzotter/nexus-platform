@@ -1,11 +1,23 @@
 {
-  "hash_scope": "repository-relative payload paths; own manifest excluded",
+  "hash_scope": "repository-relative listed payload files; manifest itself excluded",
   "files": [
     {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_ABSCHLUSS-NEXUS-DOKUMENTATION-v1.0.0_0084_ID03.md",
+      "sha256": "61acdd0720341cc6009499bcd119eafa793ac6d1bab2f81558ac6efb290889ae",
+      "bytes": 5022,
+      "git_blob_sha1": "25af643844a2f32801f40971cd62fe5fdc361db6"
+    },
+    {
+      "path": "docs/operations/2026-10-26/26_10_26_1648_LIEFERMANIFEST-NEXUS-DOKUMENTATION_0075_ID03.json",
+      "sha256": "ac5f8d2b9a434ba44bde639451f652d078bc6175f8f91d7e29f11e553522b3b8",
+      "bytes": 12041,
+      "git_blob_sha1": "f0378440fe1311e9515f6d31759a01694b7ca7b3"
+    },
+    {
       "path": "docs/operations/2026-10-26/README.md",
-      "sha256": "64f4c87557a30df7408e69dd36870cdafba7d7079a7b8ca1be66e7ab597496c4",
-      "bytes": 2479,
-      "git_blob_sha1": "33d144124b038aa83a4382fd1c4b902581a8f511"
+      "sha256": "10976a285845378c1846e0f92f64b5260f78fe0c54886b919f8e0540cc71c46c",
+      "bytes": 3239,
+      "git_blob_sha1": "d641a942b7f48ba067d37af110bac9b2fae22542"
     },
     {
       "path": "docs/operations/2026-10-26/26_10_26_1648_LIEFERKATALOG-NEXUS-DOKUMENTATION-v1.0.0_0069_ID03.md",
@@ -33,9 +45,9 @@
     },
     {
       "path": "docs/operations/2026-10-26/26_10_26_1648_RUNLOG-NEXUS-DOKUMENTATION-v1.0.0_0070_ID03.md",
-      "sha256": "f16e86ea32a270ba3e81c90c5038de0d4cdb665e153aca716018441e539c140d",
-      "bytes": 3508,
-      "git_blob_sha1": "fe20285a13bb2f5b7ff9fe68dcdd9da201dc4d70"
+      "sha256": "f7ed913848b45cb32dc9588520f34474ee576883c9a0498c3789544794f17255",
+      "bytes": 4841,
+      "git_blob_sha1": "bf8cea5eb2fc0cc324f4363fabf6328a0654d073"
     },
     {
       "path": "docs/operations/2026-10-26/26_10_26_1648_STATUS-NEXUS-UMSETZUNG-v1.0.0_0066_ID03.md",
@@ -75,15 +87,21 @@
     },
     {
       "path": "docs/operations/2026-10-26/source_manifest.json",
-      "sha256": "14b91a01c7302954731616addb247c6b35d686d3e637aa03345a118dbc4a20cf",
-      "bytes": 11114,
-      "git_blob_sha1": "734bf5027c861ca1f44524801e5babce3b69cc09"
+      "sha256": "f69606c6504fdf363956621fc2fea6311084aa0c592f76cda388dc371319dc31",
+      "bytes": 17542,
+      "git_blob_sha1": "8d3ec3d4fc7b0bb695080cca51508a94bcb45571"
     },
     {
       "path": "docs/operations/2026-10-26/sources/00_ID_LEDGER.before.csv",
       "sha256": "7d32f80e6bdc32a1cf293b105c05bab39db05ecf198786dbfe7a4cc5d1b7e522",
       "bytes": 14013,
       "git_blob_sha1": "e50e8b1169ac2d4074b022a3bde2a29b69b594ba"
+    },
+    {
+      "path": "docs/operations/2026-10-26/sources/00_ID_LEDGER.current.csv",
+      "sha256": "5b4fec470a364864ed92984de1d0dbd11f00262ab8dfe5b2072a93db0d1f6cb7",
+      "bytes": 22683,
+      "git_blob_sha1": "a19ed9ef11a29fb21f565980a5c3788242634569"
     },
     {
       "path": "docs/operations/2026-10-26/sources/00_WEGWEISER_NEXUS-ENTRY-POINTS_v0.1.md",
@@ -252,6 +270,18 @@
       "sha256": "29a8b379576c8932eb6f0964d1b083930cc7f785ceaeb2969ad45bf8690a3402",
       "bytes": 5823,
       "git_blob_sha1": "563456cc159d9e5e2d412d2625c0defad5961188"
+    },
+    {
+      "path": "docs/operations/2026-10-26/transport/final-registration-readback.json",
+      "sha256": "2f7f18d0f5295f15de104e66caf0b7f43eb12ff5c24cd46e37462012d36e49c8",
+      "bytes": 16548,
+      "git_blob_sha1": "2f9262abf27bc8935243acd917e586e562f80195"
+    },
+    {
+      "path": "docs/operations/2026-10-26/transport/ticket-registry-readback.json",
+      "sha256": "4fd9a8eefc0248a405f7b0c3e86656d41c25f4d5f3ce9c53b6021c0c94a2df52",
+      "bytes": 6187,
+      "git_blob_sha1": "31139c5c8a1d98276470d6257d0dbfb8c14c4f03"
     }
   ]
 }

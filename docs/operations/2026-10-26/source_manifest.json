@@ -213,5 +213,123 @@
     "drive_id": "1Rs_vnD1dt_lxtRs7Jkep5lGF0lTv93WV",
     "url": "https://drive.google.com/file/d/1Rs_vnD1dt_lxtRs7Jkep5lGF0lTv93WV/view?usp=drivesdk"
   },
-  "readable_snapshot_warning": "Native Google sources use readable text exports with identifying wrapper, not original provider bytes."
+  "readable_snapshot_warning": "Native Google sources use readable text exports with identifying wrapper, not original provider bytes.",
+  "final_closing_report": {
+    "number": 84,
+    "name": "26_10_26_1648_ABSCHLUSS-NEXUS-DOKUMENTATION-v1.0.0_0084_ID03.md",
+    "path": "/workspace/scratch/ce5ebad62da6/nexus_documentation/generated/26_10_26_1648_ABSCHLUSS-NEXUS-DOKUMENTATION-v1.0.0_0084_ID03.md",
+    "sha256": "61acdd0720341cc6009499bcd119eafa793ac6d1bab2f81558ac6efb290889ae",
+    "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+    "drive_id": "1Y2C6bW_9TtQNcuRGSTQCAa_N5JlN2eZM",
+    "url": "https://drive.google.com/file/d/1Y2C6bW_9TtQNcuRGSTQCAa_N5JlN2eZM/view?usp=drivesdk"
+  },
+  "delivery_manifest": {
+    "number": 75,
+    "path": "/workspace/scratch/ce5ebad62da6/nexus_documentation/generated/26_10_26_1648_LIEFERMANIFEST-NEXUS-DOKUMENTATION_0075_ID03.json",
+    "name": "26_10_26_1648_LIEFERMANIFEST-NEXUS-DOKUMENTATION_0075_ID03.json",
+    "sha256": "ac5f8d2b9a434ba44bde639451f652d078bc6175f8f91d7e29f11e553522b3b8",
+    "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+    "drive_id": "1U7ip1jaHWseCYsaV-HwhTjCoBwy_tvsY",
+    "url": "https://drive.google.com/file/d/1U7ip1jaHWseCYsaV-HwhTjCoBwy_tvsY/view?usp=drivesdk"
+  },
+  "artifact_package": {
+    "number": 74,
+    "name": "26_10_26_1648_NEXUS-DOKUMENTATION-PAKET_0074_ID03.zip",
+    "path": "/workspace/scratch/ce5ebad62da6/nexus_documentation/generated/26_10_26_1648_NEXUS-DOKUMENTATION-PAKET_0074_ID03.zip",
+    "parent_id": "1jXreTO8oEDblDcTCXAEHVWvioMFJPMXz",
+    "sha256": "61726d362656a64418a662d8e92936a5dcce1e9ac94c706e5334c7307ff261df",
+    "scope": "frozen documents/source snapshots; later ledger and final transport proof are external to avoid self-reference",
+    "drive_id": "1sOJ7E-PYIlYOwOcTC3sXrS_Lq6tVTaVb",
+    "url": "https://drive.google.com/file/d/1sOJ7E-PYIlYOwOcTC3sXrS_Lq6tVTaVb/view?usp=drivesdk"
+  },
+  "ledger_final": {
+    "path": "/workspace/scratch/ce5ebad62da6/nexus_documentation/generated/00_ID_LEDGER.final.csv",
+    "sha256": "5b4fec470a364864ed92984de1d0dbd11f00262ab8dfe5b2072a93db0d1f6cb7",
+    "bytes": 22683,
+    "records": 79,
+    "next_id": "0086"
+  },
+  "latest_documents": [
+    {
+      "number": 63,
+      "name": "26_10_26_1648_NEXUS-BETRIEBSHANDBUCH-v0.2.0_0063_ID03.md",
+      "version": "0.2.0",
+      "drive_id": "1Xo4gL6N_OWcnnde70baStp0ATNVwu5Wo",
+      "url": "https://drive.google.com/file/d/1Xo4gL6N_OWcnnde70baStp0ATNVwu5Wo/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_NEXUS-BETRIEBSHANDBUCH-v0.2.0_0063_ID03.md",
+      "sha256": "89b7411fdd430cc8ed88367a0f7d037a6afbd5301fd4a4e6065135e54d3a54b5"
+    },
+    {
+      "number": 64,
+      "name": "26_10_26_1648_WO-PERPLEXITY-AIM-ANPASSUNG-v1.0.0_0064_ID03.md",
+      "version": "1.0.0",
+      "drive_id": "1tSxNz_htFwI9UC6fAmqmVajaLzvBAwkF",
+      "url": "https://drive.google.com/file/d/1tSxNz_htFwI9UC6fAmqmVajaLzvBAwkF/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_WO-PERPLEXITY-AIM-ANPASSUNG-v1.0.0_0064_ID03.md",
+      "sha256": "42fa9ededd788b2e07865ca8329db08a7bda1f06548c160100d4a4bf62310731"
+    },
+    {
+      "number": 65,
+      "name": "26_10_26_1648_REVIEW-CHAT-KONSOLIDIERUNG-v1.0.0_0065_ID03.md",
+      "version": "1.0.0",
+      "drive_id": "1J0x-AiudvMZJ5OhJlFsfNACRgK-Bp_K0",
+      "url": "https://drive.google.com/file/d/1J0x-AiudvMZJ5OhJlFsfNACRgK-Bp_K0/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_REVIEW-CHAT-KONSOLIDIERUNG-v1.0.0_0065_ID03.md",
+      "sha256": "c1e6fbba352d3aecb9e53144f1e3eafec24170bc90886f8ab395c2afcf5c9620"
+    },
+    {
+      "number": 66,
+      "name": "26_10_26_1648_STATUS-NEXUS-UMSETZUNG-v1.0.0_0066_ID03.md",
+      "version": "1.0.0",
+      "drive_id": "1XVnG4FevBpQGX2GEDPqeBwrLc41wrweZ",
+      "url": "https://drive.google.com/file/d/1XVnG4FevBpQGX2GEDPqeBwrLc41wrweZ/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_STATUS-NEXUS-UMSETZUNG-v1.0.0_0066_ID03.md",
+      "sha256": "1c2a3c2d51bfbd46c247df9ca10c53e42404817373f57721daee49514ca219e1"
+    },
+    {
+      "number": 67,
+      "name": "26_10_26_1648_WO-NEXUS-REPAIR-SPEEDTEAM-v1.0.2_0067_ID03.md",
+      "version": "1.0.2",
+      "drive_id": "1KeHVM_VC9nGHZTVyJd_5vBE6xBCG9KwX",
+      "url": "https://drive.google.com/file/d/1KeHVM_VC9nGHZTVyJd_5vBE6xBCG9KwX/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_WO-NEXUS-REPAIR-SPEEDTEAM-v1.0.2_0067_ID03.md",
+      "sha256": "edc137c03e9059113f16bded3f76446ac1bda7fca83411bccfbb9487a8f95bc7"
+    },
+    {
+      "number": 68,
+      "name": "26_10_26_1648_MUSTER-MARKDOWN-HISTORY-v0.1.0_0068_ID03.md",
+      "version": "0.1.0",
+      "drive_id": "1uD9baHyHk5_ad9V3KYFOUepZ-ZSAczjW",
+      "url": "https://drive.google.com/file/d/1uD9baHyHk5_ad9V3KYFOUepZ-ZSAczjW/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_MUSTER-MARKDOWN-HISTORY-v0.1.0_0068_ID03.md",
+      "sha256": "fd59036a6f6304b6831db2c7418e9350cf5895aeba321072b3460e36a7b537df"
+    },
+    {
+      "number": 69,
+      "name": "26_10_26_1648_LIEFERKATALOG-NEXUS-DOKUMENTATION-v1.0.0_0069_ID03.md",
+      "version": "1.0.0",
+      "drive_id": "1_CmvceBYi0b2DtHhMGa7cLDNSkcpo27E",
+      "url": "https://drive.google.com/file/d/1_CmvceBYi0b2DtHhMGa7cLDNSkcpo27E/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_LIEFERKATALOG-NEXUS-DOKUMENTATION-v1.0.0_0069_ID03.md",
+      "sha256": "55c04c8b78c5b570c778ba19aca6d4c2314a7a11ad095ac31a5394e72ac176f0"
+    },
+    {
+      "number": 70,
+      "name": "26_10_26_1648_RUNLOG-NEXUS-DOKUMENTATION-v1.0.0_0070_ID03.md",
+      "version": "1.0.0",
+      "drive_id": "1hpNsnLiqx2I7PqbZf_6lw6jvA1JEjdwQ",
+      "url": "https://drive.google.com/file/d/1hpNsnLiqx2I7PqbZf_6lw6jvA1JEjdwQ/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_RUNLOG-NEXUS-DOKUMENTATION-v1.0.0_0070_ID03.md",
+      "sha256": "f7ed913848b45cb32dc9588520f34474ee576883c9a0498c3789544794f17255"
+    },
+    {
+      "number": 72,
+      "name": "26_10_26_1648_WEGWEISER-NEXUS-ENTRY-POINTS-v0.2.0_0072_ID03.md",
+      "version": "0.2.0",
+      "drive_id": "1u1lqlQ0zn2HcauvEPc63mk8Kvu3sNC74",
+      "url": "https://drive.google.com/file/d/1u1lqlQ0zn2HcauvEPc63mk8Kvu3sNC74/view?usp=drivesdk",
+      "repo_path": "docs/operations/2026-10-26/26_10_26_1648_WEGWEISER-NEXUS-ENTRY-POINTS-v0.2.0_0072_ID03.md",
+      "sha256": "c79b3d133c764ad362a3db5029a10354e91cbc12e32104c4ef47378bfb6571f9"
+    }
+  ]
 }

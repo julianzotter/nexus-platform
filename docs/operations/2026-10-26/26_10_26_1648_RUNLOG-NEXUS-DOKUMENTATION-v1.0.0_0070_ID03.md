@@ -23,8 +23,8 @@ source_refs:
 - https://drive.google.com/file/d/1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ/view
 - https://drive.google.com/file/d/1KeHVM_VC9nGHZTVyJd_5vBE6xBCG9KwX/view
 hash_scope: body_utf8_after_closing_frontmatter_lf
-content_hash_sha256: 90489a3d1e7d619d9dd067e10facc666dc15521a6379437037a7487cacc62695
-hash: 90489a3d1e7d619d9dd067e10facc666dc15521a6379437037a7487cacc62695
+content_hash_sha256: 23fa6bfb40f9b3f4e34b1f0225710c13dff0e8f1ec8a53c4247b358457a58610
+hash: 23fa6bfb40f9b3f4e34b1f0225710c13dff0e8f1ec8a53c4247b358457a58610
 ---
 # History und Ausführungsjournal — Dokumentationsauftrag
 
@@ -54,3 +54,11 @@ ID01 autorisiert im aktuellen Chat: sämtliche noch nicht dokumentierten jüngst
 - ledger: https://drive.google.com/file/d/1Uvb89wWOpte3iXWKm3qrg42dEwBb7nuG/view
 - manualold: https://docs.google.com/document/d/1OCkf0HslAhXIMmsKzu2zdBr2VyYc3Juxi6ILE1lLJg0/edit
 - entry: https://drive.google.com/file/d/1u1lqlQ0zn2HcauvEPc63mk8Kvu3sNC74/view
+
+## Tatsächlich ausgeführte Ablage und Sicherung
+2026-10-26T16:56:08+01:00: Neun Markdown-Dokumente in Drive geschrieben; zehn Erst-Readbacks einschließlich Archiv erfolgreich. Lieferkatalog/Wegweiser danach um konkrete Links ergänzt; deren aktuelle Bytes werden nochmals geprüft.
+GitHub-PR: https://github.com/julianzotter/nexus-platform/pull/41; verifizierter Snapshotcommit a8e444464e47ae1ae622ecec2ad30694035c0b38; 43 Blob-IDs gegen lokale UTF-8-Bytes geprüft. Erster Git-Readback fand einen falsch ersetzten README-Quellsnapshot; Korrekturcommit stellt Originalbytes wieder her, Wiederholungsprüfung PASS43.
+Ticket Registry: TICKETS Zeile15 Status REVIEW_REQUIRED, dokumentierter Teilerfolg; WORK_REFERENCES Zeile9 verlinkt diesen Lauf. Kein fremder ACK.
+Zentrales Ledger gefunden; erster alter Snapshot bleibt unverändert im Archiv. Append und dessen Readback folgen nach Finalisierung der unten referenzierten Lieferdateien. Kein pauschaler Gesamtbetrieb-DONE.
+Vorstandsarchiv: https://drive.google.com/file/d/1Rs_vnD1dt_lxtRs7Jkep5lGF0lTv93WV/view?usp=drivesdk; SHA-256 0c369be53e39a1d776762f44ea515b644168e1fa7c2bacf521337442e6b8c8a2.
+Handbuch, Auftrag, Review, Status und Dokumentmuster: siehe konkrete Drive-IDs im Lieferkatalog https://drive.google.com/file/d/1_CmvceBYi0b2DtHhMGa7cLDNSkcpo27E/view?usp=drivesdk.

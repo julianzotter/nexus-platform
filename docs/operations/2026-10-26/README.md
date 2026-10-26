@@ -15,3 +15,9 @@ Dokument-SSOT: Google Drive / LLM-LOCAL-SSOT. Diese GitHub-Lieferung ist ein ver
 Vorstände und Quellen liegen unter `sources/` und `history/`; `source_manifest.json` unterscheidet Originalbyte-Snapshots von lesbaren Exporten. Binäre Vorstandsarchive bleiben in Drive. `FILE_HASHES.json` enthält SHA-256 der Payloaddateien und die Git-Blob-IDs.
 
 Grenzen: Externe ACK, globale Dauersynchronisierung, Rechtehärtung, unabhängige Handbuchabnahme und Produktionsfreigabe sind nicht durch diese Ablage belegt.
+
+## Abschluss und Registrierung
+- [Abschlussbeleg](26_10_26_1648_ABSCHLUSS-NEXUS-DOKUMENTATION-v1.0.0_0084_ID03.md) — [Drive](https://drive.google.com/file/d/1Y2C6bW_9TtQNcuRGSTQCAa_N5JlN2eZM/view?usp=drivesdk).
+- [Liefermanifest](26_10_26_1648_LIEFERMANIFEST-NEXUS-DOKUMENTATION_0075_ID03.json) — [Drive](https://drive.google.com/file/d/1U7ip1jaHWseCYsaV-HwhTjCoBwy_tvsY/view?usp=drivesdk).
+- [Ledger-Snapshot](sources/00_ID_LEDGER.current.csv): alte Bytes erhalten, 79 eindeutige IDs, Nachträge0063–0085; nächste freie ID0086 laut diesem eingefrorenen Stand.
+- [Finale Rücklesebelege](transport/final-registration-readback.json); GitHub-Prüfung bindet den ersten43-Dateien-Payload, diese abschließende Ergänzung enthält neue Transportmetadaten.
