@@ -2,11 +2,14 @@
   "mcpServers": {
     "nexus-bridge": {
       "command": "C:\\Users\\<USER>\\nexus-platform\\mcp_bridge\\.venv\\Scripts\\python.exe",
-      "args": ["C:\\Users\\<USER>\\nexus-platform\\mcp_bridge\\nexus_mcp_server.py"],
+      "args": [
+        "C:\\Users\\<USER>\\nexus-platform\\mcp_bridge\\nexus_mcp_server.py"
+      ],
       "env": {
         "NEXUS_WORK_ROOT": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK",
         "NEXUS_REPO_ROOT": "C:\\Users\\<USER>\\nexus-platform",
-        "NEXUS_MCP_WRITE": "0"
+        "NEXUS_MCP_WRITE": "0",
+        "NEXUS_GOVERNANCE_FILES_JSON": "{\"agbs\":\"WORK/_AGBS.md\",\"folder\":\"WORK/Folder.md\",\"manifest\":\"00_NEXUS_MANIFEST__CURRENT__2026-09-28.md\",\"baseline\":\"00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28.md\"}"
       }
     },
     "github": {

@@ -23,3 +23,30 @@ class SecretSetupTests(unittest.TestCase):
     def test_unknown_secret_and_multiline_rejected(self):
         for data in [{'UNKNOWN': 'x'}, {'OPENAI_API_KEY': 'a\nb'}]:
             with self.assertRaises(ValueError): publish_secrets(data)
+
+
+class ExistingCredentialTests(unittest.TestCase):
+    def test_rejects_public_readable_or_wrong_credential_set(self):
+        import json, os, tempfile
+        from configure_drive_oauth import read_existing
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as td:
+            path = Path(td) / 'private.json'
+            path.write_text(json.dumps({'UNKNOWN': 'fixture'}))
+            path.chmod(0o600)
+            with self.assertRaises(ValueError):
+                read_existing(path)
+            if os.name != 'nt':
+                path.chmod(0o644)
+                with self.assertRaisesRegex(ValueError, 'owner-only'):
+                    read_existing(path)
+
+    def test_check_does_not_publish_or_request_consent(self):
+        from configure_drive_oauth import main
+        with patch('sys.argv', ['configure_drive_oauth.py', '--check']), \
+             patch('drive_auth_check.check_access', return_value={'status': 'BLOCKED'}) as check, \
+             patch('configure_drive_oauth.publish_secrets') as publish, \
+             patch('configure_drive_oauth.authorize') as authorize, patch('builtins.print'):
+            self.assertEqual(main(), 2)
+        publish.assert_not_called()
+        authorize.assert_not_called()
+        check.assert_called_once()

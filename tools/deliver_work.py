@@ -54,12 +54,13 @@ def request_bytes(request: urllib.request.Request, limit: int = MAX_BYTES) -> by
     return body
 
 
-def get_access_token() -> str:
-    token = os.environ.get('GOOGLE_ACCESS_TOKEN')
+def get_access_token(environ: dict[str, str] | None = None) -> str:
+    environ = os.environ if environ is None else environ
+    token = environ.get('GOOGLE_ACCESS_TOKEN', '').strip()
     if token:
         return token
     names = ('NEXUS_GOOGLE_CLIENT_ID', 'NEXUS_GOOGLE_CLIENT_SECRET', 'NEXUS_GOOGLE_REFRESH_TOKEN')
-    values = [os.environ.get(name) for name in names]
+    values = [environ.get(name, '').strip() for name in names]
     if not all(values):
         raise DeliveryError('BLOCKED_DRIVE_CREDENTIALS')
     payload = urllib.parse.urlencode(dict(zip(('client_id', 'client_secret', 'refresh_token'), values)) | {'grant_type': 'refresh_token'}).encode()
