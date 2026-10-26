@@ -1,0 +1,118 @@
+{
+  "artifacts": [
+    {
+      "id": 86,
+      "drive_id": "1mp44RWG_IP3C6cU4NGukmzaFs4Ta-JHM",
+      "sha256": "4a949650286042ccbbc4fb7c203e1b1a380fe7d452f5b0495e0e62a269a4d0f9",
+      "bytes": 133314,
+      "result": "PASS"
+    },
+    {
+      "id": 87,
+      "drive_id": "1sOFYGijEDvNITEPfZihe6jlCUK69X06Q",
+      "sha256": "34a3d8462adff5b2449e1979eb7cbd69c6034910f02afa789bebc00128b54675",
+      "bytes": 22557,
+      "result": "PASS"
+    },
+    {
+      "id": 88,
+      "drive_id": "1osZIinnzOELoFbZwGVMBpVYdaDpSCdUT",
+      "sha256": "ef19eee9f550b290ad6a6d50b625c1201f3223984cdfa16263950f42bde02263",
+      "bytes": 25839,
+      "result": "PASS"
+    },
+    {
+      "id": 89,
+      "drive_id": "11-X4DwVosBqn6-LeDYq2XzUQClUb98FG",
+      "sha256": "aa39f0ace6c0555e19c0ec76604de2d0f100fad681da3b63b36f89ac9686b7fe",
+      "bytes": 4469,
+      "result": "PASS"
+    },
+    {
+      "id": 90,
+      "drive_id": "1tlDUXVeQbD3kEBMNj1qq3zWZXPr9eFke",
+      "sha256": "664e231b548444c2080719eeefe9433cd42a30ba2055e8d7bcf0a94ce5245fc0",
+      "bytes": 184356,
+      "result": "PASS"
+    }
+  ],
+  "ledger_and_log": [
+    {
+      "name": "ledger.after.csv",
+      "sha256": "54ce38646d4b9a8599dde3d1b8b2abfa8176f5dd105f42545160c685fbc72c18",
+      "result": "PASS"
+    },
+    {
+      "name": "26_10_26_1833_RUNLOG-NEXUS-ARCHITEKTUR-DOSSIER-v1.0.0_0091_ID03.md",
+      "sha256": "63e4dc4a5838c4bc3cab33ef15a67408f7c9d80146e7b06dce40465236b4c938",
+      "result": "PASS"
+    }
+  ],
+  "registration": {
+    "files": [
+      {
+        "id": 86,
+        "path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0086_ID03.pdf",
+        "mime": "application/pdf",
+        "parent": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+        "name": "26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0086_ID03.pdf",
+        "sha256": "4a949650286042ccbbc4fb7c203e1b1a380fe7d452f5b0495e0e62a269a4d0f9",
+        "drive_id": "1mp44RWG_IP3C6cU4NGukmzaFs4Ta-JHM",
+        "url": "https://drive.google.com/file/d/1mp44RWG_IP3C6cU4NGukmzaFs4Ta-JHM/view?usp=drivesdk"
+      },
+      {
+        "id": 87,
+        "path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0087_ID03.md",
+        "mime": "text/markdown",
+        "parent": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+        "name": "26_10_26_1833_NEXUS-SYSTEMARCHITEKTUR-DOSSIER-v1.0.0_0087_ID03.md",
+        "sha256": "34a3d8462adff5b2449e1979eb7cbd69c6034910f02afa789bebc00128b54675",
+        "drive_id": "1sOFYGijEDvNITEPfZihe6jlCUK69X06Q",
+        "url": "https://drive.google.com/file/d/1sOFYGijEDvNITEPfZihe6jlCUK69X06Q/view?usp=drivesdk"
+      },
+      {
+        "id": 88,
+        "path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-DOSSIER-GENERATOR-v1.0.0_0088_ID03.py",
+        "mime": "text/x-python",
+        "parent": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+        "name": "26_10_26_1833_NEXUS-DOSSIER-GENERATOR-v1.0.0_0088_ID03.py",
+        "sha256": "ef19eee9f550b290ad6a6d50b625c1201f3223984cdfa16263950f42bde02263",
+        "drive_id": "1osZIinnzOELoFbZwGVMBpVYdaDpSCdUT",
+        "url": "https://drive.google.com/file/d/1osZIinnzOELoFbZwGVMBpVYdaDpSCdUT/view?usp=drivesdk"
+      },
+      {
+        "id": 89,
+        "path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-DOSSIER-MANIFEST-v1.0.0_0089_ID03.json",
+        "name": "26_10_26_1833_NEXUS-DOSSIER-MANIFEST-v1.0.0_0089_ID03.json",
+        "sha256": "aa39f0ace6c0555e19c0ec76604de2d0f100fad681da3b63b36f89ac9686b7fe",
+        "mime": "application/json",
+        "parent": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+        "drive_id": "11-X4DwVosBqn6-LeDYq2XzUQClUb98FG",
+        "url": "https://drive.google.com/file/d/11-X4DwVosBqn6-LeDYq2XzUQClUb98FG/view?usp=drivesdk"
+      },
+      {
+        "id": 90,
+        "path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_NEXUS-DOSSIER-QUELLPAKET-v1.0.0_0090_ID03.zip",
+        "name": "26_10_26_1833_NEXUS-DOSSIER-QUELLPAKET-v1.0.0_0090_ID03.zip",
+        "sha256": "664e231b548444c2080719eeefe9433cd42a30ba2055e8d7bcf0a94ce5245fc0",
+        "mime": "application/zip",
+        "parent": "1jXreTO8oEDblDcTCXAEHVWvioMFJPMXz",
+        "drive_id": "1tlDUXVeQbD3kEBMNj1qq3zWZXPr9eFke",
+        "url": "https://drive.google.com/file/d/1tlDUXVeQbD3kEBMNj1qq3zWZXPr9eFke/view?usp=drivesdk"
+      },
+      {
+        "id": 91,
+        "path": "/workspace/scratch/ce5ebad62da6/output/pdf/26_10_26_1833_RUNLOG-NEXUS-ARCHITEKTUR-DOSSIER-v1.0.0_0091_ID03.md",
+        "name": "26_10_26_1833_RUNLOG-NEXUS-ARCHITEKTUR-DOSSIER-v1.0.0_0091_ID03.md",
+        "sha256": "63e4dc4a5838c4bc3cab33ef15a67408f7c9d80146e7b06dce40465236b4c938",
+        "mime": "text/markdown",
+        "parent": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+        "drive_id": "1bR4nGsjpS9NGS6OXaj5-gqW61u1b5Kof",
+        "url": "https://drive.google.com/file/d/1bR4nGsjpS9NGS6OXaj5-gqW61u1b5Kof/view?usp=drivesdk"
+      }
+    ],
+    "ledger_sha256": "54ce38646d4b9a8599dde3d1b8b2abfa8176f5dd105f42545160c685fbc72c18",
+    "ledger_path": "/workspace/scratch/ce5ebad62da6/output/pdf/ledger.after.csv",
+    "records": 86
+  }
+}
