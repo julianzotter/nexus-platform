@@ -1,7 +1,68 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "31718198a98b409045404c8757e2636153df3285",
+ "commit": "e8207d12a797a41268936d03367cc16551457cb1",
  "designs": [
+  {
+   "id": "HTML-03BF61CB",
+   "title": "NEXUS · System-Design & Signalmatrix",
+   "kind": "html",
+   "path": "docs/dossiers/2026-10-26-system-design-signalmatrix-v1.0.0/HTML-MANUAL_NEXUS-System-Design-Signalmatrix_2026-10-26_v1.0.0.html",
+   "preview": "../../docs/dossiers/2026-10-26-system-design-signalmatrix-v1.0.0/HTML-MANUAL_NEXUS-System-Design-Signalmatrix_2026-10-26_v1.0.0.html",
+   "sha256": "f276445a1a6c8e2a9aba1680387222595ee0f6b7b4fcf1cc2fc2e47ab5559810",
+   "bytes": 47629,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "docs",
+    "dossiers",
+    "2026-10-26-system-design-signalmatrix-v1.0.0"
+   ]
+  },
+  {
+   "id": "HTML-D55D5801",
+   "title": "NEXUS-AI-AEC-ECOSYSTEM · Technical Dashboard",
+   "kind": "html",
+   "path": "docs/manuals/26_10_26_NEXUS-AI-AEC-ECOSYSTEM_Standalone-Dashboard_v1.0.html",
+   "preview": "../../docs/manuals/26_10_26_NEXUS-AI-AEC-ECOSYSTEM_Standalone-Dashboard_v1.0.html",
+   "sha256": "aaf8a6c32e0c38b6054abfe9930f78d8e74a593fd471551c7da486575f51958b",
+   "bytes": 10356,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "docs",
+    "manuals"
+   ]
+  },
+  {
+   "id": "HTML-5040E922",
+   "title": "NEXUS Daten-Dashboard",
+   "kind": "html",
+   "path": "prototypes/data-dashboard/index.html",
+   "preview": "../../prototypes/data-dashboard/index.html",
+   "sha256": "0f9fb7a685c0eed2c336f13e94ab9e7a5bfe48212e09bc57b3d36c3ddf47d5de",
+   "bytes": 120843,
+   "status": "prototype_unreviewed",
+   "summary": "Eine einzelne, eigenständige HTML-Datei: KPI-Karten, vier animierte Diagramme, Filter, sortierbare Tabelle, Dialog mit den Daten per Text oder Sprache, Datei-Import/-Export. Prototyp, keine Freigabe. `index.html` direkt im Browser öffnen. Kein Server, keine CDN-Abhängigkeit, keine API-Keys. Daten neu einbetten (feste Git-Revision, deterministisch): ```sh python prototypes/data-dashboard/build_data.py          # HEAD ",
+   "tags": [
+    "prototypes",
+    "data-dashboard"
+   ]
+  },
+  {
+   "id": "HTML-9D5A51A2",
+   "title": "NEXUS Gemini-Chat",
+   "kind": "html",
+   "path": "prototypes/gemini-chat/index.html",
+   "preview": "../../prototypes/gemini-chat/index.html",
+   "sha256": "5706450617a1e2f3813f911b5a20b2cebe417d229d4885a0daa2bdabd7b56f2d",
+   "bytes": 23086,
+   "status": "prototype_unreviewed",
+   "summary": "Web-Chat mit Text- und Bildeingabe, Echtzeit-Streaming und persistentem Verlauf über die Gemini API. Prototyp, keine Freigabe. ```powershell $env:GEMINI_API_KEY = \"<Key aus Google AI Studio>\" node prototypes/gemini-chat/server.mjs ``` Optional: `$env:GEMINI_MODEL` (Standard `gemini-3.8-flash`), `$env:PORT`. Node ≥ 20, keine npm-Abhängigkeiten. ``` Browser (index.html)  ──POST /api/sessions/{id}/chat──▶  server.mjs (1",
+   "tags": [
+    "prototypes",
+    "gemini-chat"
+   ]
+  },
   {
    "id": "JS-EC5_SOLVER",
    "title": "ec5_solver.js",
@@ -9,8 +70,8 @@ window.NEXUS_DESIGNS = {
    "path": "prototypes/nexus-dashboard-v3/ec5_solver.js",
    "demo": "ec5",
    "script": "../../prototypes/nexus-dashboard-v3/ec5_solver.js",
-   "sha256": "6f8e3ebf7b53bbcdfb0a0eb2ec5ad6162f0179fdebfc3975e45f26b31ded418e",
-   "bytes": 1777,
+   "sha256": "34f74df2261847a3b3d7c4c96ad965f9bfa64bcfaabb0926fdba7053b0257858",
+   "bytes": 1744,
    "status": "prototype_not_certified",
    "summary": "PROTOTYPE - not a certified calculation. EN 1995-1-1 Cl. 6.3.2 column buckling, rectangular section,",
    "tags": [
@@ -25,8 +86,8 @@ window.NEXUS_DESIGNS = {
    "path": "prototypes/nexus-dashboard-v3/osr9_mmr.js",
    "demo": "mmr",
    "script": "../../prototypes/nexus-dashboard-v3/osr9_mmr.js",
-   "sha256": "5c75c43b8a3f20d1e9855d9e28310f7ed83586eba0b248ec6ff40a40e8b03bcb",
-   "bytes": 926,
+   "sha256": "ec737c1687fea8c450e067fcb301a44f93342c1a820d2f8b939c31b8baf57e97",
+   "bytes": 902,
    "status": "prototype_not_certified",
    "summary": "Maximal Marginal Relevance source selection (OSR-9 L-stage). Prototype.",
    "tags": [
@@ -55,8 +116,8 @@ window.NEXUS_DESIGNS = {
    "kind": "html",
    "path": "reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_DASHBOARD_v1.0.html",
    "preview": "../../reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_DASHBOARD_v1.0.html",
-   "sha256": "91163216d8609fb052d1b154b02d7625618ce45954436eaaf3caccd159877fa9",
-   "bytes": 162188,
+   "sha256": "be656934c79216bc6e0ef644d20f5b6bd4144cfde378efcb03235282b6da6aa5",
+   "bytes": 162152,
    "status": "prototype_unreviewed",
    "summary": "",
    "tags": [
@@ -70,8 +131,8 @@ window.NEXUS_DESIGNS = {
    "kind": "html",
    "path": "reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_DASHBOARD_v1.1.html",
    "preview": "../../reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_DASHBOARD_v1.1.html",
-   "sha256": "6784d7bbaeda7aee9916ad1d600f41b38cbd396f4dbd74f9162d1522cb196e22",
-   "bytes": 165641,
+   "sha256": "0365374b89fa67f28d7b345eb4d146417929de0440b5da146ae91ea9b791daca",
+   "bytes": 165592,
    "status": "prototype_unreviewed",
    "summary": "",
    "tags": [
@@ -85,7 +146,7 @@ window.NEXUS_DESIGNS = {
    "kind": "concept",
    "path": "docs/concepts/2026-10-13/catalog.json",
    "status": "concept_reviewed_implementation_pending",
-   "sha256": "7715471e8c7b71faaff7fe8de8064c070fac022ad10af38ad63cf1de372d6a3b",
+   "sha256": "4b7571a38108253dfa28ed44d6e84e412469acf254a7b3ffec808ce448ce43bf",
    "summary": "Module: realtime_session, async_transcription_jobs, evidence_registry",
    "sources": [
     "1tMW2Km2Kj_2JUfK-r54EN99PUGc3RoVI"
@@ -104,7 +165,7 @@ window.NEXUS_DESIGNS = {
    "kind": "concept",
    "path": "docs/concepts/2026-10-13/catalog.json",
    "status": "concept_reviewed_validation_blockers",
-   "sha256": "7715471e8c7b71faaff7fe8de8064c070fac022ad10af38ad63cf1de372d6a3b",
+   "sha256": "4b7571a38108253dfa28ed44d6e84e412469acf254a7b3ffec808ce448ce43bf",
    "summary": "",
    "sources": [
     "1ZU0Y9mhQKQJqH-XM5I2FYtQuOIOXjCH6LmliiO6yUXs",

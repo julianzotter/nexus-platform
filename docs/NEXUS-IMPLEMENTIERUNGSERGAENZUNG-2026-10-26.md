@@ -87,3 +87,7 @@ Personal Instructions erzeugen keinen Dateisystemzugriff und installieren keine 
 37 gezielte lokale Tests bestehen: Pflichtquellen/Hashes, Pfadgrenzen, native Shortcuts, Übergröße, Context-Budget-Abbruch, Vienna-Datumsgrenze, Ledger-ID und Schreibsperre, fehlende Credentials ohne Netzwerk sowie sicherer Wiedergebrauch privater OAuth-Dateien. Das ist keine unabhängige Peer-Review, vollständige Repository-CI, Windows-Installation oder Live-OAuth-/Engineering-Abnahme. Der bekannte historische CI-Fehler wegen fehlender Commit-Historie und abweichender generierter Galerie ist mit diesen Tests nicht behoben oder neu abgenommen.
 
 Quellen: _AGBS.md v002, Manifest/Baseline CURRENT, WORK/Folder.md, AIM v0.3.2; konkrete Drive-IDs stehen in nexus_contract.py und im Inventar. Ergänzende Anbieterreferenzen: https://developers.google.com/identity/protocols/oauth2/native-app und https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets .
+
+### CI-Nachtrag
+
+PR-CI 40400945649 wurde tatsächlich ausgeführt: 141 Tests, ein Fehlerbefund und zwei Ausnahmen; die neuen Reparaturtests meldeten keinen zusätzlichen Fehler. Die beiden Ursachen entsprechen dem bisherigen Befund: flacher Checkout ohne historische Dashboard-Revision und veraltetes Galerie-Manifest. Der Folgepatch setzt fetch-depth: 0 und regeneriert das Manifest aus bytegenau geprüften Repository-Eingängen; sieben Galerie-Tests bestehen lokal. Die vollständige CI des Folgepatches muss separat beobachtet werden.
