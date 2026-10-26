@@ -98,7 +98,7 @@ def build_report(knowledge_dir: Path, registry: Path, coverage: Path, now: datet
     results = []
     if knowledge_dir.exists() and not knowledge_dir.is_dir():
         errors.append('knowledge path is not a directory')
-    for path in sorted(knowledge_dir.glob('*.json')) if knowledge_dir.is_dir() else []:
+    for path in sorted(knowledge_dir.rglob('*.json')) if knowledge_dir.is_dir() else []:
         try:
             item = json.loads(path.read_text(encoding='utf-8'))
             results.append(assess_item(item, ids, now, max_age_days))
