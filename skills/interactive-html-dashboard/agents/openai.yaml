@@ -1,0 +1,4 @@
+interface:
+  display_name: "NEXUS Interactive Dashboard"
+  short_description: "Self-contained HTML dashboard with charts, filters, file I/O and data dialog"
+  default_prompt: "Use $interactive-html-dashboard to build a self-contained dashboard from this dataset."

@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS Daten-Dashboard</title>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f3f3f1;--surface:#fcfcfb;--surface-2:#efeeeb;--line:#dcdad5;--text:#0b0b0b;--text-2:#52514e;--muted:#77756f;
+  --accent:#2a78d6;--focus:#2a78d6;
+  --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--other:#a8a69f;
+  --good:#1f7a3a;--good-soft:#e2f3e7;--bad:#c23b3a;--bad-soft:#fbe6e5;--warn:#9a6a00;--warn-soft:#fbf1dc;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){
+  color-scheme:dark;
+  --bg:#121211;--surface:#1a1a19;--surface-2:#242422;--line:#363632;--text:#f0efec;--text-2:#c3c2b7;--muted:#97958c;
+  --accent:#3987e5;--focus:#6da7ec;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--other:#6b6a64;
+  --good:#5fc27c;--good-soft:#1b3123;--bad:#ef7d7c;--bad-soft:#3b1f1e;--warn:#e3b24f;--warn-soft:#382d16;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121211;--surface:#1a1a19;--surface-2:#242422;--line:#363632;--text:#f0efec;--text-2:#c3c2b7;--muted:#97958c;
+  --accent:#3987e5;--focus:#6da7ec;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--other:#6b6a64;
+  --good:#5fc27c;--good-soft:#1b3123;--bad:#ef7d7c;--bad-soft:#3b1f1e;--warn:#e3b24f;--warn-soft:#382d16;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+header.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1480px;margin:0 auto;padding:0 16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 0}
+.brand{margin-right:auto;display:flex;gap:10px;align-items:center;min-width:0}
+.brand h1{font-size:16px;margin:0;white-space:nowrap}
+.brand small{display:block;color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46vw}
+.pulse{width:10px;height:10px;border-radius:50%;background:var(--s1);box-shadow:0 0 0 0 var(--s1);animation:beat 2.4s infinite}
+@keyframes beat{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--s1) 60%,transparent)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.btn,select,.inp{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px}
+.btn{cursor:pointer;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.sm{padding:3px 8px;font-size:12px}
+.live{font-size:12px;padding:3px 8px;border-radius:999px;background:var(--good-soft);color:var(--good);font-weight:600}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;padding:16px 0 40px}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:6px 10px;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--surface-2);font-weight:700}
+.chip{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 4px 3px 10px;font-size:12.5px;animation:in .3s ease}
+.chip button{border:0;background:var(--surface-2);border-radius:50%;width:20px;height:20px;cursor:pointer;line-height:1}
+@keyframes in{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.addf{display:inline-flex;gap:4px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi .v{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .l{color:var(--text-2);font-size:12.5px}
+.kpi .d{color:var(--muted);font-size:12px}
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px}
+@media (max-width:820px){.charts{grid-template-columns:1fr}}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0;transition:opacity .2s}
+figure.wide{grid-column:1/-1}
+figure header{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+figure h2{font-size:14px;margin:0;margin-right:auto}
+figcaption{color:var(--muted);font-size:12px;margin-top:4px}
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+svg.chart text{fill:var(--text-2);font-size:11px;font-family:inherit}
+svg.chart .val{fill:var(--text);font-variant-numeric:tabular-nums}
+svg.chart .grid{stroke:var(--line);stroke-width:1}
+svg.chart .hit{fill:transparent;cursor:pointer}
+svg.chart .hit:hover+.mark,svg.chart .mark.hl{filter:brightness(1.12)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--text-2);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:8px;padding:6px 10px;font-size:12px;opacity:0;transition:opacity .12s;max-width:320px}
+#tip strong{font-size:14px;display:block;font-variant-numeric:tabular-nums}
+#tip .k{display:inline-block;width:12px;height:2px;margin-right:6px;vertical-align:middle}
+section.tbl{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tblhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+.tblhead h2{font-size:14px;margin:0;margin-right:auto}
+.scroll{overflow:auto;max-height:560px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+caption{text-align:left;padding:6px 14px;color:var(--muted);font-size:12px;caption-side:bottom}
+th,td{padding:6px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;max-width:420px;overflow:hidden;text-overflow:ellipsis}
+th{position:sticky;top:0;background:var(--surface-2);font-weight:600;z-index:1}
+th button{border:0;background:none;cursor:pointer;font-weight:600;padding:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:var(--surface-2)}
+td button.cat{border:0;background:none;padding:0;cursor:pointer;color:var(--accent);text-decoration:underline dotted}
+.pager{display:flex;gap:8px;align-items:center;padding:8px 14px;color:var(--muted);font-size:12px}
+aside.dialog{background:var(--surface);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;position:sticky;top:76px;max-height:calc(100vh - 92px);min-height:420px}
+@media (max-width:1100px){aside.dialog{position:static;max-height:none}}
+.dhead{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.dhead h2{font-size:14px;margin:0}
+.voices{display:grid;grid-template-columns:auto 1fr;gap:4px 8px;align-items:center;font-size:12px;color:var(--text-2)}
+.voices select{padding:3px 6px;font-size:12px;min-width:0;width:100%}
+ol.log{list-style:none;margin:0;padding:12px 14px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:8px}
+ol.log li{padding:8px 10px;border-radius:10px;background:var(--surface-2);animation:in .25s ease;max-width:92%}
+ol.log li.user{align-self:flex-end;background:color-mix(in srgb,var(--accent) 16%,var(--surface))}
+ol.log li.pruefer{border-left:3px solid var(--warn)}
+ol.log li.analyst{border-left:3px solid var(--accent)}
+ol.log small{display:block;color:var(--muted);font-size:11px}
+.interim{color:var(--muted);font-style:italic;padding:0 14px;min-height:20px;font-size:12px}
+.ask{display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--line)}
+.ask input{flex:1;min-width:0}
+.mic{width:40px;height:36px;justify-content:center;position:relative}
+.mic.rec{background:var(--bad);border-color:var(--bad);color:#fff}
+.mic.rec::after{content:"";position:absolute;inset:-4px;border-radius:10px;border:2px solid var(--bad);animation:ring 1.2s infinite}
+@keyframes ring{from{opacity:.8;transform:scale(1)}to{opacity:0;transform:scale(1.25)}}
+.examples{display:flex;flex-wrap:wrap;gap:4px;padding:0 14px 10px}
+.examples button{font-size:11.5px;border:1px dashed var(--line);background:none;border-radius:999px;padding:2px 8px;cursor:pointer;color:var(--text-2)}
+.drop{position:fixed;inset:0;z-index:60;display:none;place-items:center;background:color-mix(in srgb,var(--accent) 18%,transparent);border:3px dashed var(--accent);font-size:20px;font-weight:700}
+.drop.on{display:grid}
+.note{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:6px 10px}
+footer{color:var(--muted);font-size:12px;padding:0 0 30px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <div class="brand"><span class="pulse" aria-hidden="true"></span><div><h1>NEXUS Daten-Dashboard</h1><small id="source"></small></div></div>
+    <nav aria-label="Datensatz und Dateien" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+      <label class="sr" for="dataset">Datensatz</label><select id="dataset"></select>
+      <label class="btn" title="CSV, TSV, JSON oder JSONL importieren">⭱ Import<input id="file" type="file" accept=".csv,.tsv,.txt,.json,.jsonl" hidden></label>
+      <button class="btn" id="watch" title="Lokale Datei live beobachten (Chromium-Browser)">◉ Live-Datei</button>
+      <span id="livestate" class="live" hidden></span>
+      <button class="btn" data-export="csv">CSV</button><button class="btn" data-export="json">JSON</button><button class="btn" data-export="md">Bericht</button>
+      <button class="btn" id="theme" title="Hell/Dunkel" aria-label="Farbschema wechseln">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <main>
+    <section aria-label="Filter" class="filters" id="filters">
+      <div class="seg" id="presets" role="group" aria-label="Zeitraum"></div>
+      <label class="sr" for="q">Suche</label><input id="q" class="inp" type="search" placeholder="Suche in allen Spalten">
+      <label>Gruppe <select id="group"></select></label>
+      <label>Kennzahl <select id="agg"><option value="count">Anzahl</option><option value="sum">Summe</option><option value="mean">Mittelwert</option><option value="max">Maximum</option></select></label>
+      <select id="measure" aria-label="Kennzahl-Spalte"></select>
+      <form class="addf" id="addf"><select id="fcol" aria-label="Filterspalte"></select><select id="fop" aria-label="Operator">
+        <option value="eq">=</option><option value="neq">≠</option><option value="contains">enthält</option><option value="gt">&gt;</option><option value="gte">≥</option><option value="lt">&lt;</option><option value="lte">≤</option></select>
+        <input id="fval" class="inp" list="fvals" placeholder="Wert" size="10" aria-label="Filterwert"><datalist id="fvals"></datalist><button class="btn">+ Filter</button></form>
+      <span id="chips" style="display:contents"></span>
+    </section>
+
+    <section class="kpis" id="kpis" aria-label="Kennzahlen"></section>
+
+    <section class="charts" aria-label="Diagramme">
+      <figure id="f-time" class="wide"><header><h2 id="t-time"></h2>
+        <div class="seg" role="group" aria-label="Zeitdarstellung"><button data-tmode="day" aria-pressed="true">pro Tag</button><button data-tmode="cum" aria-pressed="false">kumuliert</button></div>
+        <button class="btn sm" id="replay">▶ Zeitraffer</button><button class="btn sm" data-svg="c-time">SVG</button></header>
+        <svg class="chart" id="c-time" viewBox="0 0 900 230" role="img"></svg><figcaption id="cap-time"></figcaption></figure>
+      <figure id="f-bar"><header><h2 id="t-bar"></h2><button class="btn sm" data-svg="c-bar">SVG</button></header>
+        <svg class="chart" id="c-bar" viewBox="0 0 520 320" role="img"></svg><figcaption id="cap-bar"></figcaption></figure>
+      <figure id="f-donut"><header><h2 id="t-donut"></h2><button class="btn sm" data-svg="c-donut">SVG</button></header>
+        <svg class="chart" id="c-donut" viewBox="0 0 520 260" role="img"></svg><div class="legend" id="lg-donut"></div><figcaption id="cap-donut"></figcaption></figure>
+      <figure id="f-hist" class="wide"><header><h2 id="t-hist"></h2><select id="hcol" aria-label="Spalte für Verteilung"></select><button class="btn sm" data-svg="c-hist">SVG</button></header>
+        <svg class="chart" id="c-hist" viewBox="0 0 900 200" role="img"></svg><figcaption id="cap-hist"></figcaption></figure>
+    </section>
+
+    <section class="tbl" aria-labelledby="t-tbl">
+      <div class="tblhead"><h2 id="t-tbl">Tabelle</h2><span id="tblinfo" class="kbd"></span></div>
+      <div class="scroll"><table id="tbl"><caption id="tcap"></caption><thead></thead><tbody></tbody></table></div>
+      <div class="pager"><button class="btn sm" id="pprev">←</button><span id="pinfo"></span><button class="btn sm" id="pnext">→</button></div>
+    </section>
+  </main>
+
+  <aside class="dialog" aria-labelledby="t-dialog">
+    <div class="dhead">
+      <div style="display:flex;gap:6px;align-items:center"><h2 id="t-dialog" style="margin-right:auto">Mit den Daten sprechen</h2>
+        <button class="btn sm" id="speak" aria-pressed="true" title="Antworten vorlesen">🔊 Stimmen an</button></div>
+      <div class="voices"><label for="v-a">Analyst</label><select id="v-a"></select><label for="v-p">Prüfer</label><select id="v-p"></select></div>
+      <div class="note" id="srnote" hidden></div>
+    </div>
+    <ol class="log" id="log" aria-live="polite"></ol>
+    <div class="interim" id="interim"></div>
+    <div class="examples" id="examples"></div>
+    <form class="ask" id="ask"><button type="button" class="btn mic" id="mic" title="Spracheingabe" aria-label="Spracheingabe starten">🎙</button>
+      <input id="askin" class="inp" placeholder="Frage oder Befehl …" aria-label="Frage an die Daten" autocomplete="off"><button class="btn">↵</button></form>
+    <div style="display:flex;gap:6px;padding:0 14px 12px;flex-wrap:wrap;font-size:12px;color:var(--muted);align-items:center">Transkript:
+      <button class="btn sm" data-tx="md">MD</button><button class="btn sm" data-tx="json">JSON</button><button class="btn sm" data-tx="txt">TXT</button><button class="btn sm" data-tx="srt">SRT</button></div>
+  </aside>
+</div>
+<footer class="wrap">Alle Werte werden deterministisch im Browser aus den eingebetteten bzw. importierten Daten berechnet. Die Sprachsteuerung ist ein Regel-Parser ohne KI-Modell. Keine Netzwerkzugriffe außer der Spracherkennung des Browsers (falls genutzt).</footer>
+<div id="tip" role="tooltip"></div>
+<div class="drop" id="drop">Datei hier ablegen: CSV · TSV · JSON · JSONL</div>
+
+<script id="nlq">
+'use strict';
+// Deterministic German/English query grammar -> intent object. No model, no network.
+const NLQ = (() => {
+  const SYN = {python:'.py', markdown:'.md', javascript:'.js', powershell:'.ps1', yaml:'.yml', notebook:'.ipynb'};
+  const norm = s => String(s ?? '').toLowerCase().normalize('NFC').replace(/[„“"'?!;]/g, ' ').replace(/\s+/g, ' ').trim();
+  const rx = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const word = w => new RegExp('(^|[^\\p{L}\\p{N}])' + rx(w) + '(?=$|[^\\p{L}\\p{N}])', 'u');
+  const names = c => [c.key, c.label, ...(c.aliases || [])].map(norm);
+  function resolve(w, cols, types) {
+    if (!w) return null;
+    w = norm(w);
+    const ok = c => !types || types.includes(c.type);
+    return cols.find(c => ok(c) && names(c).includes(w))
+        || cols.find(c => ok(c) && w.length >= 4 && names(c).some(n => n.startsWith(w) || w.startsWith(n) && n.length >= 4)) || null;
+  }
+  function mentioned(t, cols, types) {
+    let best = null, pos = Infinity;
+    for (const c of cols) {
+      if (types && !types.includes(c.type)) continue;
+      for (const n of names(c)) { const m = word(n).exec(t); if (m && m.index < pos) { pos = m.index; best = c; } }
+    }
+    return best;
+  }
+  const OPS = [['größer als','gt'],['groesser als','gt'],['mehr als','gt'],['über','gt'],['ueber','gt'],['more than','gt'],['greater than','gt'],
+    ['mindestens','gte'],['at least','gte'],['kleiner als','lt'],['weniger als','lt'],['unter','lt'],['less than','lt'],['höchstens','lte'],['hoechstens','lte'],['at most','lte'],
+    ['>=','gte'],['<=','lte'],['>','gt'],['<','lt']];
+  const OPRX = new RegExp('(?:([\\p{L}_]+)\\s+(?:ist\\s+|sind\\s+|mit\\s+)?)?(' + OPS.map(o => rx(o[0])).join('|') + ')\\s*(-?\\d+(?:[.,]\\d+)?)\\s*(kb|mb)?(?:\\s+([\\p{L}_]+))?', 'gu');
+
+  function interpret(text, schema) {
+    const cols = schema.columns || [];
+    let t = norm(text);
+    const r = {filters: [], understood: false};
+    const hit = re => { const m = re.exec(t); if (m) { r.understood = true; } return m; };
+    if (hit(/\b(hilfe|help|was kannst du)\b/u)) r.help = true;
+    if (hit(/(zurücksetz|zuruecksetz|\breset\b|filter (?:lösch|loesch|entfern|weg)|alles (?:zeigen|anzeigen))/u)) r.reset = true;
+    const ex = /(export\w*|speicher\w*|download\w*|herunterlad\w*)/u.exec(t);
+    if (ex) { const f = /(csv|json|markdown|\bmd\b|bericht|report|transkript|transcript|srt|txt)/u.exec(t);
+      r.export = f ? ({markdown:'md', bericht:'md', report:'md', transcript:'transkript'}[f[1]] || f[1]) : 'csv'; r.understood = true; }
+    const ds = /(?:wechsl\w*|wechsel\w*|switch|öffne|oeffne|datensatz|lade)\s+(?:zu[mr]?\s+|zu den\s+|auf\s+|den\s+|die\s+|to\s+)?(?:datensatz\s+)?([\p{L}\-:._]+)/u.exec(t);
+    if (ds) { const d = (schema.datasets || []).find(d => [d.key, ...norm(d.title).split(' ')].map(norm).some(n => n === ds[1] || n.startsWith(ds[1]) && ds[1].length >= 4));
+      if (d) { r.dataset = d.key; r.understood = true; return r; } }
+    const so = /sortier\w*\s+(?:nach|by)\s+([\p{L}_]+)(?:\s+(auf|ab)steigend|\s+(asc|desc))?/u.exec(t);
+    if (so) { const c = resolve(so[1], cols); if (c) { r.sort = {col: c.key, dir: so[2] === 'auf' || so[3] === 'asc' ? 'asc' : 'desc'}; r.understood = true; }
+      t = t.replace(so[0], ' '); }
+    const gr = /(?:gruppier\w*|aufschlüssel\w*|aufschluessel\w*|aufgeteilt|aufteil\w*|group\w*)\s+(?:nach|by|pro)?\s*([\p{L}_]+)|\b(?:pro|je|per)\s+([\p{L}_]+)/u.exec(t);
+    if (gr) { const c = resolve(gr[1] || gr[2], cols, ['category']); if (c) { r.groupBy = c.key; r.understood = true; t = t.replace(gr[0], ' '); } }
+    const ct = /([\p{L}_]+)\s+(?:enthält|enthaelt|contains)\s+(.+)$/u.exec(t);
+    if (ct) { const c = resolve(ct[1], cols, ['text', 'category']) || cols.find(c => c.type === 'text');
+      if (c) { r.filters.push({col: c.key, op: 'contains', value: ct[2].trim()}); r.understood = true; t = t.replace(ct[0], ' '); } }
+    for (const m of t.matchAll(OPRX)) {
+      // a size unit or "größer/kleiner" without a named column refers to the size column
+      const c = resolve(m[1], cols, ['number']) || resolve(m[5], cols, ['number'])
+             || (m[4] || /größer|groesser|kleiner/u.test(m[2]) ? resolve('größe', cols, ['number']) : null);
+      if (!c) continue;
+      const mult = m[4] === 'kb' ? 1024 : m[4] === 'mb' ? 1048576 : 1;
+      r.filters.push({col: c.key, op: OPS.find(o => o[0] === m[2])[1], value: parseFloat(m[3].replace(',', '.')) * mult});
+      r.understood = true;
+    }
+    const dcol = cols.find(c => c.type === 'date');
+    if (dcol) for (const [re, op] of [[/\b(?:seit|ab|since|after)\s+(\d{4}-\d{2}-\d{2})/u, 'gte'], [/\b(?:bis|until)\s+(\d{4}-\d{2}-\d{2})/u, 'lte'],
+                                       [/\b(?:vor dem|before)\s+(\d{4}-\d{2}-\d{2})/u, 'lt'], [/\b(?:am|on)\s+(\d{4}-\d{2}-\d{2})/u, 'day']]) {
+      const m = re.exec(t); if (m) { r.filters.push({col: dcol.key, op, value: m[1]}); r.understood = true; }
+    }
+    if (!r.export && !r.dataset) for (const c of cols.filter(c => c.type === 'category' && c.values)) {
+      for (const v of c.values) {
+        const nv = norm(v).replace(/^\./, '').replace(/[()]/g, '');
+        const keys = [nv, ...Object.keys(SYN).filter(k => SYN[k] === v)];
+        if (nv.length < 2 || names(c).includes(nv)) continue;
+        for (const k of keys) {
+          if (new RegExp('\\b(?:ohne|nicht|außer|ausser|except|without)\\s+(?:den |die |das |dem |ordner |typ )?' + rx(k) + '(?=$|[^\\p{L}\\p{N}])', 'u').test(t)) {
+            r.filters.push({col: c.key, op: 'neq', value: v}); r.understood = true; break; }
+          if (word(k).test(t)) { r.filters.push({col: c.key, op: 'eq', value: v}); r.understood = true; break; }
+        }
+      }
+    }
+    const num = mentioned(t, cols, ['number']);
+    const tp = /\b(?:top|größten?|groessten?|höchsten?|hoechsten?|meisten?|längsten?|laengsten?|largest|biggest)\b(?:\s*(\d+))?|(\d+)\s+(?:größten|groessten|höchsten|hoechsten|meisten|längsten|laengsten|largest|biggest)/u.exec(t);
+    if (tp) { r.top = {n: +(tp[1] || tp[2] || 5), col: num ? num.key : null}; r.understood = true; }
+    const st = [[/\b(summe|gesamt\w*|total|sum)\b/u, 'sum'], [/\b(durchschnitt\w*|mittel\w*|schnitt|average|mean)\b/u, 'mean'],
+                [/\b(maximum|max|höchstwert|hoechstwert)\b/u, 'max'], [/\b(minimum|min|kleinste\w*)\b/u, 'min']].find(([re]) => re.test(t));
+    if (st && !tp) { r.stat = {fn: st[1], col: num ? num.key : null}; r.understood = true; }
+    if (hit(/\b(wie ?viele|anzahl|how many|count|zähle|zaehle)\b/u)) r.count = true;
+    return r;
+  }
+  return {interpret, norm};
+})();
+if (typeof module !== 'undefined') module.exports = NLQ;
+</script>
+
+<script id="nexus-data">/*DATA:BEGIN*/window.DASHBOARD_DATA = {"revision":"31718198a98b409045404c8757e2636153df3285","datasets":{"dateien":{"title":"Repository-Dateien","source":"git 31718198a98b · ls-tree, cat-file, log","columns":[{"key":"pfad","label":"Pfad","type":"text","aliases":["pfad","path","datei","file"]},{"key":"ordner","label":"Ordner","type":"category","aliases":["ordner","folder","verzeichnis","bereich"]},{"key":"typ","label":"Dateityp","type":"category","aliases":["typ","dateityp","endung","extension","format"]},{"key":"bytes","label":"Größe (B)","type":"number","aliases":["größe","groesse","bytes","size","speicher"]},{"key":"zeilen","label":"Zeilen","type":"number","aliases":["zeilen","lines","loc"]},{"key":"commits","label":"Commits","type":"number","aliases":["commits","änderungen","aenderungen"]},{"key":"geaendert","label":"Zuletzt geändert","type":"date","aliases":["datum","geändert","geaendert","date"]}],"rows":[{"pfad":".gitattributes","ordner":"(root)","typ":"(ohne)","bytes":99,"zeilen":2,"commits":1,"geaendert":"2026-10-15"},{"pfad":".github/agents/nexus-context-distiller.agent.md","ordner":".github","typ":".md","bytes":2050,"zeilen":39,"commits":1,"geaendert":"2026-10-18"},{"pfad":".github/nexus-branch-protection.proposal.json","ordner":".github","typ":".json","bytes":338,"zeilen":12,"commits":1,"geaendert":"2026-10-18"},{"pfad":".github/workflows/ci.yml","ordner":".github","typ":".yml","bytes":831,"zeilen":27,"commits":7,"geaendert":"2026-10-18"},{"pfad":".github/workflows/nexus-delivery.yml","ordner":".github","typ":".yml","bytes":2290,"zeilen":62,"commits":1,"geaendert":"2026-10-18"},{"pfad":".github/workflows/nexus-drive-poll.yml","ordner":".github","typ":".yml","bytes":2288,"zeilen":58,"commits":1,"geaendert":"2026-10-19"},{"pfad":".github/workflows/nexus-monitor.yml","ordner":".github","typ":".yml","bytes":1752,"zeilen":56,"commits":8,"geaendert":"2026-10-19"},{"pfad":".gitignore","ordner":"(root)","typ":"(ohne)","bytes":4920,"zeilen":237,"commits":5,"geaendert":"2026-10-19"},{"pfad":"AGENTS.md","ordner":"(root)","typ":".md","bytes":2312,"zeilen":15,"commits":1,"geaendert":"2026-10-16"},{"pfad":"LICENSE","ordner":"(root)","typ":"(ohne)","bytes":1069,"zeilen":21,"commits":1,"geaendert":"2026-10-08"},{"pfad":"NEXUS-TEAM-WORK-01.ipynb","ordner":"(root)","typ":".ipynb","bytes":924,"zeilen":39,"commits":1,"geaendert":"2026-10-08"},{"pfad":"README.md","ordner":"(root)","typ":".md","bytes":445,"zeilen":5,"commits":2,"geaendert":"2026-10-13"},{"pfad":"TASK-00001-REFERENCE-AGENT-A.md","ordner":"(root)","typ":".md","bytes":3083,"zeilen":47,"commits":1,"geaendert":"2026-10-18"},{"pfad":"TASK-00004-INVENTORY-AGENT-D.md","ordner":"(root)","typ":".md","bytes":6618,"zeilen":165,"commits":3,"geaendert":"2026-10-16"},{"pfad":"WORK/REPORTS/2026-10-21_ACCESS-POINTS_REUSE_AUDIT_STATUS.md","ordner":"WORK","typ":".md","bytes":4453,"zeilen":46,"commits":1,"geaendert":"2026-10-21"},{"pfad":"access-points/README.md","ordner":"access-points","typ":".md","bytes":814,"zeilen":14,"commits":1,"geaendert":"2026-10-21"},{"pfad":"access-points/WORKORDER.md","ordner":"access-points","typ":".md","bytes":930,"zeilen":18,"commits":1,"geaendert":"2026-10-21"},{"pfad":"access-points/registry.json","ordner":"access-points","typ":".json","bytes":5741,"zeilen":195,"commits":1,"geaendert":"2026-10-21"},{"pfad":"cplm-implementation/README.md","ordner":"cplm-implementation","typ":".md","bytes":4260,"zeilen":75,"commits":2,"geaendert":"2026-10-16"},{"pfad":"cplm-implementation/nexus_cplm/__init__.py","ordner":"cplm-implementation","typ":".py","bytes":76,"zeilen":1,"commits":1,"geaendert":"2026-10-16"},{"pfad":"cplm-implementation/nexus_cplm/core.py","ordner":"cplm-implementation","typ":".py","bytes":23641,"zeilen":441,"commits":2,"geaendert":"2026-10-16"},{"pfad":"cplm-implementation/requirements.txt","ordner":"cplm-implementation","typ":".txt","bytes":14,"zeilen":1,"commits":1,"geaendert":"2026-10-16"},{"pfad":"cplm-implementation/tests/test_cplm.py","ordner":"cplm-implementation","typ":".py","bytes":27285,"zeilen":492,"commits":2,"geaendert":"2026-10-16"},{"pfad":"development_cycle/CONTRACT.md","ordner":"development_cycle","typ":".md","bytes":9634,"zeilen":100,"commits":1,"geaendert":"2026-10-15"},{"pfad":"development_cycle/README.md","ordner":"development_cycle","typ":".md","bytes":3149,"zeilen":28,"commits":1,"geaendert":"2026-10-15"},{"pfad":"development_cycle/REVIEW_REQUESTS.md","ordner":"development_cycle","typ":".md","bytes":2065,"zeilen":21,"commits":1,"geaendert":"2026-10-15"},{"pfad":"development_cycle/agent_contracts.json","ordner":"development_cycle","typ":".json","bytes":1378,"zeilen":37,"commits":1,"geaendert":"2026-10-15"},{"pfad":"development_cycle/cycle.py","ordner":"development_cycle","typ":".py","bytes":7050,"zeilen":122,"commits":1,"geaendert":"2026-10-15"},{"pfad":"development_cycle/review_bundle.json","ordner":"development_cycle","typ":".json","bytes":1020,"zeilen":22,"commits":1,"geaendert":"2026-10-15"},{"pfad":"development_cycle/test_cycle.py","ordner":"development_cycle","typ":".py","bytes":3128,"zeilen":57,"commits":1,"geaendert":"2026-10-15"},{"pfad":"docs/GLOSSARY.md","ordner":"docs","typ":".md","bytes":1159,"zeilen":16,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/NEXUS-AI-Kurz-Manual.md","ordner":"docs","typ":".md","bytes":4371,"zeilen":98,"commits":1,"geaendert":"2026-10-13"},{"pfad":"docs/NEXUS-DASHBOARD-INTEGRATION.md","ordner":"docs","typ":".md","bytes":4881,"zeilen":45,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/NEXUS-DRIVE-GITHUB-MCP.md","ordner":"docs","typ":".md","bytes":2272,"zeilen":30,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/NEXUS-GITHUB-WORK-TRANSFER.md","ordner":"docs","typ":".md","bytes":6041,"zeilen":50,"commits":1,"geaendert":"2026-10-18"},{"pfad":"docs/NEXUS-MONITOR.md","ordner":"docs","typ":".md","bytes":5507,"zeilen":81,"commits":3,"geaendert":"2026-10-19"},{"pfad":"docs/NEXUS-RUNNER-ACTIVATION.md","ordner":"docs","typ":".md","bytes":9435,"zeilen":83,"commits":1,"geaendert":"2026-10-18"},{"pfad":"docs/adr/0001-evidence-and-gates.md","ordner":"docs","typ":".md","bytes":933,"zeilen":13,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/agent-registry/26_10_16_17_01_ID-03_LLM-ID-KOMPETENZMATRIX-UMFRAGE_v0.1.0.md","ordner":"docs","typ":".md","bytes":13346,"zeilen":112,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/concepts/2026-10-13/INTEGRATION.md","ordner":"docs","typ":".md","bytes":5407,"zeilen":50,"commits":1,"geaendert":"2026-10-13"},{"pfad":"docs/concepts/2026-10-13/README.md","ordner":"docs","typ":".md","bytes":1828,"zeilen":18,"commits":1,"geaendert":"2026-10-13"},{"pfad":"docs/concepts/2026-10-13/REVIEW.md","ordner":"docs","typ":".md","bytes":5784,"zeilen":46,"commits":1,"geaendert":"2026-10-13"},{"pfad":"docs/concepts/2026-10-13/catalog.json","ordner":"docs","typ":".json","bytes":4740,"zeilen":115,"commits":1,"geaendert":"2026-10-13"},{"pfad":"docs/concepts/2026-10-13/sources/pdf-normen-parser-skill.extracted.txt","ordner":"docs","typ":".txt","bytes":9309,"zeilen":217,"commits":1,"geaendert":"2026-10-13"},{"pfad":"docs/cplm-review/AIM.md","ordner":"docs","typ":".md","bytes":6174,"zeilen":56,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/DELTA-1-GOVERNANCE.md","ordner":"docs","typ":".md","bytes":16369,"zeilen":128,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/DELTA-1B-GOVERNANCE.md","ordner":"docs","typ":".md","bytes":4485,"zeilen":34,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/DELTA-2-SYSTEMS.md","ordner":"docs","typ":".md","bytes":6570,"zeilen":49,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/DELTA-3-SOFTWARE.md","ordner":"docs","typ":".md","bytes":5208,"zeilen":37,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/FINAL-1-GOVERNANCE.md","ordner":"docs","typ":".md","bytes":3398,"zeilen":33,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/FINAL-2-SYSTEMS.md","ordner":"docs","typ":".md","bytes":3545,"zeilen":36,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/FINAL-3-SOFTWARE.md","ordner":"docs","typ":".md","bytes":3634,"zeilen":32,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/RUN-1.md","ordner":"docs","typ":".md","bytes":30694,"zeilen":233,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/RUN-2.md","ordner":"docs","typ":".md","bytes":29805,"zeilen":235,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/RUN-3.md","ordner":"docs","typ":".md","bytes":39881,"zeilen":280,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/RUN-4.md","ordner":"docs","typ":".md","bytes":29172,"zeilen":185,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/freeze-MANIFEST.json","ordner":"docs","typ":".json","bytes":3980,"zeilen":83,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/freeze-SCOPE.md","ordner":"docs","typ":".md","bytes":861,"zeilen":1,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/gemini-argon-bridge.md","ordner":"docs","typ":".md","bytes":4933,"zeilen":51,"commits":1,"geaendert":"2026-10-16"},{"pfad":"docs/cplm-review/requirements.md","ordner":"docs","typ":".md","bytes":7537,"zeilen":140,"commits":2,"geaendert":"2026-10-16"},{"pfad":"docs/integration-review/26_10_19_16_42_ID-UNVERIFIED_REPO-INTEGRATION_v1.0.0.md","ordner":"docs","typ":".md","bytes":3064,"zeilen":29,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/integration-review/consumer-e2e-tests.txt","ordner":"docs","typ":".txt","bytes":645,"zeilen":15,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/integration-review/dashboard-build.txt","ordner":"docs","typ":".txt","bytes":485,"zeilen":14,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/integration-review/events.jsonl","ordner":"docs","typ":".jsonl","bytes":568,"zeilen":2,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/integration-review/patch-hashes.json","ordner":"docs","typ":".json","bytes":2111,"zeilen":21,"commits":1,"geaendert":"2026-10-19"},{"pfad":"docs/integration-review/python-tests.txt","ordner":"docs","typ":".txt","bytes":479,"zeilen":10,"commits":1,"geaendert":"2026-10-19"},{"pfad":"evaluation/NEXUS_EVAL_BOGEN_KURZ_v1.0.md","ordner":"evaluation","typ":".md","bytes":4102,"zeilen":49,"commits":1,"geaendert":"2026-10-13"},{"pfad":"evaluation/NEXUS_EVAL_BOGEN_v1.0.md","ordner":"evaluation","typ":".md","bytes":46670,"zeilen":1072,"commits":1,"geaendert":"2026-10-13"},{"pfad":"evaluation/nexus_eval_auswertung.py","ordner":"evaluation","typ":".py","bytes":4049,"zeilen":52,"commits":1,"geaendert":"2026-10-13"},{"pfad":"hybrid_integration/README.md","ordner":"hybrid_integration","typ":".md","bytes":3560,"zeilen":43,"commits":2,"geaendert":"2026-10-15"},{"pfad":"hybrid_integration/hybrid_gateway.py","ordner":"hybrid_integration","typ":".py","bytes":2914,"zeilen":64,"commits":2,"geaendert":"2026-10-15"},{"pfad":"hybrid_integration/test_hybrid_gateway.py","ordner":"hybrid_integration","typ":".py","bytes":3239,"zeilen":77,"commits":2,"geaendert":"2026-10-15"},{"pfad":"mcp_bridge/install_mcp_bridge.ps1","ordner":"mcp_bridge","typ":".ps1","bytes":1945,"zeilen":26,"commits":1,"geaendert":"2026-10-19"},{"pfad":"mcp_bridge/mcp.local.example.json","ordner":"mcp_bridge","typ":".json","bytes":664,"zeilen":18,"commits":1,"geaendert":"2026-10-19"},{"pfad":"mcp_bridge/nexus_mcp_server.py","ordner":"mcp_bridge","typ":".py","bytes":8429,"zeilen":187,"commits":1,"geaendert":"2026-10-19"},{"pfad":"mcp_bridge/requirements.txt","ordner":"mcp_bridge","typ":".txt","bytes":12,"zeilen":1,"commits":1,"geaendert":"2026-10-19"},{"pfad":"orchestrator/COMMUNICATION/lessons/.gitkeep","ordner":"orchestrator","typ":"(ohne)","bytes":0,"zeilen":0,"commits":1,"geaendert":"2026-10-13"},{"pfad":"orchestrator/README.md","ordner":"orchestrator","typ":".md","bytes":5591,"zeilen":79,"commits":8,"geaendert":"2026-10-15"},{"pfad":"orchestrator/config/routing.json","ordner":"orchestrator","typ":".json","bytes":2373,"zeilen":117,"commits":5,"geaendert":"2026-10-15"},{"pfad":"orchestrator/config/sync_targets.json","ordner":"orchestrator","typ":".json","bytes":1531,"zeilen":56,"commits":2,"geaendert":"2026-10-15"},{"pfad":"orchestrator/install_autosync.ps1","ordner":"orchestrator","typ":".ps1","bytes":1716,"zeilen":19,"commits":1,"geaendert":"2026-10-13"},{"pfad":"orchestrator/nexus_orch/__init__.py","ordner":"orchestrator","typ":".py","bytes":105,"zeilen":2,"commits":4,"geaendert":"2026-10-15"},{"pfad":"orchestrator/nexus_orch/cli.py","ordner":"orchestrator","typ":".py","bytes":2986,"zeilen":54,"commits":3,"geaendert":"2026-10-13"},{"pfad":"orchestrator/nexus_orch/core.py","ordner":"orchestrator","typ":".py","bytes":5352,"zeilen":111,"commits":2,"geaendert":"2026-10-15"},{"pfad":"orchestrator/nexus_orch/evaluate.py","ordner":"orchestrator","typ":".py","bytes":4536,"zeilen":85,"commits":1,"geaendert":"2026-10-13"},{"pfad":"orchestrator/nexus_orch/providers.py","ordner":"orchestrator","typ":".py","bytes":5258,"zeilen":92,"commits":6,"geaendert":"2026-10-15"},{"pfad":"orchestrator/pyproject.toml","ordner":"orchestrator","typ":".toml","bytes":353,"zeilen":15,"commits":2,"geaendert":"2026-10-15"},{"pfad":"orchestrator/registry/workflow-registry.json","ordner":"orchestrator","typ":".json","bytes":2984,"zeilen":123,"commits":2,"geaendert":"2026-10-13"},{"pfad":"orchestrator/setup.ps1","ordner":"orchestrator","typ":".ps1","bytes":635,"zeilen":11,"commits":2,"geaendert":"2026-10-13"},{"pfad":"orchestrator/sync_nexus.ps1","ordner":"orchestrator","typ":".ps1","bytes":3109,"zeilen":51,"commits":4,"geaendert":"2026-10-15"},{"pfad":"orchestrator/sync_nexus_rclone.ps1","ordner":"orchestrator","typ":".ps1","bytes":3268,"zeilen":54,"commits":1,"geaendert":"2026-10-13"},{"pfad":"orchestrator/tests/test_orch.py","ordner":"orchestrator","typ":".py","bytes":7853,"zeilen":156,"commits":8,"geaendert":"2026-10-15"},{"pfad":"plugins/nexus-aec-engineering/evidence/AEC-SKILLS-20261019T170038Z-b2fb38c5/SHA256SUMS.txt","ordner":"plugins","typ":".txt","bytes":243,"zeilen":3,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/evidence/AEC-SKILLS-20261019T170038Z-b2fb38c5/evidence.json","ordner":"plugins","typ":".json","bytes":916,"zeilen":27,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/evidence/AEC-SKILLS-20261019T170038Z-b2fb38c5/observations.jsonl","ordner":"plugins","typ":".jsonl","bytes":369,"zeilen":3,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/evidence/AEC-SKILLS-20261019T170038Z-b2fb38c5/status.json","ordner":"plugins","typ":".json","bytes":216,"zeilen":7,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/plugin.json","ordner":"plugins","typ":".json","bytes":908,"zeilen":22,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-connectivity-audit/SKILL.md","ordner":"plugins","typ":".md","bytes":2576,"zeilen":40,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-connectivity-audit/agents/openai.yaml","ordner":"plugins","typ":".yaml","bytes":218,"zeilen":4,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-connectivity-audit/references/connectivity-contract.md","ordner":"plugins","typ":".md","bytes":1078,"zeilen":15,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-connectivity-audit/scripts/create_audit_bundle.py","ordner":"plugins","typ":".py","bytes":2891,"zeilen":70,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-dashboard-engineering/SKILL.md","ordner":"plugins","typ":".md","bytes":2950,"zeilen":44,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-dashboard-engineering/agents/openai.yaml","ordner":"plugins","typ":".yaml","bytes":213,"zeilen":4,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-dashboard-engineering/references/dashboard-contract.md","ordner":"plugins","typ":".md","bytes":1310,"zeilen":18,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/aec-dashboard-engineering/references/source-lessons.md","ordner":"plugins","typ":".md","bytes":1120,"zeilen":15,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/SKILL.md","ordner":"plugins","typ":".md","bytes":3534,"zeilen":53,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/agents/openai.yaml","ordner":"plugins","typ":".yaml","bytes":198,"zeilen":4,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/references/audit-contract.md","ordner":"plugins","typ":".md","bytes":904,"zeilen":13,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/references/boeblingen.md","ordner":"plugins","typ":".md","bytes":1453,"zeilen":20,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/references/runtime-setup.md","ordner":"plugins","typ":".md","bytes":1865,"zeilen":33,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/scripts/validate_result.py","ordner":"plugins","typ":".py","bytes":3477,"zeilen":81,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/source-manifest.json","ordner":"plugins","typ":".json","bytes":3315,"zeilen":87,"commits":1,"geaendert":"2026-10-19"},{"pfad":"plugins/nexus-aec-engineering/tests/test_contracts.py","ordner":"plugins","typ":".py","bytes":4036,"zeilen":99,"commits":1,"geaendert":"2026-10-19"},{"pfad":"prototypes/nexus-dashboard-v3/README.md","ordner":"prototypes","typ":".md","bytes":467,"zeilen":9,"commits":1,"geaendert":"2026-10-18"},{"pfad":"prototypes/nexus-dashboard-v3/ec5_solver.js","ordner":"prototypes","typ":".js","bytes":1744,"zeilen":33,"commits":1,"geaendert":"2026-10-18"},{"pfad":"prototypes/nexus-dashboard-v3/osr9_mmr.js","ordner":"prototypes","typ":".js","bytes":902,"zeilen":24,"commits":1,"geaendert":"2026-10-18"},{"pfad":"prototypes/vibe-coder-v2.3/README.md","ordner":"prototypes","typ":".md","bytes":1550,"zeilen":23,"commits":1,"geaendert":"2026-10-13"},{"pfad":"prototypes/vibe-coder-v2.3/index.html","ordner":"prototypes","typ":".html","bytes":36304,"zeilen":646,"commits":1,"geaendert":"2026-10-13"},{"pfad":"registry/catalog-draft.yaml","ordner":"registry","typ":".yaml","bytes":644,"zeilen":16,"commits":1,"geaendert":"2026-10-08"},{"pfad":"registry/coverage-per-source.json","ordner":"registry","typ":".json","bytes":1493,"zeilen":55,"commits":1,"geaendert":"2026-10-08"},{"pfad":"registry/duplicates-report.md","ordner":"registry","typ":".md","bytes":502,"zeilen":12,"commits":1,"geaendert":"2026-10-08"},{"pfad":"registry/file-registry.jsonl","ordner":"registry","typ":".jsonl","bytes":808,"zeilen":1,"commits":2,"geaendert":"2026-10-18"},{"pfad":"registry/inventory-summary.txt","ordner":"registry","typ":".txt","bytes":1183,"zeilen":10,"commits":1,"geaendert":"2026-10-08"},{"pfad":"registry/knowledge/monitor-workflow-observation.json","ordner":"registry","typ":".json","bytes":826,"zeilen":19,"commits":1,"geaendert":"2026-10-18"},{"pfad":"registry/sources/nexus-monitor-194984ee.yml","ordner":"registry","typ":".yml","bytes":1194,"zeilen":42,"commits":1,"geaendert":"2026-10-18"},{"pfad":"reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_DASHBOARD_v1.0.html","ordner":"reports","typ":".html","bytes":162152,"zeilen":37,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_DASHBOARD_v1.1.html","ordner":"reports","typ":".html","bytes":165592,"zeilen":50,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_INVENTORY_v1.0.json","ordner":"reports","typ":".json","bytes":153961,"zeilen":1,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_REPORT_v1.0.md","ordner":"reports","typ":".md","bytes":2167,"zeilen":66,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/NEXUS_PARSE_REPORT_v1.1.md","ordner":"reports","typ":".md","bytes":3167,"zeilen":81,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/NEXUS_VECTOR_INDEX_v1.0.json","ordner":"reports","typ":".json","bytes":8089502,"zeilen":1,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/ocr.py","ordner":"reports","typ":".py","bytes":2444,"zeilen":41,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/2026-10-13_parsing-pipeline/parse.py","ordner":"reports","typ":".py","bytes":1743,"zeilen":29,"commits":1,"geaendert":"2026-10-13"},{"pfad":"reports/26_10_19_19_00_ID-UNRESOLVED_AEC-RFEM-SKILLS_v0.1.0.md","ordner":"reports","typ":".md","bytes":3160,"zeilen":24,"commits":1,"geaendert":"2026-10-19"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/00_WORK_REQUEST.md","ordner":"runs","typ":".md","bytes":1732,"zeilen":32,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/01_STATUS_REPORT.md","ordner":"runs","typ":".md","bytes":2012,"zeilen":36,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/02_LESSONS_LEARNED.md","ordner":"runs","typ":".md","bytes":2182,"zeilen":26,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/EVAL_PROMPT_SENT_6e8f574.md","ordner":"runs","typ":".md","bytes":57713,"zeilen":1136,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/EVAL_claude_fable_5_1_261013.md","ordner":"runs","typ":".md","bytes":21419,"zeilen":98,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/EVAL_gemini_3_7_flash_261013.md","ordner":"runs","typ":".md","bytes":15252,"zeilen":168,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/EVAL_gpt_6_1_sol_261013.md","ordner":"runs","typ":".md","bytes":31777,"zeilen":178,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/NEXUS_EVAL_AUSWERTUNG.json","ordner":"runs","typ":".json","bytes":14188,"zeilen":338,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/NEXUS_EVAL_AUSWERTUNG.md","ordner":"runs","typ":".md","bytes":10442,"zeilen":87,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/NEXUS_EVAL_BOGEN_v1.0_ENTWURF-COMPUTER.md","ordner":"runs","typ":".md","bytes":12756,"zeilen":216,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/NEXUS_EVAL_KONTEXTPAKET_v1.0_3caf813.md","ordner":"runs","typ":".md","bytes":78521,"zeilen":1421,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/03_ARTIFACTS/evaluation/NEXUS_EVAL_SYNTHESE_COUNCIL_261013.md","ordner":"runs","typ":".md","bytes":7640,"zeilen":75,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/04_PR_REGISTER.jsonl","ordner":"runs","typ":".jsonl","bytes":2644,"zeilen":7,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/05_EVIDENCE_REGISTER.jsonl","ordner":"runs","typ":".jsonl","bytes":2729,"zeilen":11,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/06_RUN_MANIFEST.json","ordner":"runs","typ":".json","bytes":2353,"zeilen":62,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/07_CHANGE_LOG.jsonl","ordner":"runs","typ":".jsonl","bytes":3193,"zeilen":17,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/08_ARTIFACT_HASHES.json","ordner":"runs","typ":".json","bytes":2128,"zeilen":25,"commits":1,"geaendert":"2026-10-15"},{"pfad":"runs/2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001/BENCHMARK_LINK.md","ordner":"runs","typ":".md","bytes":834,"zeilen":18,"commits":1,"geaendert":"2026-10-15"},{"pfad":"schemas/coverage.schema.json","ordner":"schemas","typ":".json","bytes":1407,"zeilen":36,"commits":1,"geaendert":"2026-10-16"},{"pfad":"schemas/dashboard-snapshot.schema.json","ordner":"schemas","typ":".json","bytes":3554,"zeilen":166,"commits":1,"geaendert":"2026-10-19"},{"pfad":"schemas/evidence.schema.json","ordner":"schemas","typ":".json","bytes":619,"zeilen":15,"commits":1,"geaendert":"2026-10-16"},{"pfad":"schemas/file-record.schema.json","ordner":"schemas","typ":".json","bytes":867,"zeilen":19,"commits":1,"geaendert":"2026-10-16"},{"pfad":"schemas/knowledge-item.schema.json","ordner":"schemas","typ":".json","bytes":3583,"zeilen":177,"commits":2,"geaendert":"2026-10-18"},{"pfad":"schemas/task.schema.json","ordner":"schemas","typ":".json","bytes":757,"zeilen":16,"commits":1,"geaendert":"2026-10-16"},{"pfad":"skills/access-point-navigator/SKILL.md","ordner":"skills","typ":".md","bytes":1473,"zeilen":15,"commits":1,"geaendert":"2026-10-21"},{"pfad":"skills/access-point-navigator/agents/openai.yaml","ordner":"skills","typ":".yaml","bytes":128,"zeilen":3,"commits":1,"geaendert":"2026-10-21"},{"pfad":"skills/rank-nexus-tabs/SKILL.md","ordner":"skills","typ":".md","bytes":6566,"zeilen":49,"commits":1,"geaendert":"2026-10-18"},{"pfad":"skills/rank-nexus-tabs/agents/openai.yaml","ordner":"skills","typ":".yaml","bytes":236,"zeilen":4,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tests/test_dashboard_export.py","ordner":"tests","typ":".py","bytes":5303,"zeilen":113,"commits":1,"geaendert":"2026-10-19"},{"pfad":"tests/test_dashboard_prototype.py","ordner":"tests","typ":".py","bytes":1754,"zeilen":41,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tests/test_deliver_work.py","ordner":"tests","typ":".py","bytes":7906,"zeilen":170,"commits":2,"geaendert":"2026-10-18"},{"pfad":"tests/test_drive_changes_poll.py","ordner":"tests","typ":".py","bytes":1695,"zeilen":49,"commits":1,"geaendert":"2026-10-19"},{"pfad":"tests/test_inventory_completeness.py","ordner":"tests","typ":".py","bytes":4005,"zeilen":79,"commits":1,"geaendert":"2026-10-08"},{"pfad":"tests/test_knowledge_health.py","ordner":"tests","typ":".py","bytes":5308,"zeilen":113,"commits":5,"geaendert":"2026-10-18"},{"pfad":"tests/test_knowledge_validation.py","ordner":"tests","typ":".py","bytes":3092,"zeilen":68,"commits":2,"geaendert":"2026-10-18"},{"pfad":"tests/test_mcp_bridge.py","ordner":"tests","typ":".py","bytes":2513,"zeilen":57,"commits":1,"geaendert":"2026-10-19"},{"pfad":"tests/test_monitor_llm.py","ordner":"tests","typ":".py","bytes":3310,"zeilen":67,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tests/test_monitor_repo.py","ordner":"tests","typ":".py","bytes":10619,"zeilen":210,"commits":8,"geaendert":"2026-10-19"},{"pfad":"tests/test_oauth_secret_setup.py","ordner":"tests","typ":".py","bytes":1245,"zeilen":25,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tests/test_schemas_and_catalog.py","ordner":"tests","typ":".py","bytes":2013,"zeilen":48,"commits":1,"geaendert":"2026-10-16"},{"pfad":"tests/test_skill_inventory.py","ordner":"tests","typ":".py","bytes":3437,"zeilen":88,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tools/configure_drive_oauth.py","ordner":"tools","typ":".py","bytes":4333,"zeilen":82,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tools/coverage_stats.py","ordner":"tools","typ":".py","bytes":6711,"zeilen":174,"commits":1,"geaendert":"2026-10-08"},{"pfad":"tools/deliver_work.py","ordner":"tools","typ":".py","bytes":12670,"zeilen":269,"commits":2,"geaendert":"2026-10-18"},{"pfad":"tools/detect_duplicates.py","ordner":"tools","typ":".py","bytes":3553,"zeilen":86,"commits":1,"geaendert":"2026-10-08"},{"pfad":"tools/drive_changes_poll.py","ordner":"tools","typ":".py","bytes":5173,"zeilen":119,"commits":1,"geaendert":"2026-10-19"},{"pfad":"tools/export_dashboard.py","ordner":"tools","typ":".py","bytes":6190,"zeilen":124,"commits":1,"geaendert":"2026-10-19"},{"pfad":"tools/generate_catalog.py","ordner":"tools","typ":".py","bytes":1522,"zeilen":43,"commits":1,"geaendert":"2026-10-16"},{"pfad":"tools/iod01_finalize.py","ordner":"tools","typ":".py","bytes":2513,"zeilen":47,"commits":1,"geaendert":"2026-10-15"},{"pfad":"tools/knowledge_health.py","ordner":"tools","typ":".py","bytes":7172,"zeilen":144,"commits":4,"geaendert":"2026-10-18"},{"pfad":"tools/monitor_llm.py","ordner":"tools","typ":".py","bytes":6125,"zeilen":117,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tools/monitor_repo.py","ordner":"tools","typ":".py","bytes":12876,"zeilen":298,"commits":10,"geaendert":"2026-10-19"},{"pfad":"tools/oauth-setup-requirements.txt","ordner":"tools","typ":".txt","bytes":100,"zeilen":2,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tools/restore_delivery_state.py","ordner":"tools","typ":".py","bytes":2783,"zeilen":66,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tools/skill_inventory.py","ordner":"tools","typ":".py","bytes":4622,"zeilen":119,"commits":1,"geaendert":"2026-10-18"},{"pfad":"tools/validate_knowledge.py","ordner":"tools","typ":".py","bytes":2292,"zeilen":61,"commits":2,"geaendert":"2026-10-18"},{"pfad":"tools/validate_registry.py","ordner":"tools","typ":".py","bytes":8176,"zeilen":151,"commits":1,"geaendert":"2026-10-08"}]},"commits":{"title":"Commit-Historie","source":"git 31718198a98b · log --shortstat","columns":[{"key":"hash","label":"Hash","type":"text","aliases":["hash","sha","id"]},{"key":"datum","label":"Datum","type":"date","aliases":["datum","tag","date","zeit"]},{"key":"autor","label":"Autor","type":"category","aliases":["autor","author","wer"]},{"key":"art","label":"Art","type":"category","aliases":["art","kind"]},{"key":"dateien","label":"Dateien","type":"number","aliases":["dateien","files"]},{"key":"plus","label":"Zeilen +","type":"number","aliases":["plus","insertions","hinzugefügt","hinzugefuegt"]},{"key":"minus","label":"Zeilen −","type":"number","aliases":["minus","deletions","gelöscht","geloescht"]},{"key":"betreff","label":"Betreff","type":"text","aliases":["betreff","nachricht","message","subject"]}],"rows":[{"hash":"3171819","datum":"2026-10-21T14:22:19+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #37 from julianzotter/feat/access-points-registry-20261021"},{"hash":"4702614","datum":"2026-10-21T14:14:45+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":46,"minus":0,"betreff":"Add WORK reuse audit status report for access point registry review"},{"hash":"46691de","datum":"2026-10-21T14:12:53+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":3,"minus":0,"betreff":"Add NEXUS access point registry and navigator: skills/access-point-navigator/agents/openai.yaml"},{"hash":"0aa942c","datum":"2026-10-21T14:12:50+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":15,"minus":0,"betreff":"Add NEXUS access point registry and navigator: skills/access-point-navigator/SKILL.md"},{"hash":"4b86472","datum":"2026-10-21T14:12:48+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":18,"minus":0,"betreff":"Add NEXUS access point registry and navigator: access-points/WORKORDER.md"},{"hash":"57992cc","datum":"2026-10-21T14:12:45+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":195,"minus":0,"betreff":"Add NEXUS access point registry and navigator: access-points/registry.json"},{"hash":"357ec40","datum":"2026-10-21T14:12:43+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":14,"minus":0,"betreff":"Add NEXUS access point registry and navigator: access-points/README.md"},{"hash":"d79f210","datum":"2026-10-21T04:05:10+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #36 from julianzotter/feat/aec-rfem-connectivity-skills-20261019"},{"hash":"20fdcc4","datum":"2026-10-19T22:44:55+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #34 from julianzotter/codex/repo-integration-20261019"},{"hash":"f5f6091","datum":"2026-10-19T19:01:29+02:00","autor":"julianzotter","art":"Commit","dateien":22,"plus":686,"minus":0,"betreff":"Add evidence-bound AEC dashboard, RFEM MCP and connectivity skills"},{"hash":"7394541","datum":"2026-10-19T16:41:19+02:00","autor":"julianzotter","art":"Commit","dateien":11,"plus":544,"minus":0,"betreff":"Add versioned dashboard snapshot export and cross-repository contract"},{"hash":"a4909be","datum":"2026-10-19T16:31:04+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #31 from julianzotter/feat/drive-github-mcp-bridge"},{"hash":"f5c16d4","datum":"2026-10-19T10:54:14+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #33 from julianzotter/copilot/nexus-ai-system-review"},{"hash":"72b4f71","datum":"2026-10-19T08:52:18Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":2,"plus":20,"minus":2,"betreff":"Clarify workflow inventory edge handling"},{"hash":"1a8fda5","datum":"2026-10-19T08:51:09Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":1,"plus":49,"minus":33,"betreff":"Refactor workflow inventory parsing"},{"hash":"3df5183","datum":"2026-10-19T08:50:02Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":2,"plus":39,"minus":6,"betreff":"Improve workflow inventory edge handling"},{"hash":"d074e7c","datum":"2026-10-19T08:48:36Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":2,"plus":56,"minus":39,"betreff":"Refine workflow inventory parser"},{"hash":"45015d2","datum":"2026-10-19T08:47:30Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":3,"plus":23,"minus":9,"betreff":"Harden workflow inventory parsing"},{"hash":"cf07a09","datum":"2026-10-19T08:46:18Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":2,"plus":39,"minus":4,"betreff":"Harden workflow inventory parsing"},{"hash":"d07189d","datum":"2026-10-19T08:45:09Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":2,"plus":114,"minus":34,"betreff":"Harden workflow inventory parsing"},{"hash":"2d9fbe8","datum":"2026-10-19T08:42:27Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":3,"plus":136,"minus":0,"betreff":"Expose workflow automation in NEXUS monitor"},{"hash":"326b348","datum":"2026-10-19T06:44:49Z","autor":"Julian Zotter","art":"Commit","dateien":10,"plus":547,"minus":0,"betreff":"Add MCP bridge (local Drive mount + repo), Drive->GitHub change poll, docs and tests"},{"hash":"59ac80f","datum":"2026-10-19T00:15:58+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #30 from julianzotter/copilot/fix-nexus-dashboard-issues"},{"hash":"e766ee9","datum":"2026-10-18T21:52:03Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":4,"plus":107,"minus":0,"betreff":"Add audit report and fixed EC5 solver / MMR prototype modules with tests"},{"hash":"ba8c0a8","datum":"2026-10-18T21:50:58Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":0,"plus":0,"minus":0,"betreff":"Initial plan"},{"hash":"eb2903b","datum":"2026-10-18T22:50:59+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #29 from julianzotter/copilot/context-distillation-and-retrieval"},{"hash":"e7f0323","datum":"2026-10-18T22:50:30+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Resolve PR29 conflicts by preserving current main knowledge-health implementation"},{"hash":"8985486","datum":"2026-10-18T22:50:18+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #28 from julianzotter/feature/nexus-llm-runner-activation-20261018"},{"hash":"38029f3","datum":"2026-10-18T22:34:50+02:00","autor":"julianzotter","art":"Commit","dateien":9,"plus":392,"minus":1,"betreff":"Add advisory OpenAI monitoring, explicit data-export gate and secure OAuth secret setup"},{"hash":"1ad8874","datum":"2026-10-18T22:25:55+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge PR27: schema-bound knowledge health and source-hashed golden slice"},{"hash":"8c6bcf2","datum":"2026-10-18T22:15:51+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #26 from julianzotter/fix/monitor-daily-schedule"},{"hash":"39c83b1","datum":"2026-10-18T22:15:37+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #25 from julianzotter/feature/copilot-context-agent"},{"hash":"796b953","datum":"2026-10-18T18:44:16+02:00","autor":"julianzotter","art":"Commit","dateien":2,"plus":19,"minus":1,"betreff":"Distinguish blocked credentials, integrity failures and retryable delivery errors"},{"hash":"7f48c4a","datum":"2026-10-18T18:43:00+02:00","autor":"julianzotter","art":"Commit","dateien":7,"plus":612,"minus":1,"betreff":"Add verified GitHub-to-WORK delivery, retries and journal recovery; preserve hourly monitor"},{"hash":"71faa94","datum":"2026-10-18T18:41:43+02:00","autor":"julianzotter","art":"Commit","dateien":4,"plus":74,"minus":0,"betreff":"Add one source-hashed monitor knowledge draft as a real bounded golden slice"},{"hash":"9220a45","datum":"2026-10-18T18:35:11+02:00","autor":"julianzotter","art":"Commit","dateien":3,"plus":184,"minus":125,"betreff":"Fix knowledge health against schema, reject invalid sign-offs and expose NO_DATA"},{"hash":"d4d749b","datum":"2026-10-18T18:32:54+02:00","autor":"Claude","art":"Commit","dateien":1,"plus":1,"minus":1,"betreff":"monitor: schedule hourly (60-min cadence per ID-01); keep daily as later credit-saving option"},{"hash":"4310630","datum":"2026-10-18T18:32:15+02:00","autor":"Claude","art":"Commit","dateien":2,"plus":51,"minus":5,"betreff":"knowledge_health: explicit NO_DATA, DRAFT for unsigned/non-human sign-off, --require-data exit 2"},{"hash":"f0a3111","datum":"2026-10-18T18:21:52+02:00","autor":"julianzotter","art":"Commit","dateien":3,"plus":141,"minus":0,"betreff":"Add knowledge health check (freshness, source links, sign-off binding) to CI"},{"hash":"7a75139","datum":"2026-10-18T18:21:42+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":1,"minus":1,"betreff":"Run NEXUS monitor daily instead of hourly to reduce Actions usage"},{"hash":"41c236b","datum":"2026-10-18T18:17:47+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":39,"minus":0,"betreff":"Add NEXUS context distiller custom agent (read-only, PR-only)"},{"hash":"194984e","datum":"2026-10-18T18:15:11+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #24 from julianzotter/feature/skill-inventory"},{"hash":"0783547","datum":"2026-10-18T16:11:35Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":3,"plus":141,"minus":0,"betreff":"Apply remaining changes"},{"hash":"56d0ab6","datum":"2026-10-18T18:10:39+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #22 from julianzotter/repair/nexus-monitor-evidence-20261018"},{"hash":"f4d7b86","datum":"2026-10-18T15:58:42+02:00","autor":"julianzotter","art":"Commit","dateien":3,"plus":213,"minus":1,"betreff":"Add read-only skill inventory with structure and hash checks"},{"hash":"fddbf45","datum":"2026-10-18T15:54:08+02:00","autor":"julianzotter","art":"Commit","dateien":7,"plus":300,"minus":17,"betreff":"fix: retain monitor failure evidence and distinguish missing knowledge data"},{"hash":"36150a2","datum":"2026-10-18T15:45:32+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #21 from julianzotter/julianzotter-patch-1"},{"hash":"0fb8d12","datum":"2026-10-18T15:44:29+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":29,"minus":0,"betreff":"Add NEXUS monitor workflow (weekly schedule + manual + push)"},{"hash":"4636f6a","datum":"2026-10-18T15:12:39+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #20 from julianzotter/copilot/task-00001-draft-glossary-and-schemas"},{"hash":"e312693","datum":"2026-10-18T13:09:29Z","autor":"copilot-swe-agent[bot]","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge main into branch"},{"hash":"50b268d","datum":"2026-10-18T12:41:32Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":5,"plus":310,"minus":13,"betreff":"Draft TASK-00001, sign-off schema extension, knowledge validator + CI step"},{"hash":"d668559","datum":"2026-10-18T14:37:56+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #19 from julianzotter/skills/rank-nexus-tabs-20261018"},{"hash":"a400a28","datum":"2026-10-18T14:37:14+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #18 from julianzotter/codex/nexus-agent-registry-2026-10-16"},{"hash":"1613ee0","datum":"2026-10-18T14:28:07+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":4,"minus":0,"betreff":"Add tab prioritizer skill interface metadata"},{"hash":"85990dc","datum":"2026-10-18T14:27:49+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":49,"minus":0,"betreff":"Add source-bound NEXUS tab prioritization skill"},{"hash":"5226b41","datum":"2026-10-16T18:06:19+02:00","autor":"julianzotter","art":"Commit","dateien":14,"plus":730,"minus":21,"betreff":"fix: close actual CPLM recovery and governance counterexamples with 36 tests and three final reviews"},{"hash":"a6bb771","datum":"2026-10-16T17:34:38+02:00","autor":"julianzotter","art":"Commit","dateien":13,"plus":1934,"minus":0,"betreff":"feat: add bounded CPLM lifecycle kernel, regression tests and actual four-run review evidence"},{"hash":"3ffa567","datum":"2026-10-16T17:02:41+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":112,"minus":0,"betreff":"docs: propose NEXUS agent capability registry and admission contract"},{"hash":"66bd013","datum":"2026-10-16T10:53:00+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #16 from julianzotter/security/o-01-hardening"},{"hash":"856ebf6","datum":"2026-10-16T10:52:27+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #17 from julianzotter/copilot/research-existing-code-and-docs"},{"hash":"638095e","datum":"2026-10-16T08:33:04Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":11,"plus":250,"minus":1,"betreff":"Add catalog generator, schemas, glossary, ADR, CI"},{"hash":"3bfe3ee","datum":"2026-10-15T16:01:30Z","autor":"Julian Zotter","art":"Commit","dateien":7,"plus":92,"minus":15,"betreff":"security(O-01): privacy gate case-insensitive incl. system, council quorum>=2, parse errors -> fallback, gpt-5 w/o temperature, lessons always PROPOSED, audit/ ignored (v1.2.1)"},{"hash":"3c13faf","datum":"2026-10-15T06:12:33+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #13 from julianzotter/integration/hybrid-readonly-atlas-id01-20261015"},{"hash":"3c3b04d","datum":"2026-10-15T06:12:00+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #14 from julianzotter/development/circular-contract-delta-20261015"},{"hash":"7f1da9a","datum":"2026-10-15T06:09:36+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #15 from julianzotter/iod01/run-2026-10-13-orchestrator"},{"hash":"a508548","datum":"2026-10-15T04:01:42Z","autor":"julianzotter","art":"Commit","dateien":24,"plus":4073,"minus":8,"betreff":"IOD.01: Run-Archiv 2026-10-13__NEXUS-MULTI-LLM-ORCHESTRATOR__R001 (00-08, Frontmatter, SHA256), tools/iod01_finalize.py, Sync runs -> WORK + BENCHMARK-Verweis (G: und rclone), Integritaetstest"},{"hash":"5011708","datum":"2026-10-15T05:16:45+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":22,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"02962d7","datum":"2026-10-15T05:16:44+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":57,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"70a1a6a","datum":"2026-10-15T05:16:43+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":122,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"8852356","datum":"2026-10-15T05:16:42+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":37,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"32df261","datum":"2026-10-15T05:16:41+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":21,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"000bf93","datum":"2026-10-15T05:16:40+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":28,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"05c610a","datum":"2026-10-15T05:16:38+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":100,"minus":0,"betreff":"feat: add circular development contract and tested delta cycle"},{"hash":"8ceefb8","datum":"2026-10-15T04:53:21+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":9,"minus":0,"betreff":"docs(hybrid): report ID01 regression coverage and schema boundary"},{"hash":"5d336c6","datum":"2026-10-15T04:53:08+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":52,"minus":18,"betreff":"test(hybrid): regress URI paths, schema mismatch, and write denial"},{"hash":"92fc494","datum":"2026-10-15T04:52:57+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":43,"minus":19,"betreff":"fix(hybrid): encode SQLite URI and validate read-only schema"},{"hash":"313d028","datum":"2026-10-15T04:37:43+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":34,"minus":0,"betreff":"feat(hybrid): add read-only atlas integration contract (ID01)"},{"hash":"5cd067d","datum":"2026-10-15T04:37:41+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":43,"minus":0,"betreff":"feat(hybrid): add read-only atlas integration contract (ID01)"},{"hash":"4413131","datum":"2026-10-15T04:37:39+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":40,"minus":0,"betreff":"feat(hybrid): add read-only atlas integration contract (ID01)"},{"hash":"b93dc5a","datum":"2026-10-15T01:22:45+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #10 from julianzotter/copilot/create-pdf-ready-nexus-ai-kurz-manual"},{"hash":"741acc7","datum":"2026-10-15T01:19:52+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #12 from julianzotter/feat/eval-automation"},{"hash":"6e8f574","datum":"2026-10-13T14:28:09Z","autor":"julianzotter","art":"Commit","dateien":8,"plus":166,"minus":7,"betreff":"feat: nexus eval (Bogen + frisches Kontextpaket an alle Modelle, Auswertung), install_autosync.ps1 (Aufgabenplanung), Sync reports/evaluation, Timeouts je Provider, .gitignore *.enc"},{"hash":"78ce229","datum":"2026-10-13T14:04:13Z","autor":"julianzotter","art":"Commit","dateien":4,"plus":137,"minus":0,"betreff":"Sync per rclone (Drive-Ordner-IDs, reports+evaluation), Evaluierungsbogen KURZ v1.0"},{"hash":"ec35c58","datum":"2026-10-13T13:59:08Z","autor":"julianzotter","art":"Commit","dateien":2,"plus":1124,"minus":0,"betreff":"Evaluierungsbogen v1.0 (4 Kriterien, Noten 1-5) + Auswerteskript"},{"hash":"3caf813","datum":"2026-10-13T13:05:59Z","autor":"julianzotter","art":"Commit","dateien":4,"plus":173,"minus":0,"betreff":"Parsing-Pipeline v1.1: OCR-Parsing + TF-IDF-Vektorindex, Dashboard v1.1"},{"hash":"40dfdd4","datum":"2026-10-13T15:04:31+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #11 from julianzotter/feat/nexus-cli-ollama-ctx"},{"hash":"3cce901","datum":"2026-10-13T13:03:42Z","autor":"julianzotter","art":"Commit","dateien":6,"plus":44,"minus":6,"betreff":"feat(orchestrator): v1.2.0 Befehl 'nexus' (pyproject, pip install -e .), Ollama native API mit num_ctx=16384"},{"hash":"2b20923","datum":"2026-10-13T12:55:40Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":2,"plus":101,"minus":0,"betreff":"Add NEXUS-AI Kurz-Manual"},{"hash":"1fbd483","datum":"2026-10-13T12:54:08Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":0,"plus":0,"minus":0,"betreff":"Initial plan"},{"hash":"1363166","datum":"2026-10-13T13:24:33+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #9 from julianzotter/feat/full-repo-sync"},{"hash":"f3066eb","datum":"2026-10-13T11:23:50Z","autor":"julianzotter","art":"Commit","dateien":4,"plus":40,"minus":11,"betreff":"feat(sync): kompletter Repo-Sync nach LLM-LOCAL-SSOT\\nexus-platform (-NoFullRepo), Secret-/Cache-Ausschluss; fix(providers): HTTP-Fehlertext + Ollama-404-Hinweis"},{"hash":"00dda06","datum":"2026-10-13T13:15:15+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #3 from julianzotter/codex/import-vibe-coder-v2-3"},{"hash":"110cc47","datum":"2026-10-13T13:15:00+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #4 from julianzotter/codex/voice-normen-concept-review"},{"hash":"26c3536","datum":"2026-10-13T13:12:06+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #8 from julianzotter/config/local-qwen25-7b"},{"hash":"7814086","datum":"2026-10-13T13:12:03+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #7 from julianzotter/fix/cli-clean-errors"},{"hash":"f7a1a0f","datum":"2026-10-13T11:10:14Z","autor":"julianzotter","art":"Commit","dateien":1,"plus":1,"minus":1,"betreff":"config(routing): lokales Modell qwen2.5:7b (RTX 4080, 8 GB RAM)"},{"hash":"3d06e5a","datum":"2026-10-13T11:08:41Z","autor":"julianzotter","art":"Commit","dateien":2,"plus":18,"minus":4,"betreff":"fix(cli): klare JSON-Fehlermeldung statt Traceback (fehlende Keys, Hinweis setup.ps1), Exit-Code 2"},{"hash":"b59e2fd","datum":"2026-10-13T12:50:56+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #6 from julianzotter/feat/vision-ocr-route"},{"hash":"3bbf7bd","datum":"2026-10-13T10:49:46Z","autor":"julianzotter","art":"Commit","dateien":2,"plus":26,"minus":0,"betreff":"feat(orchestrator): sync_nexus.ps1 GitHub->Drive (LLM-LOCAL-SSOT + BENCHMARK Multi-LLM-Orchestrierung), testgated, ohne Loeschen"},{"hash":"c732ada","datum":"2026-10-13T10:49:02Z","autor":"julianzotter","art":"Commit","dateien":7,"plus":254,"minus":41,"betreff":"feat(orchestrator): v1.1.0 OCR-Route Google Cloud Vision (WF-17), Fallback Gemini, Privacy-Gate"},{"hash":"cd3a69d","datum":"2026-10-13T12:47:49+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #5 from julianzotter/feat/multi-llm-orchestrator"},{"hash":"95f43c9","datum":"2026-10-13T10:39:15Z","autor":"julianzotter","art":"Commit","dateien":4,"plus":133,"minus":0,"betreff":"Parsing-Pipeline v1.0: Bericht, Inventar, Dashboard, Skript"},{"hash":"9bcc1eb","datum":"2026-10-13T10:39:00Z","autor":"julianzotter","art":"Commit","dateien":10,"plus":325,"minus":0,"betreff":"feat(orchestrator): NEXUS-AI Multi-LLM Orchestrator v1.0.0 (Perplexity/Claude/GPT/Gemini/local, Fallback, Privacy-Gate, Council, Shared Lessons, Registry 16 WF)"},{"hash":"2f46624","datum":"2026-10-13T11:54:01+02:00","autor":"julianzotter","art":"Commit","dateien":5,"plus":446,"minus":0,"betreff":"docs: review voice and normen concepts with Drive provenance and integration plan"},{"hash":"ff78601","datum":"2026-10-13T11:36:36+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":23,"minus":0,"betreff":"Document import provenance and prototype limitations"},{"hash":"423ae70","datum":"2026-10-13T11:36:16+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":646,"minus":0,"betreff":"Import VIBE CODER v2.3 HTML prototype from Google Drive"},{"hash":"c3ed2c5","datum":"2026-10-11T03:03:31+02:00","autor":"julianzotter","art":"Merge","dateien":0,"plus":0,"minus":0,"betreff":"Merge pull request #2 from julianzotter/copilot/featuretask-00004-inventory"},{"hash":"dc5a916","datum":"2026-10-08T19:18:22+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":39,"minus":0,"betreff":"COLLABORATIVE SWARM KNOWLEDGE AND TASK FORCE ENGINEERING GROUP - WE ARE EXPLORER - ALLWYS THINK CRITICAL AND ONLY BELIEVE YOU AFTER PROOF OF CONCEPTT! we plan, execute, validate. our team is small but stronger and clever. everybody has his point of view and together we accumulate our power, brainstrom together util we reach a shared understanding and ubiquituous language.  by help of the grill-me-principle we reach consense for the WORKFLOW PLAN and after the reasoning strategic part rise up speed-team  cot-pipelines where everyone knows his part of the game. after every true-tokenswindow-run  we repeat observing gsps and deltsrefinemnt needs until we reach sufficient accuracy and confidence. and consens. if higher level of improvement is enforced we activate our friend judea pearl  and his epistemological skills. he is master in falsification of someone ignores the state of the science or the law of physics, math and engineering. we do this in a recursive continuousely SELF-REFINEMENT-LOOP. we compare your baseline and original instructions with the outcome and measure the accuracy+confidence-scoring and use conditional patterns to learn  and use sparse-allocation of context and MVP PROMPT-CHAINS. WE ARE ENFORCED TO USE AS LESS CONTEXT AS POSSIBLE BUT AS MUCH AS NECESSARY! simplest bestfir small fast solutins with lateral thinkig MOE-ENGRAM-experts which are contraire and follow nonzero vectorpathes with high signal energy"},{"hash":"8539268","datum":"2026-10-08T06:22:50Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":9,"plus":583,"minus":0,"betreff":"Add deterministic inventory tooling and incomplete-source reports"},{"hash":"f182789","datum":"2026-10-08T06:18:04Z","autor":"copilot-swe-agent[bot]","art":"Commit","dateien":0,"plus":0,"minus":0,"betreff":"Initial plan"},{"hash":"cacc053","datum":"2026-10-08T05:29:57+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":136,"minus":120,"betreff":"TASK-00004: Spec finalized — Coverage formula explicit (indexed/accessible), INCOMPLETE for inaccessible sources"},{"hash":"a680c44","datum":"2026-10-08T03:36:35+02:00","autor":"julianzotter","art":"Commit","dateien":1,"plus":148,"minus":0,"betreff":"TASK-00004: Inventory Execution — Agent D / Curator (Gemini + Python)"},{"hash":"75f14af","datum":"2026-10-08T01:15:04Z","autor":"julianzotter","art":"Commit","dateien":3,"plus":243,"minus":0,"betreff":"Initial commit"}]}}};/*DATA:END*/</script>
+
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const nf = new Intl.NumberFormat('de-DE', {maximumFractionDigits: 1});
+const AGG = {count: 'Anzahl', sum: 'Summe', mean: 'Mittelwert', max: 'Maximum', min: 'Minimum'};
+const OPL = {eq: '=', neq: '≠', contains: 'enthält', gt: '>', gte: '≥', lt: '<', lte: '≤', day: 'am'};
+const DEFAULTS = {dateien: {groupBy: 'typ', measure: 'bytes', agg: 'sum', hist: 'bytes'}, commits: {groupBy: 'autor', measure: 'plus', agg: 'sum', hist: 'dateien'}};
+
+/* ---------- DOM helpers: untrusted labels only via textContent ---------- */
+function sv(tag, attrs = {}, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
+function h(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+    else if (v != null && v !== false) e.setAttribute(k, v === true ? '' : v);
+  }
+  kids.flat().forEach(c => e.append(c?.nodeType ? c : document.createTextNode(c ?? '')));
+  return e;
+}
+function download(name, text, type) {
+  const a = h('a', {href: URL.createObjectURL(new Blob([text], {type})), download: name});
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ---------- datasets ---------- */
+const DATA = window.DASHBOARD_DATA;
+const sets = {};
+function register(key, ds) {
+  const cols = ds.columns.map(c => ({...c}));
+  for (const c of cols) if (c.type === 'category') {
+    const counts = new Map();
+    for (const r of ds.rows) { const v = r[c.key]; if (v != null) counts.set(v, (counts.get(v) || 0) + 1); }
+    c.values = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b)));
+  }
+  sets[key] = {key, title: ds.title, source: ds.source, columns: cols, rows: ds.rows};
+}
+for (const [k, ds] of Object.entries(DATA.datasets)) register(k, ds);
+
+const S = {ds: null, filters: [], q: '', preset: 0, replayDay: null, groupBy: null, measure: null, agg: 'count', hist: null,
+           tmode: 'day', sort: null, page: 0, view: []};
+const cur = () => sets[S.ds];
+const col = k => cur().columns.find(c => c.key === k);
+const dateCol = () => cur().columns.find(c => c.type === 'date');
+const day = v => v == null ? null : String(v).slice(0, 10);
+const isBytes = c => c && /byte|größe \(b\)/i.test(c.key + ' ' + c.label);
+function fmt(v, c) {
+  if (v == null || Number.isNaN(v)) return '–';
+  if (typeof v !== 'number') return String(v);
+  if (isBytes(c)) return v >= 1048576 ? nf.format(v / 1048576) + ' MB' : v >= 1024 ? nf.format(v / 1024) + ' KB' : nf.format(v) + ' B';
+  return nf.format(v);
+}
+function addDays(d, n) { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); }
+
+function useDataset(key, keepFilters = false) {
+  S.ds = key;
+  const cs = cur().columns, d = DEFAULTS[key] || {};
+  const cats = cs.filter(c => c.type === 'category'), nums = cs.filter(c => c.type === 'number');
+  if (!keepFilters) { S.filters = []; S.q = ''; S.preset = 0; S.sort = null; $('#q').value = ''; }
+  S.filters = S.filters.filter(f => col(f.col));
+  if (!keepFilters || !col(S.groupBy)) S.groupBy = d.groupBy || cats[0]?.key || null;
+  if (!keepFilters || !col(S.measure)) { S.measure = d.measure || nums[0]?.key || null; S.agg = d.agg || (nums.length ? 'sum' : 'count'); }
+  if (!keepFilters || !col(S.hist)) S.hist = d.hist || nums[0]?.key || null;
+  S.page = 0; S.replayDay = null;
+  fillControls(); renderAll();
+}
+
+/* ---------- filtering & aggregation ---------- */
+function test(f, r) {
+  const v = r[f.col], c = col(f.col);
+  if (f.op === 'contains') return String(v ?? '').toLowerCase().includes(String(f.value).toLowerCase());
+  if (f.op === 'eq') return String(v) === String(f.value);
+  if (f.op === 'neq') return String(v) !== String(f.value);
+  if (v == null) return false;
+  if (c?.type === 'date') { const a = day(v), b = String(f.value).slice(0, 10);
+    return f.op === 'day' ? a === b : f.op === 'gt' ? a > b : f.op === 'gte' ? a >= b : f.op === 'lt' ? a < b : a <= b; }
+  const x = +v, y = +f.value;
+  return f.op === 'gt' ? x > y : f.op === 'gte' ? x >= y : f.op === 'lt' ? x < y : x <= y;
+}
+function dateBounds(rows) { const dc = dateCol(); if (!dc) return null; let lo = null, hi = null;
+  for (const r of rows) { const d = day(r[dc.key]); if (!d) continue; if (!lo || d < lo) lo = d; if (!hi || d > hi) hi = d; } return lo ? [lo, hi] : null; }
+function applyFilters() {
+  const dc = dateCol(), all = cur().rows, b = dateBounds(all), q = S.q.toLowerCase();
+  const from = dc && b && S.preset ? addDays(b[1], -(S.preset - 1)) : null;
+  return all.filter(r => {
+    if (dc && (from || S.replayDay)) { const d = day(r[dc.key]); if (!d || (from && d < from) || (S.replayDay && d > S.replayDay)) return false; }
+    if (!S.filters.every(f => test(f, r))) return false;
+    return !q || Object.values(r).some(v => String(v ?? '').toLowerCase().includes(q));
+  });
+}
+function aggregate(rows, fn, key) {
+  if (fn === 'count' || !key) return rows.length;
+  const xs = rows.map(r => r[key]).filter(v => typeof v === 'number');
+  if (!xs.length) return null;
+  if (fn === 'sum') return xs.reduce((a, b) => a + b, 0);
+  if (fn === 'mean') return xs.reduce((a, b) => a + b, 0) / xs.length;
+  if (fn === 'max') return Math.max(...xs);
+  return Math.min(...xs);
+}
+function groups(rows) {
+  const m = new Map();
+  for (const r of rows) { const k = r[S.groupBy] ?? '(leer)'; if (!m.has(k)) m.set(k, []); m.get(k).push(r); }
+  return [...m].map(([k, rs]) => [k, aggregate(rs, S.agg, S.measure) ?? 0]).sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0])));
+}
+const measureLabel = () => S.agg === 'count' ? 'Anzahl Zeilen' : `${AGG[S.agg]} ${col(S.measure)?.label ?? ''}`;
+const measureCol = () => S.agg === 'count' ? null : col(S.measure);
+
+/* ---------- requestAnimationFrame tween engine ---------- */
+const tweens = {};
+function animate(id, target, draw, dur = 650) {
+  const st = tweens[id] ||= {cur: new Map()};
+  cancelAnimationFrame(st.raf);
+  const from = new Map(st.cur), t0 = performance.now();
+  const step = now => {
+    const p = reduced ? 1 : Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3), vals = new Map();
+    for (const [k, v] of target) vals.set(k, (from.get(k) ?? 0) + (v - (from.get(k) ?? 0)) * e);
+    st.cur = vals; draw(vals);
+    if (p < 1) st.raf = requestAnimationFrame(step);
+  };
+  st.raf = requestAnimationFrame(step);
+}
+const dur = () => S.replayDay ? 160 : 650;
+
+/* ---------- tooltip ---------- */
+const tip = $('#tip');
+function showTip(ev, value, label, color) {
+  tip.replaceChildren(h('strong', {}, value), color ? h('span', {class: 'k', style: `background:${color}`}) : '', label);
+  const x = Math.min(ev.clientX + 14, innerWidth - tip.offsetWidth - 8), y = Math.max(8, ev.clientY - tip.offsetHeight - 10);
+  tip.style.left = x + 'px'; tip.style.top = y + 'px'; tip.style.opacity = 1;
+}
+const hideTip = () => { tip.style.opacity = 0; };
+function hoverable(node, getTip) {
+  node.setAttribute('tabindex', '0');
+  node.addEventListener('pointermove', ev => showTip(ev, ...getTip()));
+  node.addEventListener('focus', () => { const b = node.getBoundingClientRect(); showTip({clientX: b.left + b.width / 2, clientY: b.top}, ...getTip()); });
+  node.addEventListener('pointerleave', hideTip); node.addEventListener('blur', hideTip);
+}
+function hbarPath(x, y, w, hgt, r = 4) { r = Math.min(r, w, hgt / 2); return `M${x},${y}h${w - r}a${r},${r} 0 0 1 ${r},${r}v${hgt - 2 * r}a${r},${r} 0 0 1 ${-r},${r}h${-(w - r)}z`; }
+function vbarPath(x, base, w, hgt, r = 4) { r = Math.min(r, w / 2, hgt); return `M${x},${base}v${-(hgt - r)}a${r},${r} 0 0 1 ${r},${-r}h${w - 2 * r}a${r},${r} 0 0 1 ${r},${r}v${hgt - r}z`; }
+function toggleFilter(c, v) {
+  const i = S.filters.findIndex(f => f.col === c && f.op === 'eq' && String(f.value) === String(v));
+  if (i >= 0) S.filters.splice(i, 1); else S.filters.push({col: c, op: 'eq', value: v});
+  S.page = 0; renderAll();
+}
+
+/* ---------- charts ---------- */
+function renderBar(rows) {
+  const g = groups(rows), top = g.slice(0, 12), mc = measureCol(), svg = $('#c-bar');
+  $('#t-bar').textContent = `${measureLabel()} nach ${col(S.groupBy)?.label ?? '–'}`;
+  $('#cap-bar').textContent = g.length > 12 ? `Top 12 von ${g.length} Gruppen. Klick auf einen Balken filtert.` : 'Klick auf einen Balken filtert.';
+  const max = Math.max(1e-9, ...top.map(x => x[1])), L = 150, W = 520 - L - 70, RH = 25;
+  svg.setAttribute('viewBox', `0 0 520 ${Math.max(60, top.length * RH + 10)}`);
+  animate('bar', new Map(top), vals => {
+    svg.replaceChildren();
+    top.forEach(([k], i) => {
+      const v = vals.get(k) ?? 0, y = 5 + i * RH, w = Math.max(0, v / max * W);
+      const lbl = String(k).length > 22 ? String(k).slice(0, 21) + '…' : String(k);
+      svg.append(sv('text', {x: L - 8, y: y + 15, 'text-anchor': 'end'}, lbl));
+      const hit = sv('rect', {class: 'hit', x: 0, y, width: 520, height: RH, role: 'button', 'aria-label': `${k}: ${fmt(top[i][1], mc)}`});
+      hit.addEventListener('click', () => toggleFilter(S.groupBy, k));
+      hit.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleFilter(S.groupBy, k); } });
+      hoverable(hit, () => [fmt(top[i][1], mc), `${k} · ${measureLabel()}`, 'var(--s1)']);
+      svg.append(hit, sv('path', {class: 'mark', d: hbarPath(L, y + 3, Math.max(w, 1), RH - 8), fill: 'var(--s1)', 'pointer-events': 'none'}));
+      svg.append(sv('text', {class: 'val', x: L + w + 6, y: y + 15}, fmt(v, mc)));
+    });
+    if (!top.length) svg.append(sv('text', {x: 260, y: 35, 'text-anchor': 'middle'}, 'Keine Daten im Filter'));
+  }, dur());
+}
+function renderDonut(rows) {
+  const gc = col(S.groupBy), svg = $('#c-donut'), mc = measureCol();
+  $('#t-donut').textContent = `Anteile ${gc?.label ?? ''}`;
+  // colour follows the entity: slots go to the overall top-5 categories of the full dataset, never to the filtered rank
+  const slots = (gc?.values || []).slice(0, 5), g = new Map(groups(rows));
+  const parts = slots.map((k, i) => [k, g.get(k) ?? 0, `var(--s${i + 1})`]);
+  const rest = [...g].filter(([k]) => !slots.includes(k)).reduce((a, [, v]) => a + v, 0);
+  if (rest > 0 || [...g].length > slots.length) parts.push(['Sonstige', rest, 'var(--other)']);
+  const total = parts.reduce((a, p) => a + p[1], 0);
+  $('#cap-donut').textContent = 'Anteil am Gesamtwert; Farben bleiben beim Filtern an der Kategorie. Klick filtert.';
+  // the in-SVG legend carries labels and values; the HTML row offers the same entries as keyboard-reachable filter buttons
+  $('#lg-donut').replaceChildren(...parts.filter(p => p[0] !== 'Sonstige').map(([k, , c]) =>
+    h('span', {role: 'button', tabindex: 0, title: 'Filtern', onclick: () => toggleFilter(S.groupBy, k), onkeydown: e => { if (e.key === 'Enter') toggleFilter(S.groupBy, k); }},
+      h('i', {style: `background:${c}`}), `nur ${k}`)));
+  animate('donut', new Map(parts.map(p => [p[0], p[1]])), vals => {
+    svg.replaceChildren();
+    const sum = [...vals.values()].reduce((a, b) => a + b, 0) || 1, cx = 130, cy = 130, R = 112, r = 68;
+    let a0 = -Math.PI / 2;
+    parts.forEach(([k, , c], i) => {
+      const frac = (vals.get(k) ?? 0) / sum; if (frac <= 0) return;
+      const a1 = a0 + frac * Math.PI * 2 - (frac > .999 ? 1e-4 : 0), big = a1 - a0 > Math.PI ? 1 : 0;
+      const P = (rad, a) => `${cx + rad * Math.cos(a)},${cy + rad * Math.sin(a)}`;
+      const path = sv('path', {d: `M${P(R, a0)}A${R},${R} 0 ${big} 1 ${P(R, a1)}L${P(r, a1)}A${r},${r} 0 ${big} 0 ${P(r, a0)}Z`,
+        fill: c, stroke: 'var(--surface)', 'stroke-width': 2, class: 'mark', style: 'cursor:pointer'});
+      hoverable(path, () => [fmt(parts[i][1], mc), `${k} · ${total ? nf.format(parts[i][1] / total * 100) : 0} %`, c]);
+      if (k !== 'Sonstige') path.addEventListener('click', () => toggleFilter(S.groupBy, k));
+      svg.append(path);
+      a0 = a1 + (frac > .999 ? 1e-4 : 0);
+    });
+    svg.append(sv('text', {x: cx, y: cy - 2, 'text-anchor': 'middle', class: 'val', 'font-size': 20, 'font-weight': 700}, fmt(total, mc)));
+    svg.append(sv('text', {x: cx, y: cy + 16, 'text-anchor': 'middle'}, AGG[S.agg]));
+    const t = sv('g', {transform: `translate(290 ${130 - parts.length * 16})`});
+    parts.forEach(([k, v, c], i) => { t.append(sv('rect', {x: 0, y: i * 32, width: 10, height: 24, rx: 2, fill: c}));
+      t.append(sv('text', {x: 18, y: i * 32 + 10}, String(k).slice(0, 24)));
+      t.append(sv('text', {x: 18, y: i * 32 + 24, class: 'val'},`${fmt(v, mc)} · ${total ? Math.round(v / total * 100) : 0} %`)); });
+    svg.append(t);
+  }, dur());
+}
+function renderTime(rows) {
+  const dc = dateCol(), fig = $('#f-time');
+  const b = dc && dateBounds(cur().rows);
+  fig.hidden = !b; if (!b) return;
+  const svg = $('#c-time'), mc = measureCol();
+  const days = []; for (let d = b[0]; d <= b[1]; d = addDays(d, 1)) days.push(d);
+  const by = new Map(days.map(d => [d, []])); for (const r of rows) { const d = day(r[dc.key]); if (by.has(d)) by.get(d).push(r); }
+  let acc = 0; const series = days.map(d => { const v = by.get(d).length ? aggregate(by.get(d), S.agg, S.measure) ?? 0 : 0; acc += v; return [d, S.tmode === 'cum' && S.agg !== 'mean' && S.agg !== 'max' ? acc : v]; });
+  $('#t-time').textContent = `${measureLabel()} ${S.tmode === 'cum' ? 'kumuliert' : 'pro Tag'} · ${dc.label}`;
+  $('#cap-time').textContent = S.replayDay ? `Zeitraffer bis ${S.replayDay}` : `${days.length} Tage von ${b[0]} bis ${b[1]}. Zeitraffer spielt den Verlauf ab; alle Kennzahlen folgen.`;
+  const max = Math.max(1e-9, ...series.map(s => s[1])), X0 = 54, W = 900 - X0 - 10, H = 180, T = 10, bw = W / days.length;
+  animate('time', new Map(series), vals => {
+    svg.replaceChildren();
+    for (let i = 0; i <= 4; i++) { const y = T + H - H * i / 4;
+      svg.append(sv('line', {class: 'grid', x1: X0, x2: 900 - 10, y1: y, y2: y}), sv('text', {x: X0 - 6, y: y + 4, 'text-anchor': 'end'}, fmt(max * i / 4, mc))); }
+    const step = Math.ceil(days.length / 8);
+    days.forEach((d, i) => { if (i % step === 0) svg.append(sv('text', {x: X0 + i * bw + bw / 2, y: T + H + 16, 'text-anchor': 'middle'}, d.slice(5))); });
+    if (S.tmode === 'cum') {
+      const pts = days.map((d, i) => [X0 + i * bw + bw / 2, T + H - (vals.get(d) ?? 0) / max * H]);
+      const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('');
+      svg.append(sv('path', {d: line + `L${pts.at(-1)[0]},${T + H}L${pts[0][0]},${T + H}Z`, fill: 'var(--s1)', opacity: .12}),
+                 sv('path', {d: line, fill: 'none', stroke: 'var(--s1)', 'stroke-width': 2}));
+    } else days.forEach((d, i) => { const v = vals.get(d) ?? 0, hh = v / max * H;
+      if (hh > .5) svg.append(sv('path', {d: vbarPath(X0 + i * bw + 1, T + H, Math.max(1, bw - 2), hh), fill: 'var(--s1)'})); });
+    if (S.replayDay) { const i = days.indexOf(S.replayDay), x = X0 + (i + 1) * bw;
+      svg.append(sv('line', {x1: x, x2: x, y1: T, y2: T + H, stroke: 'var(--s2)', 'stroke-width': 2}), sv('text', {x: x + 4, y: T + 10, class: 'val'}, S.replayDay)); }
+    const cross = sv('line', {x1: 0, x2: 0, y1: T, y2: T + H, stroke: 'var(--text-2)', 'stroke-width': 1, opacity: 0, 'pointer-events': 'none'});
+    const overlay = sv('rect', {x: X0, y: T, width: W, height: H, fill: 'transparent'});
+    overlay.addEventListener('pointermove', ev => {
+      const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(svg.getScreenCTM().inverse());
+      const i = Math.max(0, Math.min(days.length - 1, Math.floor((p.x - X0) / bw))), x = X0 + i * bw + bw / 2;
+      cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.setAttribute('opacity', .6);
+      showTip(ev, fmt(series[i][1], mc), `${days[i]} · ${measureLabel()}`, 'var(--s1)');
+    });
+    overlay.addEventListener('pointerleave', () => { cross.setAttribute('opacity', 0); hideTip(); });
+    svg.append(cross, overlay);
+  }, dur());
+}
+function renderHist(rows) {
+  const c = col(S.hist), svg = $('#c-hist'), fig = $('#f-hist');
+  fig.hidden = !c; if (!c) return;
+  const xs = rows.map(r => r[c.key]).filter(v => typeof v === 'number' && Number.isFinite(v));
+  const allx = cur().rows.map(r => r[c.key]).filter(v => typeof v === 'number' && Number.isFinite(v));
+  // skewed positive data gets log-width classes; zeros fall into the first class
+  const pos = allx.filter(v => v > 0), hi = Math.max(...allx), n = 14;
+  const log = allx.every(v => v >= 0) && pos.length > 0 && hi / Math.min(...pos) >= 100, lo = log ? Math.min(...pos) : Math.min(...allx);
+  const tf = v => log ? Math.log10(Math.max(v, lo)) : v, inv = v => log ? 10 ** v : v, a = tf(lo), bnd = tf(hi) + 1e-9;
+  const bins = Array.from({length: n}, (_, i) => [inv(a + (bnd - a) * i / n), inv(a + (bnd - a) * (i + 1) / n), 0]);
+  for (const x of xs) { const i = Math.min(n - 1, Math.floor((tf(x) - a) / (bnd - a) * n)); if (bins[i]) bins[i][2]++; }
+  $('#t-hist').textContent = `Verteilung ${c.label}`;
+  $('#cap-hist').textContent = `${xs.length} Werte in ${n} Klassen${log ? ' (logarithmische Klassenbreite)' : ''}. Leere Werte ausgelassen.`;
+  const max = Math.max(1, ...bins.map(b => b[2])), X0 = 54, W = 900 - X0 - 10, H = 150, T = 8, bw = W / n;
+  animate('hist', new Map(bins.map((b, i) => [i, b[2]])), vals => {
+    svg.replaceChildren();
+    for (let i = 0; i <= 3; i++) { const y = T + H - H * i / 3;
+      svg.append(sv('line', {class: 'grid', x1: X0, x2: 890, y1: y, y2: y}), sv('text', {x: X0 - 6, y: y + 4, 'text-anchor': 'end'}, nf.format(Math.round(max * i / 3)))); }
+    bins.forEach((b, i) => {
+      const hh = (vals.get(i) ?? 0) / max * H, x = X0 + i * bw;
+      if (hh > .5) svg.append(sv('path', {d: vbarPath(x + 1, T + H, bw - 2, hh), fill: 'var(--s1)', 'pointer-events': 'none'}));
+      if (i % 2 === 0) svg.append(sv('text', {x, y: T + H + 16}, fmt(b[0], c)));
+      const hit = sv('rect', {class: 'hit', x, y: T, width: bw, height: H});
+      hoverable(hit, () => [`${b[2]} Zeilen`, `${fmt(b[0], c)} – ${fmt(b[1], c)}`, 'var(--s1)']);
+      svg.append(hit);
+    });
+  }, dur());
+}
+
+/* ---------- KPIs ---------- */
+function renderKpis(rows) {
+  const total = cur().rows.length, mc = measureCol(), dc = dateCol(), b = dc && dateBounds(rows);
+  const items = [
+    ['rows', rows.length, `Zeilen im Filter`, `von ${nf.format(total)} · ${total ? Math.round(rows.length / total * 100) : 0} %`, null],
+    ['agg', aggregate(rows, S.agg, S.measure) ?? 0, measureLabel(), cur().title, mc],
+    ['grp', new Set(rows.map(r => r[S.groupBy])).size, `Gruppen · ${col(S.groupBy)?.label ?? '–'}`, `größte: ${groups(rows)[0]?.[0] ?? '–'}`, null],
+  ];
+  const box = $('#kpis');
+  if (box.children.length !== items.length + 1) box.replaceChildren(...items.map(() => h('div', {class: 'kpi'}, h('div', {class: 'v'}), h('div', {class: 'l'}), h('div', {class: 'd'}))),
+    h('div', {class: 'kpi'}, h('div', {class: 'v', style: 'font-size:18px'}), h('div', {class: 'l'}), h('div', {class: 'd'})));
+  items.forEach(([, , l, d], i) => { box.children[i].children[1].textContent = l; box.children[i].children[2].textContent = d; });
+  const last = box.children[items.length].children;
+  last[0].textContent = b ? `${b[0]} → ${b[1]}` : '–'; last[1].textContent = dc ? `Zeitraum · ${dc.label}` : 'kein Datumsfeld';
+  last[2].textContent = S.preset ? `Voreinstellung: letzte ${S.preset} Tage` : (S.replayDay ? 'Zeitraffer läuft' : 'gesamter Zeitraum');
+  animate('kpi', new Map(items.map(it => [it[0], it[1]])), vals => items.forEach(([k, , , , c], i) => {
+    box.children[i].children[0].textContent = fmt(k === 'agg' ? vals.get(k) : Math.round(vals.get(k)), c); }), dur());
+}
+
+/* ---------- table ---------- */
+function renderTable(rows) {
+  const cs = cur().columns, PS = 25;
+  let view = rows;
+  if (S.sort) { const {col: k, dir} = S.sort, m = dir === 'asc' ? 1 : -1;
+    view = [...rows].sort((a, b) => { const x = a[k], y = b[k]; if (x == null) return 1; if (y == null) return -1;
+      return (typeof x === 'number' && typeof y === 'number' ? x - y : String(x).localeCompare(String(y))) * m; }); }
+  S.view = view;
+  const pages = Math.max(1, Math.ceil(view.length / PS)); S.page = Math.min(S.page, pages - 1);
+  const tbl = $('#tbl');
+  tbl.tHead.replaceChildren(h('tr', {}, cs.map(c => {
+    const on = S.sort?.col === c.key;
+    return h('th', {scope: 'col', class: c.type === 'number' ? 'n' : '', 'aria-sort': on ? (S.sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'},
+      h('button', {onclick: () => { S.sort = {col: c.key, dir: on && S.sort.dir === 'desc' ? 'asc' : 'desc'}; renderTable(applyFilters()); }}, c.label + (on ? (S.sort.dir === 'asc' ? ' ▲' : ' ▼') : '')));
+  })));
+  tbl.tBodies[0].replaceChildren(...view.slice(S.page * PS, S.page * PS + PS).map(r => h('tr', {}, cs.map(c => {
+    const v = r[c.key];
+    if (c.type === 'category' && v != null) return h('td', {}, h('button', {class: 'cat', title: 'Als Filter setzen', onclick: () => toggleFilter(c.key, v)}, String(v)));
+    return h('td', {class: c.type === 'number' ? 'n' : '', title: String(v ?? '')}, c.type === 'number' ? fmt(v, c) : c.type === 'date' ? day(v) ?? '–' : String(v ?? '–'));
+  }))));
+  $('#tcap').textContent = `${cur().title}: ${view.length} von ${cur().rows.length} Zeilen. Quelle: ${cur().source}`;
+  $('#tblinfo').textContent = `${nf.format(view.length)} Zeilen`;
+  $('#pinfo').textContent = `Seite ${S.page + 1} / ${pages}`;
+  $('#pprev').disabled = S.page === 0; $('#pnext').disabled = S.page >= pages - 1;
+}
+
+/* ---------- controls ---------- */
+function opt(sel, items, val) { sel.replaceChildren(...items.map(([v, l]) => h('option', {value: v, selected: v === val}, l))); }
+function fillControls() {
+  const cs = cur().columns;
+  opt($('#dataset'), Object.values(sets).map(s => [s.key, `${s.title} (${s.rows.length})`]), S.ds);
+  opt($('#group'), cs.filter(c => c.type === 'category').map(c => [c.key, c.label]), S.groupBy);
+  opt($('#measure'), cs.filter(c => c.type === 'number').map(c => [c.key, c.label]), S.measure);
+  opt($('#hcol'), cs.filter(c => c.type === 'number').map(c => [c.key, c.label]), S.hist);
+  opt($('#fcol'), cs.map(c => [c.key, c.label]), cs[1]?.key);
+  $('#agg').value = S.agg; $('#measure').disabled = S.agg === 'count';
+  $('#source').textContent = `${cur().title} · ${cur().source}`;
+  fillValues();
+  const dc = dateCol();
+  $('#presets').hidden = !dc;
+  $('#presets').replaceChildren(...[[0, 'Alle'], [7, '7 Tage'], [3, '3 Tage'], [1, 'Letzter Tag']].map(([n, l]) =>
+    h('button', {'aria-pressed': S.preset === n ? 'true' : 'false', title: 'relativ zum letzten Datum im Datensatz', onclick: () => { S.preset = n; S.page = 0; fillControls(); renderAll(); }}, l)));
+  $('#examples').replaceChildren(...examples().map(e => h('button', {type: 'button', onclick: () => ask(e, 'Text')}, e)));
+}
+function fillValues() { const c = col($('#fcol').value); $('#fvals').replaceChildren(...(c?.values || []).slice(0, 200).map(v => h('option', {value: v}))); }
+function examples() {
+  if (S.ds === 'dateien') return ['Wie viele Python-Dateien?', 'Die 5 größten Dateien', 'Summe Zeilen im Ordner tests', 'Gruppiere nach Ordner', 'Dateien größer als 10 kb', 'Wechsle zu Commits', 'Zurücksetzen'];
+  if (S.ds === 'commits') return ['Wie viele Commits seit 2026-10-18?', 'Commits von Claude', 'Summe plus pro Autor', 'Top 5 Commits nach Dateien', 'ohne Merge', 'Wechsle zu Dateien', 'Zurücksetzen'];
+  return ['Wie viele Zeilen?', 'Top 5', 'Zurücksetzen', 'Hilfe'];
+}
+function renderChips() {
+  $('#chips').replaceChildren(...S.filters.map((f, i) => h('span', {class: 'chip'}, `${col(f.col)?.label ?? f.col} ${OPL[f.op]} ${typeof f.value === 'number' ? fmt(f.value, col(f.col)) : f.value}`,
+    h('button', {type: 'button', 'aria-label': 'Filter entfernen', onclick: () => { S.filters.splice(i, 1); S.page = 0; renderAll(); }}, '×'))));
+}
+function renderAll() {
+  const rows = applyFilters();
+  renderChips(); renderKpis(rows); renderTime(rows); renderBar(rows); renderDonut(rows); renderHist(rows); renderTable(rows);
+  return rows;
+}
+
+/* ---------- replay (rAF timeline) ---------- */
+let replayRaf = null;
+function replay() {
+  const dc = dateCol(); if (!dc || !dateBounds(cur().rows)) return;
+  if (replayRaf) { cancelAnimationFrame(replayRaf); replayRaf = null; S.replayDay = null; $('#replay').textContent = '▶ Zeitraffer'; renderAll(); return; }
+  const b = dateBounds(cur().rows), days = []; for (let d = b[0]; d <= b[1]; d = addDays(d, 1)) days.push(d);
+  const t0 = performance.now(), total = Math.max(3000, days.length * 450); let lastI = -1;
+  $('#replay').textContent = '■ Stopp';
+  const step = now => {
+    const i = Math.min(days.length - 1, Math.floor((now - t0) / total * days.length));
+    if (i !== lastI) { lastI = i; S.replayDay = days[i]; renderAll(); }
+    if (now - t0 < total + 400) replayRaf = requestAnimationFrame(step);
+    else { replayRaf = null; S.replayDay = null; $('#replay').textContent = '▶ Zeitraffer'; renderAll(); }
+  };
+  replayRaf = requestAnimationFrame(step);
+}
+
+/* ---------- file I/O ---------- */
+function parseCSV(text) {
+  const first = text.split(/\r?\n/, 1)[0], delim = [',', ';', '\t'].sort((a, b) => first.split(b).length - first.split(a).length)[0];
+  const rows = []; let row = [], f = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"' && text[i + 1] === '"') { f += '"'; i++; } else if (ch === '"') q = false; else f += ch; }
+    else if (ch === '"') q = true; else if (ch === delim) { row.push(f); f = ''; }
+    else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(f); rows.push(row); row = []; f = ''; }
+    else f += ch;
+  }
+  if (f || row.length) { row.push(f); rows.push(row); }
+  const head = rows.shift().map((x, i) => x.trim() || 'spalte_' + (i + 1));
+  return rows.filter(r => r.some(x => x !== '')).map(r => Object.fromEntries(head.map((k, i) => [k, r[i] ?? ''])));
+}
+function parseFile(name, text) {
+  if (/\.jsonl$/i.test(name)) return text.split(/\r?\n/).filter(Boolean).map(l => JSON.parse(l));
+  if (/\.json$/i.test(name)) { const j = JSON.parse(text); const arr = Array.isArray(j) ? j : j.rows || Object.values(j).find(Array.isArray); if (!Array.isArray(arr)) throw new Error('JSON enthält kein Array von Objekten'); return arr; }
+  return parseCSV(text);
+}
+function inferDataset(name, raw) {
+  const rows = raw.filter(r => r && typeof r === 'object' && !Array.isArray(r)).slice(0, 200000);
+  if (!rows.length) throw new Error('Keine Datenzeilen gefunden');
+  const keys = [...new Set(rows.slice(0, 1000).flatMap(Object.keys))].slice(0, 40);
+  const columns = keys.map(k => {
+    const vals = rows.map(r => r[k]).filter(v => v !== '' && v != null);
+    const isNum = vals.length && vals.every(v => typeof v === 'number' || /^-?\d+([.,]\d+)?$/.test(String(v).trim()));
+    const isDate = !isNum && vals.length && vals.every(v => /^\d{4}-\d{2}-\d{2}/.test(String(v)));
+    const distinct = new Set(vals.map(String)).size;
+    const type = isNum ? 'number' : isDate ? 'date' : distinct <= Math.max(25, rows.length * .3) && vals.every(v => String(v).length <= 60) ? 'category' : 'text';
+    return {key: k, label: k, type, aliases: [k.toLowerCase()]};
+  });
+  const clean = rows.map(r => Object.fromEntries(columns.map(c => { let v = r[c.key]; if (v === '' || v === undefined) v = null;
+    else if (c.type === 'number') v = typeof v === 'number' ? v : parseFloat(String(v).replace(',', '.')); else v = typeof v === 'object' ? JSON.stringify(v) : String(v); return [c.key, v]; })));
+  return {title: name, source: `Import ${name} · ${new Date().toLocaleString('de-DE')}`, columns, rows: clean};
+}
+async function importFile(file, key) {
+  if (file.size > 25 * 1048576) throw new Error('Datei größer als 25 MB');
+  const ds = inferDataset(file.name, parseFile(file.name, await file.text()));
+  const k = key || 'import:' + file.name;
+  const same = S.ds === k; register(k, ds); useDataset(k, same);
+  return ds;
+}
+$('#file').addEventListener('change', async e => { const f = e.target.files[0]; if (!f) return;
+  try { const ds = await importFile(f); say('Analyst', `${f.name} importiert: ${ds.rows.length} Zeilen, ${ds.columns.length} Spalten.`); }
+  catch (err) { say('Prüfer', `Import fehlgeschlagen: ${err.message}`); } e.target.value = ''; });
+let dragDepth = 0;
+addEventListener('dragenter', e => { if (e.dataTransfer?.types.includes('Files')) { dragDepth++; $('#drop').classList.add('on'); } });
+addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; $('#drop').classList.remove('on'); } });
+addEventListener('dragover', e => e.preventDefault());
+addEventListener('drop', async e => { e.preventDefault(); dragDepth = 0; $('#drop').classList.remove('on');
+  const f = e.dataTransfer.files[0]; if (!f) return;
+  try { const ds = await importFile(f); say('Analyst', `${f.name} importiert: ${ds.rows.length} Zeilen.`); } catch (err) { say('Prüfer', `Import fehlgeschlagen: ${err.message}`); } });
+
+// live file: File System Access API, polling lastModified
+let watcher = null;
+$('#watch').disabled = !('showOpenFilePicker' in window);
+if ($('#watch').disabled) $('#watch').title = 'Nur in Chromium-Browsern (Chrome, Edge) verfügbar';
+$('#watch').addEventListener('click', async () => {
+  if (watcher) { clearInterval(watcher.timer); watcher = null; $('#livestate').hidden = true; $('#watch').classList.remove('on'); return; }
+  let handle; try { [handle] = await showOpenFilePicker({types: [{description: 'Daten', accept: {'text/plain': ['.csv', '.tsv', '.txt', '.json', '.jsonl']}}]}); } catch { return; }
+  watcher = {handle, last: 0, n: 0, key: 'live:' + handle.name};
+  $('#watch').classList.add('on');
+  const poll = async () => {
+    try { const f = await handle.getFile(); if (f.lastModified === watcher.last) return; watcher.last = f.lastModified;
+      await importFile(f, watcher.key); watcher.n++;
+      const ls = $('#livestate'); ls.hidden = false; ls.textContent = `LIVE · ${handle.name} · ${new Date().toLocaleTimeString('de-DE')} · ${watcher.n}×`;
+    } catch (err) { say('Prüfer', `Live-Datei: ${err.message}`); }
+  };
+  await poll(); watcher.timer = setInterval(poll, 1500);
+  say('Analyst', `Beobachte ${handle.name}. Änderungen an der Datei erscheinen hier innerhalb von etwa 1,5 Sekunden.`);
+});
+
+function toCSV(rows, cs) { const e = v => { const s = String(v ?? ''); return /[",;\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  return [cs.map(c => e(c.key)).join(','), ...rows.map(r => cs.map(c => e(r[c.key])).join(','))].join('\n'); }
+function report() {
+  const rows = applyFilters(), mc = measureCol(), g = groups(rows);
+  return [`# ${cur().title} – Auswertung`, '', `- Erstellt: ${new Date().toISOString()}`, `- Quelle: ${cur().source}`,
+    `- Filter: ${S.filters.map(f => `${col(f.col)?.label} ${OPL[f.op]} ${f.value}`).join('; ') || 'keine'}${S.q ? ` · Suche „${S.q}“` : ''}${S.preset ? ` · letzte ${S.preset} Tage` : ''}`,
+    `- Zeilen: ${rows.length} von ${cur().rows.length}`, `- ${measureLabel()}: ${fmt(aggregate(rows, S.agg, S.measure), mc)}`, '',
+    `| ${col(S.groupBy)?.label ?? 'Gruppe'} | ${measureLabel()} |`, '|---|---:|', ...g.map(([k, v]) => `| ${String(k).replace(/\|/g, '\\|')} | ${fmt(v, mc)} |`), '',
+    '_Deterministisch aus den Dashboard-Daten berechnet; keine Freigabe oder Prüfung._'].join('\n');
+}
+const stamp = () => new Date().toISOString().replace(/[-:]/g, '').slice(0, 15);
+document.querySelectorAll('[data-export]').forEach(b => b.addEventListener('click', () => doExport(b.dataset.export)));
+function doExport(kind) {
+  const base = `nexus_${S.ds.replace(/[^\w-]+/g, '_')}_${stamp()}`;
+  if (kind === 'csv') download(base + '.csv', '﻿' + toCSV(S.view.length ? S.view : applyFilters(), cur().columns), 'text/csv;charset=utf-8');
+  else if (kind === 'json') download(base + '.json', JSON.stringify({source: cur().source, filters: S.filters, rows: applyFilters()}, null, 1), 'application/json');
+  else if (kind === 'md') download(base + '.md', report(), 'text/markdown;charset=utf-8');
+  else if (['transkript', 'txt', 'srt'].includes(kind)) exportTranscript(kind === 'transkript' ? 'md' : kind);
+  else if (kind === 'svg') exportSvg('c-bar');
+}
+function exportSvg(id) {
+  const src = $('#' + id), clone = src.cloneNode(true), cs = getComputedStyle(document.documentElement);
+  clone.setAttribute('xmlns', NS);
+  let txt = new XMLSerializer().serializeToString(clone).replace(/var\((--[\w-]+)\)/g, (_, v) => cs.getPropertyValue(v).trim());
+  txt = txt.replace('>', `><style>text{font:11px system-ui,sans-serif;fill:${cs.getPropertyValue('--text-2')}}.val{fill:${cs.getPropertyValue('--text')}}.grid{stroke:${cs.getPropertyValue('--line')}}.hit{fill:none}</style>`);
+  download(`${id}_${stamp()}.svg`, txt, 'image/svg+xml');
+}
+document.querySelectorAll('[data-svg]').forEach(b => b.addEventListener('click', () => exportSvg(b.dataset.svg)));
+
+/* ---------- dialog: dual voice, speech in/out, transcript ---------- */
+const log = [];
+const t0 = Date.now();
+function say(role, text, via = 'System') {
+  const e = {t: new Date().toISOString(), ms: Date.now() - t0, role, text, via}; log.push(e);
+  const cls = role === 'Du' ? 'user' : role === 'Prüfer' ? 'pruefer' : 'analyst';
+  const li = h('li', {class: cls}, h('small', {}, `${role} · ${new Date(e.t).toLocaleTimeString('de-DE')}${via !== 'System' ? ' · ' + via : ''}`), text);
+  $('#log').append(li); li.scrollIntoView({block: 'nearest', behavior: reduced ? 'auto' : 'smooth'});
+  if (role !== 'Du') speak(text, role);
+}
+let speakOn = 'speechSynthesis' in window, voices = [];
+function loadVoices() {
+  if (!('speechSynthesis' in window)) { $('#speak').disabled = true; $('#speak').textContent = '🔇 keine Sprachausgabe'; return; }
+  voices = speechSynthesis.getVoices();
+  const de = voices.filter(v => /^de/i.test(v.lang)), list = (de.length ? de : voices);
+  for (const [id, idx] of [['#v-a', 0], ['#v-p', 1]]) {
+    const prev = $(id).value;
+    opt($(id), list.map(v => [v.name, `${v.name} (${v.lang})`]), prev || list[Math.min(idx, list.length - 1)]?.name);
+  }
+}
+loadVoices(); if ('speechSynthesis' in window) speechSynthesis.onvoiceschanged = loadVoices;
+let interacted = false;
+for (const ev of ['pointerdown', 'keydown']) addEventListener(ev, () => { interacted = true; }, {once: true, capture: true});
+function speak(text, role) {
+  if (!speakOn || !interacted) return;
+  const u = new SpeechSynthesisUtterance(text), name = $(role === 'Prüfer' ? '#v-p' : '#v-a').value;
+  u.voice = voices.find(v => v.name === name) || null; u.lang = u.voice?.lang || 'de-DE';
+  u.pitch = role === 'Prüfer' ? 0.85 : 1.05; u.rate = role === 'Prüfer' ? 1.05 : 1;
+  speechSynthesis.speak(u);
+}
+$('#speak').addEventListener('click', e => { speakOn = !speakOn; if (!speakOn) speechSynthesis.cancel();
+  e.currentTarget.setAttribute('aria-pressed', speakOn); e.currentTarget.textContent = speakOn ? '🔊 Stimmen an' : '🔇 Stimmen aus'; });
+
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null, srConsent = false;
+if (!SR) { $('#mic').disabled = true; $('#mic').title = 'Spracherkennung wird von diesem Browser nicht unterstützt (Chrome/Edge nutzen)'; }
+$('#mic').addEventListener('click', () => {
+  if (rec) { rec.stop(); return; }
+  if (!srConsent) {
+    const n = $('#srnote'); n.hidden = false;
+    n.textContent = 'Hinweis: In Chrome/Edge sendet die Spracherkennung das Mikrofon-Audio an den Spracherkennungsdienst des Browserherstellers. Erneut auf 🎙 klicken, um fortzufahren.';
+    srConsent = true; return;
+  }
+  rec = new SR(); rec.lang = 'de-DE'; rec.interimResults = true; rec.continuous = false;
+  $('#mic').classList.add('rec');
+  rec.onresult = ev => { let fin = '', tmp = '';
+    for (const r of ev.results) (r.isFinal ? (fin += r[0].transcript) : (tmp += r[0].transcript));
+    $('#interim').textContent = tmp || fin; if (fin) ask(fin, 'Sprache'); };
+  rec.onerror = ev => say('Prüfer', `Spracherkennung: ${ev.error}`);
+  rec.onend = () => { rec = null; $('#mic').classList.remove('rec'); $('#interim').textContent = ''; };
+  rec.start();
+});
+
+function schema() { return {columns: cur().columns, datasets: Object.values(sets).map(s => ({key: s.key, title: s.title}))}; }
+function describeFilters() { return S.filters.map(f => `${col(f.col)?.label} ${OPL[f.op]} ${typeof f.value === 'number' ? fmt(f.value, col(f.col)) : f.value}`).join(', ') || 'keine'; }
+function ask(text, via = 'Text') {
+  text = String(text).trim(); if (!text) return;
+  say('Du', text, via);
+  const r = NLQ.interpret(text, schema());
+  if (r.help || !r.understood) {
+    say('Analyst', r.help ? 'Ich verstehe Filter, Gruppierung, Sortierung, Top-N, Summe, Mittelwert, Maximum, Anzahl, Datensatzwechsel und Export.' : 'Das habe ich nicht verstanden.');
+    say('Prüfer', `Beispiele: ${examples().slice(0, 4).join(' · ')}`); return;
+  }
+  if (r.dataset) { useDataset(r.dataset); say('Analyst', `Datensatz ${cur().title} geöffnet: ${cur().rows.length} Zeilen.`); say('Prüfer', `Quelle: ${cur().source}.`); return; }
+  if (r.reset) { S.filters = []; S.q = ''; S.preset = 0; $('#q').value = ''; fillControls(); }
+  for (const f of r.filters) { S.filters = S.filters.filter(x => !(x.col === f.col && x.op === f.op)); S.filters.push(f); }
+  if (r.groupBy) S.groupBy = r.groupBy;
+  if (r.sort) S.sort = r.sort;
+  S.page = 0; fillControls();
+  const rows = renderAll(), parts = [];
+  if (r.top) {
+    const c = col(r.top.col) || measureCol() || cur().columns.find(c => c.type === 'number');
+    if (c) { const best = [...rows].filter(x => typeof x[c.key] === 'number').sort((a, b) => b[c.key] - a[c.key]).slice(0, r.top.n);
+      const lab = cur().columns.find(x => x.type === 'text') || col(S.groupBy);
+      S.sort = {col: c.key, dir: 'desc'}; renderTable(rows);
+      parts.push(`Top ${best.length} nach ${c.label}: ` + best.map(x => `${x[lab.key]} (${fmt(x[c.key], c)})`).join('; ') + '.'); }
+  }
+  if (r.stat) {
+    const c = col(r.stat.col) || measureCol() || cur().columns.find(c => c.type === 'number');
+    if (c) parts.push(`${AGG[r.stat.fn]} ${c.label}: ${fmt(aggregate(rows, r.stat.fn, c.key), c)} über ${rows.length} Zeilen.`);
+  }
+  if (r.count || (!parts.length && !r.export)) parts.push(`${nf.format(rows.length)} von ${nf.format(cur().rows.length)} Zeilen entsprechen dem Filter.`);
+  if (r.groupBy) parts.push(`Gruppiert nach ${col(r.groupBy).label}; größte Gruppe: ${groups(rows)[0]?.[0] ?? '–'}.`);
+  if (r.sort) parts.push(`Tabelle sortiert nach ${col(r.sort.col).label} ${r.sort.dir === 'asc' ? 'aufsteigend' : 'absteigend'}.`);
+  if (r.export) { doExport(r.export); parts.push(`Export ${r.export.toUpperCase()} gestartet.`); }
+  say('Analyst', parts.join(' '));
+  say('Prüfer', `Basis: ${cur().title}, Filter: ${describeFilters()}${S.preset ? `, letzte ${S.preset} Tage` : ''}. Regelbasiert verstanden und exakt berechnet, keine Schätzung.`);
+}
+$('#ask').addEventListener('submit', e => { e.preventDefault(); ask($('#askin').value, 'Text'); $('#askin').value = ''; });
+function exportTranscript(fmtx) {
+  const base = `nexus_dialog_${stamp()}`;
+  if (fmtx === 'json') return download(base + '.json', JSON.stringify(log, null, 1), 'application/json');
+  if (fmtx === 'txt') return download(base + '.txt', log.map(e => `[${e.t}] ${e.role}: ${e.text}`).join('\n'), 'text/plain;charset=utf-8');
+  if (fmtx === 'srt') { const ts = ms => new Date(ms).toISOString().slice(11, 23).replace('.', ',');
+    return download(base + '.srt', log.map((e, i) => `${i + 1}\n${ts(e.ms)} --> ${ts((log[i + 1]?.ms ?? e.ms + 3000))}\n${e.role}: ${e.text}\n`).join('\n'), 'application/x-subrip'); }
+  download(base + '.md', ['# NEXUS Daten-Dialog', '', ...log.map(e => `- **${e.role}** _(${e.t}${e.via !== 'System' ? ', ' + e.via : ''})_: ${e.text}`)].join('\n'), 'text/markdown;charset=utf-8');
+}
+document.querySelectorAll('[data-tx]').forEach(b => b.addEventListener('click', () => exportTranscript(b.dataset.tx)));
+
+/* ---------- control events ---------- */
+$('#dataset').addEventListener('change', e => useDataset(e.target.value));
+$('#group').addEventListener('change', e => { S.groupBy = e.target.value; renderAll(); });
+$('#measure').addEventListener('change', e => { S.measure = e.target.value; renderAll(); });
+$('#agg').addEventListener('change', e => { S.agg = e.target.value; $('#measure').disabled = S.agg === 'count'; renderAll(); });
+$('#hcol').addEventListener('change', e => { S.hist = e.target.value; renderHist(applyFilters()); });
+$('#fcol').addEventListener('change', fillValues);
+let qTimer; $('#q').addEventListener('input', e => { clearTimeout(qTimer); qTimer = setTimeout(() => { S.q = e.target.value; S.page = 0; renderAll(); }, 150); });
+$('#addf').addEventListener('submit', e => { e.preventDefault(); const c = col($('#fcol').value), raw = $('#fval').value.trim(); if (!c || !raw) return;
+  const op = $('#fop').value, value = c.type === 'number' && op !== 'contains' && op !== 'eq' && op !== 'neq' ? parseFloat(raw.replace(',', '.')) : raw;
+  if (typeof value === 'number' && Number.isNaN(value)) return;
+  S.filters.push({col: c.key, op, value}); $('#fval').value = ''; S.page = 0; renderAll(); });
+document.querySelectorAll('[data-tmode]').forEach(b => b.addEventListener('click', () => { S.tmode = b.dataset.tmode;
+  document.querySelectorAll('[data-tmode]').forEach(x => x.setAttribute('aria-pressed', x === b)); renderTime(applyFilters()); }));
+$('#replay').addEventListener('click', replay);
+$('#pprev').addEventListener('click', () => { S.page--; renderTable(applyFilters()); });
+$('#pnext').addEventListener('click', () => { S.page++; renderTable(applyFilters()); });
+$('#theme').addEventListener('click', () => {
+  const r = document.documentElement, dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('nexus-data-theme', r.dataset.theme); } catch {}
+});
+try { const t = localStorage.getItem('nexus-data-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+
+const first = Object.keys(sets)[0];
+if (first) { useDataset(first); say('Analyst', `Bereit. ${Object.keys(sets).length} eingebettete Datensätze, Revision ${(DATA.revision || '').slice(0, 7)}. Frag per Text oder Mikrofon.`, 'System'); }
+else say('Prüfer', 'Keine eingebetteten Daten. build_data.py ausführen oder eine Datei importieren.');
+</script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS Design-Galerie</title>
+<style>
+:root{
+  --bg:#f4f5f8;--surface:#ffffff;--surface-2:#eef0f5;--line:#d9dde6;--text:#171a21;--muted:#5d6577;
+  --accent:#3b5bdb;--accent-soft:#e3e9ff;--ok:#2b8a3e;--ok-soft:#e3f6e8;--bad:#c92a2a;--bad-soft:#fde8e8;
+  --warn:#b7791f;--warn-soft:#fdf3e1;--shadow:0 1px 2px rgba(20,25,40,.06),0 8px 24px rgba(20,25,40,.08);
+  --k-html:#3b5bdb;--k-module:#0c8599;--k-concept:#9c36b5;--k-architecture:#e8590c;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1117;--surface:#171a23;--surface-2:#1f2330;--line:#2c3243;--text:#e7e9ef;--muted:#9aa3b8;
+  --accent:#7c94ff;--accent-soft:#232c4d;--ok:#5fcf7a;--ok-soft:#1a3324;--bad:#ff7b7b;--bad-soft:#3a1d1f;
+  --warn:#f0b54f;--warn-soft:#3a2e17;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --k-html:#7c94ff;--k-module:#3bc9db;--k-concept:#da77f2;--k-architecture:#ff922b;}}
+:root[data-theme="dark"]{
+  --bg:#0f1117;--surface:#171a23;--surface-2:#1f2330;--line:#2c3243;--text:#e7e9ef;--muted:#9aa3b8;
+  --accent:#7c94ff;--accent-soft:#232c4d;--ok:#5fcf7a;--ok-soft:#1a3324;--bad:#ff7b7b;--bad-soft:#3a1d1f;
+  --warn:#f0b54f;--warn-soft:#3a2e17;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --k-html:#7c94ff;--k-module:#3bc9db;--k-concept:#da77f2;--k-architecture:#ff922b;}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;transition:background .3s,color .3s}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.logo{width:30px;height:30px;border-radius:8px;background:conic-gradient(var(--k-html),var(--k-module),var(--k-concept),var(--k-architecture),var(--k-html));animation:spin 12s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.brand h1{font-size:17px;margin:0}
+.brand small{display:block;color:var(--muted);font-size:12px}
+.search{flex:1 1 220px;max-width:340px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.btn{border:1px solid var(--line);background:var(--surface);padding:8px 12px;border-radius:10px;cursor:pointer;transition:transform .15s,background .2s}
+.btn:hover{background:var(--surface-2)}.btn:active{transform:scale(.97)}
+.btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 12px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.chip.on{border-color:var(--accent);background:var(--accent-soft)}
+.chip b{font-weight:600;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:20px 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat .n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .l{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;padding-bottom:40px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;
+  opacity:0;transform:translateY(14px);animation:rise .5s cubic-bezier(.2,.7,.2,1) forwards;transition:box-shadow .25s,transform .25s,border-color .25s}
+.card:hover,.card:focus-visible{box-shadow:var(--shadow);transform:translateY(-3px);border-color:var(--kc);outline:none}
+@keyframes rise{to{opacity:1;transform:none}}
+.thumb{height:170px;background:var(--surface-2);position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.thumb iframe{width:1280px;height:760px;border:0;transform:scale(.25);transform-origin:0 0;pointer-events:none;background:#fff}
+.thumb svg{width:100%;height:100%}
+.thumb .big{position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:800;color:var(--kc);opacity:.85;letter-spacing:-1px}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:15px;margin:0;line-height:1.3}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+.kind{color:var(--kc);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:11px}
+.badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--warn-soft);color:var(--warn);font-weight:600}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}.badge.bad{background:var(--bad-soft);color:var(--bad)}
+.card p{margin:0;color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.empty{padding:60px 0;text-align:center;color:var(--muted)}
+/* detail */
+.scrim{position:fixed;inset:0;background:rgba(5,8,15,.45);opacity:0;pointer-events:none;transition:opacity .3s;z-index:20}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(1100px,100%);background:var(--bg);z-index:21;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.drawer.open{transform:none}
+.dhead{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.dhead h2{margin:0;font-size:18px;flex:1}
+.tabs{display:flex;gap:4px;padding:8px 16px 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{padding:8px 14px;border:0;background:none;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);white-space:nowrap}
+.tab.on{color:var(--text);border-color:var(--accent)}
+.dbody{flex:1;overflow:auto;padding:16px}
+.pane{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.frame{width:100%;height:calc(100vh - 240px);min-height:420px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.note{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+.note.info{background:var(--accent-soft);color:var(--accent)}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0;font-size:14px}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;word-break:break-all}
+code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:var(--surface-2);padding:1px 5px;border-radius:5px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.panel h4{margin:0 0 10px;font-size:14px}
+.cols{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:16px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}.frame{height:60vh}}
+.field{display:grid;grid-template-columns:90px 1fr 70px;gap:8px;align-items:center;margin:8px 0;font-size:13px}
+.field input[type=range]{width:100%;accent-color:var(--accent)}
+.field output{text-align:right;font-variant-numeric:tabular-nums}
+select{padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface)}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:12px}
+.result div{background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.result small{color:var(--muted);display:block;font-size:11px}
+.result b{font-variant-numeric:tabular-nums}
+.gate{font-size:22px;font-weight:800;padding:6px 14px;border-radius:10px;display:inline-block;transition:background .3s,color .3s}
+.gate.pass{background:var(--ok-soft);color:var(--ok)}.gate.fail{background:var(--bad-soft);color:var(--bad)}
+svg text{fill:var(--text);font-family:inherit}
+svg .muted{fill:var(--muted)}
+.node rect{fill:var(--surface);stroke:var(--kc);stroke-width:1.6}
+.node{opacity:0;animation:pop .5s cubic-bezier(.2,.9,.3,1.3) forwards}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+.edge{fill:none;stroke:var(--line);stroke-width:1.6;stroke-dasharray:6 6;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-24}}
+.pulse{fill:var(--kc)}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px}
+.tagrow span{font-size:12px;background:var(--surface-2);padding:2px 8px;border-radius:6px}
+a{color:var(--accent)}
+.kbd{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.card,.node{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand"><div class="logo" aria-hidden="true"></div><div><h1>NEXUS Design-Galerie</h1><small id="sub">lade Manifest …</small></div></div>
+      <input id="q" class="search" type="search" placeholder="Suchen: Titel, Tag, ID …  ( / )" aria-label="Designs durchsuchen">
+      <button id="tour" class="btn" title="Alle Designs automatisch durchblättern">▶ Tour</button>
+      <button id="theme" class="btn" title="Hell/Dunkel">◐</button>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="stats" id="stats"></section>
+  <section class="grid" id="grid" aria-live="polite"></section>
+</main>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle">
+  <div class="dhead">
+    <div style="flex:1"><div class="meta" id="dmeta"></div><h2 id="dtitle"></h2></div>
+    <button class="btn" id="prev" title="Vorheriges (←)">←</button>
+    <button class="btn" id="next" title="Nächstes (→)">→</button>
+    <button class="btn" id="close" title="Schließen (Esc)">✕</button>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="dbody" id="dbody"></div>
+</aside>
+
+<script src="designs.manifest.js"></script>
+<script src="../nexus-dashboard-v3/ec5_solver.js"></script>
+<script src="../nexus-dashboard-v3/osr9_mmr.js"></script>
+<script>
+'use strict';
+const KINDS = {html:'HTML-Prototyp', module:'Rechenmodul', concept:'Konzept', architecture:'Architektur'};
+const KIND_ICON = {html:'</>', module:'ƒ(x)', concept:'◇', architecture:'⇄'};
+const M = window.NEXUS_DESIGNS || {designs:[], commit:null};
+const D = M.designs;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const state = {kind:'all', status:'all', q:'', list:D, current:-1, tab:null, tour:null};
+
+function badge(status){
+  const cls = /fail|blocker|unverified|unreviewed/.test(status) ? '' : /pass|valid/.test(status) ? 'ok' : '';
+  return `<span class="badge ${cls}">${esc(status.replace(/_/g,' '))}</span>`;
+}
+function kindVar(k){ return `--kc:var(--k-${k})`; }
+
+/* ---------- toolbar ---------- */
+function renderFilters(){
+  const count = k => k === 'all' ? D.length : D.filter(d => d.kind === k).length;
+  const kinds = ['all', ...Object.keys(KINDS).filter(k => count(k))];
+  $('#filters').innerHTML = kinds.map(k => `<button class="chip ${state.kind===k?'on':''}" data-kind="${k}" style="${k!=='all'?kindVar(k):''}">
+    ${k!=='all'?'<span class="dot" style="background:var(--kc)"></span>':''}${k==='all'?'Alle':KINDS[k]} <b>${count(k)}</b></button>`).join('');
+}
+function renderStats(){
+  const kb = Math.round(D.reduce((s,d) => s + (d.bytes||0), 0) / 1024);
+  const unverified = D.filter(d => /unverified|unreviewed|not_certified|pending|blocker/.test(d.status)).length;
+  const items = [[D.length,'Designs gesamt'],[D.filter(d=>d.kind==='html').length,'lauffähige HTML-Vorschauen'],
+    [D.filter(d=>d.demo).length,'interaktive Rechenmodule'],[D.filter(d=>d.diagram).length,'animierte Architekturen'],
+    [unverified,'ohne Freigabe / ungeprüft'],[kb,'KB Quellcode gescannt']];
+  $('#stats').innerHTML = items.map(([n,l]) => `<div class="stat"><div class="n" data-to="${n}">0</div><div class="l">${l}</div></div>`).join('');
+  document.querySelectorAll('.stat .n').forEach(el => countUp(el, +el.dataset.to));
+}
+function countUp(el, to){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = to; return; }
+  const t0 = performance.now();
+  const step = t => { const p = Math.min(1,(t-t0)/900); el.textContent = Math.round(to*(1-Math.pow(1-p,3))); if (p<1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+/* ---------- grid ---------- */
+function filtered(){
+  const q = state.q.toLowerCase();
+  return D.filter(d => (state.kind==='all' || d.kind===state.kind) &&
+    (!q || [d.id,d.title,d.summary,d.path,d.status,...(d.tags||[])].join(' ').toLowerCase().includes(q)));
+}
+function thumb(d){
+  if (d.kind === 'html') return `<iframe data-src="${esc(d.preview)}" sandbox="allow-scripts" tabindex="-1" aria-hidden="true" title=""></iframe>`;
+  if (d.diagram) return diagramSVG(d.diagram, {mini:true});
+  return `<div class="big">${KIND_ICON[d.kind]}</div>`;
+}
+function renderGrid(){
+  state.list = filtered();
+  $('#grid').innerHTML = state.list.length ? state.list.map((d,i) => `
+    <article class="card" tabindex="0" data-i="${i}" style="${kindVar(d.kind)};animation-delay:${Math.min(i,12)*55}ms">
+      <div class="thumb">${thumb(d)}</div>
+      <div class="body">
+        <div class="meta"><span class="kind">${KINDS[d.kind]}</span>${badge(d.status)}</div>
+        <h3>${esc(d.title)}</h3>
+        <p>${esc(d.summary || d.path || '')}</p>
+        <div class="meta"><code>${esc(d.id)}</code></div>
+      </div>
+    </article>`).join('') : `<div class="empty">Keine Designs für diesen Filter.${D.length?'':' Manifest fehlt: <code>python prototypes/design-gallery/build_manifest.py</code>'}</div>`;
+  lazyFrames();
+}
+let io;
+function lazyFrames(){
+  io?.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.src = e.target.dataset.src; io.unobserve(e.target);} }), {rootMargin:'200px'});
+  document.querySelectorAll('.thumb iframe[data-src]').forEach(f => io.observe(f));
+}
+
+/* ---------- animated diagrams ---------- */
+function diagramSVG(spec, {mini=false}={}){
+  const W=150, H=54, byId = Object.fromEntries(spec.nodes.map(n => [n.id,n]));
+  const has = (a,b) => spec.edges.some(e => e[0]===a && e[1]===b);
+  const clip = (a,b) => { const dx=b.x-a.x, dy=b.y-a.y; const t=Math.min(W/2/Math.abs(dx||1e-9), H/2/Math.abs(dy||1e-9)); return [a.x+dx*t, a.y+dy*t]; };
+  const edges = spec.edges.map(([f,t,label],i) => {
+    const a=byId[f], b=byId[t]; const [x1,y1]=clip(a,b), [x2,y2]=clip(b,a);
+    const bend = has(t,f) ? 22 : 0, len = Math.hypot(x2-x1,y2-y1)||1;
+    const cx=(x1+x2)/2 - (y2-y1)/len*bend, cy=(y1+y2)/2 + (x2-x1)/len*bend;
+    const path = `M${x1.toFixed(1)},${y1.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+    const dur = (2.2 + (i%4)*0.45).toFixed(2);
+    return `<path class="edge" d="${path}" marker-end="url(#ar)"/>
+      <circle class="pulse" r="${mini?5:4.5}"><animateMotion dur="${dur}s" begin="${(i*0.3).toFixed(1)}s" repeatCount="indefinite" path="${path}"/></circle>
+      ${!mini && label ? `<text class="muted" x="${cx}" y="${cy-6}" text-anchor="middle" font-size="11.5">${esc(label)}</text>` : ''}`;
+  }).join('');
+  const nodes = spec.nodes.map((n,i) => `<g class="node" style="animation-delay:${i*90}ms;transform-origin:${n.x}px ${n.y}px">
+      <rect x="${n.x-W/2}" y="${n.y-H/2}" width="${W}" height="${H}" rx="12"/>
+      <text x="${n.x}" y="${n.y-(mini?0:4)+(mini?5:0)}" text-anchor="middle" font-size="${mini?17:13.5}" font-weight="600">${esc(n.label)}</text>
+      ${mini?'':`<text class="muted" x="${n.x}" y="${n.y+14}" text-anchor="middle" font-size="11">${esc(n.sub||'')}</text>`}</g>`).join('');
+  return `<svg viewBox="0 0 850 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Architekturdiagramm">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="var(--muted)"/></marker></defs>
+    ${edges}${nodes}</svg>`;
+}
+
+/* ---------- detail drawer ---------- */
+function tabsFor(d){
+  const t = [];
+  if (d.kind === 'html') t.push(['preview','Vorschau']);
+  if (d.demo) t.push(['demo','Interaktiv']);
+  if (d.diagram) t.push(['diagram','Architektur']);
+  t.push(['meta','Metadaten']);
+  return t;
+}
+function open(i){
+  const list = state.list; if (!list.length) return;
+  state.current = (i + list.length) % list.length;
+  const d = list[state.current];
+  $('#drawer').style.cssText = kindVar(d.kind);
+  $('#dtitle').textContent = d.title;
+  $('#dmeta').innerHTML = `<span class="kind">${KINDS[d.kind]}</span>${badge(d.status)}<code>${esc(d.id)}</code><span class="kbd">${state.current+1} / ${list.length}</span>`;
+  const tabs = tabsFor(d);
+  if (!tabs.some(t => t[0]===state.tab)) state.tab = tabs[0][0];
+  $('#tabs').innerHTML = tabs.map(([k,l]) => `<button class="tab ${k===state.tab?'on':''}" data-tab="${k}">${l}</button>`).join('');
+  renderPane(d);
+  $('#drawer').classList.add('open'); $('#scrim').classList.add('open');
+  history.replaceState(null,'','#'+encodeURIComponent(d.id));
+}
+function close(){
+  $('#drawer').classList.remove('open'); $('#scrim').classList.remove('open');
+  stopTour(); state.current = -1; history.replaceState(null,'',location.pathname);
+  setTimeout(() => { if (state.current < 0) $('#dbody').innerHTML = ''; }, 450);
+}
+function renderPane(d){
+  const b = $('#dbody');
+  if (state.tab === 'preview') {
+    b.innerHTML = `<div class="pane"><div class="note">Isolierte Vorschau (<code>sandbox="allow-scripts"</code>, ohne Same-Origin): kein Zugriff auf Speicher oder Cookies; Funktionen, die localStorage brauchen, schlagen hier bewusst fehl.
+      <a href="${esc(d.preview)}" target="_blank" rel="noopener">Ohne Sandbox öffnen</a> – dort keine echten API-Keys eingeben.</div>
+      <iframe class="frame" src="${esc(d.preview)}" sandbox="allow-scripts allow-forms" title="${esc(d.title)}"></iframe></div>`;
+  } else if (state.tab === 'demo') {
+    b.innerHTML = `<div class="pane">${d.demo==='ec5' ? ec5Markup() : mmrMarkup()}</div>`;
+    d.demo === 'ec5' ? ec5Init() : mmrInit();
+  } else if (state.tab === 'diagram') {
+    b.innerHTML = `<div class="pane"><div class="panel">${diagramSVG(d.diagram)}</div>
+      <div class="panel"><h4>Beschreibung</h4><p style="margin:0">${esc(d.summary)}</p></div>
+      ${d.provenance?`<div class="note">${esc(d.provenance)}</div>`:''}</div>`;
+  } else {
+    const rows = [['ID',d.id],['Typ',KINDS[d.kind]],['Status',d.status],['Pfad',d.path],['SHA-256',d.sha256],['Größe',d.bytes?d.bytes.toLocaleString('de-DE')+' B':null],
+      ['Herkunft',d.provenance],['Quellen',(d.sources||[]).join(', ')],['Manifest-Commit',M.commit]].filter(r => r[1]);
+    const rel = (d.related||[]).map(id => { const j = state.list.findIndex(x => x.id===id); return j>=0 ? `<a href="#" data-jump="${j}">${esc(id)}</a>` : esc(id); }).join(', ');
+    b.innerHTML = `<div class="pane"><div class="panel"><dl class="kv">${rows.map(([k,v]) => `<dt>${k}</dt><dd>${/SHA|Pfad|Commit/.test(k)?`<code>${esc(v)}</code>`:esc(v)}</dd>`).join('')}
+      ${rel?`<dt>Verwandt</dt><dd>${rel}</dd>`:''}</dl></div>
+      ${d.summary?`<div class="panel"><h4>Zusammenfassung</h4><p style="margin:0">${esc(d.summary)}</p></div>`:''}
+      ${(d.tags||[]).length?`<div class="panel"><h4>Tags</h4><div class="tagrow">${d.tags.filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('')}</div></div>`:''}
+      <div class="note info">Status-Labels stammen aus Quelle bzw. Manifest. Diese Galerie vergibt keine Freigaben; Release erfordert die Reviews und die menschliche Entscheidung gemäß AGENTS.md.</div></div>`;
+  }
+}
+
+/* ---------- EC5 interactive demo (uses ec5_solver.js unchanged) ---------- */
+const EC5 = {material:'C24', b:120, h:120, L:3000, N:80, kmod:0.8};
+function ec5Markup(){
+  if (typeof ec5Buckling !== 'function') return `<div class="note">ec5_solver.js konnte nicht geladen werden.</div>`;
+  const f = (k,l,min,max,st,u) => `<label class="field"><span>${l}</span><input type="range" data-k="${k}" min="${min}" max="${max}" step="${st}" value="${EC5[k]}"><output id="o-${k}">${EC5[k]} ${u}</output></label>`;
+  return `<div class="note">PROTOTYP – keine zertifizierte Berechnung. EN 1995-1-1 §6.3.2, Rechteckquerschnitt, schwache Achse, β = 1,0. Menschliche Prüfung erforderlich.</div>
+  <div class="cols"><div class="panel"><h4>Eingaben</h4>
+    <label class="field"><span>Material</span><select id="mat" style="grid-column:span 2">${Object.keys(MATERIALS).map(m=>`<option ${m===EC5.material?'selected':''}>${m}</option>`).join('')}</select></label>
+    ${f('b','Breite b',60,300,10,'mm')}${f('h','Höhe h',60,300,10,'mm')}${f('L','Länge L',500,8000,100,'mm')}${f('N','N<sub>d</sub>',1,600,1,'kN')}${f('kmod','k<sub>mod</sub>',0.4,1.1,0.05,'')}
+    <div style="margin-top:12px"><span id="gate" class="gate">–</span> <span class="kbd" id="gstat"></span></div>
+    <div class="result" id="res"></div></div>
+  <div class="panel"><h4>Knickbeiwert k<sub>c</sub> über λ<sub>rel</sub> und Ausnutzung</h4><svg id="ec5plot" viewBox="0 0 620 360"></svg></div></div>`;
+}
+function ec5Init(){
+  if (typeof ec5Buckling !== 'function') return;
+  document.querySelectorAll('[data-k]').forEach(inp => inp.addEventListener('input', () => { EC5[inp.dataset.k] = +inp.value; ec5Update(); }));
+  $('#mat').addEventListener('change', e => { EC5.material = e.target.value; ec5Update(); });
+  ec5Update();
+}
+function ec5Update(){
+  const r = ec5Buckling(EC5);
+  for (const k of ['b','h','L','N','kmod']) { const o = $('#o-'+k); if (o) o.textContent = EC5[k] + ({b:' mm',h:' mm',L:' mm',N:' kN',kmod:''}[k]); }
+  const g = $('#gate'); g.textContent = r.gate; g.className = 'gate ' + (r.pass ? 'pass' : 'fail'); $('#gstat').textContent = r.status;
+  const fx = (v,n=3) => v.toLocaleString('de-DE',{maximumFractionDigits:n});
+  $('#res').innerHTML = [['λ',fx(r.lambda,1)],['λ_rel',fx(r.lambdaRel)],['k_c',fx(r.kc)],['f_c,0,d',fx(r.fc0d,2)+' N/mm²'],['σ_c,0,d',fx(r.sigmaC,2)+' N/mm²'],['η',fx(r.utilization)]]
+    .map(([k,v]) => `<div><small>${k}</small><b>${v}</b></div>`).join('');
+  // curve: sweep L through the solver itself, so the plot shows the module's own k_c
+  const i = Math.min(EC5.b,EC5.h)/Math.sqrt(12), pts = [];
+  for (let s=1; s<=120; s++){ const q = ec5Buckling({...EC5, L: i*s*1.6}); if (q.lambdaRel <= 3) pts.push([q.lambdaRel,q.kc]); }
+  const X = v => 50 + v/3*340, Y = v => 30 + (1-v)*280;
+  const line = pts.map((p,j) => (j?'L':'M') + X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ');
+  const eta = Math.min(r.utilization, 1), arc = 2*Math.PI*62, col = r.pass ? 'var(--ok)' : 'var(--bad)';
+  const prev = $('#ec5plot').querySelector('#gauge')?.getAttribute('stroke-dashoffset') ?? arc;
+  $('#ec5plot').innerHTML = `
+    ${[0,.25,.5,.75,1].map(v=>`<line x1="50" x2="390" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text class="muted" x="42" y="${Y(v)+4}" font-size="11" text-anchor="end">${v}</text>`).join('')}
+    ${[0,1,2,3].map(v=>`<text class="muted" x="${X(v)}" y="328" font-size="11" text-anchor="middle">${v}</text>`).join('')}
+    <text class="muted" x="220" y="348" font-size="12" text-anchor="middle">λ_rel</text>
+    <path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+    <line x1="${X(Math.min(r.lambdaRel,3))}" x2="${X(Math.min(r.lambdaRel,3))}" y1="30" y2="310" stroke="var(--muted)" stroke-dasharray="4 4"/>
+    <circle cx="${X(Math.min(r.lambdaRel,3))}" cy="${Y(r.kc)}" r="7" fill="${col}"><animate attributeName="r" values="6;9;6" dur="1.6s" repeatCount="indefinite"/></circle>
+    <g transform="translate(510 170)">
+      <circle r="62" fill="none" stroke="var(--surface-2)" stroke-width="14"/>
+      <circle id="gauge" r="62" fill="none" stroke="${col}" stroke-width="14" stroke-linecap="round" transform="rotate(-90)"
+        stroke-dasharray="${arc}" stroke-dashoffset="${prev}" style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1),stroke .3s"/>
+      <text text-anchor="middle" y="6" font-size="24" font-weight="700">${Math.round(r.utilization*100)}%</text>
+      <text class="muted" text-anchor="middle" y="28" font-size="11">Ausnutzung η</text>
+    </g>`;
+  requestAnimationFrame(() => $('#gauge')?.setAttribute('stroke-dashoffset', (arc*(1-eta)).toFixed(1)));
+}
+
+/* ---------- MMR interactive demo (uses osr9_mmr.js unchanged) ---------- */
+const MMR = {lambda:0.7, k:3, items:[]};
+function mmrMarkup(){
+  if (typeof mmrSelect !== 'function') return `<div class="note">osr9_mmr.js konnte nicht geladen werden.</div>`;
+  return `<div class="note info">Maximal Marginal Relevance (OSR-9 L-Stage): Punkte = Quellen-Vektoren (Winkel), Größe = Relevanz. Klick in die Fläche fügt eine Quelle hinzu, Klick auf einen Punkt entfernt sie.</div>
+  <div class="cols"><div class="panel"><h4>Parameter</h4>
+    <label class="field"><span>λ</span><input type="range" id="lam" min="0" max="1" step="0.05" value="${MMR.lambda}"><output id="olam">${MMR.lambda}</output></label>
+    <label class="field"><span>k</span><input type="range" id="kk" min="1" max="8" step="1" value="${MMR.k}"><output id="ok">${MMR.k}</output></label>
+    <button class="btn" id="shuffle" style="margin-top:8px">Neue Zufallsquellen</button>
+    <p class="kbd">λ → 1: nur Relevanz · λ → 0: maximale Diversität</p>
+    <ol id="mmrlist" style="padding-left:18px;margin:8px 0 0"></ol></div>
+  <div class="panel"><svg id="mmrplot" viewBox="-210 -210 420 420" style="cursor:crosshair;max-height:520px;width:100%"></svg></div></div>`;
+}
+function mmrRandom(){
+  MMR.items = Array.from({length:14}, (_,i) => { const a = Math.random()*Math.PI*2; return {id:'Q'+(i+1), relevance:+(0.3+Math.random()*0.7).toFixed(2), vec:[Math.cos(a),Math.sin(a)]}; });
+}
+function mmrInit(){
+  if (typeof mmrSelect !== 'function') return;
+  if (!MMR.items.length) mmrRandom();
+  $('#lam').oninput = e => { MMR.lambda = +e.target.value; mmrUpdate(); };
+  $('#kk').oninput = e => { MMR.k = +e.target.value; mmrUpdate(); };
+  $('#shuffle').onclick = () => { mmrRandom(); mmrUpdate(); };
+  $('#mmrplot').onclick = e => {
+    const id = e.target.closest('[data-id]')?.dataset.id;
+    if (id) MMR.items = MMR.items.filter(x => x.id !== id);
+    else { const p = new DOMPoint(e.clientX,e.clientY).matrixTransform(e.currentTarget.getScreenCTM().inverse()); const a = Math.atan2(p.y,p.x);
+      MMR.items.push({id:'Q'+(MMR.items.length+1)+'*', relevance:+Math.min(1,Math.max(.2,Math.hypot(p.x,p.y)/180)).toFixed(2), vec:[Math.cos(a),Math.sin(a)]}); }
+    mmrUpdate();
+  };
+  mmrUpdate();
+}
+function mmrUpdate(){
+  $('#olam').textContent = MMR.lambda; $('#ok').textContent = MMR.k;
+  const sel = mmrSelect(MMR.items, MMR.k, MMR.lambda), rank = new Map(sel.map((s,i) => [s.id,i+1]));
+  $('#mmrlist').innerHTML = sel.map(s => `<li><b>${esc(s.id)}</b> · Relevanz ${s.relevance}</li>`).join('');
+  $('#mmrplot').innerHTML = `<circle r="180" fill="none" stroke="var(--line)" stroke-dasharray="3 5"/><circle r="4" fill="var(--muted)"/>` +
+    MMR.items.map(it => { const R = 40 + it.relevance*140, x = it.vec[0]*R, y = it.vec[1]*R, n = rank.get(it.id);
+      return `<g data-id="${esc(it.id)}" style="cursor:pointer">
+        <line x1="0" y1="0" x2="${x}" y2="${y}" stroke="${n?'var(--accent)':'var(--line)'}" stroke-width="${n?2:1}"/>
+        <circle cx="${x}" cy="${y}" r="${6+it.relevance*8}" fill="${n?'var(--accent)':'var(--surface-2)'}" stroke="var(--accent)" style="transition:all .3s">
+          ${n?`<animate attributeName="stroke-width" values="1;4;1" dur="1.8s" repeatCount="indefinite"/>`:''}</circle>
+        <text x="${x}" y="${y-18}" text-anchor="middle" font-size="11" class="${n?'':'muted'}">${n?'#'+n+' ':''}${esc(it.id)}</text></g>`; }).join('');
+}
+
+/* ---------- tour ---------- */
+function stopTour(){ clearInterval(state.tour); state.tour = null; $('#tour').classList.remove('on'); $('#tour').textContent = '▶ Tour'; }
+function startTour(){
+  if (!state.list.length) return;
+  state.tab = null; open(state.current < 0 ? 0 : state.current);
+  $('#tour').classList.add('on'); $('#tour').textContent = '■ Stopp';
+  state.tour = setInterval(() => { state.tab = null; open(state.current + 1); }, 7000);
+}
+
+/* ---------- events ---------- */
+$('#filters').onclick = e => { const c = e.target.closest('[data-kind]'); if (!c) return; state.kind = c.dataset.kind; renderFilters(); renderGrid(); };
+$('#q').oninput = e => { state.q = e.target.value; renderGrid(); };
+$('#grid').onclick = e => { const c = e.target.closest('.card'); if (c) { state.tab = null; open(+c.dataset.i); } };
+$('#grid').onkeydown = e => { const c = e.target.closest('.card'); if (c && (e.key==='Enter'||e.key===' ')) { e.preventDefault(); state.tab = null; open(+c.dataset.i); } };
+$('#tabs').onclick = e => { const t = e.target.closest('[data-tab]'); if (!t) return; stopTour(); state.tab = t.dataset.tab; open(state.current); };
+$('#dbody').onclick = e => { const j = e.target.closest('[data-jump]'); if (j) { e.preventDefault(); state.tab = null; open(+j.dataset.jump); } };
+$('#prev').onclick = () => { stopTour(); state.tab = null; open(state.current - 1); };
+$('#next').onclick = () => { stopTour(); state.tab = null; open(state.current + 1); };
+$('#close').onclick = close; $('#scrim').onclick = close;
+$('#tour').onclick = () => state.tour ? stopTour() : startTour();
+$('#theme').onclick = () => {
+  const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('nexus-gallery-theme', document.documentElement.dataset.theme); } catch {}
+};
+document.addEventListener('keydown', e => {
+  const typing = /INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName);
+  if (e.key === '/' && !typing) { e.preventDefault(); $('#q').focus(); }
+  if (state.current < 0 || typing) return;
+  if (e.key === 'Escape') close();
+  if (e.key === 'ArrowRight') $('#next').click();
+  if (e.key === 'ArrowLeft') $('#prev').click();
+});
+
+try { const t = localStorage.getItem('nexus-gallery-theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+$('#sub').textContent = D.length ? `${D.length} Designs · Commit ${M.commit ? M.commit.slice(0,7) : 'unbekannt'}` : 'Manifest fehlt – build_manifest.py ausführen';
+renderFilters(); renderStats(); renderGrid();
+const hash = decodeURIComponent(location.hash.slice(1));
+if (hash) { const j = state.list.findIndex(d => d.id === hash); if (j >= 0) open(j); }
+</script>
+</body>
+</html>

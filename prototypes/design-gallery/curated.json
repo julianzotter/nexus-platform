@@ -1,0 +1,67 @@
+[
+ {
+  "id": "ARCH-VIBE-LIVE-001",
+  "title": "Vibe-Coding Live-Dashboard (Dual-Voice, Transkription, Screensharing)",
+  "status": "concept_unverified",
+  "provenance": "Chat-Entwurf 2026-10-21 (Gemini-Antwort, eingefügt). Behauptung 'P0/P1-Kern fertig, 5 Tests bestanden' ist in diesem Repository nicht nachweisbar.",
+  "summary": "Live-Expertengespräche zu Workflow- und regelbasierter Prozessautomation. Zwei Sprecher-Kanäle Speech-to-Speech, Transkription aller Beiträge in wählbare Formate (MD, JSON, SRT, DOCX), Dashboard-Einstellungen, Assistenz per Screensharing. Provider-Schlüssel nur serverseitig.",
+  "tags": ["voice", "realtime", "dashboard", "NEXUS-CONCEPT-VOICE-001"],
+  "related": ["NEXUS-CONCEPT-VOICE-001"],
+  "diagram": {
+   "nodes": [
+    {"id": "mic", "label": "Sprecher A / B", "sub": "Browser Mic, WebRTC", "x": 90, "y": 110},
+    {"id": "screen", "label": "Screenshare", "sub": "getDisplayMedia", "x": 90, "y": 310},
+    {"id": "gw", "label": "Session-Gateway", "sub": "Node, Keys serverseitig", "x": 330, "y": 210},
+    {"id": "rt", "label": "Realtime S2S", "sub": "Provider-Adapter", "x": 560, "y": 90},
+    {"id": "tx", "label": "Async-Transkription", "sub": "Job-Queue", "x": 560, "y": 210},
+    {"id": "gate", "label": "Human-Gate", "sub": "Freigabe, KPIs", "x": 560, "y": 330},
+    {"id": "out", "label": "Export", "sub": "MD · JSON · SRT · DOCX", "x": 760, "y": 210}
+   ],
+   "edges": [["mic", "gw", "Audio"], ["screen", "gw", "Frames"], ["gw", "rt", "SSE"], ["gw", "tx", "Segmente"],
+             ["gw", "gate", "Run-State"], ["tx", "out", "Transkript"], ["gate", "out", "freigegeben"], ["rt", "mic", "Antwort-Audio"]]
+  }
+ },
+ {
+  "id": "ARCH-AEC-MAS-001",
+  "title": "Lokales AI-AEC Multi-Agent-System (FEM, Eurocode, Peer-Review)",
+  "status": "concept_unverified",
+  "provenance": "Chat-Entwurf 2026-10-21 (Gemini-Antwort). Modellempfehlungen (Qwen 2.5 72B / Coder 32B, DeepSeek-R1 Distill, Command R+) stammen von 2024/25 und sind nicht gegen aktuelle Open-Weight-Modelle geprüft.",
+  "summary": "Vollständig lokal ohne externe API. Orchestrator hält JSON-State-Machine und Session-DB (SQLite/DuckDB, Pydantic-Schemas). Code-Agent erzeugt SciPy/NumPy-Solver-Skripte in Sandbox und meldet nur Statusvektoren und Ausnutzungsgrade (EN 1992/1993/1995). Review-Agent prüft gegen vektorisierte Norm-Abschnitte; ULS-Fehler triggert Re-Design-Loop. Inferenz via vLLM oder llama.cpp/Ollama, Orchestrierung LangGraph, Structured Output via Outlines/Instructor.",
+  "tags": ["aec", "fem", "eurocode", "local-llm", "langgraph"],
+  "related": ["NEXUS-CONCEPT-NORM-001", "JS-EC5_SOLVER"],
+  "diagram": {
+   "nodes": [
+    {"id": "in", "label": "Projekt-Input", "sub": "Geometrie, Lasten", "x": 90, "y": 210},
+    {"id": "orch", "label": "Orchestrator", "sub": "State-Machine, Function Calls", "x": 300, "y": 210},
+    {"id": "db", "label": "Session-DB", "sub": "SQLite / DuckDB", "x": 300, "y": 360},
+    {"id": "fem", "label": "FEM/Design-Agent", "sub": "scipy.sparse Sandbox", "x": 530, "y": 100},
+    {"id": "rev", "label": "Peer-Review-Agent", "sub": "EC2/EC3/EC5-Check", "x": 530, "y": 320},
+    {"id": "norm", "label": "Norm-Index", "sub": "PDF-Parser, Vektoren", "x": 760, "y": 320},
+    {"id": "gate", "label": "Human-Gate", "sub": "kein LLM-Self-Approval", "x": 760, "y": 100}
+   ],
+   "edges": [["in", "orch", "Parameter"], ["orch", "db", "State"], ["orch", "fem", "Solver-Auftrag"], ["fem", "orch", "η, u, σ"],
+             ["orch", "rev", "Log + Nachweis"], ["norm", "rev", "Abschnitte"], ["rev", "orch", "FAIL → Re-Design"], ["fem", "gate", "Kandidat"]]
+  }
+ },
+ {
+  "id": "ARCH-SEARCH-001",
+  "title": "Web-Research-Schicht (MCP-Suche, Crawler, Deep Research)",
+  "status": "concept_unverified",
+  "provenance": "Chat-Entwurf 2026-10-21 (Gemini-Antwort mit Websuche). Genannte Produkte, Latenzen und Modellnamen sind nicht verifiziert; Scraping nur im Rahmen der Nutzungsbedingungen der Zielseiten.",
+  "summary": "Agent-Client ruft MCP-Server auf: Suche (Brave/Exa/Parallel), Crawl & Markdown-Konvertierung (Firecrawl), aggregierte Antworten mit Quellen (Perplexity). Ergebnisse laufen über Quellen-Register mit Hash und Zeitstempel in den Evidenzpfad, bevor sie einem Agenten als Kontext dienen.",
+  "tags": ["mcp", "search", "research", "evidence"],
+  "related": ["ARCH-AEC-MAS-001"],
+  "diagram": {
+   "nodes": [
+    {"id": "agent", "label": "Agent-Client", "sub": "Claude / Cursor / lokal", "x": 100, "y": 210},
+    {"id": "mcp", "label": "MCP-Router", "sub": "Tool-Auswahl", "x": 320, "y": 210},
+    {"id": "s", "label": "Search-API", "sub": "instant ↔ deep", "x": 550, "y": 80},
+    {"id": "c", "label": "Crawler", "sub": "HTML → Markdown", "x": 550, "y": 210},
+    {"id": "a", "label": "Answer-Engine", "sub": "mit Zitaten", "x": 550, "y": 340},
+    {"id": "ev", "label": "Evidenz-Register", "sub": "URL, Hash, Zeit", "x": 770, "y": 210}
+   ],
+   "edges": [["agent", "mcp", "Query"], ["mcp", "s", ""], ["mcp", "c", ""], ["mcp", "a", ""],
+             ["s", "ev", "Treffer"], ["c", "ev", "Seiten"], ["a", "ev", "Quellen"], ["ev", "agent", "Kontext"]]
+  }
+ }
+]
