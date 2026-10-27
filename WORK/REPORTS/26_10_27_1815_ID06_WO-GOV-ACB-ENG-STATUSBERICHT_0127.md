@@ -8,6 +8,8 @@ agent_id: ID06
 executor: Claude (Fable 5.1) – Cloud-Session, Repo-Clone julianzotter/nexus-platform @ a739797
 artifact_id: '0127'
 hash_scope: body_utf8_after_closing_frontmatter_lf
+git_commit: 7861f476acc3a4533054227b75380cb0e2b3dd7b
+github_pr: https://github.com/julianzotter/nexus-platform/pull/45
 reviewer_required: ID03 (Kreuz-Review, Manifest)
 gate: ID01
 ---
