@@ -11,8 +11,17 @@
       "requested_skill": "aec-knowledge-index-agent",
       "skill_status": "UNVERIFIED",
       "objective": "Produce source-backed registry candidates",
-      "inputs": ["approved_source_refs", "source_versions"],
-      "outputs": ["source_id", "version_hash", "locator", "candidate_records", "assumptions"],
+      "inputs": [
+        "approved_source_refs",
+        "source_versions"
+      ],
+      "outputs": [
+        "source_id",
+        "version_hash",
+        "locator",
+        "candidate_records",
+        "assumptions"
+      ],
       "handoff_to": "ID03",
       "execution_status": "NOT_RUN"
     },
@@ -21,8 +30,17 @@
       "nexus_role_id": "ID03",
       "actual_executor": null,
       "objective": "Check source identity, provenance, schemas and samples independently",
-      "inputs": ["frozen_candidate_bundle", "system_contract", "baseline_reference"],
-      "outputs": ["findings", "evidence", "required_deltas", "review_status"],
+      "inputs": [
+        "frozen_candidate_bundle",
+        "system_contract",
+        "baseline_reference"
+      ],
+      "outputs": [
+        "findings",
+        "evidence",
+        "required_deltas",
+        "review_status"
+      ],
       "author_may_self_certify_independence": false,
       "execution_status": "NOT_RUN"
     }
@@ -33,5 +51,37 @@
     "drive_work_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
   },
   "delivery_status": "PREPARED",
-  "automatic_agent_dispatch": false
+  "automatic_agent_dispatch": false,
+  "role_matrix": {
+    "status": "REVIEW_CANDIDATE_WO-20261027-ID01-GOV-001_K1",
+    "id_format": "ID## (AGBS v003, kein Bindestrich)",
+    "roles": {
+      "ID01": "Human Lead (Julian) – Entscheidung/Freigabe",
+      "ID02": "ChatGPT Chief Orchestrator",
+      "ID03": "ChatGPT Assistant – QA/Peer Review",
+      "ID04": "Gemini – Protokoll/Evidence",
+      "ID05": "Perplexity – externe Recherche",
+      "ID06": "Claude – Coding/Implementierung/Eval",
+      "ID07": "DeepSeek – unabhängiger Auditor",
+      "ID08": "Ollama lokal (optional)"
+    },
+    "source": "NEXUS-ROLES v1.0 (Rollenregister 2026-09-28) + WO-20261027-ID01-GOV-001 K1; kanonisches Account-/Runtime-Mapping weiterhin BLOCKED (WORK/Folder.md)"
+  },
+  "ssot_split": {
+    "documents": "Google Drive LLM-LOCAL-SSOT (1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV) / WORK (1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP)",
+    "code": "GitHub julianzotter/nexus-platform",
+    "rule": "K4 WO-20261027-ID01-GOV-001; Repo-Dokumente = Review-Snapshots"
+  },
+  "naming_rule": {
+    "binding": "_AGBS.md v003 (FREIGEGEBEN_ID01 2026-10-27): YY_MM_DD_HHMM_ID##_THEMA_###.md",
+    "conflict": "WO K5 schlägt YY_MM_DD_<ID>_<TYPE>_<TITLE>_vX.Y.Z.md vor – widerspricht AGBS v003; AGBS hat Vorrang; ID01-Entscheidung offen"
+  },
+  "layer_taxonomy": {
+    "status": "K2 REVIEW_CANDIDATE",
+    "layers": [
+      "P0-P3 SSoT/Registry",
+      "L3 Solver",
+      "L4 Gate"
+    ]
+  }
 }
