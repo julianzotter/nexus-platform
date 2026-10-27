@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-10-27T15:39:28+01:00",
+  "authority": "REVIEW; ARTIFACT_ID_UNREGISTERED_LEDGER_CONFLICT; HUMAN_GATE_PENDING",
+  "scope": "user manual+status+peer WO+schema, no production runtime changes",
+  "original_seed": "https://drive.google.com/file/d/106Dy6s4_Czg0Mg4ciQkA1MZJadcmmD_x/view",
+  "files": [
+    {
+      "name": "26_10_27_1539_ID-UNVERIFIED_NEXUS-USERMANUAL-IMPLEMENTATIONGUIDE_UNREGISTERED.md",
+      "bytes": 36802,
+      "sha256": "dde79d4e98b0bb4795bade25afa4af6a948f83a0084aa8748bdbb52d6dc183c7"
+    },
+    {
+      "name": "26_10_27_1539_ID-UNVERIFIED_NEXUS-SYSTEMSTATUS-EVALUATION_UNREGISTERED.md",
+      "bytes": 11315,
+      "sha256": "02d95013c8474ff14ec6977a344d9e382291a0fbf22fbc260a826364c2394c69"
+    },
+    {
+      "name": "26_10_27_1539_ID-UNVERIFIED_NEXUS-PEER-REVIEW-WORKORDER_UNREGISTERED.md",
+      "bytes": 6276,
+      "sha256": "aad7e258163669df571853752b068f61f4c4a336c3f18e093069228ac024eb10"
+    },
+    {
+      "name": "26_10_27_1539_ID-UNVERIFIED_NEXUS-USERMANUAL-IMPLEMENTATIONGUIDE_UNREGISTERED.pdf",
+      "bytes": 94339,
+      "sha256": "ec6b268364dc69976ba08cc8bcad55b6b8ff5a241ff9b009d5e6c6fb8844150d"
+    },
+    {
+      "name": "nexus_knowledge_object_schema_v0.4.0_REVIEW.json",
+      "bytes": 16346,
+      "sha256": "15d6b2d57d374c787250fa683ea7b119c3e26652877cb8be910509cba1f079fc"
+    },
+    {
+      "name": "nexus_knowledge_object_fixture_v0.4.0_SYNTHETIC.json",
+      "bytes": 1459,
+      "sha256": "f988e3c3c08564757824f3d5eea69fe61b61541ae134ab1b7ea0b4f20a1993e2"
+    }
+  ],
+  "schema_validation": {
+    "draft_2020_12": "PASS",
+    "positive_fixtures": 1,
+    "positive_pass": 1,
+    "negative_fixtures": 3,
+    "negative_rejected": 3
+  }
+}
