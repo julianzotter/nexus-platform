@@ -1,0 +1,767 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:knowledge-object:schema:v0.4.0-review",
+  "title": "NEXUS KnowledgeObject v0.4.0 – REVIEW, NOT ADOPTED",
+  "description": "Versionierter, quellengebundener KO-Kandidat; Schema validiert Struktur, nicht fachliche Normgeltung oder Solverrichtigkeit.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "object_id",
+    "object_type",
+    "title",
+    "version",
+    "language",
+    "tech_path",
+    "domain_id",
+    "subdomain_id",
+    "source_ref",
+    "content_sha256",
+    "concept_ids",
+    "governance",
+    "audit",
+    "payload"
+  ],
+  "properties": {
+    "object_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160
+    },
+    "object_type": {
+      "enum": [
+        "Source",
+        "Document",
+        "Standard",
+        "StandardClause",
+        "Definition",
+        "Requirement",
+        "Rule",
+        "Formula",
+        "Parameter",
+        "Symbol",
+        "Unit",
+        "Material",
+        "StructuralSystem",
+        "StructuralElement",
+        "Connection",
+        "Action",
+        "AnalysisModel",
+        "Calculation",
+        "Verification",
+        "Result",
+        "Evidence",
+        "Decision",
+        "Solver"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 2
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "language": {
+      "type": "string",
+      "enum": [
+        "de",
+        "en",
+        "other"
+      ]
+    },
+    "tech_path": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "domain_id": {
+      "enum": [
+        "naturwissenschaften",
+        "ingenieurwissenschaften",
+        "bauingenieurwesen",
+        "konstruktiver_ingenieurbau",
+        "system_governance"
+      ]
+    },
+    "subdomain_id": {
+      "enum": [
+        "mathematik",
+        "physik",
+        "chemie",
+        "mechanik",
+        "dynamik",
+        "festigkeitslehre",
+        "baustatik",
+        "betonbau",
+        "holzbau",
+        "stahlbau",
+        "verbundbau",
+        "massivbau",
+        "leichtbau",
+        "numerische_methoden",
+        "analytische_methoden",
+        "FEM",
+        "engineering_qa",
+        "nexus_system"
+      ]
+    },
+    "source_ref": {
+      "$ref": "#/$defs/source_ref"
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "concept_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2
+      },
+      "uniqueItems": true
+    },
+    "norm_profile": {
+      "$ref": "#/$defs/norm_profile"
+    },
+    "context": {
+      "$ref": "#/$defs/context"
+    },
+    "governance": {
+      "$ref": "#/$defs/governance"
+    },
+    "audit": {
+      "$ref": "#/$defs/audit"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "derived_from_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      },
+      "uniqueItems": true
+    },
+    "language_mappings": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_uri",
+        "locator",
+        "representation_sha256",
+        "retrieved_at",
+        "source_status"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "source_uri": {
+          "type": "string",
+          "minLength": 4
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "representation_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_status": {
+          "enum": [
+            "PRIMARY",
+            "SECONDARY",
+            "DERIVED",
+            "HISTORICAL",
+            "UNVERIFIED"
+          ]
+        },
+        "content_origin": {
+          "type": "string"
+        },
+        "storage_origin": {
+          "type": "string"
+        },
+        "licence_rights": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "RESTRICTED",
+            "UNKNOWN"
+          ]
+        }
+      }
+    },
+    "norm_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "standard_id",
+        "edition",
+        "jurisdiction",
+        "generation",
+        "applicability_status"
+      ],
+      "properties": {
+        "standard_id": {
+          "type": "string",
+          "minLength": 4
+        },
+        "standard_part": {
+          "type": "string"
+        },
+        "edition": {
+          "type": "string",
+          "minLength": 4
+        },
+        "jurisdiction": {
+          "type": "string",
+          "minLength": 2
+        },
+        "generation": {
+          "enum": [
+            "EC_GEN1",
+            "EC_GEN2",
+            "TS",
+            "EAD",
+            "OTHER"
+          ]
+        },
+        "national_document": {
+          "type": "string"
+        },
+        "national_document_edition": {
+          "type": "string"
+        },
+        "amendment": {
+          "type": "string"
+        },
+        "clause": {
+          "type": "string"
+        },
+        "table": {
+          "type": "string"
+        },
+        "equation": {
+          "type": "string"
+        },
+        "validity_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "applicability_status": {
+          "enum": [
+            "PROJECT_VERIFIED",
+            "REVIEW_REQUIRED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "adoption_evidence_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "project_id": {
+          "type": "string"
+        },
+        "design_situation": {
+          "enum": [
+            "persistent",
+            "transient",
+            "accidental",
+            "seismic",
+            "unknown"
+          ]
+        },
+        "limit_state": {
+          "enum": [
+            "ULS",
+            "SLS",
+            "FATIGUE",
+            "FIRE",
+            "OTHER",
+            "UNKNOWN"
+          ]
+        },
+        "structural_system_id": {
+          "type": "string"
+        },
+        "element_id": {
+          "type": "string"
+        },
+        "material_id": {
+          "type": "string"
+        },
+        "unit_system": {
+          "enum": [
+            "SI",
+            "SI_DERIVED_DECLARED"
+          ]
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applicability": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_state",
+        "development_state",
+        "evidence_state",
+        "test_state",
+        "human_gate"
+      ],
+      "properties": {
+        "document_state": {
+          "enum": [
+            "DRAFT",
+            "REVIEW",
+            "CURRENT",
+            "SUPERSEDED",
+            "HISTORICAL"
+          ]
+        },
+        "development_state": {
+          "enum": [
+            "REFERENCE",
+            "INTENT_TO_IMPLEMENT",
+            "EVALUATE",
+            "PROPOSED",
+            "IMPLEMENTED",
+            "TESTED",
+            "ADOPTED"
+          ]
+        },
+        "evidence_state": {
+          "enum": [
+            "UNVERIFIED",
+            "SOURCE_REPORTED",
+            "VERIFIED",
+            "CALCULATED",
+            "INFERRED"
+          ]
+        },
+        "test_state": {
+          "enum": [
+            "NOT_RUN",
+            "PASS",
+            "FAIL",
+            "BLOCKED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "human_gate": {
+          "enum": [
+            "PENDING",
+            "GRANTED",
+            "DENIED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "approval_evidence_ref": {
+          "type": "string",
+          "minLength": 3
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "human_gate": {
+                "const": "GRANTED"
+              }
+            },
+            "required": [
+              "human_gate"
+            ]
+          },
+          "then": {
+            "required": [
+              "approval_evidence_ref"
+            ]
+          }
+        }
+      ]
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_at",
+        "actor_role_id",
+        "executor_instance",
+        "run_id"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor_role_id": {
+          "type": "string",
+          "pattern": "^(ID0[1-8]|UNVERIFIED)$"
+        },
+        "executor_instance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string"
+        },
+        "model_version": {
+          "type": "string"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "ticket_id": {
+          "type": "string"
+        },
+        "validator_version": {
+          "type": "string"
+        },
+        "input_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "predicate",
+        "target_id",
+        "verification_state"
+      ],
+      "properties": {
+        "predicate": {
+          "enum": [
+            "IS_A",
+            "PART_OF",
+            "CONTAINS",
+            "HAS_PROPERTY",
+            "HAS_PARAMETER",
+            "HAS_UNIT",
+            "APPLIES_TO",
+            "REQUIRES",
+            "USES",
+            "GOVERNED_BY",
+            "DEFINED_BY",
+            "DERIVED_FROM",
+            "REFERENCES",
+            "IMPLEMENTS",
+            "IMPLEMENTED_BY",
+            "PRODUCES",
+            "VERIFIED_BY",
+            "SUPPORTED_BY",
+            "SUPERSEDES",
+            "OVERRIDES",
+            "CONFLICTS_WITH"
+          ]
+        },
+        "target_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "verification_state": {
+          "enum": [
+            "CANDIDATE",
+            "CONFIRMED",
+            "REJECTED"
+          ]
+        },
+        "evidence_locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_source_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "applicability_scope": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification_state": {
+                "const": "CONFIRMED"
+              }
+            },
+            "required": [
+              "verification_state"
+            ]
+          },
+          "then": {
+            "required": [
+              "evidence_locator",
+              "evidence_source_id"
+            ]
+          }
+        }
+      ]
+    },
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dimension": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "object_type": {
+            "enum": [
+              "Standard",
+              "StandardClause",
+              "Verification",
+              "Solver"
+            ]
+          }
+        },
+        "required": [
+          "object_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "norm_profile"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "object_type": {
+            "const": "Formula"
+          }
+        },
+        "required": [
+          "object_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "expression",
+              "symbols",
+              "output_unit",
+              "applicability"
+            ],
+            "properties": {
+              "expression": {
+                "type": "string",
+                "minLength": 3
+              },
+              "symbols": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              },
+              "output_unit": {
+                "type": "string"
+              },
+              "applicability": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "formula_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "object_type": {
+            "const": "Parameter"
+          }
+        },
+        "required": [
+          "object_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "symbol",
+              "unit",
+              "dimension"
+            ],
+            "properties": {
+              "symbol": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "dimension": {
+                "type": "string"
+              },
+              "value": {
+                "$ref": "#/$defs/quantity"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "object_type": {
+            "const": "Verification"
+          }
+        },
+        "required": [
+          "object_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": [
+              "verification_type",
+              "limit_state",
+              "method_ref"
+            ],
+            "properties": {
+              "verification_type": {
+                "type": "string"
+              },
+              "limit_state": {
+                "enum": [
+                  "ULS",
+                  "SLS",
+                  "FATIGUE",
+                  "FIRE",
+                  "OTHER"
+                ]
+              },
+              "method_ref": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "object_type": {
+            "const": "Solver"
+          }
+        },
+        "required": [
+          "object_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "type": "object",
+            "required": [
+              "code_ref",
+              "input_schema_uri",
+              "output_schema_uri",
+              "test_suite_ref"
+            ],
+            "properties": {
+              "code_ref": {
+                "type": "string"
+              },
+              "input_schema_uri": {
+                "type": "string"
+              },
+              "output_schema_uri": {
+                "type": "string"
+              },
+              "test_suite_ref": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
