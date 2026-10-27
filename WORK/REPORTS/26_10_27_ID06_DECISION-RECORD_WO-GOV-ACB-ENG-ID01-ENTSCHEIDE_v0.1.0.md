@@ -10,6 +10,7 @@ decided_by: ID01
 decision_time: '2026-10-27T18:14+01:00'
 refers_to: '0127 (Statusbericht), 0128 (Ledger-Append-Request)'
 naming_schema: YY_MM_DD_<ID>_<TYPE>_<TITLE>_vX.Y.Z.md
+git_commit: 522a49defc58c44bfbe550a5ab3ae789cd75aba6
 hash_scope: body_utf8_after_closing_frontmatter_lf
 ---
 # ID01-Entscheide (18:14) und Umsetzung
