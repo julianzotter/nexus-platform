@@ -73,8 +73,10 @@
     "rule": "K4 WO-20261027-ID01-GOV-001; Repo-Dokumente = Review-Snapshots"
   },
   "naming_rule": {
-    "binding": "_AGBS.md v003 (FREIGEGEBEN_ID01 2026-10-27): YY_MM_DD_HHMM_ID##_THEMA_###.md",
-    "conflict": "WO K5 schlägt YY_MM_DD_<ID>_<TYPE>_<TITLE>_vX.Y.Z.md vor – widerspricht AGBS v003; AGBS hat Vorrang; ID01-Entscheidung offen"
+    "binding": "YY_MM_DD_<ID>_<TYPE>_<TITLE>_vX.Y.Z.md (ID01-Entscheid 2026-10-27 18:14, WO K5); <ID> = Rollen-ID ID##; Ledger-ID im Frontmatter artifact_id und bei ACB-Nachrichten als TITLE-Suffix",
+    "supersedes": "_AGBS.md v003 Dateiregel YY_MM_DD_HHMM_ID##_THEMA_###.md",
+    "required_followup": "AGBS v004 + Snapshot _AGBS_v003.md durch Ledger-Maintainer ID03 (Connector ID06 kann Same-ID-Update nicht ausführen)",
+    "historical_files": "unverändert (AGBS: Historisches behält damaligen Stand)"
   },
   "layer_taxonomy": {
     "status": "K2 REVIEW_CANDIDATE",
@@ -82,6 +84,35 @@
       "P0-P3 SSoT/Registry",
       "L3 Solver",
       "L4 Gate"
+    ]
+  },
+  "acb": {
+    "version": "0.2.0",
+    "repo_root": "00_WORKFLOW_PATTERN_REGISTRY/20_RUNTIME/COMMUNICATION",
+    "drive_root": "LLM-LOCAL-SSOT/nexus-llm-orchestrator/COMMUNICATION (10PrCkTgmAfoLkK1JXE-d1C1u9kXiQKjy) — ID01-Entscheid: bestehenden Ordner nutzen",
+    "drive_subfolders": {
+      "ID02_TO_ID03": "1kaPKGrM2TX29zHEQLnipeJn1pdOg_eWe",
+      "ID03_TO_ID02": "1fHwYSBLb3WKRoGjDHNRdntJBubChxidu",
+      "PROCESSED": "12gpJR0EA0bngG4QQKxCcUraG7bKpJon5",
+      "FAILED": "1nhzfGNJyFfqFtJFZ3ZpbBPJ3C3lN7xWV"
+    },
+    "ledger_id_per_message": true,
+    "e2e_status": "LOCAL_FIXTURE_TEST only; real ID02/ID03 roundtrip pending"
+  },
+  "wo03_solver_import": {
+    "status": "APPROVED_ID01_2026-10-27",
+    "plan": "eigene Runs, 1 Solver je Run, Reuse vor Neubau",
+    "candidates_drive": {
+      "boeb_seilnetz_v0.1.1.zip": "1mXelRTMSBiuaVTOKdjf9vc8RQRxQ2dVf",
+      "ref_hbv_gamma_EC5-AnhB_independent.py": "1brMqcvn6y6KA54lwduNZ3Jl2seZP6MMc",
+      "hbv_design_ec5.py": "1Y1SHsFowY9yTAc1tr4wiBp_DInw6iDn6",
+      "bsh_traeger_bemessung_ec5.py": "1fEZViIT-cG062OhNdtLu_5IZSqHW7wiC",
+      "ec5_engine.py (4 Kopien, 18-21 KB)": "1W9wBADZs6nSJTtPO3S8DnC2tEBH0zFZv",
+      "nexus_ec2_kernel_v0.5.0.py (2 Kopien)": "1f-7REw4Y1Gc1IHpStqYxUrK-xkRI9SSh"
+    },
+    "not_found_by_title": [
+      "ec5_uls v1.0",
+      "rc-design-pipeline v0.5"
     ]
   }
 }

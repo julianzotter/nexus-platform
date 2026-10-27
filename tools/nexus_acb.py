@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""NEXUS Agent Communication Bus (ACB) v0.1 — file-based, hash-chained message bus.
+"""NEXUS Agent Communication Bus (ACB) v0.2 — file-based, hash-chained message bus.
 
-WO-20261027-ID02-ACB-002. Root: 00_WORKFLOW_PATTERN_REGISTRY/20_RUNTIME/COMMUNICATION/
+WO-20261027-ID02-ACB-002 + ID01-Entscheide 2026-10-27 (WO-Namensschema, Ledger-ID je Nachricht). Root: 00_WORKFLOW_PATTERN_REGISTRY/20_RUNTIME/COMMUNICATION/
 Commands: send | inbox | verify | ack | ledger-verify
 Rules: fail closed; never delete (move-only); every write is read back and hash-compared.
 """
@@ -17,7 +17,10 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-ACB_VERSION = "0.1.0"
+ACB_VERSION = "0.2.0"
+NAMING_SCHEMA = "YY_MM_DD_<ID>_<TYPE>_<TITLE>_vX.Y.Z.md"  # ID01-Entscheid 2026-10-27 (WO K5); <ID>=Rollen-ID ID##
+MSG_SCHEMA_VERSION = "v0.1.0"
+LEDGER_ID_RE = re.compile(r"^\d{4}$")
 TZ = ZoneInfo("Europe/Vienna")
 DEFAULT_ROOT = Path("00_WORKFLOW_PATTERN_REGISTRY/20_RUNTIME/COMMUNICATION")
 SUBDIRS = ("ID02_TO_ID03", "ID03_TO_ID02", "PROCESSED", "FAILED")
@@ -100,15 +103,19 @@ def split_frontmatter(text: str) -> tuple[dict, str]:
 
 
 def build_message(sender: str, recipient: str, subject: str, body: str,
-                  seq: int, reply_to: str | None) -> tuple[str, str]:
-    """Return (filename, file_text). body hash covers UTF-8 body after frontmatter."""
+                  seq: int, reply_to: str | None, artifact_id: str) -> tuple[str, str]:
+    """Return (filename, file_text). Name per NAMING_SCHEMA; TITLE=<THEMA>-<ledger_id>.
+
+    body hash covers UTF-8 body after closing frontmatter LF. artifact_id = 00_ID_LEDGER ID (ID01: 1 ID je Nachricht).
+    """
     ts = datetime.now(TZ)
     body_hash = sha256_bytes(body.encode("utf-8"))
-    msg_id = f"ACB-{ts.strftime('%Y%m%dT%H%M%S')}-{sender}-{recipient}-{seq:04d}"
+    msg_id = f"ACB-{ts.strftime('%Y%m%dT%H%M%S')}-{sender}-{recipient}-{artifact_id}"
     theme = re.sub(r"[^A-Za-z0-9-]+", "-", subject).strip("-").upper()[:40]
-    fname = f"{ts.strftime('%y_%m_%d_%H%M')}_{sender}_ACB-{theme}_{seq:04d}.md"
+    fname = f"{ts.strftime('%y_%m_%d')}_{sender}_ACB-MSG_{theme}-{artifact_id}_{MSG_SCHEMA_VERSION}.md"
     fm = [
-        "---", f"msg_id: {msg_id}", f"acb_version: {ACB_VERSION}", f"from: {sender}",
+        "---", f"msg_id: {msg_id}", f"acb_version: {ACB_VERSION}", f"artifact_id: '{artifact_id}'",
+        f"acb_seq: {seq:04d}", f"from: {sender}",
         f"to: {recipient}", f"subject: {subject}", f"timestamp: '{ts.isoformat(timespec='seconds')}'",
         f"in_reply_to: {reply_to or 'null'}", "hash_scope: body_utf8_after_closing_frontmatter_lf",
         f"body_sha256: {body_hash}", "status: SENT", "---",
@@ -127,7 +134,9 @@ def cmd_send(a: argparse.Namespace) -> int:
     body = Path(a.body_file).read_text(encoding="utf-8") if a.body_file else a.body or ""
     if not body.strip():
         return fail("empty body")
-    fname, text = build_message(a.sender, a.recipient, a.subject, body, next_seq(root), a.reply_to)
+    if not LEDGER_ID_RE.match(a.artifact_id):
+        return fail("--artifact-id must be a 4-digit 00_ID_LEDGER id (ID01: one ledger id per message)")
+    fname, text = build_message(a.sender, a.recipient, a.subject, body, next_seq(root), a.reply_to, a.artifact_id)
     target = outdir / fname
     if target.exists():
         return fail(f"target exists: {target}")
@@ -137,7 +146,7 @@ def cmd_send(a: argparse.Namespace) -> int:
     if sha256_bytes(readback) != sha256_bytes(data):
         return fail(f"readback mismatch: {target}")
     meta, _ = split_frontmatter(readback.decode("utf-8"))
-    entry = ledger_append(root, {"event": "SEND", "msg_id": meta["msg_id"], "from": a.sender,
+    entry = ledger_append(root, {"event": "SEND", "msg_id": meta["msg_id"], "artifact_id": a.artifact_id, "from": a.sender,
                                  "to": a.recipient, "path": str(target.relative_to(root)),
                                  "file_sha256": sha256_bytes(readback),
                                  "body_sha256": meta["body_sha256"], "readback": "PASS"})
@@ -231,6 +240,7 @@ def build_parser() -> argparse.ArgumentParser:
     s = m.add_parser("send"); s.add_argument("--from", dest="sender", required=True)
     s.add_argument("--to", dest="recipient", required=True); s.add_argument("--subject", required=True)
     s.add_argument("--body"); s.add_argument("--body-file"); s.add_argument("--reply-to")
+    s.add_argument("--artifact-id", required=True, help="4-digit 00_ID_LEDGER id for this message")
     s.set_defaults(fn=cmd_send)
     i = m.add_parser("inbox"); i.add_argument("--for", dest="role", required=True); i.set_defaults(fn=cmd_inbox)
     v = m.add_parser("verify"); v.add_argument("path"); v.set_defaults(fn=cmd_verify)
