@@ -1,0 +1,58 @@
+{
+  "object_id": "FRM-FIXTURE-0001",
+  "object_type": "Formula",
+  "title": "Testformel, synthetisch",
+  "version": "v0.4.0",
+  "language": "de",
+  "tech_path": [
+    "ingenieurwissenschaften",
+    "bauingenieurwesen",
+    "konstruktiver_ingenieurbau"
+  ],
+  "domain_id": "konstruktiver_ingenieurbau",
+  "subdomain_id": "holzbau",
+  "source_ref": {
+    "source_id": "SRC-FIXTURE",
+    "source_uri": "fixture://source-01",
+    "locator": "p1:formula-1",
+    "representation_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "retrieved_at": "2026-10-27T14:00:00+01:00",
+    "source_status": "UNVERIFIED"
+  },
+  "content_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "concept_ids": [
+    "concept:fixture"
+  ],
+  "governance": {
+    "document_state": "DRAFT",
+    "development_state": "PROPOSED",
+    "evidence_state": "UNVERIFIED",
+    "test_state": "NOT_RUN",
+    "human_gate": "PENDING"
+  },
+  "audit": {
+    "created_at": "2026-10-27T14:00:00+01:00",
+    "actor_role_id": "UNVERIFIED",
+    "executor_instance": "schema-fixture",
+    "run_id": "RUN-FIXTURE-001"
+  },
+  "payload": {
+    "expression": "a = b + c",
+    "symbols": [
+      "a",
+      "b",
+      "c"
+    ],
+    "output_unit": "m",
+    "applicability": [
+      "Nur Schema-Test"
+    ]
+  },
+  "relations": [
+    {
+      "predicate": "DERIVED_FROM",
+      "target_id": "SRC-FIXTURE",
+      "verification_state": "CANDIDATE"
+    }
+  ]
+}
