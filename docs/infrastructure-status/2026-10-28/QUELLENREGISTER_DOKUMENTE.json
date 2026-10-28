@@ -1,0 +1,236 @@
+[
+  {
+    "id": "repo-NEXUS-DASHBOARD-INTEGRATION.md",
+    "name": "NEXUS-DASHBOARD-INTEGRATION.md",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/docs/NEXUS-DASHBOARD-INTEGRATION.md",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "8efe1e34b5534e2ff3811c8edc3ab72ba8c8b21c3f9a73983fbb6f063999a25c",
+    "characters": 4869
+  },
+  {
+    "id": "1oEcA7qmDkRhFkFUNWXMtDfl2p_XiiKIK",
+    "name": "26_10_20_16_32_NEXUS-SYSTEMSTATUS_v1.37.0.md",
+    "url": "https://drive.google.com/file/d/1oEcA7qmDkRhFkFUNWXMtDfl2p_XiiKIK/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "62c923e4bf6a5e446511bdff3eaba929d7ed4fc3e451c527d15e52e2b20edc4f",
+    "characters": 9534
+  },
+  {
+    "id": "17bJuKzj9sgRMu1bHIJRAHSAPKzSaugHi",
+    "name": "26_10_11_MAIN-DRIVE-FOLDERS. GITHUB-SYNC+BACKUP-REPOS(NEXUS-AI-OS).md",
+    "url": "https://drive.google.com/file/d/17bJuKzj9sgRMu1bHIJRAHSAPKzSaugHi/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "39750bd4474f50618d7e2a8b29ca4cf6d531f5201d1960f225f4f76721f84e23",
+    "characters": 17142
+  },
+  {
+    "id": "repo-README.md",
+    "name": "README.md",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/prototypes/data-dashboard/README.md",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "1bdde19da65b629b76f442af1c09fbda4ed6838b336dc92c9c922bc91370ccf4",
+    "characters": 2144
+  },
+  {
+    "id": "repo-inventory-summary.txt",
+    "name": "inventory-summary.txt",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/registry/inventory-summary.txt",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "bce84a0605531dea0481e2b4a0e359a3b546e13adf7500cc050685d2b5f8e217",
+    "characters": 1175
+  },
+  {
+    "id": "1Ac-z2h9Q0vMakV13_V5SBrb2oLO6y1gh",
+    "name": "KONSOLIDIERTER STATUSBERICHT SEED CONTEXT.txt",
+    "url": "https://drive.google.com/file/d/1Ac-z2h9Q0vMakV13_V5SBrb2oLO6y1gh/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "9610cb2c425d28c7bd0ceb23f9a1492807adc456f53c0981fd1632c76eabafbd",
+    "characters": 39480
+  },
+  {
+    "id": "repo-NEXUS-GOVERNANCE-CURRENT-STATE-2026-10-25.md",
+    "name": "NEXUS-GOVERNANCE-CURRENT-STATE-2026-10-25.md",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/docs/NEXUS-GOVERNANCE-CURRENT-STATE-2026-10-25.md",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "6bf54494b1e43f6cdd085c960ce899ce42c3faa27ce819c6c5d435ae2e65e4db",
+    "characters": 2583
+  },
+  {
+    "id": "1FZBogewisesFd9yVSIpjxfAAN044G8T6",
+    "name": "26_10_03_AnythingSearch-Index-EC5-HOLZ.txt",
+    "url": "https://drive.google.com/file/d/1FZBogewisesFd9yVSIpjxfAAN044G8T6/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "d5ffbe94078768f73643b3cb2d347bc9e32165c79939425e71eabecfb1c42e74",
+    "characters": 32380
+  },
+  {
+    "id": "1k7KLPq9paq3hlKh0GK4wCniNF7LJQHwc",
+    "name": "2026-10-13_NEXUS_DASHBOARD_REGISTRY_P3_MANIFEST.md",
+    "url": "https://drive.google.com/file/d/1k7KLPq9paq3hlKh0GK4wCniNF7LJQHwc/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "c79a07c9082ecd8ddf0a773a26cb54e397fa35592fdea50e3a3500e5f9fae4a3",
+    "characters": 2293
+  },
+  {
+    "id": "1hp5Wb2WaWDOPDiAz-sxhTSffd2Kk8sE1",
+    "name": "26_10_03_AnythingSearch-Index_EC2-BETON.txt",
+    "url": "https://drive.google.com/file/d/1hp5Wb2WaWDOPDiAz-sxhTSffd2Kk8sE1/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "df59751a5cdb2194c565847ac2c9311d2b383905a6a45b5cccf7ac3a0e999ca2",
+    "characters": 86603
+  },
+  {
+    "id": "1uV39f5vgOelDj-d4Pzy42RqzkWvj8O38",
+    "name": "NEXUS_TECHNISCHES_DOSSIER_DASHBOARD_RUN04_v1.0_2026-10-26.html",
+    "url": "https://drive.google.com/file/d/1uV39f5vgOelDj-d4Pzy42RqzkWvj8O38/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "308edcd114edc28f303f5983050a1155df41a53963ebc9e310214aeed789b6a7",
+    "characters": 150286
+  },
+  {
+    "id": "1tFVq-3GmLu4FldDgr-E3U6lhwZFP_f69",
+    "name": "26_10_17_NEXUS_MASTER_SOURCE_INDEX_.txt",
+    "url": "https://drive.google.com/file/d/1tFVq-3GmLu4FldDgr-E3U6lhwZFP_f69/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "4eaa3df639d9bdead21d94315f34dd34b22a0ddb56424f935529124e5c917fd1",
+    "characters": 10913
+  },
+  {
+    "id": "1eV-QfTe5qENLZK9jPTJ-X4IWDLJv_oOL",
+    "name": "00_KONSOLIDIERTER-EINSTIEG.md",
+    "url": "https://drive.google.com/file/d/1eV-QfTe5qENLZK9jPTJ-X4IWDLJv_oOL/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "83456d1d728b345c40df4b57c0e87ccde0c697154bb01272a6c468e67bf2777e",
+    "characters": 6219
+  },
+  {
+    "id": "1Ubo4DEl70yYQlPPjEOsrCHcHI3DeHdQT",
+    "name": "26_10_26_nexus_ai_os_technisches_dossier_dashboard.html",
+    "url": "https://drive.google.com/file/d/1Ubo4DEl70yYQlPPjEOsrCHcHI3DeHdQT/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "aca34eca9848a14e829075c658c107a39081d4670bf10240d13176d3ad097d32",
+    "characters": 27685
+  },
+  {
+    "id": "repo-26_10_27_1815_ID06_WO-GOV-ACB-ENG-STATUSBERICHT_0127.md",
+    "name": "26_10_27_1815_ID06_WO-GOV-ACB-ENG-STATUSBERICHT_0127.md",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/WORK/REPORTS/26_10_27_1815_ID06_WO-GOV-ACB-ENG-STATUSBERICHT_0127.md",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "c5db36f43f8b02340690e4e1225a017956f5c0918b76db48090336bd56f78064",
+    "characters": 6671
+  },
+  {
+    "id": "1hPXyjL_oLIpD8v_T2yMi7bV2LKjN6Ykx",
+    "name": "26_09_28_NEXUS_Konsolidierter_Statusbericht_NEU.docx",
+    "url": "https://drive.google.com/file/d/1hPXyjL_oLIpD8v_T2yMi7bV2LKjN6Ykx/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "e780d8256f2f6c96a88ba8c0ab1966d7c68e788c00d7d804c1c93b99dd427546",
+    "characters": 1131884
+  },
+  {
+    "id": "1uPAEvlLRYWLFcHXzcdbYz5JoPShD9Lag",
+    "name": "NEXUS_Konsolidierter_Statusbericht_2026-09-28.docx",
+    "url": "https://drive.google.com/file/d/1uPAEvlLRYWLFcHXzcdbYz5JoPShD9Lag/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "2b0dcfed8fbed142d2aad289575cfea4f86962b41a9c2352ff11ff2307471c41",
+    "characters": 11651
+  },
+  {
+    "id": "repo-drive_changes_poll.py",
+    "name": "drive_changes_poll.py",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/tools/drive_changes_poll.py",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "2ed05ede2ecc14daeea605abd6de2552cfe68472ad7c8e3eb23ae8ec816bda7f",
+    "characters": 5173
+  },
+  {
+    "id": "12yavwDPVcokfxhMW6JAlUIupwFjVPlAU",
+    "name": "_INDEX.MASTER.txt",
+    "url": "https://drive.google.com/file/d/12yavwDPVcokfxhMW6JAlUIupwFjVPlAU/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "9be857880c82c431eea69866873abbf4ed548b750df94c86a39a03c5844d35b4",
+    "characters": 15267
+  },
+  {
+    "id": "repo-AGENTS.md",
+    "name": "AGENTS.md",
+    "url": "https://github.com/julianzotter/nexus-platform/blob/main/AGENTS.md",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "382c31facdae4657651b639f2e84b8c6dd60c48fb2d86c844612140d3e85796f",
+    "characters": 2693
+  },
+  {
+    "id": "1HH1B927AIhTuES8W_w_AHCKaSddrYqfM",
+    "name": "Arbeitsplan_Roadmap_WISSENS_Dashboard_v2.docx",
+    "url": "https://drive.google.com/file/d/1HH1B927AIhTuES8W_w_AHCKaSddrYqfM/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "da775a32aeda3bfce4a03be73edbf073d561e3ddf7ca222a4c4806c87cfe9ebb",
+    "characters": 14707
+  },
+  {
+    "id": "1nO2sET4YI7wYtgU5S-0b0xBVBdYwSB5N",
+    "name": "NEXUS_PARSE_DASHBOARD_v1.1.html",
+    "url": "https://drive.google.com/file/d/1nO2sET4YI7wYtgU5S-0b0xBVBdYwSB5N/view",
+    "read_status": "READ_CONNECTOR_TEXT",
+    "hash_scope": "connector_content_utf8",
+    "sha256": "6784d7bbaeda7aee9916ad1d600f41b38cbd396f4dbd74f9162d1522cb196e22",
+    "characters": 165568
+  },
+  {
+    "id": "1C7RHeCfO2hSnsZh5f3OH-T3YXnOzDIR5",
+    "name": "AI-ENGINEERING-KNOWLEDGEBASE_TREE.txt",
+    "url": "https://drive.google.com/file/d/1C7RHeCfO2hSnsZh5f3OH-T3YXnOzDIR5/view",
+    "read_status": "READ_RAW_BYTES",
+    "hash_scope": "original_bytes",
+    "sha256": "6f8b005dc110ac93b1f2c1a15e0e2d1a0322c42ccbe3239ca95c997c2470b837",
+    "characters": 581100
+  },
+  {
+    "id": "1KjochvARFNJPTosvVsu67SGqZSH4jKZz",
+    "name": "AI-CODEBASE_TREE.txt",
+    "url": "https://drive.google.com/file/d/1KjochvARFNJPTosvVsu67SGqZSH4jKZz/view",
+    "read_status": "READ_RAW_BYTES",
+    "hash_scope": "original_bytes",
+    "sha256": "2e02870ced21c63fa725e1e3a41582db13892ca98b5f0b9927053300bd2d2dd5",
+    "characters": 234662
+  },
+  {
+    "id": "1mEjjGCWkWAfDrvQEan53fnyb--LwO49C",
+    "name": "AI-PYTHON-PARSE_TREE.txt",
+    "url": "https://drive.google.com/file/d/1mEjjGCWkWAfDrvQEan53fnyb--LwO49C/view",
+    "read_status": "READ_RAW_BYTES",
+    "hash_scope": "original_bytes",
+    "sha256": "db1a9dbbe2fd69759f9e4b6a5da49b1d9de1455832fd4a3cc93f694b616d541f",
+    "characters": 1041081
+  },
+  {
+    "id": "1UNNpOEeUUN5pKpXJ5ACOZS0dphn38ZrV",
+    "name": "AI-WISSENS_INDEX_TREE.txt",
+    "url": "https://drive.google.com/file/d/1UNNpOEeUUN5pKpXJ5ACOZS0dphn38ZrV/view",
+    "read_status": "READ_RAW_BYTES",
+    "hash_scope": "original_bytes",
+    "sha256": "563a3456fb825d30ffc9d80f13d4cdd7438a31c5f229ab17c96ca8dfffd70ab2",
+    "characters": 6825
+  }
+]
