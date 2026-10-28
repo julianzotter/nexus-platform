@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# NEXUS CLI entry (ACB v0.1): nexus message send|inbox|verify|ack|ledger-verify|init
+exec python3 "$(dirname "$0")/nexus_acb.py" "$@"
