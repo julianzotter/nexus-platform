@@ -205,6 +205,27 @@ class MonitorTests(unittest.TestCase):
             self.assertEqual(monitor.inspect_prs("bad;command")["status"], "ERROR")
             api.assert_not_called()
 
+    def test_incomplete_monitor_fails_with_preserved_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = ['monitor', '--repository', 'owner/repo', '--report-dir', directory]
+            with patch.object(sys, 'argv', args), patch.object(monitor, 'validation_checks', return_value={
+                'knowledge': {'status': 'NO_DATA'}, 'coverage': {'status': 'INCOMPLETE'}
+            }), patch.object(monitor, 'inspect_prs', return_value={
+                'status': 'PASS', 'items': []}), patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': ''}):
+                self.assertEqual(monitor.main(), 2)
+            self.assertEqual(json.loads((Path(directory) / 'report.json').read_text())['status'], 'INCOMPLETE')
+            self.assertTrue((Path(directory) / 'report.md').exists())
+
+    def test_complete_monitor_remains_successful(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = ['monitor', '--repository', 'owner/repo', '--report-dir', directory]
+            with patch.object(sys, 'argv', args), patch.object(monitor, 'validation_checks', return_value={
+                'registry': {'status': 'PASS'}, 'coverage': {'status': 'PASS'}
+            }), patch.object(monitor, 'inspect_prs', return_value={
+                'status': 'PASS', 'items': []}), patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': ''}):
+                self.assertEqual(monitor.main(), 0)
+            self.assertEqual(json.loads((Path(directory) / 'report.json').read_text())['status'], 'PASS')
+
 
 if __name__ == "__main__":
     unittest.main()

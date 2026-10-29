@@ -291,7 +291,7 @@ def main() -> int:
               "status": overall_status(checks), "checks": checks}
     write_report(report, args.report_dir)
     print(f"NEXUS monitor: {report['status']}")
-    return 1 if report["status"] == "ATTENTION" else 0
+    return {"PASS": 0, "ATTENTION": 1, "INCOMPLETE": 2}[report["status"]]
 
 
 if __name__ == "__main__":

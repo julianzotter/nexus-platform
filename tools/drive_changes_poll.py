@@ -103,7 +103,7 @@ def main() -> int:
         report = {'status': 'BLOCKED', 'reason': str(exc), 'recorded_at': now}
         (args.out / 'status.json').write_text(json.dumps(report, indent=2))
         print(json.dumps(report))
-        return 0 if str(exc) == 'BLOCKED_DRIVE_CREDENTIALS' else 2
+        return 2
     args.state.parent.mkdir(parents=True, exist_ok=True)
     args.state.write_text(json.dumps(new_state))
     report = {'status': 'INITIALIZED' if new_state['initialized'] else 'OK', 'recorded_at': now,
