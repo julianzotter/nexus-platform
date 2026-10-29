@@ -30,6 +30,11 @@ The browser has no authenticated GitHub session; no setting was changed.
   repair 22 targeted tests pass with
   `python -m unittest discover -s tests -v` in the scoped local checkout.
   Full repository CI and native recovery are NOT_RUN locally.
+- Native first PR CI [40928508121](https://github.com/julianzotter/nexus-platform/actions/runs/40928508121)
+  exposed a pre-existing `ModuleNotFoundError: pytest` in the ACB tests. CI now
+  installs pytest and uses it to collect both unittest classes and pytest
+  functions; merely installing the package while retaining unittest discovery
+  would leave the ACB function tests unexecuted.
 - Existing cron expressions remain monitor `17 * * * *` and poller
   `7,37 * * * *`, UTC. No source inventories or coverage results were invented.
 
