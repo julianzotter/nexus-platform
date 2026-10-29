@@ -27,6 +27,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python tools/monitor_repo.py
+      - name: Assert operational monitor evidence (fail closed)
+        if: ${{ always() }}
+        run: python tools/assert_operational_evidence.py monitor reports/monitor/report.json
+
       - name: Export commit-bound dashboard snapshot
         if: ${{ always() }}
         run: python tools/export_dashboard.py --source-commit "$GITHUB_SHA"
