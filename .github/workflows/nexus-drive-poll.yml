@@ -35,7 +35,7 @@ jobs:
           NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
           NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
         run: python tools/drive_changes_poll.py
-      - name: Assert live poll evidence and persisted checkpoint (fail closed)
+      - name: Assert initialization or live poll evidence with checkpoint (fail closed)
         if: ${{ always() }}
         run: python tools/assert_operational_evidence.py drive-poll reports/drive-changes/status.json --checkpoint .nexus-state/drive-changes-token.json
       - name: Save Drive page token
