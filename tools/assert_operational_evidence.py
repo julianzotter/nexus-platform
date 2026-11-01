@@ -23,12 +23,12 @@ def assess(kind: str, report: dict[str, Any]) -> tuple[bool, str]:
             return False, "RUN_UNBOUND"
         return True, "MONITOR_EVIDENCE_PASS"
     if kind == "drive-poll":
-        if report.get("status") != "OK":
+        if report.get("status") not in ("OK", "INITIALIZED"):
             return False, "DRIVE_POLL_NOT_OPERATIONAL"
         if not isinstance(report.get("change_count"), int) or report["change_count"] < 0:
             return False, "CHANGE_COUNT_INVALID"
         # Token must be checked in the separate durable state file.
-        return True, "POLL_REPORT_PASS_REQUIRES_CHECKPOINT"
+        return True, ("INITIALIZATION_REQUIRES_CHECKPOINT" if report["status"] == "INITIALIZED" else "POLL_REPORT_PASS_REQUIRES_CHECKPOINT")
     return False, "UNKNOWN_KIND"
 
 
@@ -48,6 +48,11 @@ def main() -> int:
                 checkpoint = json.loads(args.checkpoint.read_text(encoding="utf-8"))
                 if not isinstance(checkpoint.get("page_token"), str) or not checkpoint["page_token"]:
                     valid, reason = False, "CHECKPOINT_INVALID"
+                elif report["status"] == "INITIALIZED":
+                    if checkpoint.get("initialized") is not True:
+                        valid, reason = False, "CHECKPOINT_INITIALIZATION_MISMATCH"
+                    else:
+                        reason = "INITIALIZED_NOT_OPERATIONAL"
                 elif checkpoint.get("initialized") is not False:
                     valid, reason = False, "CHECKPOINT_INITIALIZATION_ONLY"
     except (OSError, ValueError, TypeError, AttributeError):
