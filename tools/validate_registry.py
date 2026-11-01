@@ -14,6 +14,7 @@ from coverage_stats import COUNT_FIELDS, SOURCE_NAMES
 
 REQUIRED_FIELDS = {"id", "root", "path", "name", "ext", "size", "mtime", "sha256", "status"}
 VALID_STATUSES = {"FOUND", "SKIPPED", "ERROR", "INCOMPLETE"}
+LEGACY_SOURCE_NAMES = {"julianzotter", "Obsidian-Vault", "NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH"}
 
 
 def validate_registry(registry_path: Path, coverage_path: Path) -> list[str]:
@@ -48,7 +49,7 @@ def validate_registry(registry_path: Path, coverage_path: Path) -> list[str]:
                     errors.append(f"line {line_number}: size must be a non-negative integer")
                 if not isinstance(record["status"], str) or record["status"] not in VALID_STATUSES:
                     errors.append(f"line {line_number}: invalid status {record['status']!r}")
-                if record["root"] not in SOURCE_NAMES:
+                if record["root"] not in SOURCE_NAMES and record["root"] not in LEGACY_SOURCE_NAMES:
                     errors.append(f"line {line_number}: unknown source root {record['root']!r}")
                 digest = record["sha256"]
                 if digest is not None and (not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)):
