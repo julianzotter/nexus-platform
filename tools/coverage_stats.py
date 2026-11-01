@@ -11,12 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-SOURCE_NAMES = (
-    "NEXUS-AI-AEC-ENGINEERIN-KNOWLEDGE-GRAPH",
-    "julianzotter",
-    "Obsidian-Vault",
-    "Google Drive",
-)
+SOURCE_NAMES = ("Google Drive",)
 COUNT_FIELDS = ("discovered", "accessible", "indexed", "skipped", "error")
 
 
