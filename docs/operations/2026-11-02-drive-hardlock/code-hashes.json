@@ -1,0 +1,17 @@
+{
+  ".github/workflows/drive-hardlock.yml": "aeab427717a4d08192cc9b618e77fe38572e65391be5f70c5b5f8bf6e0bfcce7",
+  ".gitignore": "f45e17afb1160d44219379ecb3cd95dd71a513d21f08955397fec72220ee3e2b",
+  "backend/__init__.py": "380f10bdd89208e61f0c82af5668b498e4d358a488d8b656a4bef135b0fe8483",
+  "backend/drive_writer.py": "c102466c4b0eda05e072a5cb5e457195a3a85ec658852bd593b9238a46b0b40a",
+  "backend/google_drive.py": "b9c2f657290f95a10c2f86b161e60c96ad3cf44be4e8987a2a39de65924407f1",
+  "backend/nexus_server.py": "a50f52337ea01fdab9483dc3c75e50e3175ccd40a13596f4fc2269f650e9fccf",
+  "backend/requirements.txt": "d098339d35103660d6a7833a469984f2ef6a335a4fa0d9305a0d68199e0bcf1f",
+  "backend/test_drive_writer.py": "04e9d653ba798bf60f5cb264b8a9d15ed690ef5103b33e0b8ee8d3ecbe5a62ba",
+  "docs/DRIVE-HARDLOCK.md": "86bcbce21040d5ba9f4305e8d42d4908e97980f71e52cbfe1925a48f6b0d20cd",
+  "package.json": "b046d74d51662b70883e77c45c79b1d575c9816ca0c489eda9f3cb165e9f06e5",
+  "protocolPersistence.test.mjs": "ce187ba5dc5d66709507c452382d92a309504e0c47aca8386efd951e70496c39",
+  "protocolProxy.ts": "e60e7d45604c0872baff81a512f8166e985fbeb856bf01db1829e624bb4ed918",
+  "server.ts": "794617fd3c4d0bdc45341d4a1b99da4549fef0ca56ee251c1dac69f67c8b932b",
+  "src/components/TranscriptTimeline.tsx": "1f8da1c8af27604e7775f2811e382cc114655d69e68c66c3ab490da49fb172d8",
+  "src/utils/protocolPersistence.ts": "8cc3a1c11fd2a29a0d342d674d373e788207942feae0d51186acb38c6af05151"
+}
