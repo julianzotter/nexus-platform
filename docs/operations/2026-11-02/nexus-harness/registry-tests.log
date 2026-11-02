@@ -1,0 +1,9 @@
+test_bad_url PASS
+test_invalid_json_blocked PASS
+test_missing_registry_blocked PASS
+test_missing_required_fields PASS
+test_registered PASS
+test_unknown_artifact_blocked PASS
+test_unregistered_latest_version_blocked PASS
+test_valid_record PASS
+test_wrong_provider_id PASS

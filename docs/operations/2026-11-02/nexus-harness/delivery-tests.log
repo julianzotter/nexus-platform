@@ -1,0 +1,23 @@
+test_409_alone_does_not_confirm_delivery (test_deliver_work.DeliveryTests.test_409_alone_does_not_confirm_delivery) ... ok
+test_corrupt_readback_is_failure (test_deliver_work.DeliveryTests.test_corrupt_readback_is_failure) ... ok
+test_different_input_cannot_reuse_journal (test_deliver_work.DeliveryTests.test_different_input_cannot_reuse_journal) ... ok
+test_drive_search_is_paginated (test_deliver_work.DeliveryTests.test_drive_search_is_paginated) ... ok
+test_duplicates_stop_transfer (test_deliver_work.DeliveryTests.test_duplicates_stop_transfer) ... ok
+test_missing_credentials_explicit (test_deliver_work.DeliveryTests.test_missing_credentials_explicit) ... ok
+test_network_exhaustion_is_bounded (test_deliver_work.DeliveryTests.test_network_exhaustion_is_bounded) ... ok
+test_permanent_auth_failure_not_retried (test_deliver_work.DeliveryTests.test_permanent_auth_failure_not_retried) ... ok
+test_repeat_reuses_file_and_rechecks_bytes (test_deliver_work.DeliveryTests.test_repeat_reuses_file_and_rechecks_bytes) ... ok
+test_resumed_journal_reuses_preallocated_id (test_deliver_work.DeliveryTests.test_resumed_journal_reuses_preallocated_id) ... ok
+test_success_is_byte_verified_not_human_accepted (test_deliver_work.DeliveryTests.test_success_is_byte_verified_not_human_accepted) ... ok
+test_timeout_after_create_recovers_without_second_create (test_deliver_work.DeliveryTests.test_timeout_after_create_recovers_without_second_create) ... ok
+test_transient_failure_retried_and_recovers (test_deliver_work.DeliveryTests.test_transient_failure_retried_and_recovers) ... ok
+test_untrusted_run_is_rejected (test_deliver_work.DeliveryTests.test_untrusted_run_is_rejected) ... ok
+test_wrong_parent_is_not_accepted (test_deliver_work.DeliveryTests.test_wrong_parent_is_not_accepted) ... ok
+test_integrity_permission_and_conflict_are_not_retry_success (test_deliver_work.FailureClassificationTests.test_integrity_permission_and_conflict_are_not_retry_success) ... ok
+test_restore_only_bounded_state_json_paths (test_deliver_work.RestoreTests.test_restore_only_bounded_state_json_paths) ... ok
+test_real_http_503_then_success (test_deliver_work.TransportBoundaryTests.test_real_http_503_then_success) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.528s
+
+OK
