@@ -1,0 +1,976 @@
+{
+  "observed_date": "2026-11-02",
+  "baseline_commit": "805d7ddc2f2933892050b043cd8ff6765b126737",
+  "repo_head": "2543330abfa95077663e12cf32f891f610db9b1e",
+  "scope": {
+    "master_direct_documents": 86,
+    "delta_candidates": 29,
+    "folder_candidates": 164,
+    "recursive_full_scan": false,
+    "pagination_exhausted": true
+  },
+  "sqlite": {
+    "status": "HISTORICAL_ARCHIVE_QUERY_OK_CURRENT_COVERAGE_INCOMPLETE",
+    "source_id": "1eVQeaxKW0gBmxyYbTN6bkCMCx5flkADR",
+    "provider_modified_at": "2026-10-04T11:17:27.849Z",
+    "observed_at": "2026-11-02",
+    "quick_check": "ok",
+    "archive_has_wal": false,
+    "wal_completeness": "UNKNOWN",
+    "backup_method": "UNKNOWN",
+    "rows_Files": 2470605,
+    "rows_Folders": 216677,
+    "isfolder_groups": [
+      [
+        0,
+        2229167
+      ],
+      [
+        1,
+        241438
+      ]
+    ],
+    "missing_parent_rows": 0,
+    "g_rows": 219714,
+    "extension_counts_g": [
+      [
+        "pdf",
+        41212
+      ],
+      [
+        "",
+        37490
+      ],
+      [
+        "jpg",
+        20735
+      ],
+      [
+        "ini",
+        14180
+      ],
+      [
+        "py",
+        12136
+      ],
+      [
+        "md",
+        11697
+      ],
+      [
+        "json",
+        8989
+      ],
+      [
+        "png",
+        8635
+      ],
+      [
+        "txt",
+        7978
+      ],
+      [
+        "pyc",
+        6566
+      ],
+      [
+        "docx",
+        5403
+      ],
+      [
+        "html",
+        3998
+      ],
+      [
+        "csv",
+        3542
+      ],
+      [
+        "download",
+        3100
+      ],
+      [
+        "dwg",
+        2665
+      ],
+      [
+        "xlsx",
+        2579
+      ],
+      [
+        "h",
+        2268
+      ],
+      [
+        "zip",
+        1919
+      ],
+      [
+        "jpeg",
+        1710
+      ],
+      [
+        "xls",
+        1519
+      ]
+    ],
+    "roots": {
+      "AI-ENGINEERING-KNOWLEDGEBASE": [
+        [
+          0,
+          10869
+        ],
+        [
+          1,
+          1214
+        ]
+      ],
+      "AI-CODEBASE": [
+        [
+          0,
+          5573
+        ],
+        [
+          1,
+          228
+        ]
+      ],
+      "AI-PYTHON-PARSE": [
+        [
+          0,
+          16468
+        ],
+        [
+          1,
+          345
+        ]
+      ],
+      "AI-WISSENS_INDEX": [
+        [
+          0,
+          157
+        ],
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    "query_seconds": 0.78,
+    "db_sha256": "2525636fb45cde149abcb428ec5b715c03413ca3166bacf016b09de4b9790d47",
+    "zip_sha256": "e3b03ffe103e649854a780135f68ea55ee7d0aa936cd1c00bc1dfb4f2e669492"
+  },
+  "repo_changes": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "status": "modified"
+    },
+    {
+      "path": ".github/workflows/nexus-drive-poll.yml",
+      "status": "modified"
+    },
+    {
+      "path": ".github/workflows/nexus-monitor.yml",
+      "status": "modified"
+    },
+    {
+      "path": "docs/NEXUS-SCHEDULER-RECOVERY.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/governance/26_10_29_1923_ID03_WORKORDER_ID01-GOVERNANCE-DECISIONS.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/integrations/2026-10-30-ids-dataholz-review-candidate.md",
+      "status": "added"
+    },
+    {
+      "path": "governance/_AGBS_v004.md",
+      "status": "added"
+    },
+    {
+      "path": "registry/coverage-per-source.json",
+      "status": "modified"
+    },
+    {
+      "path": "tests/test_artifact_registry_gate.py",
+      "status": "added"
+    },
+    {
+      "path": "tests/test_assert_operational_evidence.py",
+      "status": "added"
+    },
+    {
+      "path": "tests/test_drive_changes_poll.py",
+      "status": "modified"
+    },
+    {
+      "path": "tests/test_monitor_repo.py",
+      "status": "modified"
+    },
+    {
+      "path": "tools/artifact_registry_gate.py",
+      "status": "added"
+    },
+    {
+      "path": "tools/assert_operational_evidence.py",
+      "status": "added"
+    },
+    {
+      "path": "tools/coverage_stats.py",
+      "status": "modified"
+    },
+    {
+      "path": "tools/drive_changes_poll.py",
+      "status": "modified"
+    },
+    {
+      "path": "tools/monitor_repo.py",
+      "status": "modified"
+    },
+    {
+      "path": "tools/validate_registry.py",
+      "status": "modified"
+    }
+  ],
+  "runs": [
+    {
+      "id": 41397585870,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-02T06:03:55Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41397560088,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-02T06:03:34Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41396060664,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "date": "2026-11-02T05:57:50Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41364004225,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "date": "2026-11-02T00:00:13Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41362881698,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T23:36:08Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41362861054,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T23:35:47Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41346835680,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "date": "2026-11-01T20:36:33Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41342965307,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T19:41:24Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41342941219,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T19:41:01Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41323837372,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "date": "2026-11-01T16:08:04Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41319797550,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T15:10:02Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41319775570,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T15:09:43Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293542486,
+      "name": "NEXUS Drive to GitHub",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T09:32:15Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293436498,
+      "name": "NEXUS Drive to GitHub",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T09:30:48Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293356241,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T09:29:56Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293341214,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "status": "completed",
+      "conclusion": "success",
+      "date": "2026-11-01T09:29:38Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293323550,
+      "name": "NEXUS Monitor",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T09:29:30Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293323407,
+      "name": "CI",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T09:29:16Z",
+      "head": "2543330abfa95077663e12cf32f891f610db9b1e"
+    },
+    {
+      "id": 41293321533,
+      "name": "CI",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T09:29:14Z",
+      "head": "c394ef026fa3ffa26d33a57c6655bd5f16d5fe57"
+    },
+    {
+      "id": 41293321529,
+      "name": "NEXUS Monitor",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "failure",
+      "date": "2026-11-01T09:29:16Z",
+      "head": "c394ef026fa3ffa26d33a57c6655bd5f16d5fe57"
+    }
+  ],
+  "delta_candidates": [
+    {
+      "url": "https://drive.google.com/file/d/1qsRn4YgTSxTWnFoQD8PPShj7q5CMD0vu/view?usp=drivesdk",
+      "title": "TREE.txt",
+      "id": "1qsRn4YgTSxTWnFoQD8PPShj7q5CMD0vu",
+      "mime_type": "text/plain",
+      "size": "203992",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T09:13:24.762Z",
+      "updated_at": "2026-11-01T09:13:24.762Z",
+      "viewedByMeTime": "2026-11-01T09:13:24.762Z",
+      "display_title": "TREE.txt",
+      "display_url": "https://drive.google.com/file/d/1qsRn4YgTSxTWnFoQD8PPShj7q5CMD0vu/view?usp=drivesdk",
+      "parent_ids": [
+        "1k8LsE4ol8UQI5tyJNqyAzDttixwMLFuA"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1vqtT6bJ8n0zvj40azJPUneLsrgRikwCH/view?usp=drivesdk",
+      "title": "26_10_27_1815_ID06_WO-GOV-ACB-ENG-STATUSBERICHT_0127.md",
+      "id": "1vqtT6bJ8n0zvj40azJPUneLsrgRikwCH",
+      "mime_type": "text/markdown",
+      "size": "6766",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:39.357Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:39.357Z",
+      "display_title": "26_10_27_1815_ID06_WO-GOV-ACB-ENG-STATUSBERICHT_0127.md",
+      "display_url": "https://drive.google.com/file/d/1vqtT6bJ8n0zvj40azJPUneLsrgRikwCH/view?usp=drivesdk",
+      "parent_ids": [
+        "1wYE-ohxDvKw8nB4MWsJP0nSSbbL1Hhgh"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/10rBrSV0qaKJEcbdG0N0LXSpsoksn1YlI/view?usp=drivesdk",
+      "title": "NEXUS_PARSE_DASHBOARD_v1.1.html",
+      "id": "10rBrSV0qaKJEcbdG0N0LXSpsoksn1YlI",
+      "mime_type": "text/html",
+      "size": "165592",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:44.248Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:44.248Z",
+      "display_title": "NEXUS_PARSE_DASHBOARD_v1.1.html",
+      "display_url": "https://drive.google.com/file/d/10rBrSV0qaKJEcbdG0N0LXSpsoksn1YlI/view?usp=drivesdk",
+      "parent_ids": [
+        "1fuMBI8z92N31IngMhGe3wgi0QLmXwrGL"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1W6wB4bEIwa3uq1r5HYdi2TLwoqX7DV03/view?usp=drivesdk",
+      "title": "26_10_26_NEXUS-AI-AEC-ECOSYSTEM_Standalone-Dashboard_v1.0.html",
+      "id": "1W6wB4bEIwa3uq1r5HYdi2TLwoqX7DV03",
+      "mime_type": "text/html",
+      "size": "10356",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:40.882Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:40.882Z",
+      "display_title": "26_10_26_NEXUS-AI-AEC-ECOSYSTEM_Standalone-Dashboard_v1.0.html",
+      "display_url": "https://drive.google.com/file/d/1W6wB4bEIwa3uq1r5HYdi2TLwoqX7DV03/view?usp=drivesdk",
+      "parent_ids": [
+        "1VmzF6MgZ2G7FyF7PvraVIP9ZLFx29sdW"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1zjh-3JAm67mXskQimTbO2DyrAl0S8Slo/view?usp=drivesdk",
+      "title": "NEXUS_PARSE_DASHBOARD_v1.0.html",
+      "id": "1zjh-3JAm67mXskQimTbO2DyrAl0S8Slo",
+      "mime_type": "text/html",
+      "size": "162152",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:44.226Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:44.226Z",
+      "display_title": "NEXUS_PARSE_DASHBOARD_v1.0.html",
+      "display_url": "https://drive.google.com/file/d/1zjh-3JAm67mXskQimTbO2DyrAl0S8Slo/view?usp=drivesdk",
+      "parent_ids": [
+        "1fuMBI8z92N31IngMhGe3wgi0QLmXwrGL"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1zm3kECD4Y2A-p8GIioPar9-4yE0YjPzz/view?usp=drivesdk",
+      "title": "NEXUS-DASHBOARD-INTEGRATION.md",
+      "id": "1zm3kECD4Y2A-p8GIioPar9-4yE0YjPzz",
+      "mime_type": "text/markdown",
+      "size": "4881",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:39.810Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:39.810Z",
+      "display_title": "NEXUS-DASHBOARD-INTEGRATION.md",
+      "display_url": "https://drive.google.com/file/d/1zm3kECD4Y2A-p8GIioPar9-4yE0YjPzz/view?usp=drivesdk",
+      "parent_ids": [
+        "1hQ11AMhY5WtYmp9O6I0IEasgzQnI_uQS"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1MO1E_TH962aShyiyxgeweCifZXucBqHF/view?usp=drivesdk",
+      "title": "dashboard-contract.md",
+      "id": "1MO1E_TH962aShyiyxgeweCifZXucBqHF",
+      "mime_type": "text/markdown",
+      "size": "1310",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:43.423Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:43.423Z",
+      "display_title": "dashboard-contract.md",
+      "display_url": "https://drive.google.com/file/d/1MO1E_TH962aShyiyxgeweCifZXucBqHF/view?usp=drivesdk",
+      "parent_ids": [
+        "1k2sEjZimPYX198ovpWfU25vcNiqEi31q"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1_hzkKiNUxYKLwHvIREbfFq_FPKzGftZB/view?usp=drivesdk",
+      "title": "STATUSBERICHT_REV3.md",
+      "id": "1_hzkKiNUxYKLwHvIREbfFq_FPKzGftZB",
+      "mime_type": "text/markdown",
+      "size": "23584",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:40.721Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:40.721Z",
+      "display_title": "STATUSBERICHT_REV3.md",
+      "display_url": "https://drive.google.com/file/d/1_hzkKiNUxYKLwHvIREbfFq_FPKzGftZB/view?usp=drivesdk",
+      "parent_ids": [
+        "15_gjHsIGu4eqbeanEyYCyG-IG8V9eB1a"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1tXTt4XbfBnRHVsmA__-ramfFNb1wvxB8/view?usp=drivesdk",
+      "title": "dashboard-build.txt",
+      "id": "1tXTt4XbfBnRHVsmA__-ramfFNb1wvxB8",
+      "mime_type": "text/plain",
+      "size": "485",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T08:06:40.785Z",
+      "updated_at": "2026-11-01T07:59:34.000Z",
+      "viewedByMeTime": "2026-11-01T08:06:40.785Z",
+      "display_title": "dashboard-build.txt",
+      "display_url": "https://drive.google.com/file/d/1tXTt4XbfBnRHVsmA__-ramfFNb1wvxB8/view?usp=drivesdk",
+      "parent_ids": [
+        "1PalLq4uKRNRjvXrBArOd6ej10fgMjr03"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1cFdXU87JWEKzUxfgalMqMGzhI20YA2NQ/view?usp=drivesdk",
+      "title": "TREE-ALL.txt",
+      "id": "1cFdXU87JWEKzUxfgalMqMGzhI20YA2NQ",
+      "mime_type": "text/plain",
+      "size": "203756",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T07:26:34.788Z",
+      "updated_at": "2026-11-01T07:26:34.788Z",
+      "viewedByMeTime": "2026-11-01T07:26:34.788Z",
+      "display_title": "TREE-ALL.txt",
+      "display_url": "https://drive.google.com/file/d/1cFdXU87JWEKzUxfgalMqMGzhI20YA2NQ/view?usp=drivesdk",
+      "parent_ids": [
+        "1k8LsE4ol8UQI5tyJNqyAzDttixwMLFuA"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1UQJEUuhO9DaJJ7LRk0Ip1FuGlPCeiA1O/view?usp=drivesdk",
+      "title": "26_10_31_STATUSBERICHT-ROADMAP-ANYTHINGSEARCH.md",
+      "id": "1UQJEUuhO9DaJJ7LRk0Ip1FuGlPCeiA1O",
+      "mime_type": "text/markdown",
+      "size": "39736",
+      "file_or_folder": "file",
+      "created_at": "2026-11-01T00:09:23.930Z",
+      "updated_at": "2026-11-01T00:10:13.399Z",
+      "viewedByMeTime": "2026-11-01T00:10:13.399Z",
+      "display_title": "26_10_31_STATUSBERICHT-ROADMAP-ANYTHINGSEARCH.md",
+      "display_url": "https://drive.google.com/file/d/1UQJEUuhO9DaJJ7LRk0Ip1FuGlPCeiA1O/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1IeOe5BOnD8whdJlpxmHGdFiRd_zGtRsv/view?usp=drivesdk",
+      "title": "26_10_31_Managed-Agents-Dashboard LiveVoice Studio Desktop Screenshare DUAL SPEECH S2S.md",
+      "id": "1IeOe5BOnD8whdJlpxmHGdFiRd_zGtRsv",
+      "mime_type": "text/markdown",
+      "size": "495350",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T05:36:53.239Z",
+      "updated_at": "2026-10-31T21:12:55.826Z",
+      "viewedByMeTime": "2026-10-31T21:12:55.826Z",
+      "display_title": "26_10_31_Managed-Agents-Dashboard LiveVoice Studio Desktop Screenshare DUAL SPEECH S2S.md",
+      "display_url": "https://drive.google.com/file/d/1IeOe5BOnD8whdJlpxmHGdFiRd_zGtRsv/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1AkZIp8IGiAZLKB6_sQlcn1wRYC8DOJve/view?usp=drivesdk",
+      "title": "26_10_31_NEXUS_Control_Tower_Master_Engineering_Studio_v5.5_.html",
+      "id": "1AkZIp8IGiAZLKB6_sQlcn1wRYC8DOJve",
+      "mime_type": "text/html",
+      "size": "20845",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T06:46:05.845Z",
+      "updated_at": "2026-10-31T06:46:05.846Z",
+      "viewedByMeTime": "2026-10-31T06:46:14.088Z",
+      "display_title": "26_10_31_NEXUS_Control_Tower_Master_Engineering_Studio_v5.5_.html",
+      "display_url": "https://drive.google.com/file/d/1AkZIp8IGiAZLKB6_sQlcn1wRYC8DOJve/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1vBx3ZR0bz0yvhZrwBIykAubZit2efhmh/view?usp=drivesdk",
+      "title": "26_10_31_NEXUS_Control_Tower_Master_Engineering_Studio_v5.3_.html",
+      "id": "1vBx3ZR0bz0yvhZrwBIykAubZit2efhmh",
+      "mime_type": "text/html",
+      "size": "28474",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T06:41:44.669Z",
+      "updated_at": "2026-10-31T06:41:44.670Z",
+      "viewedByMeTime": "2026-10-31T06:41:55.670Z",
+      "display_title": "26_10_31_NEXUS_Control_Tower_Master_Engineering_Studio_v5.3_.html",
+      "display_url": "https://drive.google.com/file/d/1vBx3ZR0bz0yvhZrwBIykAubZit2efhmh/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1wabaNJsnwnRWG--bJWMo8F7MqMLulslA/view?usp=drivesdk",
+      "title": "26_10_31_NEXUS_Master_Engineering_Studio_v5.2.html",
+      "id": "1wabaNJsnwnRWG--bJWMo8F7MqMLulslA",
+      "mime_type": "text/html",
+      "size": "27698",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T06:14:03.101Z",
+      "updated_at": "2026-10-31T06:14:03.101Z",
+      "viewedByMeTime": "2026-10-31T06:14:09.921Z",
+      "display_title": "26_10_31_NEXUS_Master_Engineering_Studio_v5.2.html",
+      "display_url": "https://drive.google.com/file/d/1wabaNJsnwnRWG--bJWMo8F7MqMLulslA/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1rR0R_4uFoHZQAqFBY2NOSPDPF7NoLC1F/view?usp=drivesdk",
+      "title": "26_10_31_NEXUS_Master_Engineering_Studio_v5.1.html",
+      "id": "1rR0R_4uFoHZQAqFBY2NOSPDPF7NoLC1F",
+      "mime_type": "text/html",
+      "size": "27558",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T06:01:45.645Z",
+      "updated_at": "2026-10-31T06:01:45.645Z",
+      "viewedByMeTime": "2026-10-31T06:01:56.646Z",
+      "display_title": "26_10_31_NEXUS_Master_Engineering_Studio_v5.1.html",
+      "display_url": "https://drive.google.com/file/d/1rR0R_4uFoHZQAqFBY2NOSPDPF7NoLC1F/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1Vc7uKYKYs0cZLFmk8GXxS4tue_4aMBMz/view?usp=drivesdk",
+      "title": "26_10_31_nexus_ai_os_master_studio.md",
+      "id": "1Vc7uKYKYs0cZLFmk8GXxS4tue_4aMBMz",
+      "mime_type": "text/markdown",
+      "size": "26986",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T05:59:52.162Z",
+      "updated_at": "2026-10-31T05:59:52.162Z",
+      "viewedByMeTime": "2026-10-31T06:00:00.225Z",
+      "display_title": "26_10_31_nexus_ai_os_master_studio.md",
+      "display_url": "https://drive.google.com/file/d/1Vc7uKYKYs0cZLFmk8GXxS4tue_4aMBMz/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1Er3GXVvXQqBYZc9cWen8qR82KeWnddKm/view?usp=drivesdk",
+      "title": "26_10_31_NEXUS_Master_Engineering_Studio_v1.0.html",
+      "id": "1Er3GXVvXQqBYZc9cWen8qR82KeWnddKm",
+      "mime_type": "text/html",
+      "size": "27410",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T05:58:07.748Z",
+      "updated_at": "2026-10-31T05:58:07.749Z",
+      "viewedByMeTime": "2026-10-31T05:58:22.691Z",
+      "display_title": "26_10_31_NEXUS_Master_Engineering_Studio_v1.0.html",
+      "display_url": "https://drive.google.com/file/d/1Er3GXVvXQqBYZc9cWen8qR82KeWnddKm/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1btpGVLhEdZhJqKGLeSYf-5f1662mUT9_/view?usp=drivesdk",
+      "title": "TREE.txt",
+      "id": "1btpGVLhEdZhJqKGLeSYf-5f1662mUT9_",
+      "mime_type": "text/plain",
+      "size": "31994",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T05:23:47.125Z",
+      "updated_at": "2026-10-31T05:23:47.125Z",
+      "viewedByMeTime": "2026-10-31T05:23:47.125Z",
+      "display_title": "TREE.txt",
+      "display_url": "https://drive.google.com/file/d/1btpGVLhEdZhJqKGLeSYf-5f1662mUT9_/view?usp=drivesdk",
+      "parent_ids": [
+        "1mMn2IZQ8Og1GUJ63DiuKikMJ6BHdBBS5"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1nivrQtO0_XkO4RVtXAuk1bUvFtyY0g2n/view?usp=drivesdk",
+      "title": "26_10_31_ID04_HTML-Dashboard-Suche(GoogleDriveRootDirectory).md",
+      "id": "1nivrQtO0_XkO4RVtXAuk1bUvFtyY0g2n",
+      "mime_type": "text/markdown",
+      "size": "688142",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T04:31:33.231Z",
+      "updated_at": "2026-10-31T05:03:22.526Z",
+      "viewedByMeTime": "2026-10-31T05:03:22.526Z",
+      "display_title": "26_10_31_ID04_HTML-Dashboard-Suche(GoogleDriveRootDirectory).md",
+      "display_url": "https://drive.google.com/file/d/1nivrQtO0_XkO4RVtXAuk1bUvFtyY0g2n/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1y6-mndgtNr6aSJCOzottSp7kECB6UIMI/view?usp=drivesdk",
+      "title": "26_10_31_0508_Gemini Live API & Vibecode Dashboard v2.1.html",
+      "id": "1y6-mndgtNr6aSJCOzottSp7kECB6UIMI",
+      "mime_type": "text/html",
+      "size": "17762",
+      "file_or_folder": "file",
+      "created_at": "2026-10-31T04:13:07.951Z",
+      "updated_at": "2026-10-31T04:13:08.254Z",
+      "viewedByMeTime": "2026-10-31T04:13:07.951Z",
+      "display_title": "26_10_31_0508_Gemini Live API & Vibecode Dashboard v2.1.html",
+      "display_url": "https://drive.google.com/file/d/1y6-mndgtNr6aSJCOzottSp7kECB6UIMI/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1jQ4ahmTcyp-toIPrxLeEl2z8HOO5SgtJ/view?usp=drivesdk",
+      "title": "TREE-VORTRÄGE.txt",
+      "id": "1jQ4ahmTcyp-toIPrxLeEl2z8HOO5SgtJ",
+      "mime_type": "text/plain",
+      "size": "3062",
+      "file_or_folder": "file",
+      "created_at": "2026-10-30T16:18:45.474Z",
+      "updated_at": "2026-10-30T16:18:45.474Z",
+      "viewedByMeTime": "2026-10-30T16:18:45.474Z",
+      "display_title": "TREE-VORTRÄGE.txt",
+      "display_url": "https://drive.google.com/file/d/1jQ4ahmTcyp-toIPrxLeEl2z8HOO5SgtJ/view?usp=drivesdk",
+      "parent_ids": [
+        "1Pu82hnRaVM0ThJsv9nIm4DKbray6LrAO"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/12DmNww3pamctLqPTd6CRBiklcx5oO_Nk/view?usp=drivesdk",
+      "title": "TREELIST-images.txt",
+      "id": "12DmNww3pamctLqPTd6CRBiklcx5oO_Nk",
+      "mime_type": "text/plain",
+      "size": "4558",
+      "file_or_folder": "file",
+      "created_at": "2026-10-30T16:14:37.933Z",
+      "updated_at": "2026-10-30T16:14:37.933Z",
+      "viewedByMeTime": "2026-10-30T16:14:37.933Z",
+      "display_title": "TREELIST-images.txt",
+      "display_url": "https://drive.google.com/file/d/12DmNww3pamctLqPTd6CRBiklcx5oO_Nk/view?usp=drivesdk",
+      "parent_ids": [
+        "1w_60Mn55ww2FnA9Y5Qk1IfjZAvxy6cdj"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1-58ssP0uC8GdJi1c7WDxUQs7W0QIngo3/view?usp=drivesdk",
+      "title": "TREELIST.txt",
+      "id": "1-58ssP0uC8GdJi1c7WDxUQs7W0QIngo3",
+      "mime_type": "text/plain",
+      "size": "8620",
+      "file_or_folder": "file",
+      "created_at": "2026-10-30T16:07:27.069Z",
+      "updated_at": "2026-10-30T16:07:27.069Z",
+      "viewedByMeTime": "2026-10-30T16:07:27.069Z",
+      "display_title": "TREELIST.txt",
+      "display_url": "https://drive.google.com/file/d/1-58ssP0uC8GdJi1c7WDxUQs7W0QIngo3/view?usp=drivesdk",
+      "parent_ids": [
+        "18KAVFJZcrxhQSA7zTdi-RdtQLWYwTfys"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1QiqsLgnmay-1b1aFtwUvcW0S4xJnVzNZ/view?usp=drivesdk",
+      "title": "TREELIST-ESTONIA.txt",
+      "id": "1QiqsLgnmay-1b1aFtwUvcW0S4xJnVzNZ",
+      "mime_type": "text/plain",
+      "size": "59178",
+      "file_or_folder": "file",
+      "created_at": "2026-10-30T11:57:39.036Z",
+      "updated_at": "2026-10-30T11:57:39.036Z",
+      "viewedByMeTime": "2026-10-30T11:57:39.036Z",
+      "display_title": "TREELIST-ESTONIA.txt",
+      "display_url": "https://drive.google.com/file/d/1QiqsLgnmay-1b1aFtwUvcW0S4xJnVzNZ/view?usp=drivesdk",
+      "parent_ids": [
+        "1k8LsE4ol8UQI5tyJNqyAzDttixwMLFuA"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1IxAQ2KQF4gBWzdMP_JZJPu58ZIuJ2LAY/view?usp=drivesdk",
+      "title": "TREELIST.txt",
+      "id": "1IxAQ2KQF4gBWzdMP_JZJPu58ZIuJ2LAY",
+      "mime_type": "text/plain",
+      "size": "390",
+      "file_or_folder": "file",
+      "created_at": "2026-10-30T10:02:23.957Z",
+      "updated_at": "2026-10-30T10:03:22.511Z",
+      "viewedByMeTime": "2026-10-30T10:03:22.511Z",
+      "display_title": "TREELIST.txt",
+      "display_url": "https://drive.google.com/file/d/1IxAQ2KQF4gBWzdMP_JZJPu58ZIuJ2LAY/view?usp=drivesdk",
+      "parent_ids": [
+        "12XQ6QR6Cp7GL2mBedBBzZ9YDIzXPPwOT"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1PHXgCb-SzU1WmmW7_401xTKxpma5lgLT/view?usp=drivesdk",
+      "title": "_INDEX.MASTER.txt",
+      "id": "1PHXgCb-SzU1WmmW7_401xTKxpma5lgLT",
+      "mime_type": "text/plain",
+      "size": "3159",
+      "file_or_folder": "file",
+      "created_at": "2026-09-25T13:49:51.584Z",
+      "updated_at": "2026-10-30T09:48:06.666Z",
+      "viewedByMeTime": "2026-10-30T09:48:06.666Z",
+      "display_title": "_INDEX.MASTER.txt",
+      "display_url": "https://drive.google.com/file/d/1PHXgCb-SzU1WmmW7_401xTKxpma5lgLT/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/1EezfEuK_usdb9vASAlQczyvIVPuvSSge/view?usp=drivesdk",
+      "title": "26_10_28 KONSOLIDIERTER STATUSBERICHT ROADMAP ANYTHINGSEARCH.md",
+      "id": "1EezfEuK_usdb9vASAlQczyvIVPuvSSge",
+      "mime_type": "text/markdown",
+      "size": "39756",
+      "file_or_folder": "file",
+      "created_at": "2026-10-28T17:08:16.607Z",
+      "updated_at": "2026-10-28T17:08:16.607Z",
+      "viewedByMeTime": "2026-10-28T17:08:16.607Z",
+      "display_title": "26_10_28 KONSOLIDIERTER STATUSBERICHT ROADMAP ANYTHINGSEARCH.md",
+      "display_url": "https://drive.google.com/file/d/1EezfEuK_usdb9vASAlQczyvIVPuvSSge/view?usp=drivesdk",
+      "parent_ids": [
+        "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    },
+    {
+      "url": "https://drive.google.com/file/d/178gRIg0MhDqt_m2os6kn4O3_WczLqNzP/view?usp=drivesdk",
+      "title": "26_10_28_Tallinn 2026 Master Storyboard Zotter Eder.pdf",
+      "id": "178gRIg0MhDqt_m2os6kn4O3_WczLqNzP",
+      "mime_type": "application/pdf",
+      "size": "2897388",
+      "file_or_folder": "file",
+      "created_at": "2026-10-28T08:13:47.495Z",
+      "updated_at": "2026-10-28T08:13:47.495Z",
+      "viewedByMeTime": "2026-10-28T08:13:47.495Z",
+      "display_title": "26_10_28_Tallinn 2026 Master Storyboard Zotter Eder.pdf",
+      "display_url": "https://drive.google.com/file/d/178gRIg0MhDqt_m2os6kn4O3_WczLqNzP/view?usp=drivesdk",
+      "parent_ids": [
+        "15Yx-mbDNNp-S0EiC1O8VCDBpfhEfLjMu"
+      ],
+      "shared": true,
+      "can_download": true,
+      "can_list_children": false
+    }
+  ],
+  "registration_status": "BLOCKED_TRUNCATED_REGISTRY_TRANSFER",
+  "registry_provider_size": 102967,
+  "registry_received_size": 65536,
+  "global_completeness": false
+}

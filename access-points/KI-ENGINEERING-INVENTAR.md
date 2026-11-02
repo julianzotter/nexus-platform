@@ -36,3 +36,13 @@ Test: temporäre SQLite-WAL-Datenbank, bestätigter Dateidatensatz, erfolgreiche
 5. Normen, Parser und Solver nur mit eigenem Inhalts-/Testnachweis höher einstufen.
 
 Keine geplante Ausführung als erfolgreiche Durchführung melden. Kein Produktionsrollout, keine ACL-Änderung und kein automatischer Import von Normvolltexten.
+
+
+## Delta-Erhebung 02.11.2026
+
+- [Delta-Bericht](../docs/infrastructure-status/2026-11-02/DELTA_STATUS.md) und [Erhebung/Prüfdaten](../docs/infrastructure-status/2026-11-02/DELTA_EVIDENCE.json).
+- [WORK-Fassung](https://drive.google.com/file/d/1-DJtsqscVfxVQGrs6c6i-z3BpE3o9OZc/view).
+- AnythingSearch.zip ist nun erreichbar: [Archiv vom 04.10.2026](https://drive.google.com/file/d/1eVQeaxKW0gBmxyYbTN6bkCMCx5flkADR/view). quick_check ok, 2.470.605 Files-Zeilen; keine heutige Vollständigkeits- oder WAL-Garantie. Frühere NOT_ACCESSIBLE-Angabe gilt nicht mehr für dieses historische Archiv.
+- Aktueller Refresh bleibt INCOMPLETE: technische manuelle Erfolge ersetzen keine erfolgreichen geplanten Zyklen mit innerem Status und Checkpoint.
+- Neue Studio-v5.5-HTML enthält fest codierte Eurocode-PASS-Ausgabe; UI-Prototyp, kein Solvernachweis.
+- Artefaktregistrierung BLOCKED: bestehendes Drive-Register wird beim Abruf abgeschnitten; keine Mutation aus unvollständiger Quelle. Dieser Zusatz ist eine Review-Sicht und kein kanonischer Registereintrag.
