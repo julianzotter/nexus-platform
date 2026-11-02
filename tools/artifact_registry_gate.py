@@ -11,8 +11,11 @@ REQUIRED = ("artifact_id", "provider_file_id", "name", "canonical_uri",
 
 def validate_record(record: dict) -> list[str]:
     errors = [f"missing: {k}" for k in REQUIRED if k not in record]
+    pending = record.get('registration_status') == 'REGISTRATION_PENDING'
     for k in ("artifact_id", "provider_file_id", "name", "canonical_uri",
               "version", "verification_status", "registration_status", "registered_at"):
+        if pending and k in ('version', 'registered_at') and record.get(k) is None:
+            continue
         if not isinstance(record.get(k), str) or not record[k].strip():
             errors.append(f"invalid: {k}")
     uri = record.get("canonical_uri")

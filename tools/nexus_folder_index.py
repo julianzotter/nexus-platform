@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 FOLDER_MIME = 'application/vnd.google-apps.folder'
-ANCHOR_PREFIXES = ('folder.md', '_folder', 'readme', '_index', '_nexus_wayfinder')  # ledgers/snapshots are not anchors
+ANCHOR_NAMES = {'folder.md', '_folder.md', 'readme.md', 'readme.txt', '_index.md', '_nexus_wayfinder.md'}
 # Role of each folder in the NEXUS layer model (name-derived, reviewed by ID01).
 LAYER = {
     'NEXUS.REPORTS': ('L4-REPORTING', 'durable reports; WORK keeps operative originals'),
@@ -47,7 +47,7 @@ def summarize(inventory: dict[str, Any]) -> list[dict[str, Any]]:
     for folder in sorted(inventory['folders'], key=lambda f: (LAYER.get(f['name'], ('L9',))[0], f['name'])):
         items = children.get(folder['id'], [])
         files = [c for c in items if c['mime'] != FOLDER_MIME]
-        anchors = sorted(c['title'] for c in files if c['title'].lower().startswith(ANCHOR_PREFIXES))
+        anchors = sorted(c['title'] for c in files if c['title'].lower() in ANCHOR_NAMES)
         layer, role = LAYER.get(folder['name'], ('UNCLASSIFIED', 'unknown'))
         rows.append({
             'name': folder['name'], 'id': folder['id'], 'layer': layer, 'role': role,
@@ -62,18 +62,26 @@ def summarize(inventory: dict[str, Any]) -> list[dict[str, Any]]:
 def render(rows: list[dict[str, Any]], inventory: dict[str, Any], digest: str, header: dict[str, str]) -> str:
     """YAML frontmatter + table; values only from inventory/header (no wall clock)."""
     missing = sum(r['status'] == 'NO_ANCHOR' for r in rows)
-    fm = [f'{k}: {v}' for k, v in header.items()] + [
-        f'source_inventory_sha256: {digest}', f'observed_at: {inventory["observed_at"]}',
+    reserved = {'source_inventory_sha256', 'observed_at', 'folders_total',
+                'folders_without_anchor', 'files_total', 'scope'}
+    if reserved.intersection(header):
+        raise ValueError('header cannot override generated frontmatter keys')
+    if any(not isinstance(k, str) or not k.replace('_', '').isalnum() for k in header):
+        raise ValueError('invalid frontmatter key')
+    scalar = lambda v: json.dumps(v, ensure_ascii=False)
+    fm = [f'{k}: {scalar(v)}' for k, v in sorted(header.items())] + [
+        f'source_inventory_sha256: {scalar(digest)}', f'observed_at: {scalar(inventory["observed_at"])}',
         f'folders_total: {len(rows)}', f'folders_without_anchor: {missing}',
-        f'files_total: {sum(r["files"] for r in rows)}', f'scope: "{inventory["scope"]}"']
+        f'files_total: {sum(r["files"] for r in rows)}', f'scope: {scalar(inventory["scope"])}']
     lines = ['---', *fm, '---', '', '# NEXUS.* Wayfinder (LLM-LOCAL-SSOT)', '',
              'Lookup: keyword -> layer/role -> folder link. Not a registry; register artifacts in file-registry.jsonl.', '',
              '| Layer | Folder | Role | Files | Sub | Last mod. | Anchor | Link |',
              '|---|---|---|---:|---:|---|---|---|']
     for r in rows:
         link = f'https://drive.google.com/drive/folders/{r["id"]}'
-        lines.append(f'| {r["layer"]} | {r["name"]} | {r["role"]} | {r["files"]} | {r["subfolders"]} '
-                     f'| {r["last_modified"]} | {r["anchor"]} | [open]({link}) |')
+        escape = lambda value: str(value).replace('|', '\\|').replace('\n', ' ').replace('\r', ' ')
+        cells = [r['layer'], r['name'], r['role'], r['files'], r['subfolders'], r['last_modified'], r['anchor']]
+        lines.append('| ' + ' | '.join(map(escape, cells)) + f' | [open]({link}) |')
     return '\n'.join(lines) + '\n'
 
 
