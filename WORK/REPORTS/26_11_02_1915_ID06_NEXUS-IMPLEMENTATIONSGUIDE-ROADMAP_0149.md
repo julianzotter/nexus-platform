@@ -82,7 +82,7 @@ sources: [WORK/Folder.md 11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH, WORK/_AGBS.md v004 1
 **Hard-lock properties**
 - No client-supplied name/folder/mime/role; target only from `ALLOWED_FOLDERS` (alias→ID); role + session from server-side `principal(request)` (401 otherwise).
 - Per-key `flock` (single host) serializes identical exports; multi-host needs a shared lock (open).
-- Name = `YY_MM_DD_HHMM_ID##_THEMA_###.md`, Europe/Vienna; number from injected allocator (contract: idempotent per key, globally monotonic); precedence Drive name > sidecar > allocation; success requires Drive name == reserved name.
+- Name = `YY_MM_DD_HHMM_ID##_THEMA_###.md`, Europe/Vienna; number from injected allocator (contract: idempotent per key, globally monotonic); precedence Drive name > sidecar > allocation; Drive name must match pattern AND sidecar; success requires Drive name == reserved name.
 - Write path = existing `deliver()`: pre-generated ID, journal, appProperties key, metadata identity check, SHA-256 readback.
 - Registry record (AGBS v004 fields) validated by `artifact_registry_gate.validate_record`; status `REVIEW_PENDING`/`REGISTRATION_PENDING`.
 - No delete operation exists.
@@ -130,4 +130,4 @@ Client: `fetch('/api/export/protocol', {method:'POST', body: JSON.stringify({...
 - TESTS: 19/19 new PASS; 4 pre-existing failures unchanged
 - SOURCE_STATUS: Drive connector read 2026-11-02 ~19:00 CET; repo fb103dbe
 - RISKS_GAPS: WORK anyone-writer (lock bypassable); ledger numbers unreserved (collision risk); no real allocator; registry record returned, not appended; journal must be on persistent storage; single-host lock; depth-1 inventory; nexus_server.py missing; open WO 0146 (ID02→ID06 review of 0142–0145) still unanswered
-- NEXT: ID01 decisions §7 → R2 (mount + UI) → R3 recursive index
+- NEXT: ID01 decisions §9 → R2 (mount + UI) → R3 recursive index
