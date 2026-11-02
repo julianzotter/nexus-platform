@@ -1,0 +1,1946 @@
+{
+ "source": "Google Drive connector search_files (parentId in 16 NEXUS.* folders), 3 pages, deduped",
+ "observed_at": "2026-11-02T19:10+01:00",
+ "ssot_parent": "1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV",
+ "scope": "direct children only (depth 1); subfolders not recursed",
+ "folders": [
+  {
+   "id": "1mmLJyc8TpTqxPFhXASb4tmHI7515xpJn",
+   "name": "NEXUS.REPORTS",
+   "created": "2026-10-13"
+  },
+  {
+   "id": "1jVltQeXvEUtU7tM49QYi_5GWOKZBfEVF",
+   "name": "NEXUS.EVAL",
+   "created": "2026-10-13"
+  },
+  {
+   "id": "1yLDYmEQrvGJFSH5GgKkv18K7pkWjyOUa",
+   "name": "NEXUS.PROMPTS",
+   "created": "2026-09-22"
+  },
+  {
+   "id": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "name": "NEXUS.INDEX.PARSER",
+   "created": "2026-10-13"
+  },
+  {
+   "id": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "name": "NEXUS.NORM.SEARCH",
+   "created": "2026-10-05"
+  },
+  {
+   "id": "1tcgucSrrl-esSbbhhn4yYosDq8YSipEh",
+   "name": "NEXUS.MCP.SERVER",
+   "created": "2026-09-30"
+  },
+  {
+   "id": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "name": "NEXUS.CAD.SKILLS",
+   "created": "2026-10-19"
+  },
+  {
+   "id": "1a7m_tiYOngMzyBQcNOerwr7E8yO99jis",
+   "name": "NEXUS.DASHBOARDS",
+   "created": "2026-10-23"
+  },
+  {
+   "id": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "name": "NEXUS.HISTORICAL",
+   "created": "2026-09-26"
+  },
+  {
+   "id": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "name": "NEXUS.CHAT.HISTORY",
+   "created": "2026-09-16"
+  },
+  {
+   "id": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "name": "NEXUS.PDF-RAW",
+   "created": "2026-09-18"
+  },
+  {
+   "id": "1orC1PaZladeqBK2AjrlV3fpdq47qqLMZ",
+   "name": "NEXUS.DOCX-RAW",
+   "created": "2026-09-20"
+  },
+  {
+   "id": "1GSizCZ70rd69bUBc-m_tQs3Ljxp66AwQ",
+   "name": "NEXUS.TXT-RAW",
+   "created": "2026-10-19"
+  },
+  {
+   "id": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "name": "NEXUS.BILDER-RAW",
+   "created": "2026-09-20"
+  },
+  {
+   "id": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "name": "NEXUS.SCREENSHOTS",
+   "created": "2026-10-26"
+  },
+  {
+   "id": "1SjU5Kx10EP0-r0sn7t9zhnPiNYZpSWnK",
+   "name": "NEXUS.MP3",
+   "created": "2026-10-20"
+  }
+ ],
+ "children": [
+  {
+   "id": "1tjEWgSKT2wb5webiuiHT7E4M6z8Cgz_O",
+   "title": "26 _09_18_Chatgpt_Erinnerungen.txt",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "text/plain",
+   "modified": "2026-10-19",
+   "size": 149569
+  },
+  {
+   "id": "1RdGkYI9O3PC9nbZiv8o_7DZPX-0URp_L",
+   "title": "26_09_18_QuellenFund_Statusreport.md",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "text/markdown",
+   "modified": "2026-10-19",
+   "size": 7909
+  },
+  {
+   "id": "1ueQjFSKBybltt5696VXeGXiTWyO8oFg8",
+   "title": "Chat.DeepSeek",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1ciL3yfDuarDmf-uEAVtvIZaxYZVXfUCskDY03tFQYVwEXj86luszTsay-dojtSzOCzvjCAU8",
+   "title": "Chat.Gemini.Takeout",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1BZ7IzNOAHP1yYIG9XlS-NYsUYgXid8mV",
+   "title": "Chat.Meta.AI",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1eza9QdyK8UUOTdnB-cvhDsxsQffkSEWH",
+   "title": "ChatExports_n_Repos",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-09-15",
+   "size": 0
+  },
+  {
+   "id": "1zRyga1_e9Ze3CgDvQs5gcvSZ74sQN4e_",
+   "title": "ChatGPT",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1LB-OZeObzx-aXaRjn-UKqOY-4BEaWNbh",
+   "title": "E2E-EC2-STATIKPIPELINE+POSTPROCESSING.txt",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "text/plain",
+   "modified": "2026-09-17",
+   "size": 0
+  },
+  {
+   "id": "1cCjDWFDs70OnxpxDkpGywE7PSIcl_D3e",
+   "title": "Gemma4ChromeExtension",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-09-15",
+   "size": 0
+  },
+  {
+   "id": "1kbNQWqPzwoeu0J_L-KAgEpio-wrSWx89",
+   "title": "TCC-Timber-Concrete-Composite-Structures_HTML-BOOKMARKS.txt",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "text/plain",
+   "modified": "2026-10-19",
+   "size": 49623
+  },
+  {
+   "id": "1dxYWEGfeZsc01AdnsUN217ah8qXzm-fN",
+   "title": "TCC_FloorSlabs-Notched_T-Beam_PushoutTest_CENTS19103_Designchecks_DiscreteMethod.txt",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "text/plain",
+   "modified": "2026-10-19",
+   "size": 70884
+  },
+  {
+   "id": "1BJ2eR_S7-UUicTGizlFpWH5ECdJHEk_r",
+   "title": "TCC_Timber-Concret-Composite_HTML-BOOKMARKS.txt",
+   "parent": "1-EyAfpV3jFlDSXiP_865zCu-CH6fG-vm",
+   "mime": "text/plain",
+   "modified": "2026-10-19",
+   "size": 637345
+  },
+  {
+   "id": "1x721BqMGr0wfKIxVkGh1YTl1vyFnmQwD",
+   "title": "26_03_18_RFEM_Python_Client Repo from Github.txt",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/plain",
+   "modified": "2026-03-18",
+   "size": 12475
+  },
+  {
+   "id": "1jFnTbjJvAb3LQjEsavHfDLk7t_1K5rqy",
+   "title": "26_04_11_RFEM6-API-KEY-CLAUDE-Steuerung.docx",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-04-11",
+   "size": 81124
+  },
+  {
+   "id": "1qBmWNvpCjhD7EN1_0BN2YIXkXYMp9UdF",
+   "title": "26_04_11_Systembau-Pipeline (BIM + Statik + Full-Stack Web-Deployment",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-04-11",
+   "size": 0
+  },
+  {
+   "id": "1v9V-MI6Vb99VL_7aHzl7xiqFkaF2Q69k",
+   "title": "26_04_9_DXF+IFC-CAD-Datenextraktion (algorithmische, topologische Analyse).docx",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-04-09",
+   "size": 139676
+  },
+  {
+   "id": "1DP4lMYLBWrDUb-OBr48kNEmkcwj6tB3a",
+   "title": "26_10_12_CLA_PARAMETRIC-DESIGN-TEST_v0.1",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-12",
+   "size": 0
+  },
+  {
+   "id": "17Mi2IuaT2K7sxbj-O8jTc4YCj2GtusD-",
+   "title": "Authentication dlubal.api rRPC Starting Server.txt",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/plain",
+   "modified": "2026-10-20",
+   "size": 1609
+  },
+  {
+   "id": "1pRAkExEVEBO9UWRNebDsrRoeOAy4FIRn",
+   "title": "CLAUDE RFEM6 INTEGRATION (API-KEY – MCP-SERVER).docx",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-05-10",
+   "size": 1770458
+  },
+  {
+   "id": "1QLNFwmOVF7sNSErHciYdFXY9cobqVXlD",
+   "title": "Codex Desktop app from OPEN AI.txt",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/plain",
+   "modified": "2026-03-18",
+   "size": 1762
+  },
+  {
+   "id": "1Vowxc6kONp_XH0Uo5WxjIKYn1qtYm-s2",
+   "title": "ImageToStl.com",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1-13htZOXA8aS9VHYDbrc2VWiqNGfgYoi",
+   "title": "NEXUS.CAD.PYTHON.md",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/markdown",
+   "modified": "2026-10-19",
+   "size": 19706
+  },
+  {
+   "id": "10nLgb7g-h-UAQeZ6cY6NMveQZw0VbzxF",
+   "title": "Nexus-AI-AEC WissensSystem _SYNC_DRIVE_GITHUB.md",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/markdown",
+   "modified": "2026-10-21",
+   "size": 31666
+  },
+  {
+   "id": "1GsC53zGp6a4ttV1Jbii-C4JiF30S8mtq",
+   "title": "RFEM-Programmoptionen-Einstellungen API-Dienst+Webservice.jpg",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "image/jpeg",
+   "modified": "2026-04-11",
+   "size": 153244
+  },
+  {
+   "id": "1LaJxWysI6fGq0k_TBLsfPv9dpqMNZTjO",
+   "title": "RFEM-Programmoptionen-Einstellungen API-Dienst+Webservice_03.jpg",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "image/jpeg",
+   "modified": "2026-04-11",
+   "size": 176905
+  },
+  {
+   "id": "1jic32rrwkXp9P9ksHUpfoG4pIcDgHNKV",
+   "title": "RFEM-Programmoptionen-Einstellungen API-Dienst_02.jpg",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "image/jpeg",
+   "modified": "2026-04-11",
+   "size": 155859
+  },
+  {
+   "id": "1eoJcwqH-Ouo17p9RA4Xzh_3HX14j-tf9",
+   "title": "RFEM6 API-Schnittstelle und Lizenzstatus prüfen - Claude.html",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/html",
+   "modified": "2026-10-20",
+   "size": 909384
+  },
+  {
+   "id": "11fg1Ew84qROy3Ymbqw5zT_ujTwKe9M8z",
+   "title": "RFEM6 API-Schnittstelle und Lizenzstatus prüfen - Claude_files",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-04-11",
+   "size": 0
+  },
+  {
+   "id": "1zPv-2i0QRXyL6Gq5kGF_3sqsX7fKkeAC",
+   "title": "base_data_files",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-20",
+   "size": 0
+  },
+  {
+   "id": "1K1h4UuSBFnjlMZ0yJNuEaQSeUSnO6iSZ",
+   "title": "links",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-21",
+   "size": 0
+  },
+  {
+   "id": "1XlcHwuesvqSte7vJy2kcjCcYOyucq6ll",
+   "title": "precast_residential_building.py",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "text/x-python",
+   "modified": "2026-04-11",
+   "size": 17908
+  },
+  {
+   "id": "1Oo1UErUFNFtRONWO0hVM7PMw-_dJ6cj_",
+   "title": "python script.py  →  dlubal.api (gRPC)  →  RFEM",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-04-11",
+   "size": 0
+  },
+  {
+   "id": "16K0snLG0gm2yGQtUTzSE75oaHNNZBc9T",
+   "title": "python script.py  →  dlubal.api (gRPC)  →  RFEM.zip",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/zip",
+   "modified": "2026-04-11",
+   "size": 116469
+  },
+  {
+   "id": "1tv8PEV8Qz63gEiQZI_WBtc_sgw91UXBX",
+   "title": "rfem objects_files",
+   "parent": "1EH90XMU4v_KHh5iWFYvO54LUqX3JyDA2",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-20",
+   "size": 0
+  },
+  {
+   "id": "19NTs0DnlsolvAlEdbKlSyQdKnB2IDbu7",
+   "title": "AI-AEC-Engineering-Agent.txt",
+   "parent": "1GSizCZ70rd69bUBc-m_tQs3Ljxp66AwQ",
+   "mime": "text/plain",
+   "modified": "2026-09-21",
+   "size": 0
+  },
+  {
+   "id": "1wC3Jl3NG4mFI8UFmegr_kXg7kHEkBNX3",
+   "title": "LOWCODE GRIST DB ct-19-26.txt",
+   "parent": "1GSizCZ70rd69bUBc-m_tQs3Ljxp66AwQ",
+   "mime": "text/plain",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1H2Rlwn-xzO0vfuOkNiYUqBExgdovsJVE",
+   "title": "LOWCODE-GRIST-DB-ct-20-26.txt",
+   "parent": "1GSizCZ70rd69bUBc-m_tQs3Ljxp66AwQ",
+   "mime": "text/plain",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1ke51rLx5X_3RcpwB6kSpjleWlxhOp_uL",
+   "title": "26_05_02_AI-WSE-Framework_2p.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-21",
+   "size": 4793897
+  },
+  {
+   "id": "19vZRgOrsYSOKfCzjsIWyg1Vi16iVUV-h",
+   "title": "26_05_02_AI-WSG-Framework.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-22",
+   "size": 28549106
+  },
+  {
+   "id": "1wRSQ67t7nfcja-Py6juZIv24NT0blPgm",
+   "title": "26_09_20_AGENTEN-Systeme zum Mit-Denken.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1ZL3CIQzM8L_Cytf39dOPrdRVgCVjO7Lz",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-20",
+   "size": 186831940
+  },
+  {
+   "id": "16WfSL2IkquneMu7BkxRYjEODBnN2LKWg",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-21",
+   "size": 118105318
+  },
+  {
+   "id": "1Ga7qkwwnPKVRgHzV-lpTX8pVt9gitW6Q",
+   "title": "Kopie von ... Atlas Mehrgeschossiger Holzbau (2021).pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-17",
+   "size": 0
+  },
+  {
+   "id": "1Kcqc40ykuRphIVNSDQebMkC4S58nv7Fb",
+   "title": "Kopie von ASBiON_HandbuchASBwin28.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-17",
+   "size": 0
+  },
+  {
+   "id": "1pnccCHg8L-Z_I8NKbnqUnntIDzXE2Dtl",
+   "title": "einzel-scans",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1QIbEnYCbm3gj-Dg-FL__287qFeuIlmQU",
+   "title": "reinventing_the_soc_with_agentic_ai.pdf",
+   "parent": "1G_XFweMg1_9XMkuVZ1GLuoUnKjHo5Fqs",
+   "mime": "application/pdf",
+   "modified": "2026-09-19",
+   "size": 0
+  },
+  {
+   "id": "13bC8udMtjDiyPmWNxOsiV5w_ixrxslei",
+   "title": "00_ID_LEDGER_v1.7_BEFORE_ID01-DEVOPT-20261101.csv",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/csv",
+   "modified": "2026-10-31",
+   "size": 0
+  },
+  {
+   "id": "1NVb2d_j9qmyUNvcqGxP2rZS1Ajt4dGPz",
+   "title": "00_ID_LEDGER_v1.8_ID01-DEVOPT-APPEND.csv",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/csv",
+   "modified": "2026-10-31",
+   "size": 0
+  },
+  {
+   "id": "12zDMTfxNfXlPbrk0mwbqpCnRzb-NCFPTPmrmgi7-1Zk",
+   "title": "00_NEXUS_MANIFEST__ARCHIVED_2026-09-26",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "application/vnd.google-apps.document",
+   "modified": "2026-09-26",
+   "size": 3388
+  },
+  {
+   "id": "10TpkdghKAZW_Df8mhFDGyh0DegDuIihl",
+   "title": "2026_08_11_MANIFEST_NEXUS-AI-OS_FINAL_CONSOLIDATED_MASTER_MANIFEST_v1.1_DRAFT_JZ.docx",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "application/docx",
+   "modified": "2026-08-11",
+   "size": 0
+  },
+  {
+   "id": "1TVK72G8Ogv8YrKf73uh622cqrvKw3Ez8",
+   "title": "26_10_26_15_45_ID-03_NEXUS-REGISTRATION-BEFORE_v1.0.0.zip",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "application/zip",
+   "modified": "2026-10-26",
+   "size": 0
+  },
+  {
+   "id": "1eFQ_yxxh3kqeU756EA_u8Mn3wc9NZDDX",
+   "title": "26_10_26_15_54_ID-03_AIM-UMFRAGE-BEFORE_v1.0.0.zip",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "application/zip",
+   "modified": "2026-10-26",
+   "size": 0
+  },
+  {
+   "id": "1Rs_vnD1dt_lxtRs7Jkep5lGF0lTv93WV",
+   "title": "26_10_26_1648_NEXUS-DOKUMENTATION-BEFORE_0071_ID03.zip",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "application/zip",
+   "modified": "2026-10-26",
+   "size": 0
+  },
+  {
+   "id": "10GRFBb486h_NJAfwsBDo1GM4YwSh7-ny",
+   "title": "26_10_27_0909_LEDGER-BEFORE_0094_ID03.csv",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/csv",
+   "modified": "2026-10-27",
+   "size": 0
+  },
+  {
+   "id": "1jZn2GRCUaMkpCjyDOxtAYiZy_PfBaZpC",
+   "title": "26_10_27_0915_AIM-v0.3.2-SNAPSHOT_0100_ID03.md",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/markdown",
+   "modified": "2026-10-27",
+   "size": 0
+  },
+  {
+   "id": "1B9xYQaQsqDuDcD9DK_s6z8Mg2bQCO9hw",
+   "title": "26_10_27_0915_FRONTMATTER-v001-SNAPSHOT_0104_ID03.md",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/markdown",
+   "modified": "2026-10-27",
+   "size": 0
+  },
+  {
+   "id": "1-Y8xjTjRa_pshj067v4Fg_A6f1rIWjN8",
+   "title": "26_10_27_0915_LEDGER-v1.4-SNAPSHOT_0102_ID03.csv",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/csv",
+   "modified": "2026-10-27",
+   "size": 0
+  },
+  {
+   "id": "1WEclXqDPi8Xc91SvwX3BPU_ca-CIkxCa",
+   "title": "26_10_27_0936_LEDGER-v1.5-SNAPSHOT_0119_ID03.csv",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/csv",
+   "modified": "2026-10-27",
+   "size": 35454
+  },
+  {
+   "id": "1NRKvNDFop7PFPIPy-zDETcHk05xR2s2f",
+   "title": "26_10_27_0943_ID03_NAMING-MIGRATION-BEFORE_0122.zip",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "application/zip",
+   "modified": "2026-10-27",
+   "size": 0
+  },
+  {
+   "id": "14RkzPQe8UDCAGOqqRNLtpJySyc8zLAUy",
+   "title": "_AGBS_v002.md",
+   "parent": "1Q0CYzEccpL6nfUetHHQjyU4BjAZgmJ7k",
+   "mime": "text/markdown",
+   "modified": "2026-10-27",
+   "size": 0
+  },
+  {
+   "id": "1CxqrZah_ThTRz9ww5hbPnSOWB7mj_B1-",
+   "title": "Bemessung_von_Fertigteilträgern.png",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "image/png",
+   "modified": "2026-10-05",
+   "size": 5590312
+  },
+  {
+   "id": "1ycYg5IdCzq1bnptase0H3cZU_zl6Bnpb",
+   "title": "Digitale Auto-Workflows in der Tragwerksplanung.docx",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-10-05",
+   "size": 50974
+  },
+  {
+   "id": "1C6uQvSkK5c1h8HZZ0Ou2yH_-IftqYhPp",
+   "title": "Digitale Auto-Workflows in der Tragwerksplanung.pdf",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "application/pdf",
+   "modified": "2026-10-05",
+   "size": 243240
+  },
+  {
+   "id": "1gzI_ZPCcdejLLvO16eT_GgSZ1osXkpc1",
+   "title": "Digitale_Normenstruktur_und_europäische_Standards.png",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "image/png",
+   "modified": "2026-10-05",
+   "size": 4730091
+  },
+  {
+   "id": "1Dnb0mtE35aFwf9sp_In6qcZaEOmjIJLu",
+   "title": "EU ÖN NORMUNG.docx",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-10-05",
+   "size": 54785
+  },
+  {
+   "id": "192Fbnmk6s8dLBHX86zdeKqFLtBg57YaK",
+   "title": "EU ÖN NORMUNG.pdf",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "application/pdf",
+   "modified": "2026-10-05",
+   "size": 291911
+  },
+  {
+   "id": "1YJXs4Axc_zHf1RoSQz2yTmOO3jPos0UK",
+   "title": "EUROPÄISCHE NORMUNG.docx",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-10-05",
+   "size": 43565
+  },
+  {
+   "id": "1hl1P-18LhFxFDILSKtMbZkYhY-bLagPT",
+   "title": "EUROPÄISCHE NORMUNG.pdf",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "application/pdf",
+   "modified": "2026-10-05",
+   "size": 236910
+  },
+  {
+   "id": "1vVuINxrKRZhzSBtHmXYPws_E_oPDLJ4M",
+   "title": "Search(B 1992).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 13837
+  },
+  {
+   "id": "1qJaHBc4aleCj-V9PimOcyjgJbNTlFEcp",
+   "title": "Search(B 1993).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 2129
+  },
+  {
+   "id": "1tithQgxFht3GzNu7-Q6uYmvBayzB-677",
+   "title": "Search(B1992).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 13837
+  },
+  {
+   "id": "1m0ClUHlxCDzhggXZsGTXLYIW1n4-cCb4",
+   "title": "Search(CEN TS 19103).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 204853
+  },
+  {
+   "id": "1GEO1-kacLAWGxv_ERRFdio3QkRsLJKsB",
+   "title": "Search(DISCRETE).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 164543
+  },
+  {
+   "id": "1cp7fob9PFAGDpniZNBQqqxqVt17KmdK1",
+   "title": "Search(EN 1992).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 213366
+  },
+  {
+   "id": "1kjRdpx5dQ_lehoCUK9wV2Ek38RqJ7cMP",
+   "title": "Search(EN 1995).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 189725
+  },
+  {
+   "id": "1rlF3X3nR6Xwlq3hwf70r_GtlHhFSqEV4",
+   "title": "Search(EN1992).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 43567
+  },
+  {
+   "id": "1rJ49Xb1XTv-OKn4b2JkOKq_esCuaJoUW",
+   "title": "Search(EN1995).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 32333
+  },
+  {
+   "id": "1Sekk4cmhIB1yHx_IvH2U-wTUgeDSBpLy",
+   "title": "Search(HBV).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 164420
+  },
+  {
+   "id": "1wd6uEyZSwpwEQo3kosyYyFORLDqLxlCU",
+   "title": "Search(KERVEN).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 172209
+  },
+  {
+   "id": "1heal7rlt1yrkRm-67PCN0sZNNaR1GN9z",
+   "title": "Search(TCC).txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 155919
+  },
+  {
+   "id": "1abR37p0Pef6mu9eGEglIrxGaN5ko4d0b",
+   "title": "SearchTreeNormen.txt",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "text/plain",
+   "modified": "2026-10-05",
+   "size": 15088
+  },
+  {
+   "id": "1Z-QB8diMW9GelgtFhrtC4fftsoOTeAcv",
+   "title": "Tragwerks-Berechnungs-Workflow.png",
+   "parent": "1Rkq1TFzGsuwJCeDPQoWex45s50Bzg13o",
+   "mime": "image/png",
+   "modified": "2026-10-05",
+   "size": 5332476
+  },
+  {
+   "id": "1yyz1DAUWX7PGlzHJjjBWT563wJsUA9Kx3XljrDFT3KY",
+   "title": "### NEXUS AI-OS – Chat-Fundstellen 14",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "application/vnd.google-apps.document",
+   "modified": "2026-10-15",
+   "size": 2765
+  },
+  {
+   "id": "1vaeNe4941x9Roh59_XkO5vCxynRw1Al3",
+   "title": "26_09_18_ai-aec-engineering-stack%%[AutoNumber]1.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-21",
+   "size": 1369383
+  },
+  {
+   "id": "1Ro_f6ERsCb0ODJ-6xIUymtICMsw3re_K",
+   "title": "26_09_18_ai-aec-engineering-stack%%[AutoNumber]2.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-21",
+   "size": 1364007
+  },
+  {
+   "id": "1dOsFjpr8IF6NESar22IzsTNHsQ6pxbg4",
+   "title": "26_09_20_AGENTEN-Systeme zum Mit-Denken[AutoNumber]2.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1oZhisPE9QxZQ0fZcA7GPH0T7YhHHQKO-",
+   "title": "26_09_20_AGENTEN-Systeme zum Mit-Denken[AutoNumber]3.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1aypQA6jDSpc6xEorTvvv8VMgjFAK7rEf",
+   "title": "26_09_20_AGENTEN-Systeme zum Mit-Denken[AutoNumber]4.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "18qiM-hgX4WyHzddQJTvDzB_xhv2iB7PD",
+   "title": "26_09_20_AGENTEN-Systeme zum Mit-Denken[AutoNumber]5.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1SUtMLzvIYyVbk-VA5gZtJxoJSKKlfQYj",
+   "title": "26_09_20_Scans_..._PromptChains[AutoNumber]01.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1WH50didRPdQ8Xrm5JzvPXaaWX6v34E_k",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]02.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 688455
+  },
+  {
+   "id": "11ZQC2ybnpKw0z7nREkRDykVchuJnj84o",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]03.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1331467
+  },
+  {
+   "id": "1yPCeff9fimaiPXJ-Aoc2erhbeM299H5f",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]04.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1424315
+  },
+  {
+   "id": "1rUKXenT7WxN-uL29X7-9arF569J52pUc",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]05.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1193682
+  },
+  {
+   "id": "1aXP-x5_J-cwPt8FZtfJUhmDkFNtP6KUL",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]06.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1167997
+  },
+  {
+   "id": "1QSdcuPwEo4bGiF6KE4ORHHBK6oo3WusK",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]07.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1625005
+  },
+  {
+   "id": "1NaIbuDzLJ8dIh9vukhiQRAHstcT6sOU-",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]08.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 2102367
+  },
+  {
+   "id": "1rgiG9XUS8if3c0JFPi7W4IrHHtjAKZI7",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]09.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1474130
+  },
+  {
+   "id": "1n3oq1VTZBQ1hHPmD3GE4XUhY8HvSxy49",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]10.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1857847
+  },
+  {
+   "id": "19VjGJF4_RVelUWuJbl8ONEf1joVHHNSa",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]11.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1794277
+  },
+  {
+   "id": "16EIoHEiv3NbtvH4bKlhEjgZ5doeXPqsf",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]12.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1417727
+  },
+  {
+   "id": "12cMuCEOsWHwWP0cDgFeFbDSwHRG67ss2",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]13.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1739216
+  },
+  {
+   "id": "1RnhsC4bfcdS9fqASrSUqCoISnrgoE2cL",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]14.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1864258
+  },
+  {
+   "id": "1bocJEuHb61NTccafqo66qFk4Cdq8wthm",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]15.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1792172
+  },
+  {
+   "id": "1bz2ukzfJw0lZ_u09zLew2nabSPFJ0ebw",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]16.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1400140
+  },
+  {
+   "id": "1_Xw5wYgxmHlzM9HnLy7cL1qcQCwztAOy",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]17.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1442624
+  },
+  {
+   "id": "1EBbBHzW1OSA-0iiAZ0NUTr57b2YyDsrt",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]18.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1077650
+  },
+  {
+   "id": "1nwj4PJNi_KQMUTqLxHedkdEVNeLAK37W",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]19.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1487667
+  },
+  {
+   "id": "1gukGdao8CvqF0riOcAprOQKkoAYwcoDj",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]20.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 535219
+  },
+  {
+   "id": "14lGLu0dYGsNvKAwX0Hz5AvQGYOHXdlLy",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]21.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 2118397
+  },
+  {
+   "id": "1v_ta61rt9vIR9ndYg1ykt9ZqqgDaSHS1",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]22.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 477954
+  },
+  {
+   "id": "1I4jLvaSISKQP2UrrUbCPTn6EksmC5d_0",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]23.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1737309
+  },
+  {
+   "id": "1CfZb1fpi9BZsNbg98qxGx9HMbyYDHsB0",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]24.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1727106
+  },
+  {
+   "id": "1BAvZGUVcKQ9qiLAGLxeRi-oOiFiltHGH",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]25.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1091293
+  },
+  {
+   "id": "1Bq3jf3b--hWAIxT8B7OKUaCWeAKE9FQY",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]26.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1840466
+  },
+  {
+   "id": "1-jtHd65uxNixDc-mqs2Pr5HjL3uUpEJ7",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]27.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1626935
+  },
+  {
+   "id": "1Fr1YLvqFz2hRNqXVKXkLtJRzMZsGxeBQ",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]28.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1073400
+  },
+  {
+   "id": "1I5-ZU_CYa1CMtd7RP-VRp0z4oy7bir2H",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]29.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 619551
+  },
+  {
+   "id": "1kqCIKygjsRyFbDP4LZM9hxw8R-hNtfXb",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]30.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 837199
+  },
+  {
+   "id": "1Xo-5sP8HgNJbBW8TRSK0rw1Xg_-DFp1M",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]31.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 483731
+  },
+  {
+   "id": "1MyiLspiOvLhzzBWRH2UoOq6BLbZ_yY3x",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]32.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 614498
+  },
+  {
+   "id": "1lQ7aP9bvQOQFiCq6hEO8E2xLDnb6hC3F",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]33.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 610568
+  },
+  {
+   "id": "1FY1_VmdK94dNNzcANpTjYe_k480Zot1_",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]34.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 690899
+  },
+  {
+   "id": "1U12MaVs5ok1BdMcbyjtT3J2BZ_nq-a5q",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]35.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1015702
+  },
+  {
+   "id": "1nXwRO4PuKutZR-TidFN3gmCbeSwIlGN6",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]36.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1741703
+  },
+  {
+   "id": "10LZKUKatjNmtte1PRrM5oAsYPUrrJB1n",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]37.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 1727548
+  },
+  {
+   "id": "1oGqdyIqNlmjOdbXOz8o9DzD-zcoBEOoo",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]38.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 816546
+  },
+  {
+   "id": "19BPJKepVm6tEbbnGEo8lBZ8nOo5h95sf",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]39.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 671410
+  },
+  {
+   "id": "14qRWlfqbAKdc_u15sm30q5meVqC20ttt",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]40.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 830604
+  },
+  {
+   "id": "1nBCmkWOt8cJY9dJpu4eFc743pzXNaEFP",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]41.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 685421
+  },
+  {
+   "id": "1oebdRuGKDBM7pUgWYDFn84YRu0aRKFv5",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]42.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 997465
+  },
+  {
+   "id": "1ziOYoJM8b46dvOSb-kAloZbXrT8A9tOs",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]43.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 988859
+  },
+  {
+   "id": "15wBqQpPHzvjjfC3IWsCbdzXcQ-djaf5s",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]44.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 879056
+  },
+  {
+   "id": "1uBKPIeQXl1uJgGOzkAxjkFIlik4dox1_",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]45.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 963768
+  },
+  {
+   "id": "1fQpwEof73nW03a_7iwdORlyRHN90oKDO",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]46.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 827388
+  },
+  {
+   "id": "13KU3aA-IE2wP-0tz8IerPi0fKWav_4ol",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]47.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 948507
+  },
+  {
+   "id": "1ZrzCWTiIYOi05LvyRCVrklHRbBJdb5fw",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]48.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 989628
+  },
+  {
+   "id": "1j1665Yf3YyhIxpNvwIGKcgpU8YAN_MCy",
+   "title": "26_09_20_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains%%[AutoNumber]49.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-20",
+   "size": 706233
+  },
+  {
+   "id": "1XB8HjOf-fmpyM9A7oYjuDtoZyKptFfZh",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]01.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 887321
+  },
+  {
+   "id": "1tXpv1UHyTXdNN0B11esrYEL9bHwubtdP",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]02.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 786042
+  },
+  {
+   "id": "1XsmHxTL6PAeHEOD0Oh-2gI2gYvNC1aR5",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]03.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 727133
+  },
+  {
+   "id": "1WQQuqBVefW9EzH30xtIP8NCIk6A_v804",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]04.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 726170
+  },
+  {
+   "id": "19JdU0zSFw81FolQdkBbzNoObsLZUiKlc",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]05.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1401910
+  },
+  {
+   "id": "1v4ssFJ70WSSmCVRZsqssGoWvY_Aiwevs",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]06.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 678156
+  },
+  {
+   "id": "1eHup-99ALftK2kUl2KM8y1re45j3jzWm",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]07.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 595441
+  },
+  {
+   "id": "1CbsXDTlKHbod1NeCwkM5QIzlKEDKCd0Q",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]08.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1185730
+  },
+  {
+   "id": "1ySlZ7rQx18oMK56Fu7Cifdxy7KyTRiIF",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]09.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 455171
+  },
+  {
+   "id": "12THHA7WrtYuzj-feKBuCylJt_demc3a-",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]10.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 479932
+  },
+  {
+   "id": "1xtC8uHXAEvRF1GzMN1JAhOfYhy1mrG0b",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]11.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 2084474
+  },
+  {
+   "id": "1RQuiX43ntNAwAV44ZprmWarxAXCTZwWW",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]12.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1559289
+  },
+  {
+   "id": "1DVYL44bNFUcD8EfHFJ2cMrwZKRGf8Qrb",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]13.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1098596
+  },
+  {
+   "id": "1Wxa915OW_6qnhKW7rFm3RZF88rB1Lo7s",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]14.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1186989
+  },
+  {
+   "id": "1yewJPts9vDA6cIAEMAIoziFaqIDNJEvI",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]15.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 657153
+  },
+  {
+   "id": "1hhdG3yGTCCfKMMFOgOmArBtIxUfjj0on",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]16.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 530790
+  },
+  {
+   "id": "1a83lyhRossPF9CqPI9qSr_t4Leu7LZXz",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]17.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 677668
+  },
+  {
+   "id": "1rDr2Es5BgGfejcCdGAYwyVwL9bKM9g0E",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]18.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 785682
+  },
+  {
+   "id": "1d8GgRl_ZeQPkvTGKnzrz9HiKbGdTA9qq",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]19.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1542504
+  },
+  {
+   "id": "1QtR290ac4LEj79ci5c6kfDPg1GnXC83c",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]20.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1836295
+  },
+  {
+   "id": "1XV-0TO0uk8p2ts1u39nxVG2qmcbBtCe-",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]21.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1559045
+  },
+  {
+   "id": "11g47SGCjX8_8StsjOOxRtuYQ-hmEbhLh",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]22.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1553512
+  },
+  {
+   "id": "1CZ5mE90JYSST1azVWjiktPTZN9zRnpgk",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]23.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1103871
+  },
+  {
+   "id": "1yXHgkyRuTDG79izy3ycHEw6wZFpSY1Aj",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]24.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1288492
+  },
+  {
+   "id": "1SuXQNuVoeDni_Q-lMHg4rOQUqsGEPsnl",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]25.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 721528
+  },
+  {
+   "id": "1Alf8CSBJe2xeobZIjOyxen7a3gjm3Cn3",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]26.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 953512
+  },
+  {
+   "id": "1CAfM8J5cyg2Ix7-M9XMzohyBlERvs3bu",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]27.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 898119
+  },
+  {
+   "id": "1jPJctkuH0zc8xZZ79iMdvwy8oqGMrGR4",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]28.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 702917
+  },
+  {
+   "id": "1ySNQg8AdT7C_LwRFHG6KV4fSsuhQj-my",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]29.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 405336
+  },
+  {
+   "id": "1XMl1hh8DhxReUSTkOguxVNkpbE7lzeb_",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]30.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1119195
+  },
+  {
+   "id": "1WgaqRNucPXkboCvKz1aFrLIyRUDFhBCU",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]31.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 893628
+  },
+  {
+   "id": "1Vvxppr9mwocHRNOEEYhtO0mk8E8xgjDX",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]32.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1463173
+  },
+  {
+   "id": "1YsDg69ujZQTKh5T4vlQioFQuGId3m9Di",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]33.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 560517
+  },
+  {
+   "id": "1_fBcga2sdARXACrT6K-e5yL-fkTvkjld",
+   "title": "26_09_21_Scans_Concepts_Sketches_Notes_MasterSystem_PromptChains_II%%[AutoNumber]34.jpg",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/jpeg",
+   "modified": "2026-09-22",
+   "size": 1604104
+  },
+  {
+   "id": "10kSb-ZWJrHFycC3WRQm8yZg0chAaMmGA",
+   "title": "AI AEC DASHBOARD LIBRARY SCREENSHOTS.pdf",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "application/pdf",
+   "modified": "2026-10-15",
+   "size": 7200822
+  },
+  {
+   "id": "1HfbrpF6fIswrJBzmmuq7MdZbDji1DSP6",
+   "title": "AI AEC DASHBOARD LIBRARY SCREENSHOTS_2x2p.pdf",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "application/pdf",
+   "modified": "2026-10-15",
+   "size": 4561834
+  },
+  {
+   "id": "1lyC3NbjZRsMTooqMLY-WsbSRagmHnrqr",
+   "title": "AI-Agents-Execution-Loop.png",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/png",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1tHvooP0HrWK24TIrtE6jWtAzxfcoshOL",
+   "title": "ARIZE-AI_CHAT-to-PURCHASE-ROUTER.png",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/png",
+   "modified": "2026-09-20",
+   "size": 0
+  },
+  {
+   "id": "1dbHnpvh77nws1djwU_62pdM0G2nf9rZP",
+   "title": "ChatGPT Image 18. Sept. 2026, 19_47_08.png",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/png",
+   "modified": "2026-09-18",
+   "size": 0
+  },
+  {
+   "id": "1pydSY5lvHzbZozwvzcTnofOQJRDDidwm",
+   "title": "NEXUS KI-AEC-Betriebssystem_ Eurocode-Architektur.png",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "image/png",
+   "modified": "2026-10-15",
+   "size": 1776171
+  },
+  {
+   "id": "19dCBL8Ir8oVnnPDwLyUPVJvU9_MrE_9Zj_vlUOA3hNk",
+   "title": "NEXUS-AI-SEARCH-01",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "application/vnd.google-apps.document",
+   "modified": "2026-10-15",
+   "size": 3016
+  },
+  {
+   "id": "1lXDk23vA17RCWxsKc2htsE47WSgVz9v3",
+   "title": "Nexus-AI-WINDOW.pdf",
+   "parent": "1RuxhcyveQc0WvosMvIzE2X3S9Fbw2n08",
+   "mime": "application/pdf",
+   "modified": "2026-10-15",
+   "size": 2784949
+  },
+  {
+   "id": "1pmtfoWvNJeUz2b6ZhYSSJnRDyx2RH2et",
+   "title": "26_10_26_Nexus.ScreenShots.miui.gallery-edit.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 949689
+  },
+  {
+   "id": "14PTZSWmBIy39Xs-BoiUfyPSjDwZGXFre",
+   "title": "Screenshot_2026-10-26-20-56-55-504_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 302295
+  },
+  {
+   "id": "1uyv49AifEpEMYDjeOrGfhnPmPRowPb4F",
+   "title": "Screenshot_2026-10-26-20-56-59-761_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 272891
+  },
+  {
+   "id": "1eJ1XUXvd723GUE0z1wDBSWFwfw3pcTMd",
+   "title": "Screenshot_2026-10-26-20-57-04-744_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 349240
+  },
+  {
+   "id": "1fSLd-4sc4hWjO7XAcrOZFZJxVF-8nJwf",
+   "title": "Screenshot_2026-10-26-21-08-21-959_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 533260
+  },
+  {
+   "id": "1zvHVarlvJhsj54tO96nBg0qZzOox4A7U",
+   "title": "Screenshot_2026-10-26-21-08-26-337_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 579034
+  },
+  {
+   "id": "1srQ2u1FlyXD5jgQANtdwrFTUWmdsEI9E",
+   "title": "Screenshot_2026-10-26-21-08-29-983_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 576917
+  },
+  {
+   "id": "1JcE4qHtO5nIiQT72so_jyyB2g1mzK6L6",
+   "title": "Screenshot_2026-10-26-21-08-34-139_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 576151
+  },
+  {
+   "id": "1FYLTtoHzlGPdY4Zl6IvhzATJH1EMTzsT",
+   "title": "Screenshot_2026-10-26-21-08-37-451_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 581846
+  },
+  {
+   "id": "1Gf7PKAOuIMPAdd7iezx25I_iJnxsstTw",
+   "title": "Screenshot_2026-10-26-21-08-41-046_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 564395
+  },
+  {
+   "id": "1l2I8IaxOVm1N0BvI9LR4C531SJRJrEMK",
+   "title": "Screenshot_2026-10-26-21-08-47-348_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 566484
+  },
+  {
+   "id": "1kRWR7su7RqqE1VT2nnoei_mcDtyFgUSs",
+   "title": "Screenshot_2026-10-26-21-08-50-768_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 576655
+  },
+  {
+   "id": "1JLufc9FUZsziHfIPHGpSwjFvoruzQzyE",
+   "title": "Screenshot_2026-10-26-21-08-53-842_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 554680
+  },
+  {
+   "id": "1EX-W__Ro9R_M1vOXZY5ROiJ6w4ENSqCX",
+   "title": "Screenshot_2026-10-26-21-09-01-169_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 560441
+  },
+  {
+   "id": "1BDR2wHC_V6aJGpJvjVUgwhl24kwLn2qW",
+   "title": "Screenshot_2026-10-26-21-09-04-623_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 563430
+  },
+  {
+   "id": "1SFpUAs284qP_HYLyUO6CU6Ahnox_P5c2",
+   "title": "Screenshot_2026-10-26-21-09-07-612_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 564659
+  },
+  {
+   "id": "1vyYYGoz0lKm3QIpgP4GxbBJ-Zo1CDmat",
+   "title": "Screenshot_2026-10-26-21-09-10-438_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 564236
+  },
+  {
+   "id": "1BeNODG-9pbPeZfvr0Kghpj-uggANIHsA",
+   "title": "Screenshot_2026-10-26-21-09-13-118_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 573182
+  },
+  {
+   "id": "1boHcbTCOp8DC0xsPDbc4uw3KS3PRkMi0",
+   "title": "Screenshot_2026-10-26-21-09-20-108_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 573875
+  },
+  {
+   "id": "1FtZOfjIkKOqLclt2CQeKdIQ7t92JKbuU",
+   "title": "Screenshot_2026-10-26-21-09-22-960_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 582971
+  },
+  {
+   "id": "1I8q3apOFScB0uRlOlbMHcYrLV3J1S0J8",
+   "title": "Screenshot_2026-10-26-21-09-26-410_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 556388
+  },
+  {
+   "id": "1Sv1NFFfRDMhUtKuZ5wXtZ6i8k4cR4Hrg",
+   "title": "Screenshot_2026-10-26-21-09-29-528_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 540516
+  },
+  {
+   "id": "1t3fZTTwuWMwSFG5c5LGWbZL3vwNY_nad",
+   "title": "Screenshot_2026-10-26-21-09-32-582_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 546966
+  },
+  {
+   "id": "1uuyTMTL3AquoFc0erP7XEky1hk4hv1WS",
+   "title": "Screenshot_2026-10-26-21-09-35-265_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 569830
+  },
+  {
+   "id": "1DsH7nujtlpgwpRilR4PBe0kc4fzNXm6S",
+   "title": "Screenshot_2026-10-26-21-09-38-241_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 569136
+  },
+  {
+   "id": "1mdSaczbQI1LAY87_apOm7i9pdDM5Ss6-",
+   "title": "Screenshot_2026-10-26-21-09-41-194_com.google.android.documentsui.jpg",
+   "parent": "1SbaXr8Y1pWktA5ZLr1MP0UksiYcELLov",
+   "mime": "image/jpeg",
+   "modified": "2026-10-26",
+   "size": 383090
+  },
+  {
+   "id": "1En9eg8-22G2mBuOuKsUPG_zvMaryEKzo",
+   "title": "AI-MP3-TEXTA",
+   "parent": "1SjU5Kx10EP0-r0sn7t9zhnPiNYZpSWnK",
+   "mime": "application/vnd.google-apps.shortcut",
+   "modified": "2026-10-20",
+   "size": 0
+  },
+  {
+   "id": "1Ftcmy0dpThth5dwQh9d3GufMALbJMIlL",
+   "title": "AI-AEC_SPEECH-2-VIBECODE-2-3JS-2-IFC+DXF+STL",
+   "parent": "1a7m_tiYOngMzyBQcNOerwr7E8yO99jis",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-09-23",
+   "size": 0
+  },
+  {
+   "id": "1Rqx0BmLrlzrbBQoCC0gFfXpA2HLvSxTA",
+   "title": "NEXUS_EVAL_BOGEN_KURZ_v1.0.md",
+   "parent": "1jVltQeXvEUtU7tM49QYi_5GWOKZBfEVF",
+   "mime": "text/markdown",
+   "modified": "2026-10-15",
+   "size": 4151
+  },
+  {
+   "id": "1qicyBZVNdRASMKVZzXS1JsaKb31LuXYa",
+   "title": "NEXUS_EVAL_BOGEN_v1.0.md",
+   "parent": "1jVltQeXvEUtU7tM49QYi_5GWOKZBfEVF",
+   "mime": "text/markdown",
+   "modified": "2026-10-15",
+   "size": 47742
+  },
+  {
+   "id": "1NqrE2Z6QrQTPdUJFsNnN7nIJhAO5f5rO",
+   "title": "SYNC_STAMP.txt",
+   "parent": "1jVltQeXvEUtU7tM49QYi_5GWOKZBfEVF",
+   "mime": "text/plain",
+   "modified": "2026-10-15",
+   "size": 103
+  },
+  {
+   "id": "1hPNJEsQpn_S1Qj7a-sg1HzpY-y7Xngp_",
+   "title": "nexus_eval_auswertung.py",
+   "parent": "1jVltQeXvEUtU7tM49QYi_5GWOKZBfEVF",
+   "mime": "text/x-python",
+   "modified": "2026-10-15",
+   "size": 4101
+  },
+  {
+   "id": "1k2QbG06-Pj5JCAdJzUgkyxTfHSYYIVTb",
+   "title": "INDEX_LNK_BENCHMARK",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-13",
+   "size": 0
+  },
+  {
+   "id": "1ZjXdqItsh8bkHvblzAoSUrUsg5KwSnlH",
+   "title": "NEXUS_PARSE_DASHBOARD_v1.0.html",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "text/html",
+   "modified": "2026-10-13",
+   "size": 162152
+  },
+  {
+   "id": "15s3Fr6BXx56PFq5iZstDX1wnjDUTeEGN",
+   "title": "NEXUS_PARSE_DASHBOARD_v1.1.html",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "text/html",
+   "modified": "2026-10-13",
+   "size": 165592
+  },
+  {
+   "id": "1O-YRcwZQZRikFCBg20Mvn5s0itfq3F0l",
+   "title": "NEXUS_PARSE_INVENTORY_v1.0.json",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "application/json",
+   "modified": "2026-10-13",
+   "size": 153961
+  },
+  {
+   "id": "11MKDeGs7HW_RBUxiDFaQ5lmf3c-hSblo",
+   "title": "NEXUS_PARSE_REPORT_v1.0.md",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "text/markdown",
+   "modified": "2026-10-13",
+   "size": 2167
+  },
+  {
+   "id": "1Ie8q7BSXwDbkYwSl5TTtwoVASt5fOb-B",
+   "title": "NEXUS_PARSE_REPORT_v1.1.md",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "text/markdown",
+   "modified": "2026-10-13",
+   "size": 3167
+  },
+  {
+   "id": "1ZdQxY8vLyWX3r9gxMe6boTmx3di6GCVa",
+   "title": "NEXUS_VECTOR_INDEX_v1.0.json",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "application/json",
+   "modified": "2026-10-13",
+   "size": 8089502
+  },
+  {
+   "id": "1DER-RDwBNs9f7FYD8SaPs9qMJ5TZhjY9",
+   "title": "desktop.ini",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "application/octet-stream",
+   "modified": "2026-10-13",
+   "size": 352
+  },
+  {
+   "id": "1PbcRDmhMYsAi28fydZPGykn3A4t4xBhV",
+   "title": "ocr.py",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "text/x-python",
+   "modified": "2026-10-13",
+   "size": 2444
+  },
+  {
+   "id": "1FqbYrGalQ4ICA8ssVaFR-cwfTZfzPXkH",
+   "title": "parse.py",
+   "parent": "1kE_CgmKqbBxtp4qXP1OwzvIx6WSfn6OC",
+   "mime": "text/x-python",
+   "modified": "2026-10-13",
+   "size": 1743
+  },
+  {
+   "id": "1QJ6CzHf5v7dRm7kqS1gw6SEa-nwshXPt",
+   "title": "2026-10-13_parsing-pipeline",
+   "parent": "1mmLJyc8TpTqxPFhXASb4tmHI7515xpJn",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-13",
+   "size": 0
+  },
+  {
+   "id": "131iHQHpCUv7V6LUoPAY5JBQc23XlDKrJ",
+   "title": "Developer Platform • LM Studio Hub.url",
+   "parent": "1mmLJyc8TpTqxPFhXASb4tmHI7515xpJn",
+   "mime": "text/x-url",
+   "modified": "2026-10-24",
+   "size": 82
+  },
+  {
+   "id": "1Y5SKckWEPVpNy2VCVjMHFppIdDsyyoYv",
+   "title": "Getting started with Pydantic Logfire - Pydantic Docs.url",
+   "parent": "1mmLJyc8TpTqxPFhXASb4tmHI7515xpJn",
+   "mime": "text/x-url",
+   "modified": "2026-10-24",
+   "size": 72
+  },
+  {
+   "id": "1VVxxmmN_w046BGnrAJkbbrzPsrlY4Q-Z",
+   "title": "Material+Baudatenbanken, CAD-Details, Aufbauten, Regeldetails.docx",
+   "parent": "1orC1PaZladeqBK2AjrlV3fpdq47qqLMZ",
+   "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+   "modified": "2026-09-21",
+   "size": 36770
+  },
+  {
+   "id": "1wcvFT0PQ9yq13EfPIC0ILhNU9HFJ8NKC",
+   "title": "claude_desktop_config.json",
+   "parent": "1tcgucSrrl-esSbbhhn4yYosDq8YSipEh",
+   "mime": "application/json",
+   "modified": "2026-09-30",
+   "size": 202
+  },
+  {
+   "id": "1B-9c7Ftn4XTpgjd7roaNy7ikh04kQoC3",
+   "title": "mcpmarket.com",
+   "parent": "1tcgucSrrl-esSbbhhn4yYosDq8YSipEh",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1sCJZwdFzNaRaK7FlnPWaYgbJEfmAcvNt",
+   "title": "nexus_mcp_server.py",
+   "parent": "1tcgucSrrl-esSbbhhn4yYosDq8YSipEh",
+   "mime": "text/x-python",
+   "modified": "2026-09-30",
+   "size": 2519
+  },
+  {
+   "id": "1huA6AFTCBGMax8CP2Rv2F1FQ50zUAKeQl__NOmJXbZo",
+   "title": "INDEX_DISCOVERY_v1.0.md",
+   "parent": "1yLDYmEQrvGJFSH5GgKkv18K7pkWjyOUa",
+   "mime": "application/vnd.google-apps.document",
+   "modified": "2026-09-22",
+   "size": 3064
+  },
+  {
+   "id": "1GAV9Wa45C2754mYbl0Nt81VtHAhg3QIS",
+   "title": "PromptSmith",
+   "parent": "1yLDYmEQrvGJFSH5GgKkv18K7pkWjyOUa",
+   "mime": "application/vnd.google-apps.folder",
+   "modified": "2026-10-19",
+   "size": 0
+  },
+  {
+   "id": "1xefxa2iv56EDIK4jIMFXahlBpLEDLK2e",
+   "title": "SYNC_STAMP.txt",
+   "parent": "1yLDYmEQrvGJFSH5GgKkv18K7pkWjyOUa",
+   "mime": "text/plain",
+   "modified": "2026-10-15",
+   "size": 100
+  }
+ ]
+}

@@ -87,7 +87,7 @@ class DriveClient:
         files: list[dict] = []
         token = ''
         while True:
-            params = {'q': query, 'fields': 'nextPageToken,files(id,parents,appProperties)', 'pageSize': 100, 'supportsAllDrives': 'true', 'includeItemsFromAllDrives': 'true'}
+            params = {'q': query, 'fields': 'nextPageToken,files(id,name,parents,appProperties)', 'pageSize': 100, 'supportsAllDrives': 'true', 'includeItemsFromAllDrives': 'true'}
             if token:
                 params['pageToken'] = token
             result = json.loads(self.call('/files?' + urllib.parse.urlencode(params)))
@@ -116,7 +116,7 @@ class DriveClient:
             # Always verify its identity, parent and content below; never trust 409 alone.
 
     def metadata(self, file_id: str) -> dict:
-        return json.loads(self.call(f'/files/{file_id}?supportsAllDrives=true&fields=id,parents,trashed,appProperties'))
+        return json.loads(self.call(f'/files/{file_id}?supportsAllDrives=true&fields=id,name,parents,trashed,appProperties'))
 
     def read(self, file_id: str) -> bytes:
         return self.call(f'/files/{file_id}?alt=media&supportsAllDrives=true')
