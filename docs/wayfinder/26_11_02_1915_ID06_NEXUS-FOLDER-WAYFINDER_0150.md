@@ -3,7 +3,7 @@ name: NEXUS-FOLDER-WAYFINDER
 description: Wayfinder for the 16 NEXUS.* folders in LLM-LOCAL-SSOT (layer, role, Drive link, anchor status)
 version: 0.1.0
 artifact_no: 0150
-ledger_status: PENDING_RESERVATION
+ledger_status: UNRESERVED_PROPOSAL
 status: ENTWURF_REVIEW_PENDING
 author: ID06
 ticket_id: WO-20261102-NEXUS-WAYFINDER-01
