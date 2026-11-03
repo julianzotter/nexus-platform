@@ -3,6 +3,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
@@ -13,18 +14,42 @@ from validate_registry import validate_registry
 
 class InventoryCompletenessTests(unittest.TestCase):
     def test_coverage_uses_indexed_over_accessible_and_marks_unavailable_sources(self):
+        # This is a multi-source behaviour fixture, independent of active sources.
+        available, unavailable = "available-fixture", "unavailable-fixture"
         records = [
-            {"root": SOURCE_NAMES[0], "status": "FOUND"},
-            {"root": SOURCE_NAMES[0], "status": "FOUND"},
-            {"root": SOURCE_NAMES[0], "status": "SKIPPED"},
-            {"root": SOURCE_NAMES[0], "status": "ERROR"},
+            {"root": available, "status": "FOUND"},
+            {"root": available, "status": "FOUND"},
+            {"root": available, "status": "SKIPPED"},
+            {"root": available, "status": "ERROR"},
         ]
-        stats = calculate_coverage(records, {name: "not mounted" for name in SOURCE_NAMES[1:]})
-        source = stats["sources"][SOURCE_NAMES[0]]
+        with patch("coverage_stats.SOURCE_NAMES", (available, unavailable)):
+            stats = calculate_coverage(records, {unavailable: "not mounted"})
+        source = stats["sources"][available]
         self.assertEqual((source["discovered"], source["accessible"], source["indexed"]), (4, 3, 2))
         self.assertAlmostEqual(source["coverage_percent"], 2 / 3 * 100)
         self.assertEqual(stats["total"]["status"], "INCOMPLETE")
-        self.assertIsNone(stats["sources"][SOURCE_NAMES[1]]["accessible"])
+        self.assertIsNone(stats["sources"][unavailable]["accessible"])
+
+    def test_active_source_scope_does_not_invent_unavailable_sources(self):
+        records = [{"root": name, "status": "FOUND"} for name in SOURCE_NAMES]
+        stats = calculate_coverage(records, {})
+        self.assertEqual(set(stats["sources"]), set(SOURCE_NAMES))
+        self.assertEqual(stats["total"]["status"], "COMPLETE")
+        self.assertEqual(stats["total"]["indexed"], len(records))
+        self.assertEqual(stats["total"]["coverage_percent"], 100)
+
+    def test_incomplete_evidence_overrides_complete_source_assertion(self):
+        source = SOURCE_NAMES[0]
+        for records, reasons in [
+            ([{"root": source, "status": "FOUND"}], {source: "scan interrupted"}),
+            ([{"root": source, "status": "INCOMPLETE"}], {}),
+        ]:
+            with self.subTest(records=records, reasons=reasons):
+                stats = calculate_coverage(records, reasons, {source})
+                for entry in (stats["sources"][source], stats["total"]):
+                    self.assertEqual(entry["status"], "INCOMPLETE")
+                    for metric in ("discovered", "accessible", "indexed", "skipped", "error", "coverage_percent"):
+                        self.assertIsNone(entry[metric])
 
     def test_duplicate_marking_is_stable_and_uses_duplicate_fields(self):
         records = [
