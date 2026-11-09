@@ -32,11 +32,43 @@ class TimberMaterial:
         # EN 1995-1-1 eq. (6.29)
         return 0.1 if self.glulam else 0.2
 
-    @property
-    def kc90_factor(self) -> float:
-        # EN 1995-1-1 6.1.5(4): solid softwood 1.25, glulam 1.5. The increased
-        # glulam value 1.75 (l <= 400 mm) is deliberately not applied.
-        return 1.5 if self.glulam else 1.25
+    def kc90_factor(self, support: str) -> float:
+        """EN 1995-1-1 6.1.5(3)/(4) (identical in OENORM B 1995-1-1:2019).
+
+        continuous: l1 >= 2h, solid 1.25, glulam 1.5
+        discrete:   solid 1.5, glulam 1.75 (only valid for contact length <= 400 mm)
+        """
+        if support == "continuous":
+            return 1.5 if self.glulam else 1.25
+        if support == "discrete":
+            return 1.75 if self.glulam else 1.5
+        raise ValueError(f"Invalid support: {support!r}")
+
+
+@dataclass(frozen=True)
+class NationalAnnex:
+    name: str
+    kcr: float  # shear cracking factor, EN 1995-1-1 6.1.7(2)
+    kc90_base: float  # kc,90 when no 6.1.5(3)/(4) condition is claimed
+
+
+NATIONAL_ANNEXES = {
+    # EN 1995-1-1 recommended values
+    "EN": NationalAnnex("EN", kcr=0.67, kc90_base=1.0),
+    # OENORM B 1995-1-1:2019-06: kcr = 1.0 (6.1.7(2)), kc,90 = 1.0 base, max 1.75 (6.1.5(2)).
+    # gammaM (Table 2.3), kmod (Table 3.1), kdef (Table 3.2), km = 0.7 are the recommended values.
+    "AT": NationalAnnex("AT", kcr=1.0, kc90_base=1.0),
+}
+
+# EN 1995-1-1 / OENORM B 1995-1-1 Table 3.2, solid timber and glulam, by service class.
+KDEF = {1: 0.60, 2: 0.80, 3: 2.00}
+
+
+def get_national_annex(name: str) -> NationalAnnex:
+    try:
+        return NATIONAL_ANNEXES[name]
+    except KeyError:
+        raise ValueError(f"Unknown national annex: {name!r}") from None
 
 
 MATERIALS = {

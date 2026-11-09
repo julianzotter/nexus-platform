@@ -46,14 +46,44 @@ def test_bending_lateral_torsional_buckling_reduces_capacity():
     assert free.utilization > restrained.utilization
 
 
-def test_shear_golden():
+def test_shear_golden_austrian_annex_default():
     r = check_shear(material="C24", b=100, h=200, V=10.0)
-    assert r.utilization == pytest.approx((1.5 * 10000 / (0.67 * 100 * 200)) / (0.8 * 4.0 / 1.3), rel=1e-12)
+    assert r.details["kcr"] == 1.0
+    assert r.utilization == pytest.approx((1.5 * 10000 / (1.0 * 100 * 200)) / (0.8 * 4.0 / 1.3), rel=1e-12)
+
+
+def test_shear_en_recommended_kcr():
+    at = check_shear(material="C24", b=100, h=200, V=10.0, national_annex="AT")
+    en = check_shear(material="C24", b=100, h=200, V=10.0, national_annex="EN")
+    assert en.details["kcr"] == 0.67
+    assert en.utilization == pytest.approx(at.utilization / 0.67, rel=1e-12)
+    with pytest.raises(ValueError):
+        check_shear(material="C24", b=100, h=200, V=10.0, national_annex="DE")
 
 
 def test_compression_perpendicular_golden():
+    # OENORM base value kc,90 = 1.0 unless a support condition is claimed
     r = check_compression_perpendicular(material="C24", b=100, contact_length=100, F=10.0)
-    assert r.utilization == pytest.approx(1.0 / (1.25 * 0.8 * 2.5 / 1.3), rel=1e-12)
+    assert r.details["kc90"] == 1.0
+    assert r.utilization == pytest.approx(1.0 / (0.8 * 2.5 / 1.3), rel=1e-12)
+
+
+@pytest.mark.parametrize("material,support,expected", [
+    ("C24", "continuous", 1.25), ("GL24h", "continuous", 1.5),
+    ("C24", "discrete", 1.5), ("GL24h", "discrete", 1.75),
+])
+def test_kc90_support_conditions(material, support, expected):
+    r = check_compression_perpendicular(material=material, b=100, contact_length=100, F=10.0, support=support)
+    assert r.details["kc90"] == expected
+
+
+def test_kc90_override_and_cap():
+    r = check_compression_perpendicular(material="GL24h", b=100, contact_length=100, F=10.0, kc90=1.2)
+    assert r.details["kc90"] == 1.2
+    with pytest.raises(ValueError):
+        check_compression_perpendicular(material="GL24h", b=100, contact_length=100, F=10.0, kc90=2.2)
+    with pytest.raises(ValueError):
+        check_compression_perpendicular(material="C24", b=100, contact_length=100, F=10.0, support="x")
 
 
 def test_column_buckling_golden_weak_axis():

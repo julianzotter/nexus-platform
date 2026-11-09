@@ -6,6 +6,7 @@
     "material": {"enum": ["C24", "C30", "GL24h", "GL28h"]},
     "serviceClass": {"enum": [1, 2, 3]},
     "loadDuration": {"enum": ["permanent", "long", "medium", "short", "instantaneous"]},
+    "nationalAnnex": {"enum": ["EN", "AT"]},
     "pos": {"type": "number", "exclusiveMinimum": 0},
     "nonneg": {"type": "number", "minimum": 0}
   },
@@ -34,6 +35,7 @@
         "b": {"$ref": "#/$defs/pos"},
         "h": {"$ref": "#/$defs/pos"},
         "V": {"$ref": "#/$defs/nonneg"},
+        "national_annex": {"$ref": "#/$defs/nationalAnnex"},
         "service_class": {"$ref": "#/$defs/serviceClass"},
         "load_duration": {"$ref": "#/$defs/loadDuration"}
       },
@@ -48,7 +50,9 @@
         "b": {"$ref": "#/$defs/pos"},
         "contact_length": {"$ref": "#/$defs/pos"},
         "F": {"$ref": "#/$defs/nonneg"},
-        "kc90": {"$ref": "#/$defs/pos"},
+        "kc90": {"type": "number", "exclusiveMinimum": 0, "maximum": 1.75},
+        "support": {"enum": ["continuous", "discrete"]},
+        "national_annex": {"$ref": "#/$defs/nationalAnnex"},
         "service_class": {"$ref": "#/$defs/serviceClass"},
         "load_duration": {"$ref": "#/$defs/loadDuration"}
       },

@@ -8,11 +8,11 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 
-from .materials import TimberMaterial, design_strength, get_material, kmod
+from .materials import TimberMaterial, design_strength, get_material, get_national_annex, kmod
 
 TOLERANCE = 1.0e-9
 KM_RECTANGULAR = 0.7  # EN 1995-1-1 6.1.6(2)
-KCR = 0.67  # EN 1995-1-1 6.1.7(2), recommended value (solid timber and glulam)
+DEFAULT_NA = "AT"  # OENORM B 1995-1-1:2019; use "EN" for the EN 1995-1-1 recommended values
 
 
 @dataclass(frozen=True)
@@ -98,31 +98,47 @@ def check_bending(*, material: str, b: float, h: float, My: float, Mz: float = 0
 
 
 def check_shear(*, material: str, b: float, h: float, V: float,
-                service_class: int = 1, load_duration: str = "medium") -> CheckResult:
+                service_class: int = 1, load_duration: str = "medium",
+                national_annex: str = DEFAULT_NA) -> CheckResult:
     """Shear with cracking factor kcr, EN 1995-1-1 6.1.7 eq. (6.13), (6.13a)."""
     _positive(b=b, h=h)
     _non_negative(V=V)
     mat, k = _kmod(material, service_class, load_duration)
+    kcr = get_national_annex(national_annex).kcr
     fvd = design_strength(mat.fvk, k, mat.gammaM)
-    tau = 1.5 * V * 1e3 / (KCR * b * h)
+    tau = 1.5 * V * 1e3 / (kcr * b * h)
     return CheckResult("shear", "EN 1995-1-1 6.1.7", tau / fvd,
-                       {"material": material, "kmod": k, "fvd": fvd, "tau_d": tau, "kcr": KCR})
+                       {"material": material, "kmod": k, "fvd": fvd, "tau_d": tau, "kcr": kcr,
+                        "national_annex": national_annex})
 
 
 def check_compression_perpendicular(*, material: str, b: float, contact_length: float, F: float,
                                     service_class: int = 1, load_duration: str = "medium",
-                                    kc90: float | None = None) -> CheckResult:
+                                    kc90: float | None = None, support: str | None = None,
+                                    national_annex: str = DEFAULT_NA) -> CheckResult:
     """Bearing, EN 1995-1-1 6.1.5 eq. (6.3), (6.4). Effective contact length is the caller's input
-    (add 30 mm per side where 6.1.5(1) allows); kc90 defaults to the conservative base value."""
+    (add 30 mm per side where 6.1.5(1) allows).
+
+    kc,90 precedence: explicit kc90, else support ("continuous" / "discrete", 6.1.5(3)/(4)),
+    else the national-annex base value (1.0). The caller must ensure the support conditions apply.
+    """
     _positive(b=b, contact_length=contact_length)
     _non_negative(F=F)
     mat, k = _kmod(material, service_class, load_duration)
-    factor = mat.kc90_factor if kc90 is None else kc90
+    if kc90 is not None:
+        factor = kc90
+    elif support is not None:
+        factor = mat.kc90_factor(support)
+    else:
+        factor = get_national_annex(national_annex).kc90_base
+    if factor > 1.75:
+        raise ValueError(f"Invalid input kc90: {factor!r} (maximum 1.75)")
     _positive(kc90=factor)
     fc90d = design_strength(mat.fc90k, k, mat.gammaM)
     sigma = F * 1e3 / (b * contact_length)
     return CheckResult("compression_perpendicular", "EN 1995-1-1 6.1.5", sigma / (factor * fc90d),
-                       {"material": material, "kmod": k, "fc90d": fc90d, "sigma_c90d": sigma, "kc90": factor})
+                       {"material": material, "kmod": k, "fc90d": fc90d, "sigma_c90d": sigma, "kc90": factor,
+                        "national_annex": national_annex})
 
 
 def check_column_buckling(*, material: str, b: float, h: float, L: float, N: float,
