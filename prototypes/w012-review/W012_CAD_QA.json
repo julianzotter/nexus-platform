@@ -1,0 +1,403 @@
+{
+  "status": "CAD_AUDIT_AND_GEOMETRY_PASS",
+  "engineering_release": false,
+  "ezdxf": "1.4.4",
+  "sha256": "66d5367b6f1c465e5060537a2e8ad3d0f51bc2789bd2cffa998eadc3709519e8",
+  "input_sha256": "bd5d9716e5f9c2c9ea43748eab37f459f3ca5a8e8ab05f14238c3082e5abe3b2",
+  "units": "mm",
+  "level_id": "TEST-LEVEL",
+  "revision": "TEST-1",
+  "synthetic_fixture_only": true,
+  "project_dxf_generated": false,
+  "fixture_description": "Invented XY points [0,0] and [2,1] m; 0.2 by 0.3 m column; no real project geometry.",
+  "generated_fixture_retained": false,
+  "test_command": "python -m unittest discover -s W012_Review -p 'test_w012_dxf.py' -v",
+  "tests_run": 13,
+  "subcases_run": 52,
+  "all_tests_passed": true,
+  "subcases": [
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "member_coordinate"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "member_z"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "missing_member"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "axis_coordinate"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "missing_axis"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "column_position"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "column_shape"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "column_open"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "column_elevation"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "column_bulge"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "missing_column"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "missing_dimension"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_geometry_corruption_is_rejected",
+      "parameters": {
+        "name": "dimension_value"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "unconfirmed"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "not_review"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "wrong_units"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "wrong_schema"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "bad_revision_type"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "blank_revision"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "engineering_release"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_plan_revision"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_basis"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_level"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_project"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "empty_source_register"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "duplicate_source"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_source_id"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_source_revision"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_source_url"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "unresolved_source"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_locator"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "unverified_source"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "mixed_levels"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "node_without_level"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "duplicate_entity"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_nodes"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_members"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "missing_axes"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "nan"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "infinity"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "bool_coordinate"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "axis_direction"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "axis_nonfinite"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "unknown_node"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "zero_member"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "negative_section"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "zero_section"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "unknown_column_node"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_input_gate_negative_cases",
+      "parameters": {
+        "name": "rotated_column"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_schema_validates_fixture_and_rejects_template",
+      "parameters": {
+        "field": "revision"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_schema_validates_fixture_and_rejects_template",
+      "parameters": {
+        "field": "engineering_release"
+      },
+      "passed": true
+    },
+    {
+      "test": "test_schema_validates_fixture_and_rejects_template",
+      "parameters": {
+        "field": "units"
+      },
+      "passed": true
+    }
+  ],
+  "dependencies": {
+    "ezdxf": "1.4.4",
+    "jsonschema": "4.26.0"
+  },
+  "schema_validation": "Draft202012Validator.check_schema and positive/negative instance validation passed",
+  "input_hash_method": "SHA-256 of UTF-8 json.dumps(data, sort_keys=True, ensure_ascii=False, allow_nan=False); not raw input-file hash",
+  "source_files_sha256": {
+    "w012_dxf.py": "1d3d38444f75d474a4c8fccf8a19b06428f22aa3e40edd87c7e5f877e37cefd6",
+    "test_w012_dxf.py": "4cd23d4bec028f9ada454509a46bd1c6048196dfa17c8864f22710d34f5937b8",
+    "W012_Drawing.schema.json": "1ca2056af4e7637dffae622a1429ce646cfd410b131d4a6bc1d76ae20f29e74f",
+    "W012_P2_Modellvertrag.json": "55f1e080e389da69c81861cd3555eb01b1ba66421f439ac4fd59ca13fe395b9f",
+    "requirements-cad-qa.txt": "9e5bea7d0b982dac6d8038d222b00e931b35e6a53374f6c422d2a3b508b5253f"
+  },
+  "limitations": [
+    "CAD syntax and selected 2D geometry only; no structural, fire, acoustic or thermal verification.",
+    "Source labels and source revisions are input declarations; their factual truth requires independent primary-source review.",
+    "JSON Schema validates only the drawing subset; RFEM contract semantics remain outside its scope.",
+    "The paired files are rollback-protected for ordinary errors, not a crash-atomic multi-file transaction."
+  ]
+}

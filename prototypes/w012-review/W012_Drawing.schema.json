@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w012:drawing:1.0",
+  "title": "W012 review drawing input, not an RFEM model or engineering release",
+  "description": "Schema applies only to a selected, drawable single-level source snapshot. Empty project templates intentionally fail. Cross-entity source references, ID uniqueness, selected-level equality, finite numbers and nonzero members are additionally enforced by w012_dxf.validate. RFEM contract properties are outside this schema scope.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "revision",
+    "units",
+    "drawing_status",
+    "drawing_selection_confirmed",
+    "plan_revision",
+    "coordinate_basis",
+    "level_id",
+    "source_register",
+    "axes",
+    "nodes",
+    "members"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "project": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "units": {
+      "const": "m"
+    },
+    "drawing_status": {
+      "const": "REVIEW"
+    },
+    "drawing_selection_confirmed": {
+      "const": true
+    },
+    "engineering_release": {
+      "const": false
+    },
+    "plan_revision": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "coordinate_basis": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "level_id": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "source_register": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "url",
+          "revision"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "\\S",
+            "format": "uri"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "locator": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_status": {
+            "const": "VERIFIED_SOURCE"
+          },
+          "xy_m": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "items": false,
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "level_id": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "id",
+          "source_id",
+          "locator",
+          "source_status",
+          "xy_m",
+          "level_id"
+        ]
+      }
+    },
+    "axes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "locator": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_status": {
+            "const": "VERIFIED_SOURCE"
+          },
+          "direction": {
+            "enum": [
+              "X",
+              "Y"
+            ]
+          },
+          "ordinate_m": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "source_id",
+          "locator",
+          "source_status",
+          "direction",
+          "ordinate_m"
+        ]
+      }
+    },
+    "members": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "locator": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_status": {
+            "const": "VERIFIED_SOURCE"
+          },
+          "start": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "end": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "id",
+          "source_id",
+          "locator",
+          "source_status",
+          "start",
+          "end"
+        ]
+      }
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_id": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "locator": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "source_status": {
+            "const": "VERIFIED_SOURCE"
+          },
+          "node": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "section_xy_m": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            ],
+            "items": false,
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "rotation_deg": {
+            "const": 0
+          }
+        },
+        "required": [
+          "id",
+          "source_id",
+          "locator",
+          "source_status",
+          "node",
+          "section_xy_m"
+        ]
+      }
+    }
+  }
+}

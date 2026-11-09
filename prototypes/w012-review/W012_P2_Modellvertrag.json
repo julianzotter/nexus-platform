@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "project": "W012",
+  "revision": "P2-1.0-2026-11-09",
+  "units": "m",
+  "drawing_status": "REVIEW",
+  "drawing_selection_confirmed": false,
+  "engineering_release": false,
+  "norm_profile": null,
+  "plan_revision": null,
+  "coordinate_basis": null,
+  "level_id": null,
+  "levels": [],
+  "axes": [],
+  "nodes": [],
+  "members": [],
+  "columns": [],
+  "clt_panels": [],
+  "materials": [],
+  "supports": [],
+  "connections": [],
+  "load_cases": [],
+  "load_combinations": [],
+  "source_register": [],
+  "required_decisions": [
+    "Aktueller Planstand",
+    "BSH-/CLT-Richtungen und Auflagerzuordnung",
+    "Dickenkonflikte",
+    "AW02h/IW01h/Kern",
+    "Lager und Anschlüsse",
+    "Lastzonen und Normprofil"
+  ],
+  "approvals": {
+    "inputs": {
+      "by": null,
+      "date": null,
+      "reference": null,
+      "approved": false
+    },
+    "model": {
+      "by": null,
+      "date": null,
+      "reference": null,
+      "approved": false
+    },
+    "results": {
+      "by": null,
+      "date": null,
+      "reference": null,
+      "approved": false
+    },
+    "report": {
+      "by": null,
+      "date": null,
+      "reference": null,
+      "approved": false
+    }
+  }
+}
