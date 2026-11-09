@@ -21,15 +21,12 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
+from delivery_errors import DeliveryError
 
 DRIVE = 'https://www.googleapis.com/drive/v3'
 WORK = '1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP'
 REPO = 'julianzotter/nexus-platform'
 MAX_BYTES = 20 * 1024 * 1024
-
-
-class DeliveryError(Exception):
-    """Sanitized, evidence-preserving transfer failure."""
 
 
 def retry(operation: Callable[[], Any], sleep: Callable[[float], None] = time.sleep) -> Any:
@@ -116,7 +113,12 @@ class DriveClient:
             # Always verify its identity, parent and content below; never trust 409 alone.
 
     def metadata(self, file_id: str) -> dict:
-        return json.loads(self.call(f'/files/{file_id}?supportsAllDrives=true&fields=id,parents,trashed,appProperties'))
+        fields = 'id,name,mimeType,size,version,modifiedTime,parents,trashed,appProperties'
+        return json.loads(self.call(f'/files/{file_id}?supportsAllDrives=true&fields={fields}'))
+
+    def replace(self, file_id: str, data: bytes, mime_type: str) -> None:
+        self.call(f'/files/{file_id}?uploadType=media&supportsAllDrives=true',
+                  'PATCH', data, mime_type, upload=True)
 
     def read(self, file_id: str) -> bytes:
         return self.call(f'/files/{file_id}?alt=media&supportsAllDrives=true')
@@ -139,6 +141,8 @@ def deliver(client: Any, data: bytes, folder: str, source_key: str, name: str,
     saved = json.loads(journal.read_text()) if journal.is_file() else {}
     if saved and (saved.get('key'), saved.get('sha256'), saved.get('folder')) != (key, digest, folder):
         raise DeliveryError('JOURNAL_SOURCE_CONFLICT')
+    if saved.get('name', name) != name:
+        raise DeliveryError('JOURNAL_SOURCE_CONFLICT')
     matches = client.find(folder, key)
     if len(matches) > 1:
         raise DeliveryError('DUPLICATE_DELIVERY_RECORDS')
@@ -147,7 +151,7 @@ def deliver(client: Any, data: bytes, folder: str, source_key: str, name: str,
     if not file_id:
         file_id = client.generate_id()
     # Persist ID before any create; restore this journal after process/runner loss.
-    state = {'key': key, 'sha256': digest, 'folder': folder, 'file_id': file_id}
+    state = {'key': key, 'sha256': digest, 'folder': folder, 'file_id': file_id, 'name': name}
     save_json(journal, state)
     if not matches:
         client.create(file_id, folder, key, name, data)
@@ -157,7 +161,8 @@ def deliver(client: Any, data: bytes, folder: str, source_key: str, name: str,
     if hashlib.sha256(client.read(file_id)).hexdigest() != digest:
         raise DeliveryError('READBACK_HASH_MISMATCH')
     receipt = dict(state, source_key=source_key, state='DELIVERY_VERIFIED', reused=reused,
-                   source=source or {}, bytes=len(data), consumer_ack='NOT_OBSERVED', human_acceptance='PENDING')
+                   source=source or {}, bytes=len(data), consumer_ack='NOT_OBSERVED', human_acceptance='PENDING',
+                   delivery_status='BYTE_READBACK_VERIFIED', registration_status='NOT_CHECKED', review_status='REVIEW_PENDING')
     return receipt
 
 
@@ -224,13 +229,31 @@ def execute(args: argparse.Namespace, output: Path) -> dict:
         name = f"NEXUS_{run['id']}_{run['run_attempt']}_{artifact['id']}.zip"
         receipt = deliver(client, body, args.folder, source_key, name,
                           output / 'state' / f"{artifact['id']}.json", source)
+        # Freeze delivery-only evidence. Mutable registration status/registry
+        # digest must never change a stable receipt delivery key on retries.
+        delivery_receipt = {k: v for k, v in receipt.items() if k != 'reused'}
+        if getattr(args, 'register', False):
+            from persistence_gate import register_delivery
+            receipt = register_delivery(client, receipt, body, name, 'application/octet-stream',
+                                        args.ticket_id, args.owner, args.registry_write_mode)
         receipts.append(receipt)
         save_json(output / f"receipt-{artifact['id']}.json", receipt)
         # Stable receipt content is itself delivered and byte-verified, independently.
-        encoded = json.dumps({k: v for k, v in receipt.items() if k != 'reused'}, sort_keys=True).encode()
-        deliver(client, encoded, args.folder, source_key + ':receipt', name + '.receipt.json',
-                output / 'state' / f"receipt-{artifact['id']}.json", source)
-    return {'status': 'DELIVERY_VERIFIED', 'deliveries': receipts, 'human_acceptance': 'PENDING'}
+        encoded = json.dumps(delivery_receipt, sort_keys=True).encode()
+        receipt_delivery = deliver(client, encoded, args.folder, source_key + ':receipt', name + '.receipt.json',
+                                   output / 'state' / f"receipt-{artifact['id']}.json", source)
+        if getattr(args, 'register', False):
+            receipt_delivery = register_delivery(client, receipt_delivery, encoded, name + '.receipt.json',
+                                                 'application/octet-stream', args.ticket_id, args.owner,
+                                                 args.registry_write_mode)
+        save_json(output / f"receipt-evidence-{artifact['id']}.json", receipt_delivery)
+        receipts.append(receipt_delivery)
+    requested = getattr(args, 'register', False)
+    persisted = requested and all(r['registration_status'] == 'REGISTERED' for r in receipts)
+    status = 'PERSISTED_VERIFIED' if persisted else 'REGISTRATION_PENDING' if requested else 'DELIVERY_VERIFIED'
+    return {'status': status, 'deliveries': receipts, 'human_acceptance': 'PENDING',
+            'registration_status': 'REGISTERED' if persisted else 'REGISTRATION_PENDING' if requested else 'NOT_CHECKED',
+            'review_status': 'REVIEW_PENDING', 'verification_scope': 'point-in-time; no global enforcement'}
 
 
 def failure_status(reason: str) -> str:
@@ -249,11 +272,18 @@ def main() -> int:
     parser.add_argument('--run-id', required=True, type=int)
     parser.add_argument('--folder', default=WORK)
     parser.add_argument('--output', type=Path, default=Path('reports/delivery'))
+    parser.add_argument('--register', action='store_true', help='Require existing-registry readback before full success')
+    parser.add_argument('--registry-write-mode', choices=('read-only', 'exclusive-writer'), default='read-only',
+                        help='exclusive-writer requires externally established exclusivity; this flag is not a lock')
+    parser.add_argument('--ticket-id')
+    parser.add_argument('--owner', default='Julian Zotter')
     args = parser.parse_args()
+    if args.register and not args.ticket_id:
+        parser.error('--register requires --ticket-id')
     args.output.mkdir(parents=True, exist_ok=True)
     try:
         report = execute(args, args.output)
-        code = 0
+        code = 0 if report['status'] in ('DELIVERY_VERIFIED', 'PERSISTED_VERIFIED') else 2
     except (DeliveryError, OSError, ValueError, KeyError, zipfile.BadZipFile, subprocess.TimeoutExpired) as exc:
         # Only our sanitized errors are surfaced; raw service responses may contain credentials.
         reason = str(exc) if isinstance(exc, DeliveryError) else type(exc).__name__
