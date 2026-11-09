@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EC5 check request",
+  "description": "Units: lengths mm, forces kN, moments kNm. PROTOTYPE - not certified.",
+  "$defs": {
+    "material": {"enum": ["C24", "C30", "GL24h", "GL28h"]},
+    "serviceClass": {"enum": [1, 2, 3]},
+    "loadDuration": {"enum": ["permanent", "long", "medium", "short", "instantaneous"]},
+    "pos": {"type": "number", "exclusiveMinimum": 0},
+    "nonneg": {"type": "number", "minimum": 0}
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "check": {"const": "bending"},
+        "material": {"$ref": "#/$defs/material"},
+        "b": {"$ref": "#/$defs/pos"},
+        "h": {"$ref": "#/$defs/pos"},
+        "My": {"$ref": "#/$defs/nonneg"},
+        "Mz": {"$ref": "#/$defs/nonneg"},
+        "lef": {"$ref": "#/$defs/pos"},
+        "service_class": {"$ref": "#/$defs/serviceClass"},
+        "load_duration": {"$ref": "#/$defs/loadDuration"}
+      },
+      "required": ["check", "material", "b", "h", "My"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "check": {"const": "shear"},
+        "material": {"$ref": "#/$defs/material"},
+        "b": {"$ref": "#/$defs/pos"},
+        "h": {"$ref": "#/$defs/pos"},
+        "V": {"$ref": "#/$defs/nonneg"},
+        "service_class": {"$ref": "#/$defs/serviceClass"},
+        "load_duration": {"$ref": "#/$defs/loadDuration"}
+      },
+      "required": ["check", "material", "b", "h", "V"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "check": {"const": "compression_perpendicular"},
+        "material": {"$ref": "#/$defs/material"},
+        "b": {"$ref": "#/$defs/pos"},
+        "contact_length": {"$ref": "#/$defs/pos"},
+        "F": {"$ref": "#/$defs/nonneg"},
+        "kc90": {"$ref": "#/$defs/pos"},
+        "service_class": {"$ref": "#/$defs/serviceClass"},
+        "load_duration": {"$ref": "#/$defs/loadDuration"}
+      },
+      "required": ["check", "material", "b", "contact_length", "F"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "check": {"const": "column_buckling"},
+        "material": {"$ref": "#/$defs/material"},
+        "b": {"$ref": "#/$defs/pos"},
+        "h": {"$ref": "#/$defs/pos"},
+        "L": {"$ref": "#/$defs/pos"},
+        "N": {"$ref": "#/$defs/pos"},
+        "beta_y": {"$ref": "#/$defs/pos"},
+        "beta_z": {"$ref": "#/$defs/pos"},
+        "service_class": {"$ref": "#/$defs/serviceClass"},
+        "load_duration": {"$ref": "#/$defs/loadDuration"}
+      },
+      "required": ["check", "material", "b", "h", "L", "N"],
+      "additionalProperties": false
+    }
+  ]
+}
