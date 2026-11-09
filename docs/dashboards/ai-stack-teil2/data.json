@@ -1,0 +1,4 @@
+[{"element":"CLT wall","mass_kg":12000,"gwp_factor":-0.60,"source":"PLACEHOLDER"},
+ {"element":"Concrete slab","mass_kg":45000,"gwp_factor":0.11,"source":"PLACEHOLDER"},
+ {"element":"Steel beam","mass_kg":3000,"gwp_factor":1.50,"source":"PLACEHOLDER"},
+ {"element":"Glulam beam","mass_kg":6500,"gwp_factor":-0.55,"source":"PLACEHOLDER"}]

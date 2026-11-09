@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teil 2 · AI-Stack in WebUI-Dashboards – How-to für Vibe Coder, Prompter und Ingenieure</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#0f1627;--ink:#e6e9f2;--muted:#9aa4bd;--rule:#24304d;--acc:#c8102e;--cyan:#22d3ee;--ok:#34d399;--warn:#fbbf24;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'IBM Plex Sans',system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.55;background-image:linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);background-size:32px 32px}
+a{color:var(--cyan)}
+header.mast{position:sticky;top:0;z-index:20;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);border-bottom:3px solid var(--acc)}
+.mast-in{max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge{background:var(--acc);color:#fff;font:800 12px var(--sans);letter-spacing:.08em;padding:4px 9px;border-radius:4px;text-transform:uppercase}
+.kick{font:12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.live{margin-left:auto;font:12px var(--mono);color:var(--ok);border:1px solid rgba(52,211,153,.4);border-radius:999px;padding:3px 10px}
+.wrap{max-width:1240px;margin:0 auto;padding:24px;display:grid;grid-template-columns:270px 1fr;gap:28px}
+nav.toc{position:sticky;top:70px;align-self:start;background:var(--panel);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;font-size:14px;max-height:calc(100vh - 90px);overflow:auto}
+nav.toc h2{font:12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:5px 8px;border-radius:6px}
+nav.toc a:hover{background:#1a2440;color:var(--cyan)}
+nav.toc .n{color:var(--cyan);font-family:var(--mono);font-size:11px;margin-right:6px}
+nav.toc .sec{font-size:12.5px;color:var(--muted);padding-left:30px}
+main{min-width:0}
+section.part{background:var(--panel);border:1px solid var(--rule);border-radius:14px;padding:28px 30px;margin-bottom:26px}
+.no{font:12px var(--mono);color:var(--cyan);letter-spacing:.12em;text-transform:uppercase}
+h1{margin:6px 0 10px;font-size:clamp(26px,3.6vw,44px);line-height:1.1;font-weight:800}
+section h2{margin:4px 0 8px;font-size:26px;line-height:1.2}
+section h3{margin:24px 0 8px;font-size:18px;border-left:4px solid var(--acc);padding-left:10px}
+.lead{font-size:17px;color:#c9d1e6;border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.tile{background:var(--panel2);border:1px solid var(--rule);border-radius:10px;padding:12px;text-align:center}
+.tile b{display:block;font-size:26px;color:var(--cyan)}
+.tile span{font:11px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.box{background:var(--panel2);border-left:5px solid var(--cyan);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:14.5px}
+.box.warn{border-color:var(--warn)}.box.ok{border-color:var(--ok)}.box.red{border-color:var(--acc)}
+.box h4{margin:0 0 6px;font:700 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.box ul{margin:4px 0 0;padding-left:18px}.box li{margin:3px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+pre{position:relative;background:#05080f;color:#dbe4ff;font-family:var(--mono);font-size:13px;padding:14px 16px;overflow:auto;border-radius:8px;border:1px solid var(--rule);margin:12px 0}
+.cp{position:absolute;top:8px;right:8px;font:12px var(--mono);background:#1a2440;color:#fff;border:1px solid var(--rule);padding:4px 8px;cursor:pointer;border-radius:4px}
+.cp:hover{background:var(--acc)}
+code{font-family:var(--mono)}
+p code,li code,td code{background:#1a2440;padding:1px 5px;border-radius:4px;font-size:12.5px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}
+th,td{border:1px solid var(--rule);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tag{display:inline-block;font:11px var(--mono);padding:1px 6px;border-radius:3px;color:#05080f}
+.tag.ok{background:var(--ok)}.tag.warn{background:var(--warn)}.tag.red{background:var(--acc);color:#fff}
+figure{margin:16px 0;background:var(--panel2);border:1px solid var(--rule);border-radius:10px;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font:12px var(--mono);color:var(--muted);margin-top:6px}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding-left:40px;margin:10px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font:600 14px var(--mono);display:flex;align-items:center;justify-content:center}
+.links li{margin:5px 0;font:13px var(--mono)}
+/* interactive */
+.tool{background:var(--panel2);border:1px solid var(--rule);border-radius:10px;padding:16px}
+.tool label{display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-size:14px}
+.tool input[type=text],.tool input[type=number],.tool select{background:#05080f;color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:6px 8px;font:13px var(--mono)}
+.tool button{background:var(--cyan);color:#05080f;border:0;border-radius:6px;padding:8px 14px;font:600 13px var(--sans);cursor:pointer;margin:6px 6px 0 0}
+.tool button.sec{background:#1a2440;color:var(--ink);border:1px solid var(--rule)}
+.tool table input{width:100%;background:#05080f;color:var(--ink);border:1px solid var(--rule);border-radius:4px;padding:4px 6px;font:13px var(--mono)}
+#lcaChart{min-height:320px}
+.status{font:12px var(--mono);color:var(--muted);margin-top:6px}
+footer{max-width:1240px;margin:0 auto;padding:16px 24px 40px;font:12.5px var(--mono);color:var(--muted)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}nav.toc{position:static;max-height:none}.grid2{grid-template-columns:1fr}section.part{padding:20px}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="mast-in">
+<span class="badge">c't LAB · Teil 2</span>
+<span class="kick">How-to · AI-Stack in WebUI-Dashboards · Nov 2026</span>
+<span class="live">● verified 09.11.2026 · 6 Quellen kondensiert</span>
+</div></header>
+
+<div class="wrap">
+<nav class="toc"><h2>Inhalt</h2>
+<a href="#s0"><span class="n">★</span>Start &amp; Quellen-Analyse</a>
+<a href="#s1"><span class="n">01</span>Anatomie eines Dashboards</a>
+<a href="#s2"><span class="n">02</span>Live MCP-Config-Builder</a><div class="sec">interaktiv · JSON kopieren</div>
+<a href="#s3"><span class="n">03</span>Rechnen im Browser</a><div class="sec">LCA-Rechner · Plotly · Pyodide</div>
+<a href="#s4"><span class="n">04</span>Gemini → JSON → Chart</a>
+<a href="#s5"><span class="n">05</span>Agenten-Prompts für Dashboards</a>
+<a href="#s6"><span class="n">06</span>Deploy &amp; Versionieren</a>
+<a href="#s7"><span class="n">07</span>Qualität &amp; Sicherheit</a>
+<a href="#s8"><span class="n">08</span>Faktencheck</a>
+<a href="#s9"><span class="n">09</span>Links &amp; Downloads</a>
+</nav>
+
+<main>
+
+<section class="part" id="s0">
+<div class="no">Vorspann · Teil 2 der Serie</div>
+<h1>AI-Stack in WebUI-Dashboards: vom Prompt zur Seite, die rechnet</h1>
+<p class="lead">Teil 1 hat die Landkarte gezeichnet – Antigravity 2.0, AI Studio, Colab, MCP. Teil 2 ist das Werkstattheft: Wie wird aus Gemini-Ausgaben, MCP-Werkzeugen und einer einzigen <code>index.html</code> ein Dashboard, das Daten lädt, rechnet, zeichnet und sich per Link teilen lässt. Mit zwei Live-Werkzeugen direkt auf dieser Seite.</p>
+<div class="tiles">
+<div class="tile"><b>1</b><span>Datei · index.html</span></div>
+<div class="tile"><b>2</b><span>Live-Tools hier</span></div>
+<div class="tile"><b>0</b><span>Server nötig</span></div>
+<div class="tile"><b>6</b><span>Prompt-Rezepte</span></div>
+<div class="tile"><b>22</b><span>Links</span></div>
+</div>
+<h3>Was aus den Quellen übernommen wurde</h3>
+<table><thead><tr><th>Quelle</th><th>Übernommen</th><th>Verworfen</th></tr></thead><tbody>
+<tr><td>Meta-AI Starter-Pack (09.11., 08:19/08:24)</td><td>Dreiteilige Logik Prompt → Agent → MCP → Code; Testplan; Readonly-GitHub-Endpunkt</td><td>4 undatierte Behauptungen (I/O-Datum, Jules-EOL, Key-Sperre, „7 Tools“) – unbelegt</td></tr>
+<tr><td>DeepSeek-Entwurf „c't LAB“</td><td>Dunkles Lab-Layout, Stat-Kacheln, Idee <b>Live MCP-Config-Builder</b></td><td>Tailwind-CDN + Font-Awesome (Abhängigkeiten); Datei war abgeschnitten</td></tr>
+<tr><td>Claude v1.1 (Teil 1)</td><td>Faktencheck-Tabelle, LCA-Beispiel, Sicherheitsregeln, Vibe-Coder-Prompts</td><td>Doppelte Inhalte – hier nur verlinkt, nicht wiederholt</td></tr>
+<tr><td>Gemini-/DeepSeek-Share-Links</td><td>–</td><td>Aus der Sandbox nicht abrufbar → nicht bewertet</td></tr>
+</tbody></table>
+<div class="box"><h4>Teil 1 nachlesen</h4><ul><li>Dashboard Teil 1 (Landkarte, AI Studio, Colab, Antigravity, Vibe Coder): <a href="https://claude.ai/artifact/2kvjHTgvQ6zffZAkwVkowr">claude.ai/artifact/2kvjHTgvQ6zffZAkwVkowr</a></li><li>Repo-Snapshot: <code>nexus-platform/docs/dashboards/google-ai-stack-serie/</code> · Drive SSOT: <code>LLM-LOCAL-SSOT/WORK/2026-11-09_google-ai-stack-starter/</code></li></ul></div>
+</section>
+
+<section class="part" id="s1">
+<div class="no">01</div>
+<h2>Anatomie eines Single-File-Dashboards</h2>
+<p class="lead">Ein Web-UI-Dashboard für Ingenieurzwecke braucht fünf Schichten – und alle passen in eine Datei. Der Agent (Antigravity, Claude, Gemini) schreibt sie; du prüfst gegen die Checkliste.</p>
+<figure><svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans,system-ui" font-size="13">
+<defs><marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#22d3ee"/></marker></defs>
+<g fill="#0f1627" stroke="#22d3ee" stroke-width="1.5">
+<rect x="15" y="80" width="160" height="90" rx="8"/><rect x="200" y="80" width="160" height="90" rx="8"/><rect x="385" y="80" width="160" height="90" rx="8"/><rect x="570" y="80" width="160" height="90" rx="8"/><rect x="755" y="80" width="150" height="90" rx="8"/>
+</g>
+<g fill="#e6e9f2" text-anchor="middle" font-weight="700">
+<text x="95" y="112">1 · Daten</text><text x="280" y="112">2 · Logik</text><text x="465" y="112">3 · Darstellung</text><text x="650" y="112">4 · Interaktion</text><text x="830" y="112">5 · Export</text></g>
+<g fill="#9aa4bd" text-anchor="middle" font-size="11.5">
+<text x="95" y="132">JSON inline / CSV-Upload</text><text x="95" y="148">Gemini Structured Output</text>
+<text x="280" y="132">JS-Funktionen · Pyodide</text><text x="280" y="148">Einheiten-Check · Σ-Kontrolle</text>
+<text x="465" y="132">Plotly · SVG · Tabellen</text><text x="465" y="148">Infoboxen · TOC</text>
+<text x="650" y="132">Slider · Checkbox · Upload</text><text x="650" y="148">Copy-Buttons</text>
+<text x="830" y="132">JSON / CSV kopieren</text><text x="830" y="148">Link · GitHub Pages</text></g>
+<g stroke="#22d3ee" stroke-width="2" marker-end="url(#a2)"><line x1="175" y1="125" x2="195" y2="125"/><line x1="360" y1="125" x2="380" y2="125"/><line x1="545" y1="125" x2="565" y2="125"/><line x1="730" y1="125" x2="750" y2="125"/></g>
+<text x="460" y="40" text-anchor="middle" fill="#e6e9f2" font-weight="700" font-size="15">Eine index.html · nur erlaubte CDNs (cdnjs, jsdelivr, plot.ly, pyodide) · keine Secrets im Client</text>
+<text x="460" y="215" text-anchor="middle" fill="#9aa4bd" font-size="12">Agent schreibt → Mensch prüft Checkliste → Datei nach Drive + Git → Link teilen</text>
+</svg><figcaption>Bild 1: Fünf Schichten, eine Datei. Alles, was auf dieser Seite läuft, folgt genau diesem Schnitt.</figcaption></figure>
+<div class="grid2">
+<div class="box ok"><h4>Checkliste vor dem Teilen</h4><ul><li>Öffnet die Datei offline (Doppelklick) ohne Fehler?</li><li>Nur CDN-Skripte, keine lokalen Pfade, keine API-Keys?</li><li>Jede Zahl hat Einheit und Quelle (Platzhalter als solche markiert)?</li><li>Summen stimmen per Hand-Kontrolle (Σ = Masse × Faktor)?</li><li>SHA256 + Version im Footer oder STATUS.md?</li></ul></div>
+<div class="box warn"><h4>Sandbox-Regeln (Claude-Artifacts)</h4><ul><li>Erlaubte Script-Quellen: cdnjs.cloudflare.com, cdn.jsdelivr.net, unpkg.com, cdn.plot.ly, cdn.tailwindcss.com.</li><li><code>fetch()</code> zu fremden Hosts ist blockiert – Gemini-Aufrufe aus dem Browser funktionieren nur lokal/GitHub Pages, nicht im Artifact.</li><li>Keine Downloads per Script → Copy-Button statt „Speichern unter“.</li><li>Bilder nur inline (SVG, data:-URI).</li></ul></div>
+</div>
+</section>
+
+<section class="part" id="s2">
+<div class="no">02 · Live-Tool</div>
+<h2>MCP-Config-Builder: Server anklicken, JSON kopieren</h2>
+<p class="lead">Die häufigste Hürde beim Einstieg ist eine korrekte <code>mcp_config.json</code>. Hier zusammenklicken, kopieren, nach <code>~/.gemini/config/mcp_config.json</code> (global) oder <code>&lt;Projekt&gt;/.agents/mcp_config.json</code> (Workspace) legen. Keys bleiben <code>${VAR}</code>-Platzhalter – echte Werte gehören in <code>.env</code>.</p>
+<div class="tool" id="builder">
+<div class="grid2">
+<div>
+<label><input type="checkbox" data-srv="github" checked> <span><b>GitHub (hosted)</b> – Repos, Issues, PRs, Code-Suche</span></label>
+<label style="padding-left:26px"><input type="checkbox" id="ghReadonly" checked> <span>Readonly-Endpunkt (<code>/readonly</code>) – empfohlen zum Start</span></label>
+<label><input type="checkbox" data-srv="colab" checked> <span><b>Colab-MCP</b> – Notebooks anlegen/ausführen (uvx, Google-Login)</span></label>
+<label><input type="checkbox" data-srv="context7" checked> <span><b>Context7</b> – versionsgenaue Library-Doku</span></label>
+<label><input type="checkbox" data-srv="gemdocs" checked> <span><b>Gemini Docs MCP</b> – Gemini-API-Doku live</span></label>
+<label><input type="checkbox" data-srv="devknow"> <span><b>Developer Knowledge</b> – Google-Developer-Docs (Codelab-Setup)</span></label>
+<label><input type="checkbox" data-srv="chrome"> <span><b>Chrome DevTools</b> – Traces, Network, Console (lokal, npx)</span></label>
+</div>
+<div>
+<label>Timeout GitHub (ms) <input type="number" id="ghTimeout" value="180000" style="width:110px"></label>
+<label>Ziel <select id="target"><option value="global">global ~/.gemini/config/mcp_config.json</option><option value="ws">Workspace .agents/mcp_config.json</option></select></label>
+<label><input type="checkbox" id="trim" checked> <span>GitHub-Tools auf 7 Kern-Tools beschneiden (<code>enabledTools</code>)</span></label>
+<button id="genBtn">JSON erzeugen</button><button class="sec" id="copyCfg">Kopieren</button>
+<div class="status" id="cfgStatus">Noch nichts erzeugt.</div>
+</div>
+</div>
+<pre style="margin-top:14px"><code id="cfgOut">{ "mcpServers": {} }</code></pre>
+</div>
+<div class="box"><h4>Nach dem Einfügen</h4><ul><li>App: Agent-Panel → … → MCP Servers → Refresh. CLI: <code>agy</code> starten, <code>/mcp</code> eingeben.</li><li>Erster Colab-Connect öffnet den Browser-Login; Drive-Scope bewusst freigeben.</li><li>Developer-Knowledge-Server: Setup laut Codelab (Link #17) – Eintrag hier ist Platzhalter mit <code>serverUrl</code>, bitte gegen Codelab prüfen.</li></ul></div>
+</section>
+
+<section class="part" id="s3">
+<div class="no">03 · Live-Tool</div>
+<h2>Rechnen im Browser: LCA-Rechner mit Plotly – und optional Pyodide</h2>
+<p class="lead">Dasselbe Beispiel wie im Colab-Notebook aus Teil 1 – nur ohne Colab. Werte editieren, Enter, Chart aktualisiert sich. Der Pyodide-Knopf führt dieselbe Rechnung in echtem Python im Browser aus (Download ~10 MB, einmalig).</p>
+<div class="tool">
+<table id="lcaTable"><thead><tr><th>Bauteil</th><th>Masse [kg]</th><th>GWP A1–A3 [kgCO₂e/kg]</th><th>GWP [kgCO₂e]</th></tr></thead>
+<tbody>
+<tr><td><input value="CLT wall"></td><td><input type="number" value="12000"></td><td><input type="number" step="0.01" value="-0.60"></td><td class="res">–</td></tr>
+<tr><td><input value="Concrete slab"></td><td><input type="number" value="45000"></td><td><input type="number" step="0.01" value="0.11"></td><td class="res">–</td></tr>
+<tr><td><input value="Steel beam"></td><td><input type="number" value="3000"></td><td><input type="number" step="0.01" value="1.50"></td><td class="res">–</td></tr>
+<tr><td><input value="Glulam beam"></td><td><input type="number" value="6500"></td><td><input type="number" step="0.01" value="-0.55"></td><td class="res">–</td></tr>
+</tbody>
+<tfoot><tr><th colspan="3">Σ GWP</th><th id="lcaTotal">–</th></tr></tfoot></table>
+<button id="addRow" class="sec">+ Zeile</button><button id="calcBtn">Berechnen (JS)</button><button id="pyBtn" class="sec">Mit Pyodide (Python) prüfen</button><button id="copyCsv" class="sec">CSV kopieren</button>
+<div class="status" id="lcaStatus">Platzhalter-Faktoren – durch EPD-Werte ersetzen. Negativ = biogener Kohlenstoffspeicher (A1–A3).</div>
+<div id="lcaChart"></div>
+</div>
+<h3>Was hier passiert (Formel vor Zahl)</h3>
+<p>GWP<sub>i</sub> = m<sub>i</sub> · f<sub>i</sub> &nbsp;·&nbsp; Σ = Σ<sub>i</sub> GWP<sub>i</sub>. Plausibilität: Vorzeichen je Material (Holz negativ, Beton/Stahl positiv), Größenordnung Stahl ≈ 10× Beton je kg, Einheit kgCO₂e konsistent.</p>
+<pre><button class="cp">Kopieren</button><code>// Kern der Berechnung – identisch in JS und im Pyodide-Snippet
+function gwp(rows){ return rows.map(r => ({...r, gwp: r.mass_kg * r.factor})); }
+const total = gwp(rows).reduce((s,r)=>s+r.gwp,0);   // Σ-Kontrolle</code></pre>
+<pre><button class="cp">Kopieren</button><code># Pyodide-Snippet (läuft im Browser, kein Server)
+rows = [("CLT wall",12000,-0.60),("Concrete slab",45000,0.11),("Steel beam",3000,1.50),("Glulam beam",6500,-0.55)]
+gwp = [(n, m*f) for n,m,f in rows]
+total = sum(g for _,g in gwp)
+print(gwp, total)</code></pre>
+</section>
+
+<section class="part" id="s4">
+<div class="no">04</div>
+<h2>Gemini → JSON → Chart: das Datenmuster</h2>
+<p class="lead">Dashboards werden robust, wenn das Modell <b>Daten</b> liefert, nicht Layout. Structured Output zwingt Gemini in ein Schema; die Seite rendert. So bleibt jede Zahl prüfbar.</p>
+<figure><svg viewBox="0 0 920 170" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans,system-ui" font-size="13">
+<defs><marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#22d3ee"/></marker></defs>
+<g fill="#0f1627" stroke="#22d3ee" stroke-width="1.5"><rect x="15" y="50" width="200" height="70" rx="8"/><rect x="260" y="50" width="200" height="70" rx="8"/><rect x="505" y="50" width="180" height="70" rx="8"/><rect x="730" y="50" width="175" height="70" rx="8"/></g>
+<g fill="#e6e9f2" text-anchor="middle" font-weight="700"><text x="115" y="80">Quelle</text><text x="360" y="80">Gemini + Schema</text><text x="595" y="80">data.json</text><text x="817" y="80">Dashboard</text></g>
+<g fill="#9aa4bd" text-anchor="middle" font-size="11.5"><text x="115" y="100">PDF · Folien · CSV · Norm</text><text x="360" y="100">response_schema = list[Row]</text><text x="595" y="100">validiert, versioniert</text><text x="817" y="100">Plotly / Tabelle / SVG</text></g>
+<g stroke="#22d3ee" stroke-width="2" marker-end="url(#a3)"><line x1="215" y1="85" x2="255" y2="85"/><line x1="460" y1="85" x2="500" y2="85"/><line x1="685" y1="85" x2="725" y2="85"/></g>
+<text x="460" y="150" text-anchor="middle" fill="#9aa4bd" font-size="12">Schema-Bruch → Fehler sichtbar · Zahl ohne Quelle → Schema verlangt Feld „source“</text>
+</svg><figcaption>Bild 2: Trennung von Daten und Darstellung. Das Modell füllt ein Schema, nie die Seite.</figcaption></figure>
+<h3>Schema mit Quellpflicht (Python, google-genai)</h3>
+<pre><button class="cp">Kopieren</button><code>from pydantic import BaseModel
+from google import genai
+
+class Row(BaseModel):
+    element: str
+    mass_kg: float
+    gwp_factor: float      # kgCO2e/kg, A1-A3
+    source: str            # EPD-Nummer oder "PLACEHOLDER"
+
+client = genai.Client()   # GEMINI_API_KEY aus .env / Colab-Secret
+r = client.models.generate_content(
+    model="gemini-3.5-flash",
+    contents=open("stueckliste.txt").read(),
+    config={"response_mime_type": "application/json", "response_schema": list[Row]})
+open("data.json","w").write(r.text)   # → vom Dashboard geladen</code></pre>
+<h3>Im Dashboard laden (lokal / GitHub Pages)</h3>
+<pre><button class="cp">Kopieren</button><code>&lt;script&gt;
+fetch('data.json').then(r=&gt;r.json()).then(rows =&gt; {
+  const x = rows.map(r=&gt;r.element), y = rows.map(r=&gt;r.mass_kg*r.gwp_factor);
+  Plotly.newPlot('chart', [{type:'bar', x, y,
+    marker:{color: y.map(v=&gt; v&lt;0 ? '#34d399' : '#c8102e')}}],
+    {title:'GWP A1–A3 [kgCO2e] · Σ '+y.reduce((a,b)=&gt;a+b,0).toFixed(0)});
+});
+&lt;/script&gt;</code></pre>
+<div class="box red"><h4>Nie den Gemini-Key in die Seite</h4><ul><li>Ein Browser-Dashboard, das die Gemini-API direkt aufruft, legt den Key offen. Muster: Daten <b>vorab</b> in Colab/Antigravity erzeugen → <code>data.json</code> neben die Seite legen. Für Live-Aufrufe ein kleines Backend (Cloud Run, Firebase Functions) mit Key im Server.</li></ul></div>
+</section>
+
+<section class="part" id="s5">
+<div class="no">05</div>
+<h2>Sechs Agenten-Prompts, die Dashboards bauen</h2>
+<p class="lead">Für Antigravity, Claude Code oder Gemini CLI. Jeder Prompt ist ein eigener Run – nie alles in einen werfen.</p>
+<pre><button class="cp">Kopieren</button><code># P1 · Gerüst
+"Erzeuge eine self-contained index.html (deutsch): Sticky-Inhaltsverzeichnis links, 5 Abschnitte, Infoboxen mit Bullets,
+Code-Blöcke mit Copy-Button. Nur CDN-Skripte von cdnjs/jsdelivr/plot.ly. Keine Bilder außer inline SVG. Keine Keys."
+
+# P2 · Daten-Schicht
+"Lies data.json (Felder element, mass_kg, gwp_factor, source). Rendere Tabelle + Plotly-Balken; negative Werte grün.
+Zeige Σ im Titel. Markiere Zeilen mit source == 'PLACEHOLDER' gelb."
+
+# P3 · Interaktion
+"Mache Masse und Faktor editierbar; bei Eingabe neu rechnen. Füge 'CSV kopieren' hinzu (Clipboard-API, mit try/catch)."
+
+# P4 · Python im Browser
+"Binde Pyodide von cdn.jsdelivr.net/pyodide ein. Button 'Mit Python prüfen' rechnet dieselbe Summe und zeigt Delta zu JS."
+
+# P5 · Selbstprüfung
+"Prüfe: Einheiten konsistent? Σ stimmt gegen Handrechnung? Alle externen Skripte auf erlaubten CDNs? Keine fetch() zu fremden Hosts?
+Liste Befunde als Tabelle, dann korrigiere."
+
+# P6 · Übergabe
+"Schreibe STATUS.md mit YAML-Frontmatter (name, version, status, timestamp, sha256) + LOG-Zeile. Erzeuge SHA256SUMS.txt."</code></pre>
+<div class="grid2">
+<div class="box ok"><h4>Worauf der Agent achten soll</h4><ul><li>Formel vor Zahl, Einheit an jeder Größe.</li><li>Platzhalter sichtbar kennzeichnen.</li><li>Eine Datei, keine Build-Tools.</li><li>Jede Änderung → neue Version + Hash.</li></ul></div>
+<div class="box warn"><h4>Typische Agent-Fehler</h4><ul><li>Tailwind-Klassen ohne CDN → unsichtbares Layout.</li><li><code>alert()</code>/<code>prompt()</code> im Artifact → blockiert.</li><li>Download-Button → in Sandbox verboten; Copy stattdessen.</li><li>Halluzinierte Plotly-Optionen → Context7 anschließen.</li></ul></div>
+</div>
+</section>
+
+<section class="part" id="s6">
+<div class="no">06</div>
+<h2>Deploy &amp; Versionieren: drei Orte, ein Hash</h2>
+<ol class="steps">
+<li><b>Drive (SSOT):</b> <code>LLM-LOCAL-SSOT/WORK/&lt;datum&gt;_&lt;thema&gt;/index.html</code> + <code>STATUS.md</code> + <code>SHA256SUMS.txt</code>. Nie löschen, nur verschieben.</li>
+<li><b>GitHub (Review-Snapshot):</b> <code>docs/dashboards/&lt;thema&gt;/</code>; Report in <code>WORK/REPORTS/YY_MM_DD_HHMM_THEMA_###_ID##.md</code>. GitHub Pages auf <code>docs/</code> → öffentliche URL.</li>
+<li><b>Claude-Artifact:</b> privat bis zum Teilen; Republish mit <code>base_version</code>; Hash in Footer eintragen.</li>
+<li><b>Abgleich:</b> Bytes vergleichen (<code>sha256sum</code>), erst dann „gesichert“ melden. Gesendet ≠ bestätigt.</li>
+</ol>
+<pre><button class="cp">Kopieren</button><code># GitHub Pages in 3 Befehlen (docs/-Ordner)
+git add docs/dashboards/ai-stack-teil2/index.html
+git commit -m "docs: dashboard Teil 2 v1.0"
+git push origin main
+# Repo → Settings → Pages → Source: main /docs → URL: https://&lt;user&gt;.github.io/&lt;repo&gt;/dashboards/ai-stack-teil2/</code></pre>
+<pre><button class="cp">Kopieren</button><code>---
+name: ai-stack-teil2-dashboard
+version: 1.0.0
+status: published · tests open
+timestamp: 2026-11-09T08:55:00Z
+sha256: &lt;aus SHA256SUMS.txt&gt;
+tasks_open: Pyodide-Test auf Mobile · Datalayer-Endpunkt
+---
+## LOG
+- 2026-11-09T08:55Z | v1.0 gebaut, Drive + GitHub + Artifact</code></pre>
+</section>
+
+<section class="part" id="s7">
+<div class="no">07</div>
+<h2>Qualität &amp; Sicherheit für Web-UI-Dashboards</h2>
+<div class="grid2">
+<div class="box red"><h4>Sicherheit</h4><ul><li>Kein API-Key, kein Token, keine PAT im HTML – auch nicht „nur zum Testen“.</li><li>Nur HTTPS-CDNs; Versionsnummer pinnen (<code>plotly-2.35.2</code>), nicht <code>latest</code>.</li><li>Clipboard nur aus Klick-Handler, mit <code>try/catch</code>.</li><li>Drittplugins (Antigravity) vor Install lesen: <code>hooks.json</code>, <code>mcp_config.json</code>.</li></ul></div>
+<div class="box ok"><h4>Qualität</h4><ul><li>Handrechnung einer Zeile im Footer dokumentieren.</li><li>Platzhalterdaten als solche im Titel kennzeichnen.</li><li>Faktencheck-Tabelle: geprüft / unbelegt / nicht erreichbar.</li><li>Barrierearm: Kontrast ≥ 4.5:1, Tabellen mit <code>th</code>, Buttons mit Text.</li></ul></div>
+</div>
+<h3>Kurzcheck Barrierefreiheit &amp; Mobil</h3>
+<ul><li>Sidebar wird unter 900 px zur normalen Liste (hier per <code>@media</code>).</li><li>Plotly: <code>responsive:true</code>; SVGs mit <code>viewBox</code>, ohne feste Breite.</li><li>Schrift ≥ 13 px in Code, ≥ 14 px im Fließtext.</li></ul>
+</section>
+
+<section class="part" id="s8">
+<div class="no">08</div>
+<h2>Faktencheck Teil 2 (Stand 09.11.2026)</h2>
+<table><thead><tr><th>Aussage</th><th>Status</th><th>Quelle / Begründung</th></tr></thead><tbody>
+<tr><td>Erlaubte CDNs in Claude-Artifacts (cdnjs, jsdelivr, unpkg, plot.ly, tailwind); fetch zu Fremdhosts blockiert; keine Downloads/alert</td><td><span class="tag ok">geprüft</span></td><td>Artifact-Plattformregeln dieser Sitzung</td></tr>
+<tr><td>MCP-Config-Ebenen global / Workspace / Plugin; <code>serverUrl</code>+<code>headers</code>, <code>command</code>+<code>args</code>+<code>env</code></td><td><span class="tag ok">geprüft</span></td><td>antigravity.google/docs/mcp (Teil 1)</td></tr>
+<tr><td>GitHub-MCP Readonly-Endpunkt <code>…/mcp/readonly</code></td><td><span class="tag warn">plausibel</span></td><td>aus Meta-AI/DeepSeek-Entwurf; offizielle Doku nicht abgerufen</td></tr>
+<tr><td>Developer-Knowledge-MCP Eintrag im Builder</td><td><span class="tag warn">Platzhalter</span></td><td>Setup laut Codelab (#17) prüfen</td></tr>
+<tr><td>Pyodide-Download ~10 MB, läuft offline nach Cache</td><td><span class="tag warn">Richtwert</span></td><td>pyodide.org; genaue Größe versionsabhängig</td></tr>
+<tr><td>Gemini Structured Output via <code>response_schema</code> mit Pydantic-Liste</td><td><span class="tag ok">geprüft</span></td><td>aistudio.google.com/docs/structured-output.md</td></tr>
+</tbody></table>
+</section>
+
+<section class="part" id="s9">
+<div class="no">09</div>
+<h2>Links &amp; Downloads</h2>
+<h3>Dateien (Drive WORK · Repo docs/dashboards/ai-stack-teil2)</h3>
+<ul><li><code>index.html</code> – diese Seite (self-contained, Plotly via CDN)</li><li><code>mcp_config.json</code> – Export aus dem Builder (Abschnitt 02)</li><li><code>data.json</code> – Beispiel-Stückliste mit <code>source</code>-Feld</li><li><code>STATUS.md</code>, <code>SHA256SUMS.txt</code></li></ul>
+<h3>Linkliste</h3>
+<ul class="links">
+<li>#1, Teil 1 Dashboard, <a href="https://claude.ai/artifact/2kvjHTgvQ6zffZAkwVkowr">https://claude.ai/artifact/2kvjHTgvQ6zffZAkwVkowr</a></li>
+<li>#2, Antigravity MCP-Docs, <a href="https://antigravity.google/docs/mcp">https://antigravity.google/docs/mcp</a></li>
+<li>#3, Antigravity Plugins, <a href="https://antigravity.google/docs/cli/plugins">https://antigravity.google/docs/cli/plugins</a></li>
+<li>#4, Antigravity Download, <a href="https://antigravity.google/download">https://antigravity.google/download</a></li>
+<li>#5, AI Studio, <a href="https://aistudio.google.com">https://aistudio.google.com</a></li>
+<li>#6, API-Keys, <a href="https://aistudio.google.com/api-keys">https://aistudio.google.com/api-keys</a></li>
+<li>#7, Structured Output Doku, <a href="https://aistudio.google.com/docs/structured-output.md">https://aistudio.google.com/docs/structured-output.md</a></li>
+<li>#8, Function Calling Doku, <a href="https://aistudio.google.com/docs/function-calling.md">https://aistudio.google.com/docs/function-calling.md</a></li>
+<li>#9, llms.txt, <a href="https://aistudio.google.com/llms.txt">https://aistudio.google.com/llms.txt</a></li>
+<li>#10, Gemini Docs MCP, <a href="https://gemini-api-docs-mcp.dev">https://gemini-api-docs-mcp.dev</a></li>
+<li>#11, Colab, <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
+<li>#12, colab-mcp, <a href="https://github.com/googlecolab/colab-mcp">https://github.com/googlecolab/colab-mcp</a></li>
+<li>#13, GitHub MCP (hosted), <a href="https://api.githubcopilot.com/mcp/">https://api.githubcopilot.com/mcp/</a></li>
+<li>#14, Context7 MCP, <a href="https://github.com/upstash/context7">https://github.com/upstash/context7</a></li>
+<li>#15, Chrome DevTools MCP, <a href="https://github.com/ChromeDevTools/chrome-devtools-mcp">https://github.com/ChromeDevTools/chrome-devtools-mcp</a></li>
+<li>#16, python-genai, <a href="https://github.com/googleapis/python-genai">https://github.com/googleapis/python-genai</a></li>
+<li>#17, Developer-Knowledge Codelab, <a href="https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity">https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity</a></li>
+<li>#18, Plotly.js, <a href="https://plotly.com/javascript/">https://plotly.com/javascript/</a></li>
+<li>#19, Pyodide, <a href="https://pyodide.org">https://pyodide.org</a></li>
+<li>#20, MCP Spezifikation, <a href="https://modelcontextprotocol.io">https://modelcontextprotocol.io</a></li>
+<li>#21, GitHub Pages Doku, <a href="https://docs.github.com/pages">https://docs.github.com/pages</a></li>
+<li>#22, Repo nexus-platform, <a href="https://github.com/julianzotter/nexus-platform">https://github.com/julianzotter/nexus-platform</a></li>
+</ul>
+</section>
+
+</main></div>
+<footer>Serie „Google AI-Stack für Ingenieure“ · Teil 2 v1.0 · Stand 2026-11-09 · Quellen kondensiert: Meta-AI-Starter-Pack, DeepSeek-Entwurf, Claude v1.1, Google-Primärdoku · Platzhalterdaten im LCA-Rechner · Keys sind Platzhalter · Archiv: Drive LLM-LOCAL-SSOT/WORK · Repo nexus-platform/docs/dashboards/ai-stack-teil2</footer>
+
+<script>
+// ---------- copy buttons ----------
+document.querySelectorAll('pre .cp').forEach(b=>{b.addEventListener('click',()=>{const t=b.parentElement.querySelector('code').innerText;try{navigator.clipboard.writeText(t).then(()=>{b.textContent='Kopiert';setTimeout(()=>b.textContent='Kopieren',1200)}).catch(()=>b.textContent='Markieren + Strg+C')}catch(e){b.textContent='Markieren + Strg+C'}})});
+
+// ---------- MCP config builder ----------
+const SRV={
+ github:(o)=>({serverUrl:o.ro?'https://api.githubcopilot.com/mcp/readonly':'https://api.githubcopilot.com/mcp/',headers:{Authorization:'Bearer ${GITHUB_PAT}'},...(o.trim?{enabledTools:['search_code','get_file_contents','list_issues','create_issue','list_pull_requests','get_pull_request','search_repositories']}:{}),timeout:o.timeout}),
+ colab:()=>({command:'uvx',args:['git+https://github.com/googlecolab/colab-mcp'],timeout:30000}),
+ context7:()=>({command:'npx',args:['-y','@upstash/context7-mcp'],env:{CONTEXT7_API_KEY:'${CONTEXT7_API_KEY}'}}),
+ gemdocs:()=>({serverUrl:'https://gemini-api-docs-mcp.dev'}),
+ devknow:()=>({serverUrl:'https://developerknowledge.googleapis.com/mcp',$comment:'PLATZHALTER – Setup laut Codelab #17 prüfen'}),
+ chrome:()=>({command:'npx',args:['-y','chrome-devtools-mcp@latest']})
+};
+const NAMES={github:'github',colab:'colab-mcp',context7:'context7',gemdocs:'gemini-api-docs',devknow:'developer-knowledge',chrome:'chrome-devtools'};
+function buildCfg(){
+ const o={ro:document.getElementById('ghReadonly').checked,trim:document.getElementById('trim').checked,timeout:+document.getElementById('ghTimeout').value||180000};
+ const cfg={mcpServers:{}};
+ document.querySelectorAll('#builder input[data-srv]:checked').forEach(cb=>{const k=cb.dataset.srv;cfg.mcpServers[NAMES[k]]=SRV[k](o)});
+ const tgt=document.getElementById('target').value;
+ cfg.$comment=(tgt==='global'?'~/.gemini/config/mcp_config.json – gilt für App, IDE, CLI':'<Projekt>/.agents/mcp_config.json – committbar, Team erbt')+' · Secrets via ${ENV} aus .env';
+ const txt=JSON.stringify(cfg,null,2);
+ document.getElementById('cfgOut').textContent=txt;
+ document.getElementById('cfgStatus').textContent=Object.keys(cfg.mcpServers).length+' Server · '+txt.length+' Zeichen · '+new Date().toISOString().slice(0,19)+'Z';
+ return txt;
+}
+document.getElementById('genBtn').addEventListener('click',buildCfg);
+document.getElementById('copyCfg').addEventListener('click',()=>{const t=buildCfg();try{navigator.clipboard.writeText(t).then(()=>document.getElementById('cfgStatus').textContent+=' · kopiert').catch(()=>{})}catch(e){}});
+buildCfg();
+
+// ---------- LCA calculator ----------
+function readRows(){return [...document.querySelectorAll('#lcaTable tbody tr')].map(tr=>{const i=tr.querySelectorAll('input');return{element:i[0].value,mass_kg:+i[1].value||0,factor:+i[2].value||0,tr}})}
+function calc(){
+ const rows=readRows();let total=0;
+ rows.forEach(r=>{r.gwp=r.mass_kg*r.factor;total+=r.gwp;r.tr.querySelector('.res').textContent=r.gwp.toLocaleString('de-AT',{maximumFractionDigits:0})});
+ document.getElementById('lcaTotal').textContent=total.toLocaleString('de-AT',{maximumFractionDigits:0})+' kgCO₂e';
+ if(window.Plotly){Plotly.react('lcaChart',[{type:'bar',x:rows.map(r=>r.element),y:rows.map(r=>r.gwp),marker:{color:rows.map(r=>r.gwp<0?'#34d399':'#c8102e')},text:rows.map(r=>r.gwp.toFixed(0)),textposition:'outside'}],
+  {title:{text:'GWP A1–A3 [kgCO₂e] · Σ '+total.toFixed(0)+' (Platzhalterdaten)',font:{color:'#e6e9f2',size:14}},paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',font:{color:'#9aa4bd'},margin:{t:50,l:60,r:20,b:60},yaxis:{zeroline:true,zerolinecolor:'#9aa4bd',gridcolor:'#24304d'},xaxis:{gridcolor:'#24304d'}},{responsive:true,displaylogo:false})}
+ return {rows,total};
+}
+document.getElementById('calcBtn').addEventListener('click',calc);
+document.querySelector('#lcaTable').addEventListener('change',calc);
+document.getElementById('addRow').addEventListener('click',()=>{const tr=document.createElement('tr');tr.innerHTML='<td><input value="Neues Bauteil"></td><td><input type="number" value="1000"></td><td><input type="number" step="0.01" value="0.10"></td><td class="res">–</td>';document.querySelector('#lcaTable tbody').appendChild(tr);calc()});
+document.getElementById('copyCsv').addEventListener('click',()=>{const {rows}=calc();const csv='element;mass_kg;gwp_factor_kgco2e_per_kg;gwp_kgco2e\n'+rows.map(r=>[r.element,r.mass_kg,r.factor,r.gwp.toFixed(2)].join(';')).join('\n');try{navigator.clipboard.writeText(csv).then(()=>document.getElementById('lcaStatus').textContent='CSV kopiert ('+rows.length+' Zeilen).').catch(()=>{})}catch(e){}});
+let pyodideReady=null;
+document.getElementById('pyBtn').addEventListener('click',async()=>{
+ const st=document.getElementById('lcaStatus');
+ try{
+  if(!pyodideReady){st.textContent='Pyodide wird geladen (einmalig, ~10 MB)…';
+   await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)});
+   pyodideReady=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/'});}
+  const {rows,total}=calc();
+  pyodideReady.globals.set('rows_js',JSON.stringify(rows.map(r=>[r.element,r.mass_kg,r.factor])));
+  const py=await pyodideReady.runPythonAsync(`import json\nrows=json.loads(rows_js)\ntotal=sum(m*f for _,m,f in rows)\nround(total,2)`);
+  const delta=Math.abs(py-total);
+  st.textContent='Python (Pyodide) Σ = '+py.toFixed(2)+' · JS Σ = '+total.toFixed(2)+' · Δ = '+delta.toFixed(4)+(delta<1e-6?' ✓ identisch':' ✗ prüfen');
+ }catch(e){st.textContent='Pyodide nicht verfügbar (CDN blockiert oder offline). JS-Ergebnis bleibt gültig.';}
+});
+window.addEventListener('load',calc);
+</script>
+</body>
+</html>
