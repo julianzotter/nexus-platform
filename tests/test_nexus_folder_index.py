@@ -25,8 +25,30 @@ class FolderIndexTests(unittest.TestCase):
         a = render(summarize(INV), INV, 'abc', {'name': 'X'})
         b = render(summarize(dict(INV, folders=list(reversed(INV['folders'])))), INV, 'abc', {'name': 'X'})
         self.assertEqual(a, b)
-        self.assertTrue(a.startswith('---\nname: X\nsource_inventory_sha256: abc'))
+        self.assertTrue(a.startswith('---\nname: "X"\nsource_inventory_sha256: "abc"'))
         self.assertIn('folders_without_anchor: 2', a)
+
+    def test_yaml_scalars_preserve_literal_ids_and_quotes(self):
+        import yaml
+        inv = dict(INV, scope='depth "one"\nA: B')
+        text = render(summarize(inv), inv, 'abc',
+                      {'artifact_no': '0150', 'description': 'A: B', 'name': 'X'})
+        metadata = yaml.safe_load(text.split('---\n')[1])
+        self.assertEqual(metadata['artifact_no'], '0150')
+        self.assertEqual(metadata['description'], 'A: B')
+        self.assertEqual(metadata['scope'], inv['scope'])
+
+    def test_archives_and_backups_are_not_anchors(self):
+        children = [dict(parent='B', title=name, mime='application/zip', modified='2026-11-01')
+                    for name in ['README-old-backup.zip', '_INDEX-2020.md', '_folder.old']]
+        inv = dict(INV, children=children)
+        reports = next(r for r in summarize(inv) if r['name'] == 'NEXUS.REPORTS')
+        self.assertEqual(reports['status'], 'NO_ANCHOR')
+
+    def test_header_cannot_override_generated_evidence(self):
+        for key in ['source_inventory_sha256', 'folders_total', 'scope']:
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, 'override'):
+                render(summarize(INV), INV, 'abc', {key: 'forged'})
 
 
 if __name__ == '__main__':

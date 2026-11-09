@@ -101,7 +101,7 @@ class DriveClient:
 
     def create(self, file_id: str, folder: str, key: str, name: str, data: bytes) -> None:
         boundary = 'nexus_' + uuid.uuid4().hex
-        metadata = {'id': file_id, 'name': name, 'parents': [folder], 'appProperties': {'nexus_delivery_key': key, 'sha256': hashlib.sha256(data).hexdigest()}}
+        metadata = {'id': file_id, 'name': name, 'parents': [folder], 'appProperties': {'nexus_delivery_key': key, 'sha256': hashlib.sha256(data).hexdigest(), 'nexus_reserved_name': name}}
         body = (f'--{boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'.encode()
                 + json.dumps(metadata).encode()
                 + f'\r\n--{boundary}\r\nContent-Type: application/octet-stream\r\n\r\n'.encode()
@@ -116,7 +116,7 @@ class DriveClient:
             # Always verify its identity, parent and content below; never trust 409 alone.
 
     def metadata(self, file_id: str) -> dict:
-        return json.loads(self.call(f'/files/{file_id}?supportsAllDrives=true&fields=id,name,parents,trashed,appProperties'))
+        return json.loads(self.call(f'/files/{file_id}?supportsAllDrives=true&fields=id,name,parents,trashed,appProperties,modifiedTime'))
 
     def read(self, file_id: str) -> bytes:
         return self.call(f'/files/{file_id}?alt=media&supportsAllDrives=true')
@@ -125,7 +125,10 @@ class DriveClient:
 def save_json(path: Path, value: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + '.tmp')
-    temporary.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+    with temporary.open('w', encoding='utf-8', newline='\n') as handle:
+        handle.write(json.dumps(value, indent=2, ensure_ascii=False) + '\n')
+        handle.flush()
+        os.fsync(handle.fileno())
     temporary.replace(path)
 
 

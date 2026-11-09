@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from deliver_work import DeliveryError, WORK  # noqa: E402
 from nexus_export_lock import (ExportLockError, ExportRequest, build_name,  # noqa: E402
-                               build_router, export_protocol, http_status)
+                               build_router, export_protocol, http_status, validate_request)
 
 MD = '---\nname: test\nstatus: ENTWURF\n---\n# Protokoll\n- Punkt\n'
 FIXED = datetime(2026, 11, 2, 18, 5, tzinfo=timezone.utc)   # 19:05 Europe/Vienna
@@ -35,7 +35,7 @@ class FakeDrive:
             return
         self.creates += 1
         self.files[file_id] = {'body': data, 'meta': {'name': name, 'trashed': False,
-            'parents': [folder], 'appProperties': {'nexus_delivery_key': key}}}
+            'parents': [folder], 'appProperties': {'nexus_delivery_key': key, 'nexus_reserved_name': name}}}
 
     def metadata(self, file_id):
         return self.files[file_id]['meta']
@@ -70,7 +70,9 @@ class ExportLockTests(unittest.TestCase):
         r = self.run_export()
         self.assertEqual(r.state, 'DELIVERY_VERIFIED')
         self.assertEqual(r.name, '26_11_02_1905_ID06_TRANSCRIPT-PROTOKOLL_007.md')
-        self.assertEqual(r.sha256, hashlib.sha256(MD.encode()).hexdigest())
+        self.assertEqual(r.sha256, hashlib.sha256(self.drive.read(r.file_id)).hexdigest())
+        self.assertEqual(r.registry_record['version'], None)
+        self.assertEqual(r.registry_record['registered_at'], None)
         self.assertEqual(self.drive.files[r.file_id]['meta']['parents'], [WORK])
         self.assertEqual(r.registry_record['artifact_id'], f'gdrive:{r.file_id}')
         self.assertEqual(r.registry_record['registration_status'], 'REGISTRATION_PENDING')
@@ -113,7 +115,7 @@ class ExportLockTests(unittest.TestCase):
     def test_crlf_is_normalized_and_flagged(self):
         r = self.run_export(markdown=MD.replace('\n', '\r\n'))
         self.assertTrue(r.line_endings_normalized)
-        self.assertEqual(r.sha256, hashlib.sha256(MD.encode()).hexdigest())
+        self.assertEqual(r.sha256, hashlib.sha256(self.drive.read(r.file_id)).hexdigest())
 
     def test_concurrent_identical_requests_create_once(self):
         results, errors = [], []
@@ -168,6 +170,56 @@ class ExportLockTests(unittest.TestCase):
         self.assertEqual(build_name('ID03', 'X1', 1, summer), '26_07_01_1200_ID03_X1_001.md')
         with self.assertRaises(ExportLockError):
             build_name('ID03', 'X1', 1000, summer)
+
+    def test_valid_looking_rename_is_rejected_after_state_loss(self):
+        a = self.run_export()
+        self.drive.files[a.file_id]['meta']['name'] = a.name.replace('_007.md', '_999.md')
+        with tempfile.TemporaryDirectory() as other:
+            self.dir = Path(other)
+            with self.assertRaisesRegex(ExportLockError, 'NAME_MISMATCH'):
+                self.run_export()
+        self.assertEqual(self.drive.creates, 1)
+
+    def test_legacy_reservation_requires_reconciliation(self):
+        a = self.run_export()
+        del self.drive.files[a.file_id]['meta']['appProperties']['nexus_reserved_name']
+        with self.assertRaisesRegex(ExportLockError, 'RESERVATION_EVIDENCE_MISSING'):
+            self.run_export()
+
+    def test_invalid_duplicate_and_forged_frontmatter_never_writes(self):
+        headers = ['name: [', 'name: A\nname: B', 'status: FREIGEGEBEN_ID01',
+                   'agent_id: ID01', 'release_status: APPROVED', 'name: &x X\ndescription: *x',
+                   '- list-not-mapping']
+        for header in headers:
+            with self.subTest(header=header), self.assertRaises(ExportLockError):
+                self.run_export(markdown='---\n' + header + '\n---\ntext\n')
+        self.assertEqual(self.drive.creates, 0)
+
+    def test_server_frontmatter_is_authoritative(self):
+        import yaml
+        r = self.run_export()
+        fm = yaml.safe_load(self.drive.read(r.file_id).decode().split('---\n')[1])
+        self.assertEqual(fm['agent_id'], 'ID06')
+        self.assertEqual(fm['ticket_id'], 'WO-TEST-1')
+        self.assertEqual(fm['status'], 'REVIEW_PENDING')
+        self.assertEqual(fm['release_status'], 'NOT_GRANTED')
+        self.assertEqual(fm['source_metadata']['name'], 'test')
+
+    def test_pending_registry_uses_observed_provider_version(self):
+        a = self.run_export()
+        self.drive.files[a.file_id]['meta']['modifiedTime'] = '2026-11-02T18:01:00Z'
+        b = self.run_export()
+        self.assertEqual(b.registry_record['version'], '2026-11-02T18:01:00Z')
+        self.assertIsNone(b.registry_record['registered_at'])
+
+    def test_legacy_export_does_not_silently_duplicate_on_upgrade(self):
+        digest = hashlib.sha256(MD.encode()).hexdigest()
+        source = f'export:WO-TEST-1:ID06:TRANSCRIPT-PROTOKOLL:{digest}'
+        key = hashlib.sha256(source.encode()).hexdigest()
+        self.drive.create('legacy-1', WORK, key, 'legacy.md', MD.encode())
+        with self.assertRaisesRegex(ExportLockError, 'LEGACY_EXPORT_RECONCILIATION_REQUIRED'):
+            self.run_export()
+        self.assertEqual(self.drive.creates, 1)
 
 
 try:

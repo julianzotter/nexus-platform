@@ -1,0 +1,51 @@
+test_409_alone_does_not_confirm_delivery (test_deliver_work.DeliveryTests.test_409_alone_does_not_confirm_delivery) ... ok
+test_corrupt_readback_is_failure (test_deliver_work.DeliveryTests.test_corrupt_readback_is_failure) ... ok
+test_different_input_cannot_reuse_journal (test_deliver_work.DeliveryTests.test_different_input_cannot_reuse_journal) ... ok
+test_drive_search_is_paginated (test_deliver_work.DeliveryTests.test_drive_search_is_paginated) ... ok
+test_duplicates_stop_transfer (test_deliver_work.DeliveryTests.test_duplicates_stop_transfer) ... ok
+test_missing_credentials_explicit (test_deliver_work.DeliveryTests.test_missing_credentials_explicit) ... ok
+test_network_exhaustion_is_bounded (test_deliver_work.DeliveryTests.test_network_exhaustion_is_bounded) ... ok
+test_permanent_auth_failure_not_retried (test_deliver_work.DeliveryTests.test_permanent_auth_failure_not_retried) ... ok
+test_repeat_reuses_file_and_rechecks_bytes (test_deliver_work.DeliveryTests.test_repeat_reuses_file_and_rechecks_bytes) ... ok
+test_resumed_journal_reuses_preallocated_id (test_deliver_work.DeliveryTests.test_resumed_journal_reuses_preallocated_id) ... ok
+test_success_is_byte_verified_not_human_accepted (test_deliver_work.DeliveryTests.test_success_is_byte_verified_not_human_accepted) ... ok
+test_timeout_after_create_recovers_without_second_create (test_deliver_work.DeliveryTests.test_timeout_after_create_recovers_without_second_create) ... ok
+test_transient_failure_retried_and_recovers (test_deliver_work.DeliveryTests.test_transient_failure_retried_and_recovers) ... ok
+test_untrusted_run_is_rejected (test_deliver_work.DeliveryTests.test_untrusted_run_is_rejected) ... ok
+test_wrong_parent_is_not_accepted (test_deliver_work.DeliveryTests.test_wrong_parent_is_not_accepted) ... ok
+test_integrity_permission_and_conflict_are_not_retry_success (test_deliver_work.FailureClassificationTests.test_integrity_permission_and_conflict_are_not_retry_success) ... ok
+test_restore_only_bounded_state_json_paths (test_deliver_work.RestoreTests.test_restore_only_bounded_state_json_paths) ... ok
+test_real_http_503_then_success (test_deliver_work.TransportBoundaryTests.test_real_http_503_then_success) ... ok
+test_client_cannot_choose_folder (test_nexus_export_lock.ExportLockTests.test_client_cannot_choose_folder) ... ok
+test_concurrent_identical_requests_create_once (test_nexus_export_lock.ExportLockTests.test_concurrent_identical_requests_create_once) ... ok
+test_crlf_is_normalized_and_flagged (test_nexus_export_lock.ExportLockTests.test_crlf_is_normalized_and_flagged) ... ok
+test_http_status_mapping (test_nexus_export_lock.ExportLockTests.test_http_status_mapping) ... ok
+test_invalid_duplicate_and_forged_frontmatter_never_writes (test_nexus_export_lock.ExportLockTests.test_invalid_duplicate_and_forged_frontmatter_never_writes) ... ok
+test_legacy_export_does_not_silently_duplicate_on_upgrade (test_nexus_export_lock.ExportLockTests.test_legacy_export_does_not_silently_duplicate_on_upgrade) ... ok
+test_legacy_reservation_requires_reconciliation (test_nexus_export_lock.ExportLockTests.test_legacy_reservation_requires_reconciliation) ... ok
+test_lost_local_state_returns_drive_name_not_new_number (test_nexus_export_lock.ExportLockTests.test_lost_local_state_returns_drive_name_not_new_number) ... ok
+test_name_uses_vienna_time_across_dst (test_nexus_export_lock.ExportLockTests.test_name_uses_vienna_time_across_dst) ... ok
+test_pending_registry_uses_observed_provider_version (test_nexus_export_lock.ExportLockTests.test_pending_registry_uses_observed_provider_version) ... ok
+test_provider_error_fails_closed (test_nexus_export_lock.ExportLockTests.test_provider_error_fails_closed) ... ok
+test_readback_mismatch_fails_closed (test_nexus_export_lock.ExportLockTests.test_readback_mismatch_fails_closed) ... ok
+test_rejects_invalid_role_theme_ticket_and_frontmatter (test_nexus_export_lock.ExportLockTests.test_rejects_invalid_role_theme_ticket_and_frontmatter) ... ok
+test_renamed_drive_file_is_never_adopted (test_nexus_export_lock.ExportLockTests.test_renamed_drive_file_is_never_adopted) ... ok
+test_replay_is_idempotent_and_does_not_reallocate (test_nexus_export_lock.ExportLockTests.test_replay_is_idempotent_and_does_not_reallocate) ... ok
+test_server_frontmatter_is_authoritative (test_nexus_export_lock.ExportLockTests.test_server_frontmatter_is_authoritative) ... ok
+test_trashed_target_is_not_reused_and_identity_check_fails (test_nexus_export_lock.ExportLockTests.test_trashed_target_is_not_reused_and_identity_check_fails) ... ok
+test_valid_looking_rename_conflicts_with_sidecar (test_nexus_export_lock.ExportLockTests.test_valid_looking_rename_conflicts_with_sidecar) ... ok
+test_valid_looking_rename_is_rejected_after_state_loss (test_nexus_export_lock.ExportLockTests.test_valid_looking_rename_is_rejected_after_state_loss) ... ok
+test_verified_receipt_with_server_built_name (test_nexus_export_lock.ExportLockTests.test_verified_receipt_with_server_built_name) ... ok
+test_client_role_field_is_ignored_and_auth_required (test_nexus_export_lock.RouterTests.test_client_role_field_is_ignored_and_auth_required) ... skipped 'fastapi not installed'
+test_errors_are_mapped (test_nexus_export_lock.RouterTests.test_errors_are_mapped) ... skipped 'fastapi not installed'
+test_valid_post_returns_verified_receipt (test_nexus_export_lock.RouterTests.test_valid_post_returns_verified_receipt) ... skipped 'fastapi not installed'
+test_archives_and_backups_are_not_anchors (test_nexus_folder_index.FolderIndexTests.test_archives_and_backups_are_not_anchors) ... ok
+test_counts_anchor_and_unclassified (test_nexus_folder_index.FolderIndexTests.test_counts_anchor_and_unclassified) ... ok
+test_header_cannot_override_generated_evidence (test_nexus_folder_index.FolderIndexTests.test_header_cannot_override_generated_evidence) ... ok
+test_render_is_deterministic_with_frontmatter (test_nexus_folder_index.FolderIndexTests.test_render_is_deterministic_with_frontmatter) ... ok
+test_yaml_scalars_preserve_literal_ids_and_quotes (test_nexus_folder_index.FolderIndexTests.test_yaml_scalars_preserve_literal_ids_and_quotes) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 0.616s
+
+OK (skipped=3)
