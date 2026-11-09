@@ -1,0 +1,225 @@
+{
+  "observed_at": "2026-11-09T09:01:13+01:00",
+  "baseline": "805d7ddc2f2933892050b043cd8ff6765b126737",
+  "previous_delta": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+  "repo_head": "1c5151a5e33ce7dddb6440fa99043cb99dce449a",
+  "scope": {
+    "master_direct_documents": 86,
+    "folder_candidates": 164,
+    "delta_candidates_since_oct28": 41,
+    "previous_candidates_present": 29,
+    "new_candidates": 12,
+    "recursive_full_scan": false,
+    "folder_pagination_exhausted": true
+  },
+  "new_candidates": [
+    {
+      "id": "1khFlm5Bj5qmks_upB2HsLLMH-oRMDGwt",
+      "title": "HTML Dashboard.txt",
+      "created_at": "2026-11-09T07:45:58.550Z",
+      "updated_at": "2026-11-09T07:45:58.670Z",
+      "url": "https://drive.google.com/file/d/1khFlm5Bj5qmks_upB2HsLLMH-oRMDGwt/view"
+    },
+    {
+      "id": "1d7_o6ALWXuwVRE8mRQmVzdwCJ6115twl",
+      "title": "google-ai-stack-serie_dashboard_v1.1.html",
+      "created_at": "2026-11-09T07:44:51.699Z",
+      "updated_at": "2026-11-09T07:44:51.699Z",
+      "url": "https://drive.google.com/file/d/1d7_o6ALWXuwVRE8mRQmVzdwCJ6115twl/view"
+    },
+    {
+      "id": "1grZvVQDpJ-OXz97FVrdYD0kZBru6ZAWV",
+      "title": "26_11_09_0841_GOOGLE-AI-STACK-DASHBOARD_000_IDCL.md",
+      "created_at": "2026-11-09T07:41:41.766Z",
+      "updated_at": "2026-11-09T07:41:41.766Z",
+      "url": "https://drive.google.com/file/d/1grZvVQDpJ-OXz97FVrdYD0kZBru6ZAWV/view"
+    },
+    {
+      "id": "1F1BauRgDp0pX5nN-ej6Qpsy39O8ejXNL",
+      "title": "DASHBOARD_google-ai-stack_serie_POINTER.md",
+      "created_at": "2026-11-09T07:33:44.663Z",
+      "updated_at": "2026-11-09T07:33:44.663Z",
+      "url": "https://drive.google.com/file/d/1F1BauRgDp0pX5nN-ej6Qpsy39O8ejXNL/view"
+    },
+    {
+      "id": "1qhcTjdEDTkSj27MpHMOk5ALuxJYZCSTg",
+      "title": "TREE.txt",
+      "created_at": "2026-09-10T19:31:35.482Z",
+      "updated_at": "2026-11-03T13:51:04.766Z",
+      "url": "https://drive.google.com/file/d/1qhcTjdEDTkSj27MpHMOk5ALuxJYZCSTg/view"
+    },
+    {
+      "id": "16w_gtCN_IawDvk7RoBEyZ4PPojivmD6E",
+      "title": "TREEAI-PYTHON-PARSE.txt",
+      "created_at": "2026-11-02T20:52:29.449Z",
+      "updated_at": "2026-11-02T20:52:47.233Z",
+      "url": "https://drive.google.com/file/d/16w_gtCN_IawDvk7RoBEyZ4PPojivmD6E/view"
+    },
+    {
+      "id": "1nKx4b_E6-LcB07GVrrU2W5lsneiENToq",
+      "title": "26_11_02_1527_ID07_AI-STUDIO-WRAPPER-DASHBOARD_004.html",
+      "created_at": "2026-11-02T14:51:36.519Z",
+      "updated_at": "2026-11-02T14:51:36.520Z",
+      "url": "https://drive.google.com/file/d/1nKx4b_E6-LcB07GVrrU2W5lsneiENToq/view"
+    },
+    {
+      "id": "1aWoD60A_r3hQqKZFlHbiRseE_UjhVCSC",
+      "title": "26_11_02_DEEPSEEK-SUPPORT for AI Studio Wrapper Dashboard v1.1.html",
+      "created_at": "2026-11-02T14:33:09.300Z",
+      "updated_at": "2026-11-02T14:33:09.300Z",
+      "url": "https://drive.google.com/file/d/1aWoD60A_r3hQqKZFlHbiRseE_UjhVCSC/view"
+    },
+    {
+      "id": "1646wajxX-6MQpl4kzSBPTcDCcGzYxhuo",
+      "title": "TREE_developement.txt",
+      "created_at": "2026-11-02T14:24:30.112Z",
+      "updated_at": "2026-11-02T14:24:42.499Z",
+      "url": "https://drive.google.com/file/d/1646wajxX-6MQpl4kzSBPTcDCcGzYxhuo/view"
+    },
+    {
+      "id": "1st1datvOVAOrMWGpQJKUq89151YUXKCg",
+      "title": "TREE-WORK-FOLDER.txt",
+      "created_at": "2026-11-02T14:23:13.376Z",
+      "updated_at": "2026-11-02T14:23:13.376Z",
+      "url": "https://drive.google.com/file/d/1st1datvOVAOrMWGpQJKUq89151YUXKCg/view"
+    },
+    {
+      "id": "11TZodELvnGQd63QAP117PIN39HU_nVWn",
+      "title": "26_11_02_DEEPSEEK-SUPPORT for AI Studio Wrapper Dashboard v1.0.html",
+      "created_at": "2026-11-02T14:17:02.200Z",
+      "updated_at": "2026-11-02T14:22:20.763Z",
+      "url": "https://drive.google.com/file/d/11TZodELvnGQd63QAP117PIN39HU_nVWn/view"
+    },
+    {
+      "id": "1IkJoFlm_fhCFf7DKIP1IdpgND9l_Stoz",
+      "title": "26_11_02_DEEPSEEK-SUPPORT for AI Studio Wrapper Dashboard v1.0 - Kopie.html",
+      "created_at": "2026-11-02T14:28:42.628Z",
+      "updated_at": "2026-11-02T14:22:15.165Z",
+      "url": "https://drive.google.com/file/d/1IkJoFlm_fhCFf7DKIP1IdpgND9l_Stoz/view"
+    }
+  ],
+  "sqlite": {
+    "status": "CURRENT_SNAPSHOT_NOT_FOUND_IN_SCOPE",
+    "queried_this_run": false,
+    "archive": {
+      "source_id": "1eVQeaxKW0gBmxyYbTN6bkCMCx5flkADR",
+      "provider_modified_at": "2026-10-04T11:17:27.849Z",
+      "bytes": 82610014,
+      "historical_check_date": "2026-11-02",
+      "files_rows": 2470605,
+      "zip_sha256": "e3b03ffe103e649854a780135f68ea55ee7d0aa936cd1c00bc1dfb4f2e669492"
+    }
+  },
+  "raw_checks": [
+    {
+      "name": "treework",
+      "bytes": 306700,
+      "expected": 306700,
+      "sha256": "05e42370912ba0eafc46aeefa1df6b94ca94ebf80d153dee4b68b9058204e014",
+      "lines": 2754
+    },
+    {
+      "name": "registry",
+      "bytes": 328734,
+      "expected": 328734,
+      "sha256": "d8d2336431aae6b0b6cc15c6928cd8aaff6a219a15d80ebb45d769c34daea03a",
+      "rows": 361,
+      "parse_errors": 0,
+      "previous_delta_registered": true
+    },
+    {
+      "name": "treeparse",
+      "bytes": 2281180,
+      "expected": 2281180,
+      "sha256": "e2e04b4ea8d069a230127b2a60d5d36e79bde2f7d30c59cc88493b5f047762b5",
+      "lines": 16843
+    },
+    {
+      "name": "treedev",
+      "bytes": 741704,
+      "expected": 741704,
+      "sha256": "d28847a83bc4c038354e08f15d4bdd4a8a92665c611c84157d42ef46cd179ea8",
+      "lines": 6834
+    }
+  ],
+  "dashboard_drive_repo_connector_text_equal": true,
+  "repo_delta": [
+    {
+      "path": "WORK/REPORTS/26_11_09_0841_GOOGLE-AI-STACK-DASHBOARD_000_IDCL.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/dashboards/google-ai-stack-serie/.env.example",
+      "status": "added"
+    },
+    {
+      "path": "docs/dashboards/google-ai-stack-serie/SHA256SUMS.txt",
+      "status": "added"
+    },
+    {
+      "path": "docs/dashboards/google-ai-stack-serie/STATUS_google-ai-stack_starter.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/dashboards/google-ai-stack-serie/colab_starter_eder_zotter.ipynb",
+      "status": "added"
+    },
+    {
+      "path": "docs/dashboards/google-ai-stack-serie/index.html",
+      "status": "added"
+    },
+    {
+      "path": "docs/dashboards/google-ai-stack-serie/mcp_config.json",
+      "status": "added"
+    }
+  ],
+  "workflows": [
+    {
+      "id": 42580931445,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "conclusion": "failure",
+      "updated_at": "2026-11-09T07:41:50Z",
+      "head_sha": "1c5151a5e33ce7dddb6440fa99043cb99dce449a"
+    },
+    {
+      "id": 42580898277,
+      "name": "CI",
+      "event": "push",
+      "conclusion": "failure",
+      "updated_at": "2026-11-09T07:41:36Z",
+      "head_sha": "1c5151a5e33ce7dddb6440fa99043cb99dce449a"
+    },
+    {
+      "id": 42573318436,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "conclusion": "failure",
+      "updated_at": "2026-11-09T06:29:34Z",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735"
+    },
+    {
+      "id": 42551587807,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "conclusion": "failure",
+      "updated_at": "2026-11-09T02:33:35Z",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735"
+    }
+  ],
+  "ci": {
+    "passed": 160,
+    "failed": 3
+  },
+  "registration_status": "PENDING_ROLE_AND_LEDGER_UNASSIGNED",
+  "work_file_verified": {
+    "match": true,
+    "sha256": "c7399879c62ef8a13b7bcf716d5dd1be0d2beb4d7a63670bf412cac7c49bb4bf",
+    "bytes": 12257,
+    "modified_at": "2026-11-09T08:01:30.206Z",
+    "drive_id": "1xKPKjwq_NjzYznPfg80YaxvkLA86ZjwS",
+    "parent_ids": [
+      "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+    ]
+  }
+}
