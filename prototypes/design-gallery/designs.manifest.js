@@ -1,7 +1,39 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "e8207d12a797a41268936d03367cc16551457cb1",
+ "commit": "7eaeef1687158b13c3ba04b6d8689d610a5031d6",
  "designs": [
+  {
+   "id": "HTML-F2E1C8C5",
+   "title": "Teil 2 · AI-Stack in WebUI-Dashboards – How-to für Vibe Coder, Prompter und Ingenieure",
+   "kind": "html",
+   "path": "docs/dashboards/ai-stack-teil2/index.html",
+   "preview": "../../docs/dashboards/ai-stack-teil2/index.html",
+   "sha256": "87ffce6c3a0c9383ab317a7fbd53f29c000a9dd4517dacba1e6e998e2cb25b08",
+   "bytes": 37529,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "docs",
+    "dashboards",
+    "ai-stack-teil2"
+   ]
+  },
+  {
+   "id": "HTML-3D94A209",
+   "title": "Google AI-Stack für Ingenieure – Serie: Antigravity 2.0, AI Studio, Colab, MCP",
+   "kind": "html",
+   "path": "docs/dashboards/google-ai-stack-serie/index.html",
+   "preview": "../../docs/dashboards/google-ai-stack-serie/index.html",
+   "sha256": "eded3de34a24c5ac5376cbad72ea658c19c93bfa268e9549c2490175c42e06e6",
+   "bytes": 41261,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "docs",
+    "dashboards",
+    "google-ai-stack-serie"
+   ]
+  },
   {
    "id": "HTML-03BF61CB",
    "title": "NEXUS · System-Design & Signalmatrix",
