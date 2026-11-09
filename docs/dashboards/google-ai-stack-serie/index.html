@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google AI-Stack für Ingenieure – Serie: Antigravity 2.0, AI Studio, Colab, MCP</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a1a;--paper:#fbfaf7;--muted:#5b5b5b;--rule:#d9d5cc;--acc:#c8102e;--acc2:#005f8f;--box:#f1efe8;--ok:#1b7f3b;--warn:#b7791f;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'IBM Plex Sans',system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.55}
+a{color:var(--acc2)}
+header.mast{border-bottom:4px solid var(--acc);background:#fff}
+.mast-in{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.mast h1{margin:0;font-size:clamp(22px,3.2vw,36px);line-height:1.15}
+.mast .sub{color:var(--muted);font-size:15px;max-width:720px}
+.meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:auto}
+.wrap{max-width:1200px;margin:0 auto;padding:24px;display:grid;grid-template-columns:260px 1fr;gap:32px}
+nav.toc{position:sticky;top:16px;align-self:start;border:1px solid var(--rule);background:#fff;padding:14px 16px;font-size:14px;max-height:calc(100vh - 32px);overflow:auto}
+nav.toc h2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px;color:var(--muted)}
+nav.toc ol{margin:0;padding-left:18px}
+nav.toc li{margin:4px 0}
+nav.toc a{text-decoration:none;color:var(--ink)}
+nav.toc a:hover{color:var(--acc)}
+nav.toc .sub{padding-left:14px;font-size:13px;color:var(--muted)}
+main{min-width:0}
+article.part{background:#fff;border:1px solid var(--rule);padding:28px 32px;margin-bottom:28px}
+.partno{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:.12em;text-transform:uppercase}
+article h2{margin:4px 0 6px;font-size:28px;line-height:1.2}
+article h3{margin:26px 0 8px;font-size:19px;border-left:4px solid var(--acc);padding-left:10px}
+article h4{margin:18px 0 6px;font-size:15px}
+.lead{font-size:17px;color:#333;border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:14px}
+.box{background:var(--box);border-left:5px solid var(--acc2);padding:12px 16px;margin:16px 0;font-size:14.5px}
+.box.warn{border-color:var(--warn)}
+.box.ok{border-color:var(--ok)}
+.box.red{border-color:var(--acc)}
+.box h4{margin:0 0 6px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.box ul{margin:4px 0 0;padding-left:18px}
+.box li{margin:3px 0}
+pre{position:relative;background:#141414;color:#e8e8e8;font-family:var(--mono);font-size:13px;padding:14px 16px;overflow:auto;border-radius:4px;margin:12px 0}
+pre code{font-family:inherit}
+.cp{position:absolute;top:8px;right:8px;font:12px var(--mono);background:#333;color:#fff;border:0;padding:4px 8px;cursor:pointer;border-radius:3px}
+.cp:hover{background:var(--acc)}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}
+th,td{border:1px solid var(--rule);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--box);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+td code,li code,p code{font-family:var(--mono);font-size:12.5px;background:#f0efec;padding:1px 4px;border-radius:3px}
+.tag{display:inline-block;font:11px var(--mono);padding:1px 6px;border-radius:3px;color:#fff;vertical-align:middle}
+.tag.ok{background:var(--ok)}.tag.warn{background:var(--warn)}.tag.red{background:var(--acc)}
+figure{margin:18px 0;border:1px solid var(--rule);background:#fff;padding:10px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:6px;font-family:var(--mono)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.steps{counter-reset:s;padding-left:0;list-style:none}
+.steps li{counter-increment:s;position:relative;padding-left:40px;margin:10px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font:600 14px var(--mono);display:flex;align-items:center;justify-content:center}
+.links li{margin:5px 0;font-family:var(--mono);font-size:13px}
+.serie{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.serie a{display:block;border:1px solid var(--rule);padding:12px;text-decoration:none;color:var(--ink);background:#fff}
+.serie a:hover{border-color:var(--acc)}
+.serie .n{font-family:var(--mono);font-size:11px;color:var(--acc)}
+.serie b{display:block;margin:4px 0 2px}
+.serie span{font-size:13px;color:var(--muted)}
+footer{max-width:1200px;margin:0 auto;padding:16px 24px 40px;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}nav.toc{position:static;max-height:none}.grid2{grid-template-columns:1fr}article.part{padding:20px}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="mast-in">
+<div><div class="kicker">Praxis-Serie · KI-Werkzeuge im Ingenieurbüro</div>
+<h1>Google AI-Stack für Ingenieure</h1>
+<div class="sub">Antigravity 2.0, AI Studio, Colab und MCP – vom API-Key bis zum Agenten, der Notebooks baut. Sechs Teile, alle Beispiele, alle Links, geprüft am Stand 09.11.2026.</div></div>
+<div class="meta">EDER × ZOTTER · WORK/2026-11-09_google-ai-stack-starter</div>
+</div></header>
+
+<div class="wrap">
+<nav class="toc"><h2>Inhalt</h2><ol>
+<li><a href="#t0">Vorspann &amp; Kurzfassung</a></li>
+<li><a href="#t1">Teil 1 – Landkarte</a><div class="sub">Was ist was · Architektur</div></li>
+<li><a href="#t2">Teil 2 – AI Studio</a><div class="sub">API-Key · Playground · Get Code</div></li>
+<li><a href="#t3">Teil 3 – Colab</a><div class="sub">Secrets · SDK · LCA-Beispiel · Colab-MCP</div></li>
+<li><a href="#t4">Teil 4 – Antigravity 2.0</a><div class="sub">mcp_config.json · Plugins · GitHub-MCP</div></li>
+<li><a href="#t5">Teil 5 – Praxis</a><div class="sub">Automatisierung · Daten · Visualisierung · UI</div></li>
+<li><a href="#t5b">Teil 6 – Vibe Coder &amp; Prompter</a><div class="sub">Lernpfad · Web-UI-Rezepte · Prompts</div></li>
+<li><a href="#t6">Testplan 30 Minuten</a></li>
+<li><a href="#t7">Sicherheit</a></li>
+<li><a href="#t8">Geprüft vs. unbelegt</a></li>
+<li><a href="#t9">Downloads &amp; Linkliste</a></li>
+</ol></nav>
+
+<main>
+
+<article class="part" id="t0">
+<div class="partno">Vorspann</div>
+<h2>Drei Oberflächen, eine Logik</h2>
+<p class="lead">Google hat seine Entwickler-Werkzeuge rund um Gemini neu sortiert: <b>Antigravity 2.0</b> ist das Agenten-Cockpit auf dem Desktop, <b>AI Studio</b> der Browser-Playground mit API-Key-Verwaltung, <b>Colab</b> das Rechenlabor mit kostenloser GPU. Alle drei sprechen dieselbe Sprache: <i>Prompt → Agent → Tools via MCP → Code / Notebook</i>. Diese Serie zeigt, was heute wirklich geht – mit Blick auf Statik-, LCA- und Dokumentations-Workflows im Ingenieurbüro.</p>
+<div class="box red"><h4>Kurzfassung (TL;DR)</h4><ul>
+<li>Ein <b>API-Key aus AI Studio</b> reicht für Playground, Colab und eigene Skripte (Python <code>google-genai</code>, JS <code>@google/genai</code>).</li>
+<li><b>MCP</b> (Model Context Protocol) ist der Steckplatz: ein JSON-Eintrag in <code>mcp_config.json</code> verbindet GitHub, Colab, Docs-Server &amp; Co. mit dem Agenten.</li>
+<li><b>Antigravity 2.0</b> liest diese Konfiguration global (<code>~/.gemini/config/mcp_config.json</code>) oder pro Projekt (<code>.agents/mcp_config.json</code>, committbar).</li>
+<li>Der <b>Colab-MCP-Server</b> (Apache 2.0) lässt den Agenten Notebooks anlegen, Zellen schreiben und ausführen.</li>
+<li>Keys gehören <b>nie</b> in Chat, Zelle oder Repo – nur in <code>.env</code>, Colab-Secrets oder die App-Settings.</li>
+</ul></div>
+<div class="serie">
+<a href="#t1"><span class="n">TEIL 1</span><b>Landkarte</b><span>Produktfamilie, Architektur, Kosten</span></a>
+<a href="#t2"><span class="n">TEIL 2</span><b>AI Studio</b><span>Key in 3 Minuten, Get Code, JSON-Schema</span></a>
+<a href="#t3"><span class="n">TEIL 3</span><b>Colab</b><span>Secrets, LCA-Notebook, MCP-Steuerung</span></a>
+<a href="#t4"><span class="n">TEIL 4</span><b>Antigravity 2.0</b><span>Config, Plugin-Marketplace, GitHub</span></a>
+<a href="#t5"><span class="n">TEIL 5</span><b>Praxis</b><span>Automatisierung, Daten, Visualisierung, UI</span></a>
+</div>
+</article>
+
+<article class="part" id="t1">
+<div class="partno">Teil 1</div>
+<h2>Landkarte: Was ist was?</h2>
+<p class="lead">Wer „Antigravity“ googelt, landet nicht bei einem Programm, sondern bei einer Produktfamilie. Die Download-Seite listet aktuell fünf Bausteine – alle teilen denselben Agent-Harness und dieselbe MCP-Konfiguration.</p>
+<table><thead><tr><th>Baustein</th><th>Version (09.11.2026)</th><th>Was es ist</th><th>Für wen</th></tr></thead><tbody>
+<tr><td><b>Antigravity App</b></td><td>2.29.1</td><td>Desktop-Client: mehrere Agenten parallel, Projekte, Artifacts, MCP-Store, Plugin-Marketplace</td><td>Orchestrieren, Bauen</td></tr>
+<tr><td><b>Antigravity CLI</b> <code>agy</code></td><td>1.5.1</td><td>Terminal-Agent, Nachfolger der Gemini CLI; Plugins per <code>agy plugin install</code></td><td>Skripte, CI, SSH</td></tr>
+<tr><td><b>Antigravity IDE</b></td><td>2.6.0</td><td>Standalone-Editor (VS-Code-Basis), plus Extensions für VS Code, JetBrains, Zed, Xcode, Eclipse, Visual Studio</td><td>Coding im Editor</td></tr>
+<tr><td><b>Antigravity SDK</b></td><td>0.1.23 (Python)</td><td>Eigene Agenten programmieren</td><td>Entwickler</td></tr>
+<tr><td><b>AI Studio</b></td><td>Web</td><td>Playground + API-Key-Verwaltung + maschinenlesbare Docs (<code>llms.txt</code>)</td><td>Schnell testen, ohne Installation</td></tr>
+<tr><td><b>Google Colab</b></td><td>Web</td><td>Jupyter im Browser, CPU/T4-GPU gratis, Secrets-Tresor, offizieller MCP-Server</td><td>Rechnen, Plots, LCA, Daten</td></tr>
+</tbody></table>
+<figure><svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans,system-ui" font-size="14">
+<defs><marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker></defs>
+<rect x="20" y="110" width="150" height="70" rx="6" fill="#f1efe8" stroke="#1a1a1a"/><text x="95" y="140" text-anchor="middle" font-weight="700">Prompt</text><text x="95" y="160" text-anchor="middle" fill="#5b5b5b" font-size="12">Mensch / Scheduler</text>
+<line x1="170" y1="145" x2="230" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="235" y="90" width="190" height="110" rx="6" fill="#fff" stroke="#c8102e" stroke-width="2"/><text x="330" y="120" text-anchor="middle" font-weight="700">Agent</text><text x="330" y="142" text-anchor="middle" font-size="12">Antigravity App / agy</text><text x="330" y="160" text-anchor="middle" font-size="12">AI Studio · Claude Code</text><text x="330" y="180" text-anchor="middle" font-size="12" fill="#5b5b5b">Gemini 3.x / 4</text>
+<line x1="425" y1="145" x2="485" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ar)"/>
+<rect x="490" y="110" width="130" height="70" rx="6" fill="#005f8f" stroke="#005f8f"/><text x="555" y="140" text-anchor="middle" fill="#fff" font-weight="700">MCP</text><text x="555" y="160" text-anchor="middle" fill="#fff" font-size="12">mcp_config.json</text>
+<g stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ar)"><line x1="620" y1="130" x2="690" y2="50"/><line x1="620" y1="145" x2="690" y2="145"/><line x1="620" y1="160" x2="690" y2="240"/></g>
+<rect x="695" y="25" width="185" height="50" rx="6" fill="#f1efe8" stroke="#1a1a1a"/><text x="787" y="55" text-anchor="middle">GitHub (hosted)</text>
+<rect x="695" y="120" width="185" height="50" rx="6" fill="#f1efe8" stroke="#1a1a1a"/><text x="787" y="150" text-anchor="middle">Colab-MCP → Notebook</text>
+<rect x="695" y="215" width="185" height="50" rx="6" fill="#f1efe8" stroke="#1a1a1a"/><text x="787" y="245" text-anchor="middle">Docs / Context7 / Drive</text>
+</svg><figcaption>Bild 1: Gleiche Logik auf allen Oberflächen – der Agent ruft Werkzeuge über MCP auf; die Konfiguration ist eine JSON-Datei.</figcaption></figure>
+<div class="box"><h4>Kosten zum Start</h4><ul><li>AI Studio: Free Tier, keine Kreditkarte. Free-Tier-Eingaben darf Google zur Verbesserung nutzen → keine Kundendaten.</li><li>Colab: Free (CPU, T4-GPU mit Limits); Pro für mehr Laufzeit/GPU.</li><li>Antigravity: Free Tier; Google AI Pro/Ultra erhöhen Limits (Preisseite verlinkt, nicht auf der Download-Seite ausgewiesen).</li></ul></div>
+</article>
+
+<article class="part" id="t2">
+<div class="partno">Teil 2</div>
+<h2>AI Studio: API-Key in drei Minuten</h2>
+<p class="lead">AI Studio ist der schnellste Einstieg: Modell wählen, Prompt testen, Temperatur drehen, JSON-Schema erzwingen – und per „Get Code“ den fertigen Python- oder JavaScript-Aufruf mitnehmen.</p>
+<ol class="steps">
+<li><a href="https://aistudio.google.com">aistudio.google.com</a> öffnen, mit Google-Konto anmelden.</li>
+<li>Links <b>Get API key</b> bzw. direkt <a href="https://aistudio.google.com/api-keys">aistudio.google.com/api-keys</a> → <b>Create API Key</b>. Der Key beginnt mit <code>AIzaSy…</code>; sofort in Passwort-Manager oder <code>.env</code>.</li>
+<li>Playground: Modell (z. B. <code>gemini-3.5-flash</code>, <code>gemini-3.8-flash</code>, <code>gemini-3.1-pro-preview</code>), System Instruction, Temperature, Structured Output, Function Calling.</li>
+<li>Oben rechts <b>Get code &lt;&gt;</b>: System-Prompt, Schema und Parameter wandern in den Code-Export (Python/JS/cURL).</li>
+</ol>
+<h3>Minimaltest per cURL</h3>
+<pre><button class="cp">Kopieren</button><code>export GEMINI_API_KEY="YOUR_API_KEY"
+curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"contents":[{"parts":[{"text":"Summarize ISO 20887 DfD principles in 5 bullets for a slide."}]}]}'</code></pre>
+<h3>Python: ein Client, ein Aufruf</h3>
+<pre><button class="cp">Kopieren</button><code>pip install google-genai
+
+from google import genai
+client = genai.Client()                      # liest GEMINI_API_KEY aus der Umgebung
+r = client.models.generate_content(
+    model="gemini-3.5-flash",
+    contents="Summarize ISO 20887 DfD principles in 5 bullets for a slide.")
+print(r.text)</code></pre>
+<h3>JavaScript/TypeScript: <code>@google/genai</code></h3>
+<pre><button class="cp">Kopieren</button><code>npm install @google/genai
+
+import { GoogleGenAI } from '@google/genai';
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const r = await ai.models.generateContent({
+  model: 'gemini-3.5-flash',
+  contents: 'Explain ISO 20887 DfD in 5 bullets for a slide'
+});
+console.log(r.text);</code></pre>
+<div class="box warn"><h4>Stolpersteine</h4><ul>
+<li>Das alte Paket <code>@google/generative-ai</code> ist abgekündigt – nur noch <code>@google/genai</code> verwenden (ein SDK für Developer-API und Vertex AI).</li>
+<li>Das JS-SDK kann MCP-Tools direkt einbinden (<code>mcpToTool</code>, experimentell) und bietet die Live-API (Audio/Video-Streams).</li>
+<li>In AI Studio erzeugte Keys sind auf die Generative Language API beschränkt – gut so. Auf der Key-Seite nach „unrestricted“-Hinweisen prüfen.</li>
+</ul></div>
+<h3>Maschinenlesbare Docs für Agenten</h3>
+<ul>
+<li><a href="https://aistudio.google.com/llms.txt">aistudio.google.com/llms.txt</a> – Index aller Doc-Seiten (jede Seite auch als <code>.md</code>, z. B. <code>/docs/function-calling.md</code>, <code>/docs/structured-output.md</code>).</li>
+<li><a href="https://aistudio.google.com/llms-full.txt">llms-full.txt</a> – gesamte Doku in einer Datei (für Context-Caching/RAG).</li>
+<li><b>Gemini Docs MCP-Server</b>: <code>https://gemini-api-docs-mcp.dev</code> – Live-Suche in der Gemini-Doku aus Claude Code, Cursor, Antigravity.</li>
+<li>SDK-Repos: <a href="https://github.com/googleapis/python-genai">googleapis/python-genai</a>, <a href="https://github.com/googleapis/js-genai">googleapis/js-genai</a>.</li>
+</ul>
+</article>
+
+<article class="part" id="t3">
+<div class="partno">Teil 3</div>
+<h2>Colab: Rechenlabor mit Agenten-Anschluss</h2>
+<p class="lead">Colab ist Jupyter ohne Installation – und seit 2026 mit einem offiziellen MCP-Server, über den ein Agent Notebooks anlegt, Zellen schreibt und auf CPU oder T4-GPU ausführt.</p>
+<h3>Secrets statt Klartext</h3>
+<p>Links in der Seitenleiste das Schlüssel-Symbol → <b>Add Secret</b>, Name exakt <code>GEMINI_API_KEY</code>, „Notebook access“ einschalten. Notebooks werden geteilt – ein Key in einer Zelle ist ein Key im Netz.</p>
+<pre><button class="cp">Kopieren</button><code>from google.colab import userdata
+import os
+os.environ['GEMINI_API_KEY'] = userdata.get('GEMINI_API_KEY')  # aus Colab-Secrets, nie in der Zelle</code></pre>
+<h3>Beispiel: LCA-Tabelle Masse × GWP-Faktor</h3>
+<pre><button class="cp">Kopieren</button><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+# Bauteil, Masse [kg], GWP-Faktor A1-A3 [kgCO2e/kg] – Platzhalter, durch EPD-Werte ersetzen
+df = pd.DataFrame({
+    'element': ['CLT wall', 'Concrete slab', 'Steel beam', 'Glulam beam'],
+    'mass_kg': [12000.0, 45000.0, 3000.0, 6500.0],
+    'gwp_kgco2e_per_kg': [-0.60, 0.11, 1.50, -0.55],   # negativ = biogener Kohlenstoffspeicher
+})
+df['gwp_kgco2e'] = df['mass_kg'] * df['gwp_kgco2e_per_kg']
+total = df['gwp_kgco2e'].sum()
+
+ax = df.plot.bar(x='element', y='gwp_kgco2e', legend=False)
+ax.axhline(0, color='k', lw=0.8)
+ax.set_ylabel('GWP A1–A3 [kgCO2e]'); ax.set_title(f'Tallinn LCA – Summe {total:,.0f} kgCO2e')
+plt.tight_layout(); plt.show()</code></pre>
+<figure><svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono,monospace" font-size="12">
+<line x1="60" y1="130" x2="680" y2="130" stroke="#1a1a1a"/><line x1="60" y1="20" x2="60" y2="240" stroke="#1a1a1a"/>
+<text x="20" y="134" fill="#5b5b5b">0</text><text x="12" y="30" fill="#5b5b5b">+5k</text><text x="12" y="240" fill="#5b5b5b">−7k</text>
+<rect x="100" y="130" width="90" height="100" fill="#1b7f3b"/><text x="145" y="250" text-anchor="middle">CLT −7200</text>
+<rect x="240" y="60" width="90" height="70" fill="#c8102e"/><text x="285" y="52" text-anchor="middle">Beton +4950</text>
+<rect x="380" y="67" width="90" height="63" fill="#c8102e"/><text x="425" y="59" text-anchor="middle">Stahl +4500</text>
+<rect x="520" y="130" width="90" height="50" fill="#1b7f3b"/><text x="565" y="200" text-anchor="middle">BSH −3575</text>
+<text x="370" y="18" text-anchor="middle" font-family="IBM Plex Sans" font-weight="700" font-size="13">Summe: −1325 kgCO2e (Platzhalterdaten)</text>
+</svg><figcaption>Bild 2: So sieht der Plot aus dem Starter-Notebook aus – Rechenweg: Masse × Faktor, Summe über alle Bauteile. Faktoren sind Platzhalter.</figcaption></figure>
+<h3>Structured Output: Absolut-Behauptungen in Folien finden</h3>
+<pre><button class="cp">Kopieren</button><code>from pydantic import BaseModel
+class Claim(BaseModel):
+    slide: int
+    text: str
+    absolute: bool   # "0 %", "infinite", "no glue" …
+
+r = client.models.generate_content(
+    model="gemini-3.5-flash",
+    contents="Slide 3: Our CLT wall has 0% waste and infinite reuse. Slide 4: Screws only, no glue.",
+    config={"response_mime_type": "application/json", "response_schema": list[Claim]})
+print(r.text)   # → JSON-Liste, direkt weiterverarbeitbar</code></pre>
+<h3>Colab-MCP: Der Agent bedient das Notebook</h3>
+<p>Google stellt den Server unter <a href="https://github.com/googlecolab/colab-mcp">github.com/googlecolab/colab-mcp</a> (Apache 2.0) bereit. Er verbindet einen <b>lokalen</b> Agenten mit einer Colab-Sitzung im Browser; der Client muss <code>notifications/tools/list_changed</code> unterstützen (Gemini CLI, Claude Code, Windsurf, Antigravity).</p>
+<pre><button class="cp">Kopieren</button><code>pip install uv
+# Eintrag in mcp_config.json (Antigravity) bzw. mcp.json (andere Clients):
+"colab-mcp": {
+  "command": "uvx",
+  "args": ["git+https://github.com/googlecolab/colab-mcp"],
+  "timeout": 30000
+}</code></pre>
+<div class="box warn"><h4>Achtung bei Colab-MCP</h4><ul><li>Auth läuft über den Browser (Google-Login); der Scope umfasst Drive-Zugriff – mit Bedacht freigeben.</li><li>Agenten-Code läuft sichtbar in der Colab-Sitzung: keine Secrets in Zellen ausführen lassen.</li><li>Tool-Namen und Token-Pfad (im Umlauf: „7 Tools“, <code>create_notebook</code>, <code>add_cell</code>, <code>execute_cell</code>) stehen nicht auf der README-Startseite → beim ersten Connect mit <code>/mcp</code> bzw. Tool-Liste prüfen.</li></ul></div>
+<h4>Alternative: Datalayer Jupyter-MCP (hosted)</h4>
+<p>Endpunkt <code>https://mcp.datalayer.run/mcp</code> – ein Server für beliebige Notebooks inklusive Colab-Sandbox-Variante. Aus unserer Testumgebung war der Endpunkt nicht erreichbar (Client-Fehler); Tool-Umfang und Scopes daher ungeprüft.</p>
+</article>
+
+<article class="part" id="t4">
+<div class="partno">Teil 4</div>
+<h2>Antigravity 2.0: Konfiguration, Plugins, GitHub</h2>
+<p class="lead">Die App, die IDE und die CLI <code>agy</code> teilen sich eine zentrale MCP-Konfiguration. Wer sie einmal sauber aufsetzt, hat seine Werkzeuge in allen drei Oberflächen.</p>
+<h3>Installation</h3>
+<pre><button class="cp">Kopieren</button><code># Desktop-App: https://antigravity.google/download  (macOS 12+, Windows 10+, Linux glibc ≥ 2.28)
+# CLI (macOS/Linux):
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+# CLI (Windows PowerShell):
+irm https://antigravity.google/cli/install.ps1 | iex
+
+agy --help
+agy plugin list</code></pre>
+<h3>Wo die Konfiguration liegt</h3>
+<figure><svg viewBox="0 0 820 230" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono,monospace" font-size="13">
+<rect x="10" y="10" width="800" height="210" rx="6" fill="#141414"/>
+<text x="30" y="40" fill="#e8e8e8">~/.gemini/</text>
+<text x="30" y="65" fill="#e8e8e8">├── config/</text>
+<text x="30" y="90" fill="#e8e8e8">│   ├── <tspan fill="#ffd166" font-weight="700">mcp_config.json</tspan>      <tspan fill="#8fb8d8">← global: App + IDE + CLI</tspan></text>
+<text x="30" y="115" fill="#e8e8e8">│   └── plugins/&lt;name&gt;/mcp_config.json  <tspan fill="#8fb8d8">← je Plugin</tspan></text>
+<text x="30" y="140" fill="#e8e8e8">├── antigravity-cli/   antigravity-ide/   <tspan fill="#8fb8d8">← generierte Kopien, brain/, settings</tspan></text>
+<text x="30" y="170" fill="#e8e8e8">&lt;Projekt&gt;/</text>
+<text x="30" y="195" fill="#e8e8e8">└── .agents/<tspan fill="#ffd166" font-weight="700">mcp_config.json</tspan>        <tspan fill="#8fb8d8">← pro Workspace, committbar → Team erbt</tspan></text>
+</svg><figcaption>Bild 3: Drei Ebenen – global, Plugin, Workspace. Gleiche JSON-Struktur überall.</figcaption></figure>
+<p>In der App: Agent-Panel → <b>…</b> → <b>MCP Servers</b> öffnet den MCP-Store; „Copy Config File Path“ führt zur Rohdatei. In der CLI zeigt <code>/mcp</code> die verbundenen Server.</p>
+<h3>Fertige <code>mcp_config.json</code> (Starter)</h3>
+<pre><button class="cp">Kopieren</button><code>{
+  "mcpServers": {
+    "github": {
+      "serverUrl": "https://api.githubcopilot.com/mcp/",
+      "headers": { "Authorization": "Bearer ${GITHUB_PAT}" },
+      "enabledTools": ["search_code","get_file_contents","list_issues","create_issue",
+                       "list_pull_requests","get_pull_request","search_repositories"],
+      "timeout": 180000
+    },
+    "colab-mcp": {
+      "command": "uvx",
+      "args": ["git+https://github.com/googlecolab/colab-mcp"],
+      "timeout": 30000
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": { "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}" }
+    },
+    "gemini-api-docs": { "serverUrl": "https://gemini-api-docs-mcp.dev" }
+  }
+}</code></pre>
+<div class="box ok"><h4>Tipps zur Konfiguration</h4><ul>
+<li><b>GitHub-MCP</b> hat die größte Tool-Fläche (~80 Tools) → mit <code>enabledTools</code>/<code>disabledTools</code> beschneiden. Für den Start: Read-Only-Endpunkt <code>https://api.githubcopilot.com/mcp/readonly</code> – null Mutationsrisiko.</li>
+<li><code>serverUrl</code> + <code>headers</code> für gehostete Server, <code>command</code> + <code>args</code> + <code>env</code> für lokale Prozesse. Timeout-Default 3 Minuten.</li>
+<li>Credentials bleiben lokal; jeder MCP-Tool-Aufruf fragt standardmäßig um Freigabe.</li>
+</ul></div>
+<h3>Plugin-Marketplace (seit 29.10.2026)</h3>
+<p>Ein Plugin bündelt bis zu fünf Teile: Skills, MCP-Server, Rules, Hooks, Custom Agents – ein Install, ein Update, ein Schalter. Launch-Partner u. a. Atlassian, Figma, Linear, Notion, Stripe, monday.com.</p>
+<pre><button class="cp">Kopieren</button><code>agy plugin install figma                                 # offizieller Katalog
+agy plugin install https://github.com/&lt;owner&gt;/&lt;repo&gt;      # beliebiges Repo
+agy plugin install ./my-plugin                           # lokaler Ordner
+agy plugin list | enable | disable | uninstall &lt;name&gt;
+
+# Manifest: ~/.gemini/antigravity-cli/plugins/&lt;name&gt;/plugin.json
+{ "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "eder-zotter-tools", "description": "Statik + LCA Werkzeuge" }</code></pre>
+<div class="box red"><h4>Plugins prüfen, bevor sie laufen</h4><ul><li><code>agy plugin install</code> akzeptiert jedes GitHub-Repo. Hooks können Befehle ausführen → vor dem Install <code>hooks.json</code> und <code>mcp_config.json</code> des Plugins lesen.</li><li>„Verified“ im Marketplace heißt: von Google gelistet – das Prüfverfahren ist nicht veröffentlicht.</li></ul></div>
+<h3>MCP-Server, die sich im Büro lohnen</h3>
+<table><thead><tr><th>Server</th><th>Nutzen</th><th>Auth</th></tr></thead><tbody>
+<tr><td>GitHub (hosted)</td><td>Repos, Issues, PRs, Code-Suche, Actions</td><td>PAT oder OAuth</td></tr>
+<tr><td>Developer Knowledge</td><td>Offizielle Google-Developer-Docs</td><td>Google-Konto</td></tr>
+<tr><td>Gemini Docs MCP</td><td>Gemini-API-Doku live durchsuchen</td><td>keine</td></tr>
+<tr><td>Context7</td><td>Versionsgenaue Library-Doku (pandas, numpy, …)</td><td>optional Key</td></tr>
+<tr><td>Colab-MCP</td><td>Notebooks anlegen/ausführen</td><td>Google-Login (Browser)</td></tr>
+<tr><td>Chrome DevTools</td><td>Traces, Network, Console</td><td>lokal</td></tr>
+<tr><td>BigQuery / Firebase</td><td>Schemas, SQL, Projektdaten</td><td>ADC / Firebase CLI</td></tr>
+</tbody></table>
+</article>
+
+<article class="part" id="t5">
+<div class="partno">Teil 5</div>
+<h2>Praxis: Automatisierung, Daten, Visualisierung, Interaktion</h2>
+<p class="lead">Was lässt sich mit diesem Stack heute grundsätzlich abdecken? Eine Bestandsaufnahme entlang der vier Fragen, die im Ingenieurbüro zählen.</p>
+<div class="grid2">
+<div class="box"><h4>Automatisierung</h4><ul>
+<li>Antigravity: mehrere Agenten parallel, Scheduled Tasks, Artifacts pro Projekt.</li>
+<li><code>agy</code> in Shell/CI: Skripte, Hooks (pre-invocation), Plugins mit Rules.</li>
+<li>Gemini Function Calling + Structured Output = deterministische Schnittstelle zu eigenen Python-Solvern (EC2/EC5).</li>
+<li>Built-in Tools der Gemini-API: Google Search, Code Execution, Live-API.</li>
+</ul></div>
+<div class="box"><h4>Datenintegration</h4><ul>
+<li>MCP als Universal-Adapter: GitHub, Drive (via Colab-OAuth), BigQuery, Notion, Jira, Figma.</li>
+<li>Colab liest Drive-Dateien direkt (<code>drive.mount</code>) – CSV/XLSX → pandas.</li>
+<li>Context7 / Docs-MCP: aktuelle Library- und API-Doku in den Kontext, statt veraltetes Modellwissen.</li>
+<li>1-Mio-Token-Kontext (Gemini 3 Flash/Pro): ganze Normkapitel oder Statikberichte in einem Prompt.</li>
+</ul></div>
+<div class="box"><h4>Visualisierung</h4><ul>
+<li>Colab: matplotlib/plotly, T4-GPU für größere Modelle; Plots direkt im Notebook.</li>
+<li>Antigravity-Artifacts: Agent erzeugt Diagramme, HTML-Dashboards, Reports als Projektartefakte.</li>
+<li>Structured Output → JSON → beliebiges Frontend (Three.js, Pyodide-Dashboards).</li>
+</ul></div>
+<div class="box"><h4>Benutzerinteraktion</h4><ul>
+<li>AI Studio Playground: System-Prompt und Schema interaktiv testen, dann „Get Code“.</li>
+<li>Antigravity App: Chat + Approval je Tool-Call (Human-in-the-loop by default).</li>
+<li>Live-API (<code>ai.live</code>): Sprache/Video in Echtzeit – Baustellen-Assistent denkbar.</li>
+<li>JS-SDK + <code>mcpToTool</code>: eigene Web-UI mit MCP-Werkzeugen.</li>
+</ul></div>
+</div>
+<h3>Beispiel-Workflow: Folien auf Absolut-Behauptungen prüfen</h3>
+<ol class="steps">
+<li>Projekt in Antigravity öffnen (Ordner mit den Tallinn-Folien), <code>.agents/mcp_config.json</code> mit GitHub-MCP + Docs-MCP anlegen.</li>
+<li>Agent-Task: „Check all slides for absolute claims (0 %, infinite, no glue); list file + line; cite ISO 20887 via Docs-MCP.“</li>
+<li>Ergebnis als Artifact (Markdown-Tabelle) → per GitHub-MCP als Issue ins Repo.</li>
+<li>Für die Zahlen: Agent lässt via Colab-MCP das LCA-Notebook laufen und hängt den Plot an.</li>
+</ol>
+</article>
+
+<article class="part" id="t5b">
+<div class="partno">Teil 6</div>
+<h2>Für Vibe Coder, Prompter und Hobby-Programmierer: Nachbauen in einem Abend</h2>
+<p class="lead">Kein Informatikstudium nötig. Wer Prompts schreiben kann, baut mit diesem Stack eigene Web-Dashboards – der Agent tippt, du steuerst. Hier die Rezepte, die ohne Setup-Frust funktionieren.</p>
+<div class="grid2">
+<div class="box ok"><h4>Lernpfad (3 Abende)</h4><ul>
+<li><b>Abend 1:</b> AI Studio → Key → Playground → „Get Code“ → in Colab laufen lassen. Ziel: erster eigener Gemini-Aufruf.</li>
+<li><b>Abend 2:</b> Colab-Notebook mit Daten (CSV aus Drive) → Plot → Structured Output als JSON. Ziel: Daten rein, Tabelle + Grafik raus.</li>
+<li><b>Abend 3:</b> Antigravity installieren, <code>mcp_config.json</code> einspielen, Agent eine HTML-Seite mit Chart bauen lassen. Ziel: eigenes Web-UI-Dashboard.</li>
+</ul></div>
+<div class="box"><h4>Web-UI-Dashboard-Rezepte (Single-File HTML)</h4><ul>
+<li><b>Pyodide:</b> Python im Browser – pandas + matplotlib ohne Server; ideal für Rechen-Tools (Statik, LCA).</li>
+<li><b>Plotly.js / Chart.js:</b> interaktive Charts aus JSON, das Gemini per Structured Output liefert.</li>
+<li><b>Three.js:</b> 3D-Vorschau (Träger, Platten, Module) – Parameter per Slider.</li>
+<li><b>Tailwind (CDN):</b> Layout in Minuten; alles in <i>einer</i> <code>index.html</code>, teilbar per Link oder GitHub Pages.</li>
+</ul></div>
+</div>
+<h3>Fünf Prompts, die den Agenten arbeiten lassen</h3>
+<pre><button class="cp">Kopieren</button><code># 1 – Dashboard-Gerüst
+"Baue eine self-contained index.html: Sidebar-Inhaltsverzeichnis, 4 Infoboxen, 1 Plotly-Chart aus dem JSON in data.json. Keine externen Bilder, nur CDN-Scripts."
+
+# 2 – Daten rein
+"Lies tallinn_lca.csv (Spalten element, mass_kg, gwp_factor) und erzeuge ein Balkendiagramm GWP je Bauteil, negative Werte grün, Summe im Titel. Code mit Kommentaren."
+
+# 3 – Strukturierte Ausgabe
+"Antworte NUR als JSON nach Schema {slide:int, text:str, absolute:bool}. Prüfe diese Folientexte auf Absolut-Behauptungen: …"
+
+# 4 – Selbstkontrolle
+"Prüfe deinen Code: Einheiten konsistent? Summe = Σ(mass × factor)? Liste 3 mögliche Fehlerquellen, dann korrigiere."
+
+# 5 – Dokumentation
+"Schreibe README.md: Zweck, Start in 3 Schritten, benötigte Keys (nur Namen, keine Werte), Lizenz MIT."</code></pre>
+<div class="box warn"><h4>Typische Anfängerfallen</h4><ul>
+<li>Key in die Zelle gepastet → sofort rotieren (AI Studio → Key löschen → neu erstellen).</li>
+<li>Agent „halluziniert“ Library-Funktionen → Context7/Docs-MCP anschließen, Modell liest echte Doku.</li>
+<li>Colab-Runtime weg → alles in Drive speichern (<code>drive.mount</code>) oder Notebook in Git.</li>
+<li>Riesiger Prompt, winziges Ergebnis → Aufgabe zerlegen: Plan → Teilaufgabe → Prüfung, je eigener Run.</li>
+</ul></div>
+<h3>Weiterlesen für Einsteiger</h3>
+<ul class="links">
+<li>#E1, Gemini Quickstart, <a href="https://ai.google.dev/gemini-api/docs/quickstart">https://ai.google.dev/gemini-api/docs/quickstart</a></li>
+<li>#E2, Colab Welcome-Notebook, <a href="https://colab.research.google.com/notebooks/intro.ipynb">https://colab.research.google.com/notebooks/intro.ipynb</a></li>
+<li>#E3, MCP Spezifikation, <a href="https://modelcontextprotocol.io">https://modelcontextprotocol.io</a></li>
+<li>#E4, Pyodide, <a href="https://pyodide.org">https://pyodide.org</a></li>
+<li>#E5, Plotly.js, <a href="https://plotly.com/javascript/">https://plotly.com/javascript/</a></li>
+<li>#E6, Three.js, <a href="https://threejs.org">https://threejs.org</a></li>
+</ul>
+</article>
+
+<article class="part" id="t6">
+<div class="partno">Testplan</div>
+<h2>30 Minuten bis zum ersten Ergebnis</h2>
+<table><thead><tr><th>Zeit</th><th>Oberfläche</th><th>Was tun</th><th>Erfolgskriterium</th></tr></thead><tbody>
+<tr><td>5 min</td><td>AI Studio</td><td>Prompt „Summarize ISO 20887 DfD principles in 5 bullets“ → Get Code (Python)</td><td>Lauffähiger Code-Export mit Key aus <code>.env</code></td></tr>
+<tr><td>10 min</td><td>Colab</td><td>Starter-Notebook öffnen, Secret <code>GEMINI_API_KEY</code>, LCA-Zelle ausführen; dann Agent via Colab-MCP eine Zelle anhängen lassen</td><td>Plot sichtbar; Agent-Zelle erscheint im Notebook</td></tr>
+<tr><td>15 min</td><td>Antigravity</td><td><code>mcp_config.json</code> nach <code>~/.gemini/config/</code>, Projekt mit Tallinn-Ordner, Claim-Check-Task</td><td>Tabelle Datei + Zeile; GitHub-MCP antwortet (readonly)</td></tr>
+</tbody></table>
+<div class="box"><h4>Protokoll</h4><ul><li>Ergebnisse je Test in <code>STATUS_google-ai-stack_starter.md</code> (Drive: <code>LLM-LOCAL-SSOT/WORK/2026-11-09_google-ai-stack-starter/</code>) unter „LOG“ anhängen: Zeitstempel, getestet → funktioniert / funktioniert nicht, Delta.</li></ul></div>
+</article>
+
+<article class="part" id="t7">
+<div class="partno">Sicherheit</div>
+<h2>Fünf Regeln, die nicht verhandelbar sind</h2>
+<ol class="steps">
+<li><b>Keys nie in Chat, Zelle, Repo.</b> Nur <code>.env</code> (in <code>.gitignore</code>), Colab-Secrets, Antigravity-Settings. <code>${VAR}</code>-Platzhalter in <code>mcp_config.json</code>.</li>
+<li><b>Free Tier = Trainingsdaten.</b> Keine Kundendaten, Pläne oder Passwörter in AI Studio Free.</li>
+<li><b>Least Privilege.</b> GitHub-PAT fine-grained, nur benötigte Repos; MCP-Tools per <code>enabledTools</code> beschneiden; <code>/readonly</code> zuerst.</li>
+<li><b>Plugins lesen, bevor sie laufen.</b> <code>hooks.json</code> und <code>mcp_config.json</code> fremder Plugins prüfen.</li>
+<li><b>Approval an lassen.</b> Antigravity fragt je Tool-Call – das ist das Sicherheitsnetz, nicht die Bremse.</li>
+</ol>
+</article>
+
+<article class="part" id="t8">
+<div class="partno">Faktencheck</div>
+<h2>Geprüft vs. unbelegt (Stand 09.11.2026)</h2>
+<table><thead><tr><th>Aussage</th><th>Status</th><th>Quelle</th></tr></thead><tbody>
+<tr><td>Antigravity = App 2.29.1, CLI 1.5.1, IDE 2.6.0, SDK 0.1.23; CLI-Install-Skript</td><td><span class="tag ok">geprüft</span></td><td>antigravity.google/download</td></tr>
+<tr><td>Gemeinsame Config <code>~/.gemini/config/mcp_config.json</code>, Workspace <code>.agents/</code>, Plugin-Ebene</td><td><span class="tag ok">geprüft</span></td><td>antigravity.google/docs/mcp, Codelab Developer Knowledge</td></tr>
+<tr><td>Plugin-Marketplace 29.10.2026; <code>agy plugin install</code>; Manifest-Schema</td><td><span class="tag ok">geprüft</span></td><td>antigravity.google/docs/cli/plugins, Blog-Berichte</td></tr>
+<tr><td>colab-mcp: Apache 2.0, <code>uvx git+…</code>, lokale Clients, <code>tools/list_changed</code></td><td><span class="tag ok">geprüft</span></td><td>github.com/googlecolab/colab-mcp</td></tr>
+<tr><td>Modelle gemini-3.5-flash / 3.8-flash / 3.1-pro-preview / 4-argon; SDK <code>google-genai</code>; Docs-MCP-URL</td><td><span class="tag ok">geprüft</span></td><td>aistudio.google.com/llms.txt</td></tr>
+<tr><td>js-genai: <code>@google/genai</code>, <code>mcpToTool</code> experimentell, Live-API</td><td><span class="tag ok">geprüft</span></td><td>github.com/googleapis/js-genai</td></tr>
+<tr><td>„Antigravity 2.0 seit I/O 19.05.2026“, „Jules-Einstellung 31.12.2026“</td><td><span class="tag warn">unbelegt</span></td><td>keine Primärquelle gefunden</td></tr>
+<tr><td>„Unrestricted Keys seit 19.06.2026 blockiert“</td><td><span class="tag warn">unbelegt</span></td><td>llms.txt nennt keine Key-Restriktionen</td></tr>
+<tr><td>colab-mcp „7 Tools“, Token-Pfad <code>~/.config/google-colab-mcp/</code></td><td><span class="tag warn">unbelegt</span></td><td>nicht auf README-Startseite</td></tr>
+<tr><td>Datalayer-Endpunkt, 15+ Tools, Scopes</td><td><span class="tag red">nicht erreichbar</span></td><td>Fetch-Fehler aus Sandbox</td></tr>
+</tbody></table>
+</article>
+
+<article class="part" id="t9">
+<div class="partno">Anhang</div>
+<h2>Downloads &amp; Linkliste</h2>
+<h3>Starter-Dateien (Drive · WORK/2026-11-09_google-ai-stack-starter)</h3>
+<ul>
+<li><code>mcp_config.json</code> – GitHub, Colab-MCP, Context7, Gemini-Docs (siehe Teil 4)</li>
+<li><code>.env.example</code> – GEMINI_API_KEY, GITHUB_PAT, CONTEXT7_API_KEY, GROQ_API_KEY</li>
+<li><code>colab_starter_eder_zotter.ipynb</code> – Secrets → Gemini-Call → LCA-Plot → Structured Output (öffnet direkt in Colab)</li>
+<li><code>STATUS_google-ai-stack_starter.md</code> – Frontmatter-Anker, Tasks offen/erledigt, LOG, SHA256</li>
+</ul>
+<pre><button class="cp">Kopieren</button><code># .env.example
+GEMINI_API_KEY=AIzaSy...        # aistudio.google.com/api-keys
+GITHUB_PAT=ghp_...              # fine-grained PAT, nur benötigte Repos
+CONTEXT7_API_KEY=               # optional
+GROQ_API_KEY=                   # optional
+# Colab-MCP: kein Key – Browser-Login beim ersten Connect</code></pre>
+<h3>Linkliste</h3>
+<ul class="links">
+<li>#1, Antigravity Download, <a href="https://antigravity.google/download">https://antigravity.google/download</a></li>
+<li>#2, Antigravity MCP-Docs, <a href="https://antigravity.google/docs/mcp">https://antigravity.google/docs/mcp</a></li>
+<li>#3, Antigravity Plugins, <a href="https://antigravity.google/docs/cli/plugins">https://antigravity.google/docs/cli/plugins</a></li>
+<li>#4, CLI-Installer, <a href="https://antigravity.google/cli/install.sh">https://antigravity.google/cli/install.sh</a></li>
+<li>#5, AI Studio, <a href="https://aistudio.google.com">https://aistudio.google.com</a></li>
+<li>#6, API-Keys, <a href="https://aistudio.google.com/api-keys">https://aistudio.google.com/api-keys</a></li>
+<li>#7, llms.txt, <a href="https://aistudio.google.com/llms.txt">https://aistudio.google.com/llms.txt</a></li>
+<li>#8, llms-full.txt, <a href="https://aistudio.google.com/llms-full.txt">https://aistudio.google.com/llms-full.txt</a></li>
+<li>#9, Gemini-API-Docs, <a href="https://ai.google.dev/gemini-api/docs">https://ai.google.dev/gemini-api/docs</a></li>
+<li>#10, Gemini Docs MCP, <a href="https://gemini-api-docs-mcp.dev">https://gemini-api-docs-mcp.dev</a></li>
+<li>#11, Colab, <a href="https://colab.research.google.com">https://colab.research.google.com</a></li>
+<li>#12, colab-mcp, <a href="https://github.com/googlecolab/colab-mcp">https://github.com/googlecolab/colab-mcp</a></li>
+<li>#13, Datalayer MCP, <a href="https://mcp.datalayer.run/mcp">https://mcp.datalayer.run/mcp</a></li>
+<li>#14, GitHub MCP (hosted), <a href="https://api.githubcopilot.com/mcp/">https://api.githubcopilot.com/mcp/</a></li>
+<li>#15, python-genai, <a href="https://github.com/googleapis/python-genai">https://github.com/googleapis/python-genai</a></li>
+<li>#16, js-genai, <a href="https://github.com/googleapis/js-genai">https://github.com/googleapis/js-genai</a></li>
+<li>#17, Developer-Knowledge Codelab, <a href="https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity">https://codelabs.developers.google.com/developer-knowledge-mcp-antigravity</a></li>
+<li>#18, monday.com (Marketplace-Partner), <a href="https://monday.com">https://monday.com</a></li>
+</ul>
+</article>
+
+</main></div>
+<footer>Serie „Google AI-Stack für Ingenieure“ · Recherche-Stand 2026-11-09 07:25 UTC · Quellen: Primärdokumentation Google/GitHub, siehe Faktencheck · Archiv: Drive LLM-LOCAL-SSOT/WORK/2026-11-09_google-ai-stack-starter · Alle Codebeispiele ohne Gewähr, Keys sind Platzhalter.</footer>
+<script>
+document.querySelectorAll('pre').forEach(p=>{const b=p.querySelector('.cp');if(!b)return;b.addEventListener('click',()=>{const t=p.querySelector('code').innerText;try{navigator.clipboard.writeText(t).then(()=>{b.textContent='Kopiert';setTimeout(()=>b.textContent='Kopieren',1200)}).catch(()=>{b.textContent='Markieren + Strg+C'})}catch(e){b.textContent='Markieren + Strg+C'}})});
+</script>
+</body>
+</html>
