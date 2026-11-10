@@ -23,7 +23,7 @@ jobs:
         run: python -m pytest -q tests/test_artifact_registry_gate.py
       - run: python tools/validate_registry.py
       - name: Skill packages structural check (frontmatter, SHA-256 inventory)
-        run: python tools/skill_inventory.py --strict --out "$RUNNER_TEMP/skill-inventory.json"
+        run: python tools/skill_inventory.py --strict --out "$RUNNER_TEMP/skill-inventory"
       # Inventory is not populated yet; report NO_DATA rather than claim PASS.
       - run: python tools/validate_knowledge.py --allow-empty
       - run: python tools/knowledge_health.py --allow-empty
