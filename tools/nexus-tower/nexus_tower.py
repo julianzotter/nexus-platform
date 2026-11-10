@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""nexus_tower.py v0.2.0 | agent_id: ID06 | status: ENTWURF | NEXUS Control Tower, lokal und eigenstaendig
+"""nexus_tower.py v0.2.1 | agent_id: ID06 | status: ENTWURF | NEXUS Control Tower, lokal und eigenstaendig
 
 Eine Datei, nur Python-Standardbibliothek. Startet einen kleinen Webserver auf dem
 eigenen PC (nur 127.0.0.1) und zeigt den Stand des WORK-Ordners im Browser.
@@ -151,7 +151,7 @@ def mcp_dispatch(msg: dict) -> dict | None:
         want = params.get("protocolVersion")
         return ok({"protocolVersion": want if want in MCP_VERSIONS else MCP_VERSIONS[0],
                    "capabilities": {"tools": {}},
-                   "serverInfo": {"name": "nexus-tower", "version": "0.2.0"}})
+                   "serverInfo": {"name": "nexus-tower", "version": "0.2.1"}})
     if method == "ping":
         return ok({})
     if method == "tools/list":
@@ -237,12 +237,12 @@ h1{font:400 28px Georgia,serif;margin:0 0 4px}h2{font-size:17px;margin:0 0 8px}
 .scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
 th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}.nw{white-space:nowrap}
-.ok{color:var(--ok)}.bad{color:var(--bad)}dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}
+.ok{color:var(--ok)}a{color:inherit}.bad{color:var(--bad)}dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}
 dt{color:var(--muted);font-size:12px}dd{margin:0;overflow-wrap:anywhere}
 #err{color:var(--bad);font-weight:600}
 </style></head><body><main>
 <div><h1>NEXUS Control Tower (lokal)</h1>
-<p class="muted" style="margin:0">Letzte Änderung in WORK: <b id="s-last">—</b> durch <b id="s-agent">—</b>. Stand gelesen: <b id="s-read">—</b>. Liest alle 60 Sekunden neu. <span id="err"></span></p>
+<p class="muted" style="margin:0">Letzte Änderung in WORK: <b id="s-last">—</b> durch <b id="s-agent">—</b>. Stand gelesen: <b id="s-read">—</b>. Liest alle 60 Sekunden neu. Dateinamen sind Links zur Suche in Google Drive online. <span id="err"></span></p>
 <p class="cap" id="s-work"></p></div>
 <section class="card"><h2>Wo ist das Problem: letzte Konsistenzprüfung von ID03</h2>
 <dl><dt>Urteil</dt><dd><b id="g-status">—</b></dd><dt>Abgelegt</dt><dd id="g-time">—</dd><dt>Probleme</dt><dd id="g-problems">—</dd>
@@ -286,7 +286,7 @@ function nameCheck(t){
   if(/_(LEDGER-PENDING|UNREGISTERED)$/.test(stem))return ['Nummer offen','',nm];
   return ['Abweichung','Ende ohne Artefaktnummer oder LEDGER-PENDING',nm];
 }
-function row(cells){const tr=document.createElement('tr');for(const c of cells){const td=document.createElement('td');td.textContent=c[0]==null?'':String(c[0]);if(c[1])td.className=c[1];tr.append(td);}return tr;}
+function row(cells){const tr=document.createElement('tr');for(const c of cells){const td=document.createElement('td');if(c[1]==='file'){const a=document.createElement('a');a.textContent=String(c[0]);a.href='https://drive.google.com/drive/search?q='+encodeURIComponent('title:"'+c[0]+'"');a.target='_blank';a.rel='noopener';a.title='In Google Drive online suchen und öffnen';td.append(a);}else{td.textContent=c[0]==null?'':String(c[0]);if(c[1])td.className=c[1];}tr.append(td);}return tr;}
 function draw(s){
   const files=s.files||[],today=files.filter((f)=>isToday(f.mtime));
   $('s-work').textContent='Ordner: '+s.work+' · angezeigt werden die '+files.length+' neuesten Dateien';
@@ -303,11 +303,11 @@ function draw(s){
   $('t-agents').textContent=new Set(today.map((f)=>agentOf(f.name)).filter((a)=>a!=='ohne ID im Namen')).size;
   $('t-viol').textContent=n('Verstoß');$('t-pend').textContent=n('Nummer offen');
   $('n-lead').textContent='Von '+checked.length+' geprüften Namen: '+n('konform')+' konform mit Nummer, '+n('Nummer offen')+' konform mit offener Nummer, '+n('Abweichung')+' mit falschem Ende, '+n('Verstoß')+' Verstöße.';
-  $('tb-naming').replaceChildren(...checked.filter((x)=>x.v==='Verstoß'||x.v==='Abweichung').map((x)=>row([[fmt(x.f.mtime),'nw'],[agentOf(x.f.name),'nw'],[x.v,x.v==='Verstoß'?'bad nw':'nw'],[x.r],[x.drift==null?'':x.drift],[x.f.name]])));
+  $('tb-naming').replaceChildren(...checked.filter((x)=>x.v==='Verstoß'||x.v==='Abweichung').map((x)=>row([[fmt(x.f.mtime),'nw'],[agentOf(x.f.name),'nw'],[x.v,x.v==='Verstoß'?'bad nw':'nw'],[x.r],[x.drift==null?'':x.drift],[x.f.name,'file']])));
   const by=new Map();
   for(const f of today){const a=agentOf(f.name);const r=by.get(a)||{a,n:0,last:0,title:''};r.n++;if(f.mtime>r.last){r.last=f.mtime;r.title=f.name;}by.set(a,r);}
-  $('tb-agents').replaceChildren(...[...by.values()].sort((x,y)=>y.last-x.last).map((r)=>row([[r.a,'nw'],[ROLES[r.a]||''],[r.n],[fmt(r.last),'nw'],[r.title]])));
-  $('tb-files').replaceChildren(...files.slice(0,40).map((f)=>row([[fmt(f.mtime),'nw'],[f.name],[f.size]])));
+  $('tb-agents').replaceChildren(...[...by.values()].sort((x,y)=>y.last-x.last).map((r)=>row([[r.a,'nw'],[ROLES[r.a]||''],[r.n],[fmt(r.last),'nw'],[r.title,'file']])));
+  $('tb-files').replaceChildren(...files.slice(0,40).map((f)=>row([[fmt(f.mtime),'nw'],[f.name,'file'],[f.size]])));
 }
 async function load(){
   try{const r=await fetch('/api/state',{cache:'no-store'});if(!r.ok)throw new Error(await r.text());draw(await r.json());$('err').textContent='';}
