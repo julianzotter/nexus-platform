@@ -26,6 +26,14 @@ jobs:
         run: cd skills/claude-ai && sha256sum -c --quiet MANIFEST.sha256
       # Structure report only; INVALID packages are reported, not gated, until frontmatter is aligned.
       - run: python tools/skill_inventory.py --out "$RUNNER_TEMP/skill-inventory"
+      - name: Fail on duplicate skill IDs
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          r = json.load(open(os.path.join(os.environ["RUNNER_TEMP"], "skill-inventory", "skill-inventory.json")))
+          print("duplicate_ids:", r["duplicate_ids"])
+          sys.exit(1 if r["duplicate_ids"] else 0)
+          PY
       # Inventory is not populated yet; report NO_DATA rather than claim PASS.
       - run: python tools/validate_knowledge.py --allow-empty
       - run: python tools/knowledge_health.py --allow-empty
