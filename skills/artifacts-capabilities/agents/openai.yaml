@@ -1,4 +1,0 @@
-interface:
-  display_name: "Artifacts Capabilities Explainer"
-  short_description: "Explain artifact types, limits and plan availability"
-  default_prompt: "Use $artifacts-capabilities to explain what artifacts can do for this task."

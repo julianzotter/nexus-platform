@@ -1,0 +1,3 @@
+interface:
+  display_name: "Model Release Digest"
+  short_description: "Extract a checkable fact sheet from a model release page"
