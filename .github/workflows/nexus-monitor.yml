@@ -8,6 +8,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  actions: read
 concurrency:
   group: nexus-monitor-${{ github.ref }}
   cancel-in-progress: false
@@ -57,4 +58,5 @@ jobs:
             reports/skills/
           if-no-files-found: error
           retention-days: 30
+
 

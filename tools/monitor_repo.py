@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from scheduler_runtime import inspect_runtime
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -31,6 +33,14 @@ def github_json(endpoint: str) -> Any:
     result = command(["gh", "api", "--paginate", "--slurp", endpoint])
     if result["exit_code"]:
         raise RuntimeError("GitHub metadata request failed; inspect authentication/API access")
+    return json.loads(result["stdout"])
+
+
+def github_runtime_json(endpoint: str) -> Any:
+    """One page per request: bound runtime telemetry to six API calls."""
+    result = command(["gh", "api", endpoint])
+    if result["exit_code"]:
+        raise RuntimeError("Runtime metadata unavailable")
     return json.loads(result["stdout"])
 
 
@@ -265,6 +275,13 @@ def write_report(report: dict[str, Any], directory: Path) -> None:
     lines += ["", f"Inventory state: **{automation.get('state', 'UNKNOWN')}**"]
     lines += [f"Unreadable workflow file: `{item['file']}` ({item['reason']})"
               for item in automation.get("unreadable_files", [])]
+    runtime = report.get("scheduler_runtime", {})
+    lines += ["", "## Scheduler runtime metadata", "",
+              f"Metadata state: **{runtime.get('status', 'UNVERIFIED')}**; end-to-end: **UNVERIFIED**.",
+              "Historical run health is observed separately to avoid a self-blocking monitor gate.", "",
+              "| Workflow | State | Evidence |", "|---|---|---|"]
+    lines += [f"| {item['file']} | {item['status']} | {item['reason']} |"
+              for item in runtime.get("workflows", [])]
     lines += ["", f"Commit: `{report['commit']}`", f"Observed UTC: {report['observed_at']}", "",
               "A successful workflow is not proof of complete knowledge coverage or engineering approval.",
               "Reports are GitHub artifacts. A separate WORK delivery workflow exists; only its verified receipts prove delivery. No automated merge is authorized."]
@@ -288,6 +305,7 @@ def main() -> int:
               "run_id": os.environ.get("GITHUB_RUN_ID", "LOCAL"),
               "run_attempt": os.environ.get("GITHUB_RUN_ATTEMPT", "1"),
               "automation_configuration": inspect_workflow_configuration(),
+              "scheduler_runtime": inspect_runtime(args.repository, github_runtime_json),
               "status": overall_status(checks), "checks": checks}
     write_report(report, args.report_dir)
     print(f"NEXUS monitor: {report['status']}")
@@ -296,3 +314,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
