@@ -330,5 +330,36 @@
       "hash_scope": "complete_raw_file"
     }
   ],
-  "concurrency_limitation": "compare-before-write; provider tool offers no atomic multi-writer lease"
+  "concurrency_limitation": "compare-before-write; provider tool offers no atomic multi-writer lease",
+  "native_ticket_update_event": {
+    "artifact_id": "gdrive:1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE",
+    "provider_file_id": "1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE",
+    "name": "26_10_26_NEXUS_CONTROL_PLANE__TICKET_REGISTRY",
+    "canonical_uri": "https://docs.google.com/spreadsheets/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/edit?usp=drivesdk",
+    "version": "provider_modified_at:2026-11-11T12:35:30.938Z",
+    "provider_modified_at": "2026-11-11T12:35:30.938Z",
+    "provenance": {
+      "executor": "OpenAI Codex Work",
+      "executor_instance": "/root",
+      "role_id": "ID02",
+      "scope": [
+        "TICKETS!H20:K20",
+        "TICKETS!A29:K29"
+      ],
+      "representation": "canonical JSON of exact cell readback"
+    },
+    "verification_status": "CELL_READBACK_VERIFIED",
+    "registration_status": "REGISTERED",
+    "registered_at": "2026-11-11T12:36:58.280729+00:00",
+    "owner": "ID01",
+    "ticket_id": "nexus-platform#73",
+    "ledger_number": null,
+    "sha256": "ba20d11403bfa3b78458e80204bed9dc9ea8dda48c90ec6be56cd14c08107d8a",
+    "hash_scope": "changed_ranges_canonical_json_utf8_sorted_keys_no_whitespace",
+    "limitations": [
+      "Only the two changed ranges were byte-normalized; no whole-spreadsheet raw-file claim.",
+      "Fortlaufende Ledgernummer offen."
+    ]
+  },
+  "after_native_update_sha256": "b1fdf4dd02fcf7517c74d921dc53d12ba77f32015aef6ca42805bb8e84e59bb2"
 }
