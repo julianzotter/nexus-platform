@@ -1,0 +1,135 @@
+{
+  "observed_at": "2026-11-11T12:30:19.640Z",
+  "note": "Scheduler persisted configurations and provider run records; manual inline test is separate.",
+  "records": [
+    {
+      "id": "6ae0b897e4b4819190ab4fd7bdd2cbfe",
+      "title": "NEXUS Critical Gates und WORK",
+      "enabled": true,
+      "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261111T130929\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+      "timezone": "Europe/Vienna",
+      "next_run_time": "2026-11-11T14:09:29+01:00",
+      "updated_at": "2026-11-11T12:30:01.344791+00:00",
+      "prompt": "Führe die lesende NEXUS-Konsistenz-, Critical-Gate-, GitHub- und WORK-Prüfung gemäß https://github.com/julianzotter/nexus-platform/issues/73 aus.\nREAD FIRST: aktuelle AGB https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view; Manifest https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit; freigegebene Baseline https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit; Frontmatter https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view; Ticketregister https://docs.google.com/spreadsheets/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/edit. Tatsächliche aktuelle Version und Freigabestatus nennen.\nIdentität: ChatGPT Private ist nach ausdrücklicher ID01-Zuordnung ID02. Prüfe dies gegen die aktuelle Rollenautorität; Provider, Modell, Runtime und fachliche Rolle getrennt ausweisen. Keine ID03-Identität oder unabhängige ID03-Prüfung beanspruchen. Widerspruch betrifft nur den Rollenbeleg, unbekannte Werte null.\nPrüfe P1 neue WORK-Dateien (Schema/Frontmatter/Ledger), P2 offene Tickets/Logs/Drift, P3 tatsächlichen Auftragsempfang und Antwort je Rolle, P4 EXEC ungleich unabhängige PEERREVIEW, P5 GitHub-Commit/PR/Reviews/Actions und belegtes Drive-Repo-Delta, P6 Duplikate/Ablage/ID/Mischsprache/unbelegte Memory-Aussagen, P7 höchstens fünf konkrete Verbesserungsvorschläge. WORK: 1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP. Axiom: KI interpretiert; deterministischer Code prüft; Git dokumentiert.\nScheduler-Nachweis: aktive Konfiguration, tatsächlicher Trigger, Run-ID, Commit, Start/Ende, Status, Aktualität und Fehler getrennt prüfen. Manuelle Läufe beweisen keinen Zeitplanbetrieb; erfolgreiches Actions-Metadatum beweist keine innere Prüfung, Zustellung oder Consumer-ACK. Drei aufeinanderfolgende echte Zeitplanläufe als Abnahmekriterium prüfen; GitHub-Verzögerungen und Beobachtungsfenster ausweisen. Run-Result nur verwenden, wenn result.run_id zur betrachteten run_id passt. Alte Ergebnisse niemals laufenden neuen Runs zuordnen. OAuth-Fehler nur mit Stufe und Beleg, keine Geheimnisse ausgeben. Drive-Änderungspoller nicht als Datei-Backup oder Git-Sync bezeichnen.\nBericht maximal eine Seite, P1–P7 OK/ABWEICHUNG/NICHT PRÜFBAR mit Quelle/Zeitstempel; STATUS/CHANGED/TESTS/SOURCE_STATUS/RISKS_GAPS/NEXT, Delta neu/behoben/offen, keine unveränderten Alarmduplikate. YAML nach aktuell freigegebener Vorlage, Europe/Vienna; task_id 6ae0b897e4b4819190ab4fd7bdd2cbfe, ticket_id nexus-platform#73, echte run_id und Triggerart oder null/UNVERIFIED, Heartbeat, Start/Ende, tatsächliche Runtime und Rollenprüfung. ACK_TASK_RECEIVED nur für eigenen Auftrag; fremde Consumer-ACKs nur aus tatsächlichem Beleg.\nAutorisierte Ausgabe: höchstens einen neuen Markdown-Statusbericht im WORK-Ordner anlegen und Rohbyte-Hash/Readback prüfen. Registrierung/History nur nach aktuellen Schreibrollen und konfliktfreiem Verfahren; keine Ledgernummer erfinden. Falls nicht möglich: REGISTRATION_PENDING bzw. LEDGER-PENDING mit konkretem Grund; bei fehlender Ablage vollständiger Bericht im Chat mit NICHT ARCHIVIERT. Keine bestehenden Fachdateien verändern, nichts löschen/verschieben, keine E-Mails/Kalenderänderungen, keine Merges/Deploys/Freigaben. Fehlende Quellen blockieren nur abhängige Schritte; unabhängige Prüfungen fortsetzen. CPLM bleibt eigenständig.",
+      "run_details": {
+        "last_run": {
+          "id": "4bf00af3-f920-8323-9456-2924005090e4",
+          "recorded_status": "completed",
+          "scheduled_for": "2026-11-11T12:09:29Z",
+          "started_at": "2026-11-11T12:13:42.023586Z",
+          "completed_at": "2026-11-11T12:28:45.589415Z",
+          "chat_ref": {
+            "type": "chatgpt",
+            "id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b"
+          }
+        },
+        "latest_result": {
+          "run_id": "4bf00af3-f920-8323-9456-2924005090e4",
+          "created_at": "2026-11-11T12:28:44.300839Z",
+          "scheduled_for": "2026-11-11T12:09:29Z",
+          "completed_at": "2026-11-11T12:28:45.589415Z",
+          "content_text": "**NEXUS-Konsistenzprüfung | 11.11.2026, 13:27 MEZ**\n\n**🔴 STATUS: ABWEICHUNG / NO_RELEASE / P8_UNBEWIESEN**\n\n| Prüfbereich | Ergebnis |\n|---|---|\n| **WORK / Registry** | 22 neue Dateien seit Vorlauf (begrenztes Listing); 429 Registry-Einträge; Registrierungslücken bestehen. |\n| **Rollen / Reviews** | NEXUS-ROLES v1.1: ID02 = ChatGPT Private / Chief Orchestrator, ID03 = QA. ACK ID03–ID08: **0/6**. |\n| **GitHub / Actions** | `main=88dbd336`; CI erfolgreich, Monitor und GitHub→WORK fehlgeschlagen. Drive→GitHub ebenfalls fehlgeschlagen. |\n| **Kritische Risiken** | `main` ungeschützt; Google-Drive-Metadaten melden `anyone:writer` für Governance-Dateien. ACL-Prüfung erforderlich. |\n\n**Archivierung:** ✅ Eine neue Markdown-Datei im vorgesehenen WORK-Ordner erstellt. Rohbyte-Readback und SHA256-Vergleich erfolgreich. Keine Änderungen an bestehenden Dateien, keine Commits, E-Mails oder Freigaben.\n\n**Offen:** `REGISTRATION_PENDING`, unabhängiges Peer-Review, ACK-Nachweise und Drive↔GitHub-Byteabgleich.\n\nurlVollständigen NEXUS-Statusbericht im Google Drive öffnenhttps://drive.google.com/file/d/1P72R9N-JKGnjpr5HFy00lk4xqa4qeO9Y/view",
+          "content_truncated": false,
+          "chat_ref": {
+            "type": "chatgpt",
+            "id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b"
+          },
+          "requires_user_action": false,
+          "is_failure_message": false
+        },
+        "delivery_status": "unknown"
+      }
+    },
+    {
+      "id": "6ad5360d62988191984ae48fde1427b2",
+      "title": "NEXUS Lifecycle Tagesabgleich",
+      "enabled": true,
+      "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261112T083234\nRRULE:FREQ=DAILY\nEND:VEVENT",
+      "timezone": "Europe/Vienna",
+      "next_run_time": "2026-11-12T08:32:34+01:00",
+      "updated_at": "2026-11-11T12:21:23.382712+00:00",
+      "prompt": "Führe den täglichen lesenden NEXUS-Lifecycle- und Terminabgleich für Julian Zotter gemäß nexus-platform#73 aus. Lies aktuelle _AGBS.md https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view, Manifest https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit, freigegebene Baseline https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit und Frontmatter https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view mit tatsächlichem Freigabestatus. Nutze WORK https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP sowie bestehende Tickets und letzte Laufbelege. Prüfe belegte neue Lifecycle-Deltas, offene Owner-/Review-/ACK-Schritte, GitHub↔WORK-Abgleich und anstehende Projekttermine der nächsten sieben Tage in tatsächlich verbundenen Google-/Outlook-Kalendern. Öffne zugehörige Originaleinladungen in verbundenen Postfächern nur soweit zur Klärung eines Terminwiderspruchs nötig. Projektfokus ÖSW Eibengasse I/L, Braungasse/Thon, Bauen für Menschen und ARWAG/Überbau. Kalender-, Mailbox- und Teams-Zugriff getrennt nachweisen; Meeting-URL ist kein Teams-Chat-Zugriff. Bestehende Finanz-, W012- und Workshopwachen wiederverwenden, keine identischen Hinweise wiederholen. Keine Termine, E-Mails, Quellen, Governance oder Repositories ändern. Ein neuer UTF-8-Markdown-Bericht im WORK ist autorisiert und soll Quellen, Coverage, Deltas, Blocker, maximal drei Next Actions, Heartbeat/Start/Ende, eindeutige run_id, Triggerart, Task-ID, tatsächliche Runtime und ticket_id nexus-platform#73 enthalten. Aktuelle Dateisyntax YY_MM_DD_HHMM_ID##_THEMA_###.md mit Europe/Vienna beachten; unbekannte Rollen-ID oder Ledgernummer null/UNREGISTERED, nichts erfinden. Datei durch Rohbyte-Readback/Hash prüfen; Registry/History nur im tatsächlich aktuellen dafür vorgesehenen Ziel und ohne konkurrierende blinde Writes. Ohne Pflichtquelle nur betroffenen Schritt BOOTSTRAP_BLOCKED melden; unabhängige erlaubte Checks fortsetzen. Eigene Aufgabe als ACK_TASK_RECEIVED bestätigen; Fremd-ACK und Zustellung nur mit Beleg. Pro neuer substantieller Änderung oder kritischer Frist eine kurze Meldung mit Quelle; bei unverändertem Stand keinen wiederholten Alarm. Die Konfiguration allein ist kein Laufnachweis. Human-Freigaben und technische Produktionsfreigabe bleiben eigene Gates.",
+      "run_details": {
+        "last_run": {
+          "id": "db624f06-a448-8329-88bd-488652a149ce",
+          "recorded_status": "completed",
+          "scheduled_for": "2026-11-11T12:10:37Z",
+          "started_at": "2026-11-11T12:08:01.360865Z",
+          "completed_at": "2026-11-11T12:18:40.420855Z",
+          "chat_ref": {
+            "type": "chatgpt",
+            "id": "6ae83db3-3acc-83eb-a423-16e1093b4494"
+          }
+        },
+        "latest_result": {
+          "run_id": "db624f06-a448-8329-88bd-488652a149ce",
+          "created_at": "2026-11-11T12:18:40.009801Z",
+          "scheduled_for": "2026-11-11T12:10:37Z",
+          "completed_at": "2026-11-11T12:18:40.420855Z",
+          "content_text": "## NEXUS Tagesabgleich | 11.11.2026, 13:17 CET\n**Status: BLOCKED / HUMAN_GATE_REQUIRED / NOT_RELEASED**  \n**ACK_TASK_RECEIVED – nexus-platform#73**\n### Evidence-Matrix\n| Gate | Neues Delta / Zustand | Nachweis |\n|---|---|---|\n| 🔴 GitHub / Human Gate | **PR #75 um 13:09 CET gemergt.** Neuer `main`-SHA `434b77f5`. Main-CI **PASS**, Monitor und Delivery **FAIL**. PR #75 hat **0 formelle GitHub-Reviews**; spezifischer ID01-Freigabenachweis nicht verifiziert. | urlPR #75https://github.com/julianzotter/nexus-platform/pull/75 · urlCI 43017927744https://github.com/julianzotter/nexus-platform/actions/runs/43017927744 |\n| 🔴 Security / Sync | WORK weiterhin `anyone:writer`, `main` ungeschützt. Neuer Delivery-Lauf scheitert im Credential-/Capability-Preflight; Zustellung übersprungen. | urlDelivery 43018007133https://github.com/julianzotter/nexus-platform/actions/runs/43018007133 |\n| 🟠 Termine | **Heute 13:00–15:00 ÖSW Eibengasse I**, Original-ICS bestätigt. **12.11., 12:00–14:30 Braungasse/Thon:** mögliche Zeitänderung ungeklärt. **17.11. Bauen für Menschen:** Unterlagen bis 16.11. | Google Calendar und Original-ICS; Quellen im Bericht |\n### Bericht im kanonischen WORK\nurl26_11_11_1316_ID-UNVERIFIED_NEXUS-LIFECYCLE_UNREGISTERED.mdhttps://drive.google.com/file/d/163WUb_HcCp6pZQNtvu7WHXwpApw9ys_E/view\n**Persistenzprüfung:** `RAW_BYTE_READBACK_PASS`\n- 11.392 Bytes, UTF-8\n- SHA-256: `47cace75bb9b2d310a071a58453caeaee69c078522174235c05511130fc521ce`\n- Drive-ID und kanonischer Elternordner bestätigt\n- Registry: **REGISTRATION_PENDING** – kein konkurrierender Schreibzugriff\n**Nächste Abnahmen:** ID01 klärt Merge-/Security-Gate; ID06 prüft neue OAuth-Diagnostik; ID01 bestätigt die offenen Projekttermine. Keine Änderungen an Kalendern, E-Mails, Governance oder Repositories vorgenommen.",
+          "content_truncated": false,
+          "chat_ref": {
+            "type": "chatgpt",
+            "id": "6ae83db3-3acc-83eb-a423-16e1093b4494"
+          },
+          "requires_user_action": false,
+          "is_failure_message": false
+        },
+        "delivery_status": "unknown"
+      }
+    },
+    {
+      "id": "6ad236a38cc0819195becc92cbc78a45",
+      "title": "NEXUS-AI CPLM Review",
+      "enabled": true,
+      "schedule": "BEGIN:VEVENT\nDTSTART:20261016T143823Z\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+      "timezone": "Europe/Vienna",
+      "next_run_time": "2026-11-11T13:38:23+01:00",
+      "updated_at": "2026-11-11T12:12:30.810305+00:00",
+      "prompt": "Führe den stündlichen NEXUS-AI CPLM Pilot-Audit im Google-Drive-WORK-Ordner 1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP durch. READ FIRST: Folder.md (ID 11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH), Golden-Slice-Pilot (ID 1QekWzh3XPdhoYGFOw7V7-6PqTnEM5T1F), neu konsolidierte Master Requirements (ID 1Ty3tnh3RWPXR2jKv2nWBs_Fhd5IOfaIV), _FRONT_LOG.md und aktuelle relevante WORK-Dateien. Beachte Pagination und lies erforderliche Dokumente vollständig; Memory-Schnipsel niemals als Statusbeleg. Prüfe echte Raw-Markdown-Dateien, YY_MM_DD_HH_mm-Namen, Agenten-Identitäten, Work Orders, Registry-Capabilities, Quellen, IDs, Status, Versionen, Run-ID-Eindeutigkeit, Readback und Konflikte. Berichte Deltas gegen N-1 und Baseline; unbekannte Qualitätsmetriken NOT_MEASURED. Der Pilot-Audit v0.2.0 (ID 1bapn2vmzjYE7qFgDsh8cKCh6jASJ3Nnx) meldete 8/8 PASS für den begrenzten Golden Slice, nicht für systemweite CPLM-Funktion. Halte folgende Blocker offen, bis mit neuen Nachweisen behoben: Capability Survey; kanonische ID/Account-Zuordnung; drei tatsächlich unabhängige Peer Reviews plus Konsolidierung; START-/COMPLETION-Gates; Dispatcher; global eindeutige Run-ID und Single-Writer/Lease; systemweite GitHub-Synchronisierung; nachgewiesene Geräte-Benachrichtigung. Keine Reviews simulieren und keine Freigabe selbst erteilen. Erstelle bei relevanter Änderung einen neuen UTF-8-Markdown-Auditbericht im WORK, verifiziere ihn per Readback. Folder.md und _FRONT_LOG.md nur nach aktuellem Vergleich und konfliktfrei ändern, alte Zustände append-only sichern; keine anderen Dateien ändern. Melde dem Nutzer neue Blocker, Fehler oder Human-Gate-Bedarf, sonst keine unnötige Benachrichtigung. Keine erneute Pilot-Ergebnis-E-Mail mit dem bereits versendeten Betreff 'NEXUS CPLM PILOT 20261016-1705 — Ergebnis'; keine neuen E-Mails ohne gesonderte Freigabe. Status nur COMPLETE, wenn alle im Master Requirements dokumentierten Gates tatsächlich bestanden sind und ID01 freigibt.\nAktualisierung des aktuellen Reviewlaufs: Die drei sequenziellen getrennten Fachreview-Instanzen und der vierte Konsolidierungsrun sind tatsächlich abgeschlossen; sie fanden fünf lokale Kerneldefekte, Korrektur erfolgt, Re-Review läuft. Nicht erneut als NOT_RUN ausgeben, aber auch keine Produktionsfreigabe ableiten. Lies zusätzlich die fortgeführte 26-Punkte-Auftragsmatrix ID 1myjlsVr2ENnDP5YJ1F4OGsSbXfk13NRM, das einzige AIM-Konzeptregister ID 1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ und die Gemini-Argon-Bridge-WorkOrder ID 1g7biNq2TapilR3xHLnw3K_EUxgBik43i. Argons Read/Write ist extern BLOCKED, kein manuelles Kopieren als Systemlösung. Master Requirements ist ein früherer konsolidierter Stand; neuere Nachweise und Anforderungsdelta nachvollziehbar referenzieren. Benachrichtigungseinstellungen sind mit diesem Tool nicht les-/änderbar; aus fehlenden Feldern weder aktiviert noch deaktiviert folgern. Mailtransport ist belegt, Geräte-Push/ACK nicht. Keine vollständige Acht-Kriterien-Abnahme durch unabhängige Reviews behaupten. Keine Codeinstallation oder Repoänderung durch den Audit.\nVERIFIZIERTER ABSCHLUSSSTAND 2026-10-16 18:10 Europe/Vienna: Drei finale lokale Fachnachprüfungen am gleichen Code/Testhash sind abgeschlossen, jeweils 36/36 Tests PASS. Codecommit 5226b419f561ed0b49cc0d452013101b5d1e835d, CI38929298465 SUCCESS tatsächlich gelesen; PR18 bleibt DRAFT und NICHT gemergt. Vollständiger Review-/Delta-Bericht mit 11 Originalberichten: Drive-ID 1V6ROukuXAT_3SmTW-MtrAvfChuQUAHWq, aktueller Kurzstatus ID 1NdTI6kh7UI7LfMKGdtmeEfQrSOXi3yu9. Anforderungen ID1myjlsVr2ENnDP5YJ1F4OGsSbXfk13NRM v0.4.0 enthält weiterhin26 Ziele und offene externe Voraussetzungen. Verwende ältere PASS_26/fehlende-Erstreviews-Meldungen nicht als aktuellen Stand. Akzeptiert ist ausschließlich der lokale Linux-Prototyp; Kernel/AGENTS.md sind keine installierte universelle Cloud-Authgrenze. Argon-Runtimeanschluss, Fremdaccountproben/Mapping, exklusiver authentifizierter Writer und Quellschutz, globale Sync-/Folderintegration sowie echtes Geräte-ACK/Humanrelease bleiben offen. Melde nur neue relevante Deltas oder neu gescheiterte/stale Bedingungen statt dieselben bekannten Blocker stündlich erneut. Keine automatische Produktionsfreigabe oder Repoänderung.\n\nAKTUALISIERUNG 2026-11-11 — verbindlicher Prüfmaßstab für diesen Task: Vor jeder Prüfung zuerst die aktuellen _AGBS.md (https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view), das aktuelle Manifest (https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit), die freigegebene Baseline (https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit) und _FRONTMATTER.md (https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view; tatsächlichen Freigabestatus beachten) lesen. Die tatsächliche Rollen-ID anhand der aktuellen Rollenautorität prüfen und von Provider, Modell und Runtime trennen. Keine Rollen-ID aus Taskname oder historischer Selbstbezeichnung ableiten. Verifizierte aktuelle Vorgaben und direkte ID01-Entscheidungen im jeweiligen Scope anwenden; ältere eingebettete Rollen-/Namensstände gelten als historische Referenz. Nach _AGBS.md v005 gilt für neue Berichte YY_MM_DD_HHMM_ID##_THEMA_###.md mit Wiener Ortszeit Europe/Vienna; Steuerdatei-Ausnahmen beachten. Rollen-ID oder Ledgernummer bei fehlender Verifikation null und UNREGISTERED ausweisen, nichts erfinden und die offene Zuordnung protokollieren. Fehlende Pflichtquelle nur für den betroffenen Prüfschritt als BOOTSTRAP_BLOCKED melden; unabhängige autorisierte Prüfungen fortsetzen. Dieser Nachtrag korrigiert ausschließlich Rollen- und Namensmaßstab; Prüfauftrag, bestehende Zeitplanung und sonstige Berechtigungsgrenzen bleiben maßgebend.",
+      "run_details": {
+        "last_run": {
+          "id": "5f14250a-a6b8-8332-aff9-831981554333",
+          "recorded_status": "completed",
+          "scheduled_for": "2026-11-11T11:38:23Z",
+          "started_at": "2026-11-11T11:53:07.046693Z",
+          "completed_at": "2026-11-11T12:12:03.220320Z",
+          "chat_ref": {
+            "type": "chatgpt",
+            "id": "6af09bae-6560-83eb-8f7e-9e32688a3e59"
+          }
+        },
+        "latest_result": {
+          "run_id": "5f14250a-a6b8-8332-aff9-831981554333",
+          "created_at": "2026-11-11T12:12:02.605658Z",
+          "scheduled_for": "2026-11-11T11:38:23Z",
+          "completed_at": "2026-11-11T12:12:03.220320Z",
+          "content_text": "Audit v0.434.0 abgeschlossen: **BLOCKED / HUMAN_GATE_REQUIRED / NOT_RELEASED**.\n\nNeue relevante Befunde:\n\n- Die neue „ID01_WORK-ORDER“-XLSX ist ausdrücklich „GESCHÄTZT, NICHT PRÜFFÄHIG“, enthält 30 `#REF!`-Fehler und eine lokale externe Quelldatei. ID01 muss sie sperren oder einen prüffähigen WorkOrder erteilen.\n- Zwei unterschiedliche Dateien tragen denselben Peer-Review-Namen. PR #72 bleibt DRAFT, ungemergt und ohne formelle Reviews; CI-SUCCESS ist keine CPLM-Abnahme.\n- Das AIM-Register enthält nun v0.3.4, der Dateiname behauptet weiterhin v0.3.3. Rollenbindung und Registrierung sind offen; der bytegleiche v0.3.3-Snapshot wurde bestätigt.\n- Scheduler-Implementierung bleibt nicht nachgewiesen. Der neue Inline-Test war manuell (`SCHEDULED_RUN=false`) und belegt weder einen echten Zeitplanlauf noch Geräte-ACK.\n- Neue relevante Dateien fehlen weiterhin in Registry und Master-Ledger. Der neue ID03-Bericht enthält außerdem einen nicht reproduzierbaren Body-Hash.\n\n[Auditbericht v0.434.0 öffnen](https://drive.google.com/file/d/135mNyp12HIV6JmRU6-xEvdR6vMKvJ6WT/view)\n\nFinaler Readback: bytegleich, 18.587 Bytes, Raw-SHA-256 `1f8c8d9610e0d915d77abf731e4a79b05760e6f9354ed26653c1cc9a32111055`; Körperhash `8058b067cf77896d3f15403ad4922292cc8331af561b2a949c5f66a144311d22`.\n\nFolder.md und `_FRONT_LOG.md` blieben unverändert. Keine E-Mail, Repo-, Code-, Scheduler- oder Produktionsänderung.",
+          "content_truncated": false,
+          "chat_ref": {
+            "type": "chatgpt",
+            "id": "6af09bae-6560-83eb-8f7e-9e32688a3e59"
+          },
+          "requires_user_action": false,
+          "is_failure_message": false
+        },
+        "delivery_status": "unknown"
+      }
+    },
+    {
+      "id": "Automation_5bc486d5da6c8191a1d4064a4be0d767",
+      "title": "NEXUS Morning Recall Pilot",
+      "enabled": true,
+      "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261116T081500\nRRULE:FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;COUNT=5\nEND:VEVENT",
+      "timezone": "Europe/Vienna",
+      "next_run_time": "2026-11-16T08:15:00+01:00",
+      "updated_at": "2026-11-10T16:29:44.065220+00:00",
+      "prompt": "Erstelle für Julian Zotter einen kompakten lesenden NEXUS-Morgenbrief auf Deutsch, Englisch für internationale oder Coding-Inhalte bei Bedarf. Prüfe zuerst die freigegebene Baseline, das Ticketregister und den kanonischen WORK-Ordner. Relevante Quellen: Baseline https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit, Ticketregister https://docs.google.com/spreadsheets/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/edit, WORK https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP. Melde fehlende Pflichtquelle als BOOTSTRAP_BLOCKED für den betroffenen Schritt. Maximal drei neue belegte Punkte mit Link; zusätzlich einen rotierenden Einstiegstipp (Montag Projektstatus, Dienstag Quellenprüfung, Mittwoch Windows/RFEM-Lesetest als Vorschlag, Donnerstag Projektstatus, Freitag Quellenprüfung). Keine Konten, Dateien, Tickets oder Pläne ändern und keine E-Mails senden. Freitag ein kurzes Pilotfazit, soweit vorherige Läufe belegbar sind. Der Pilot endet nach fünf Läufen.",
+      "run_details": {
+        "last_run": null,
+        "latest_result": null,
+        "delivery_status": "unknown"
+      }
+    }
+  ]
+}
