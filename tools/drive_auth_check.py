@@ -21,8 +21,10 @@ def check_access(require_write: bool = False, environ: dict[str, str] | None = N
                   folder_id=WORK, write_test='NOT_RUN', values_printed=False)
     if not presence['configured']:
         return dict(report, status='BLOCKED', reason='BLOCKED_DRIVE_CREDENTIALS')
+    report['operation'] = 'oauth.token_refresh'
     try:
         client = DriveClient(get_access_token(environ))
+        report['operation'] = 'drive.files.get_work_metadata'
         metadata = json.loads(client.call('/files/' + WORK +
             '?supportsAllDrives=true&fields=id,mimeType,capabilities(canAddChildren)'))
         if metadata.get('id') != WORK or metadata.get('mimeType') != 'application/vnd.google-apps.folder':
@@ -35,3 +37,4 @@ def check_access(require_write: bool = False, environ: dict[str, str] | None = N
     except (DeliveryError, ValueError, OSError) as exc:
         reason = str(exc) if isinstance(exc, DeliveryError) else type(exc).__name__
         return dict(report, status='BLOCKED', reason=reason)
+
