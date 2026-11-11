@@ -1,0 +1,40 @@
+{
+  "raw_byte_checks": [
+    {
+      "name": "agbs",
+      "sha256": "47eeaa5fa7ee5f1d966a446b1e757211090cfe1449839c4e1bd818211b0dd22a",
+      "bytes": 9422,
+      "equal": true
+    },
+    {
+      "name": "front",
+      "sha256": "acf480acaea71f04111f44f436884f961c8f164c126bb9641b2dc1233e6c7dcc",
+      "bytes": 22752,
+      "equal": true
+    },
+    {
+      "name": "wo",
+      "sha256": "3d2f05130aac691bfb2e3609340b3f65ca05d31110f4a3f0de94f8d3a75ffd59",
+      "bytes": 3417,
+      "equal": true
+    },
+    {
+      "name": "backup_agbs",
+      "sha256": "4c454259b40b4174d2bb773660f54fa6fbd44a30e10b7f1f3c27925adc9445ea",
+      "bytes": 8008,
+      "equal": true
+    },
+    {
+      "name": "backup_front",
+      "sha256": "8acd097743f4171c5ceabc383f1b349d9839c58ca8e04f6f3a549b10da8c5e52",
+      "bytes": 21199,
+      "equal": true
+    }
+  ],
+  "native_text_checks": {
+    "baseline": true,
+    "notification": true
+  },
+  "external_ack": "PENDING_ACTUAL_RESPONSE",
+  "independent_review": "PENDING"
+}
