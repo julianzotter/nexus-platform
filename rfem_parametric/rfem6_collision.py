@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 
@@ -21,7 +22,7 @@ def main() -> None:
     args = parser.parse_args()
     try:
         from dlubal.api import rfem
-        with rfem.Application() as app:
+        with rfem.Application(api_key_value=os.environ.get("RFEM6_API_KEY") or None) as app:
             result = check_candidate(app.get_model_list(), args.candidate)
     except Exception as exc:
         result = {"status": "BLOCKED", "error_class": type(exc).__name__}
