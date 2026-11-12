@@ -116,3 +116,15 @@ The readback resolves a unique model name to its `ModelId.guid` and compares
 node coordinates and member line topology to the approved JSON. Its reports
 separate `BLOCKED` from `MISMATCH` and `PASS_GEOMETRY`. Load, support and design
 checks are excluded. No create, update, save, delete or solve calls are made.
+
+To preflight a proposed isolated new model name without creating or reserving it:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\rfem_parametric\Run-NexusRfemGates.ps1 `
+  -PythonExe python -OutputDir .\rfem_gate_run_003 `
+  -RFEM6NewCandidate "NEXUS_W012_TEST_001"
+```
+
+`NAME_AVAILABLE_NOT_RESERVED` is **not** a guarantee against a later race;
+creation remains fail-closed, with a fresh uniqueness check required immediately
+before any separately authorized API write.
