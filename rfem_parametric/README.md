@@ -68,3 +68,24 @@ No default structural model or support restraint is inferred.
 # Example: python rfem_parametric/cli.py validated_w012.json --target rfem6 --out w012_rfem6_dryrun.json
 # Prompt -> DeepSeek proposal -> human input verification -> FrameSpec JSON -> offline Python -> RFEM preview JSON.
 # AI-generated dimensions or engineering inputs are NOT accepted as verified project evidence.
+
+## Windows capability preflight (strictly non-mutating)
+
+On the Windows RFEM host, in the NEXUS repository and its intended Python runtime:
+
+```powershell
+python rfem_parametric/preflight.py --out rfem_preflight_001.json
+python -m unittest discover -s rfem_parametric -p "test_*.py" -v
+```
+
+The report lists installed `comtypes`/`dlubal.api` package versions and whether
+`DEEPSEEK_API_KEY` is present **in that Python process**. It never opens `.dsh`
+credentials, prints a key, launches RFEM, probes COM/gRPC, calls an API or runs
+the solver. Reuse DSH's existing authenticated launcher, which must pass the
+credential into the NEXUS child process without writing it to a project file.
+
+Real connection proof remains a separate Windows-only gate: RFEM5 COM ProgID,
+license lock and explicit model readback; RFEM6 API-II server, SDK/build match,
+API entitlement, explicit model-id readback. Before any new-model write, a
+unique name must be verified against `get_model_list()` and returned object IDs
+must be checked by `get_object_list()`. The live writer currently fails closed.
