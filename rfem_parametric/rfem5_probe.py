@@ -1,6 +1,7 @@
 """Windows-only RFEM5 COM ROT attachment probe; never requests model lock."""
 import json
 import platform
+import sys
 
 
 def probe() -> dict[str, object]:
@@ -21,4 +22,6 @@ def probe() -> dict[str, object]:
 
 
 if __name__ == "__main__":
-    print(json.dumps(probe(), indent=2))
+    result = probe()
+    print(json.dumps(result, indent=2))
+    sys.exit(0 if result["status"] == "COM_APPLICATION_ATTACHED" else 2)
