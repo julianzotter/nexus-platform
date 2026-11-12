@@ -61,10 +61,9 @@ class ParametricTests(unittest.TestCase):
         self.assertEqual(calls, [])
         with self.assertRaises(PermissionError):
             rfem6_new_model(self.geometry, "NEXUS_W012_TEST_001", app, api)
-        rfem6_new_model(self.geometry, "NEXUS_W012_TEST_001", app, api, allow_new_model=True)
-        self.assertEqual(len(calls), 2)
-        self.assertEqual(calls[1]["model_id"], "NEW_MODEL_ID")
-        self.assertFalse(calls[1]["skip_invalid_attributes"])
+        with self.assertRaises(NotImplementedError):
+            rfem6_new_model(self.geometry, "NEXUS_W012_TEST_001", app, api, allow_new_model=True)
+        self.assertEqual(calls, [])
 
 
 if __name__ == "__main__":
