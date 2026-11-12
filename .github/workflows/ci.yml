@@ -42,3 +42,9 @@ jobs:
         run: |
           pip install -r cplm-implementation/requirements.txt
           PYTHONPATH=cplm-implementation python -m unittest discover -s cplm-implementation/tests -v
+
+      - name: PR69 skill packages structure and hashes
+        run: |
+          python tools/skill_inventory.py --strict --out "$RUNNER_TEMP/pr69-skill-inventory"
+          cat "$RUNNER_TEMP/pr69-skill-inventory/skill-inventory.md" >> "$GITHUB_STEP_SUMMARY"
+          sha256sum skills/*/SKILL.md >> "$GITHUB_STEP_SUMMARY"
