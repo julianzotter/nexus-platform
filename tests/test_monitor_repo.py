@@ -16,6 +16,12 @@ def detail(number: int, mergeable: bool | None) -> dict:
 
 
 class MonitorTests(unittest.TestCase):
+    def setUp(self):
+        runtime = patch.object(monitor, "inspect_runtime", return_value={
+            "status": "ERROR", "end_to_end": "UNVERIFIED", "workflows": []})
+        self.runtime = runtime.start()
+        self.addCleanup(runtime.stop)
+
     def test_all_pages_and_conflicting_pr_are_reported(self):
         pages = [[{"number": 1}], [{"number": 2}]]
         with patch.object(monitor, "github_json", side_effect=[pages, [detail(1, True)], [detail(2, False)]]):
@@ -229,3 +235,4 @@ class MonitorTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

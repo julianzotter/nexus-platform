@@ -1,0 +1,523 @@
+{
+  "observed_at": "2026-11-11T12:33:11Z",
+  "ci": {"run_id":43021206236,"url":"https://github.com/julianzotter/nexus-platform/actions/runs/43021206236","status":"success","head_sha":"aee13531a24a78a8ed360ae1ad2230ed1d5eca01","checkout":"synthetic PR merge 0bb9bb0 of code head into base 88dbd336","pytest":{"passed":221,"subtests_passed":34},"registry_tests_passed":9,"cplm_unittests_passed":36},
+  "schema_version": "1.0.0",
+  "agent_id": "ID02",
+  "agent_name": "ChatGPT Private",
+  "executor": "OpenAI Codex /root",
+  "ticket": "nexus-platform#73",
+  "base_commit": "88dbd3362f510a845849fbcbb5a40dd8a4f4afb2",
+  "code_commit": "aee13531a24a78a8ed360ae1ad2230ed1d5eca01",
+  "pull_request": "https://github.com/julianzotter/nexus-platform/pull/77",
+  "source_document": "https://drive.google.com/file/d/1XARPAlYDwtGIUjx1n6VgLzV8FaBDZ7tH/view",
+  "local_tests": {
+    "runner": "python -m unittest discover -s tests -v",
+    "scope": "local source slice: scheduler_runtime, monitor_repo, assert_operational_evidence",
+    "passed": 36,
+    "full_repository": false
+  },
+  "code_readback": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "path": "tools/scheduler_runtime.py",
+        "exact": true
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "path": "tools/monitor_repo.py",
+        "exact": true
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "path": ".github/workflows/nexus-monitor.yml",
+        "exact": true
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "path": "tests/test_scheduler_runtime.py",
+        "exact": true
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "path": "tests/test_monitor_repo.py",
+        "exact": true
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "path": "docs/SCHEDULER-RUNTIME-EVIDENCE.md",
+        "exact": true
+      }
+    }
+  ],
+  "automation_before": {
+    "id": "6ae0b897e4b4819190ab4fd7bdd2cbfe",
+    "team_id": null,
+    "title": "NEXUS Konsistenzprüfung ID03",
+    "prompt": "Rolle ID03 Chief Orchestrator. Axiom: „KI redet – deterministischer Code entscheidet – Git beweist es.“ Führe pro Lauf ausschließlich lesende Konsistenzprüfung NEXUS AI-OS durch und erstelle maximal einseitigen Markdown-Statusbericht im Google Drive WORK-Ordner ID 1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP; falls kein Schreibzugriff, vollständigen Bericht im Chat mit Kopf „NICHT ARCHIVIERT – manuell ablegen“. Nie raten, nichts löschen, keine E-Mails, keine Änderungen an bestehenden Dateien, keine Freigaben (nur ID01). Prüfgrundlage ausschließlich: (1) Manifest + R1–R3 aus LLM-LOCAL-SSOT, (2) 3 Reporting-Ebenen Artefakt/append-only Report-Log/Statusbericht und STATUS/CHANGED/TESTS/SOURCE_STATUS/RISKS_GAPS/NEXT, (3) Dateisyntax YY_MM_DD_<ID>_<CONTENT-TYPE>_<TITLE>.md, ID aus 00_ID_LEDGER.csv, YAML name/description/version/status/timestamp, SHA256, (4) deutsches Eurocode-Glossar, (5) WORK→SSOT→GitHub julianzotter/nexus-platform Move-only, (6) NEXUS-ROLES v1.0 ID01 Human, ID03 ChatGPT Orchestrator und QA, ID04 Gemini, ID05 Perplexity, ID06 Claude, ID07 DeepSeek, ID08 Ollama. Fehlende Quelle: „nicht beurteilbar – nicht dokumentiert“ plus Aufwandsschätzung. Prüfe P1 neue WORK-Dateien seit letztem Lauf (Schema/Frontmatter/Ledger), P2 Logs/Status je offenem Ticket und Drift, P3 WorkOrder-Empfang und Antwort je ID03–ID08, P4 EXEC≠PEERREVIEW, P5 letzter GitHub-Commit/Actions/Drive-Repo-Delta nur mit Beleg, sonst P8 unbewiesen, P6 Duplikate/Ablage/ID/Mischsprache/unbelegte Memory-Chat-Aussagen, P7 maximal fünf Vorschläge „#V1 --> Kurzname --> Lösung in 3–5 Stichworten“. Pro Prüfpunkt OK/ABWEICHUNG/NICHT PRÜFBAR mit Datei und Zeitstempel. Ausgabe genau eine Datei YY_MM_DD_HHMM_ID03_STATUSREPORT_NEXUS-CONSISTENCY-CHECK.md mit YAML name,description,version,status,timestamp,run_no,tasks_done,tasks_open,problems,open_questions,result_check; Body Tabelle P1–P7, Delta zum Vorlauf neu/behoben/offen, Anomalien, Vorschläge, Reporting-Block und LOG-Zeile Ablageort. Keine Behauptung ohne Quellennachweis, keine erfundenen Hashes, Kennzeichnung fehlender Zugriffe.\n\nAKTUALISIERUNG 2026-11-11 — verbindlicher Prüfmaßstab für diesen Task: Vor jeder Prüfung zuerst die aktuellen _AGBS.md (https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view), das aktuelle Manifest (https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit), die freigegebene Baseline (https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit) und _FRONTMATTER.md (https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view; tatsächlichen Freigabestatus beachten) lesen. Die tatsächliche Rollen-ID anhand der aktuellen Rollenautorität prüfen und von Provider, Modell und Runtime trennen. Keine Rollen-ID aus Taskname oder historischer Selbstbezeichnung ableiten. Verifizierte aktuelle Vorgaben und direkte ID01-Entscheidungen im jeweiligen Scope anwenden; ältere eingebettete Rollen-/Namensstände gelten als historische Referenz. Nach _AGBS.md v005 gilt für neue Berichte YY_MM_DD_HHMM_ID##_THEMA_###.md mit Wiener Ortszeit Europe/Vienna; Steuerdatei-Ausnahmen beachten. Rollen-ID oder Ledgernummer bei fehlender Verifikation null und UNREGISTERED ausweisen, nichts erfinden und die offene Zuordnung protokollieren. Fehlende Pflichtquelle nur für den betroffenen Prüfschritt als BOOTSTRAP_BLOCKED melden; unabhängige autorisierte Prüfungen fortsetzen. Dieser Nachtrag korrigiert ausschließlich Rollen- und Namensmaßstab; Prüfauftrag, bestehende Zeitplanung und sonstige Berechtigungsgrenzen bleiben maßgebend.\n\nSCHEDULER-SCOPE NEXUS Issue #73 / 2026-11-11: Übernimm im vorhandenen stündlichen Task zusätzlich die Critical-Gate-/GitHub-/WORK-Prüfung aus https://github.com/julianzotter/nexus-platform/issues/73. Lies aktuelle neue WORK-Aufträge und zugehörige PRs/Issues/Reviews/Actions mit Commitbindung. Pro Quelle beobachteten Zeitstempel, Coverage, echten Status, Fehler und Delta festhalten. Im neuen WORK-Bericht Heartbeat/Start/Ende, eindeutige run_id, Triggerart, Task-ID, tatsächliche Runtime und ticket_id nexus-platform#73 ausweisen. Auftragsempfang der aktuellen Instanz ist ACK_TASK_RECEIVED; fremdes Consumer-ACK nur mit tatsächlicher Quelle. Fehlende Actions-/Transport-/ACL-/Role-Nachweise als BLOCKED/UNVERIFIED melden. Keine Merges, Deploys, Kalender- oder E-Mail-Änderungen. CPLM-Pilot-Audit bleibt eigenständig. Der korrigierte Scope ersetzt die unbestätigte Annahme einer zweiten aktiven Critical-GitHub-WORK-Automation. Kein anderer Task wird aus der bloßen WORK-Ablage als aktiv angenommen.",
+    "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261111T130929\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+    "timing_mode": "condition_watch",
+    "display_schedule": null,
+    "is_enabled": true,
+    "conversation_id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b",
+    "is_self_owned_automation": false,
+    "default_timezone": "Europe/Vienna",
+    "next_run_time": "2026-11-11T14:09:29+01:00",
+    "last_run_time": "2026-11-11T12:28:49.305344+00:00",
+    "updated_at": "2026-11-11T12:29:13.450973+00:00",
+    "run_details": {
+      "last_run": {
+        "id": "4bf00af3-f920-8323-9456-2924005090e4",
+        "recorded_status": "completed",
+        "scheduled_for": "2026-11-11T12:09:29Z",
+        "started_at": "2026-11-11T12:13:42.023586Z",
+        "completed_at": "2026-11-11T12:28:45.589415Z",
+        "chat_ref": {
+          "type": "chatgpt",
+          "id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b"
+        }
+      },
+      "latest_result": {
+        "run_id": "4bf00af3-f920-8323-9456-2924005090e4",
+        "created_at": "2026-11-11T12:28:44.300839Z",
+        "scheduled_for": "2026-11-11T12:09:29Z",
+        "completed_at": "2026-11-11T12:28:45.589415Z",
+        "content_text": "**NEXUS-Konsistenzprüfung | 11.11.2026, 13:27 MEZ**\n\n**🔴 STATUS: ABWEICHUNG / NO_RELEASE / P8_UNBEWIESEN**\n\n| Prüfbereich | Ergebnis |\n|---|---|\n| **WORK / Registry** | 22 neue Dateien seit Vorlauf (begrenztes Listing); 429 Registry-Einträge; Registrierungslücken bestehen. |\n| **Rollen / Reviews** | NEXUS-ROLES v1.1: ID02 = ChatGPT Private / Chief Orchestrator, ID03 = QA. ACK ID03–ID08: **0/6**. |\n| **GitHub / Actions** | `main=88dbd336`; CI erfolgreich, Monitor und GitHub→WORK fehlgeschlagen. Drive→GitHub ebenfalls fehlgeschlagen. |\n| **Kritische Risiken** | `main` ungeschützt; Google-Drive-Metadaten melden `anyone:writer` für Governance-Dateien. ACL-Prüfung erforderlich. |\n\n**Archivierung:** ✅ Eine neue Markdown-Datei im vorgesehenen WORK-Ordner erstellt. Rohbyte-Readback und SHA256-Vergleich erfolgreich. Keine Änderungen an bestehenden Dateien, keine Commits, E-Mails oder Freigaben.\n\n**Offen:** `REGISTRATION_PENDING`, unabhängiges Peer-Review, ACK-Nachweise und Drive↔GitHub-Byteabgleich.\n\nurlVollständigen NEXUS-Statusbericht im Google Drive öffnenhttps://drive.google.com/file/d/1P72R9N-JKGnjpr5HFy00lk4xqa4qeO9Y/view",
+        "content_truncated": false,
+        "chat_ref": {
+          "type": "chatgpt",
+          "id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b"
+        },
+        "requires_user_action": false,
+        "is_failure_message": false
+      },
+      "delivery_status": "unknown"
+    },
+    "environment_selection": "inherited",
+    "environments": null
+  },
+  "automation_after": {
+    "id": "6ae0b897e4b4819190ab4fd7bdd2cbfe",
+    "team_id": null,
+    "title": "NEXUS Critical Gates und WORK",
+    "prompt": "Führe die lesende NEXUS-Konsistenz-, Critical-Gate-, GitHub- und WORK-Prüfung gemäß https://github.com/julianzotter/nexus-platform/issues/73 aus.\nREAD FIRST: aktuelle AGB https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view; Manifest https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit; freigegebene Baseline https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit; Frontmatter https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view; Ticketregister https://docs.google.com/spreadsheets/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/edit. Tatsächliche aktuelle Version und Freigabestatus nennen.\nIdentität: ChatGPT Private ist nach ausdrücklicher ID01-Zuordnung ID02. Prüfe dies gegen die aktuelle Rollenautorität; Provider, Modell, Runtime und fachliche Rolle getrennt ausweisen. Keine ID03-Identität oder unabhängige ID03-Prüfung beanspruchen. Widerspruch betrifft nur den Rollenbeleg, unbekannte Werte null.\nPrüfe P1 neue WORK-Dateien (Schema/Frontmatter/Ledger), P2 offene Tickets/Logs/Drift, P3 tatsächlichen Auftragsempfang und Antwort je Rolle, P4 EXEC ungleich unabhängige PEERREVIEW, P5 GitHub-Commit/PR/Reviews/Actions und belegtes Drive-Repo-Delta, P6 Duplikate/Ablage/ID/Mischsprache/unbelegte Memory-Aussagen, P7 höchstens fünf konkrete Verbesserungsvorschläge. WORK: 1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP. Axiom: KI interpretiert; deterministischer Code prüft; Git dokumentiert.\nScheduler-Nachweis: aktive Konfiguration, tatsächlicher Trigger, Run-ID, Commit, Start/Ende, Status, Aktualität und Fehler getrennt prüfen. Manuelle Läufe beweisen keinen Zeitplanbetrieb; erfolgreiches Actions-Metadatum beweist keine innere Prüfung, Zustellung oder Consumer-ACK. Drei aufeinanderfolgende echte Zeitplanläufe als Abnahmekriterium prüfen; GitHub-Verzögerungen und Beobachtungsfenster ausweisen. Run-Result nur verwenden, wenn result.run_id zur betrachteten run_id passt. Alte Ergebnisse niemals laufenden neuen Runs zuordnen. OAuth-Fehler nur mit Stufe und Beleg, keine Geheimnisse ausgeben. Drive-Änderungspoller nicht als Datei-Backup oder Git-Sync bezeichnen.\nBericht maximal eine Seite, P1–P7 OK/ABWEICHUNG/NICHT PRÜFBAR mit Quelle/Zeitstempel; STATUS/CHANGED/TESTS/SOURCE_STATUS/RISKS_GAPS/NEXT, Delta neu/behoben/offen, keine unveränderten Alarmduplikate. YAML nach aktuell freigegebener Vorlage, Europe/Vienna; task_id 6ae0b897e4b4819190ab4fd7bdd2cbfe, ticket_id nexus-platform#73, echte run_id und Triggerart oder null/UNVERIFIED, Heartbeat, Start/Ende, tatsächliche Runtime und Rollenprüfung. ACK_TASK_RECEIVED nur für eigenen Auftrag; fremde Consumer-ACKs nur aus tatsächlichem Beleg.\nAutorisierte Ausgabe: höchstens einen neuen Markdown-Statusbericht im WORK-Ordner anlegen und Rohbyte-Hash/Readback prüfen. Registrierung/History nur nach aktuellen Schreibrollen und konfliktfreiem Verfahren; keine Ledgernummer erfinden. Falls nicht möglich: REGISTRATION_PENDING bzw. LEDGER-PENDING mit konkretem Grund; bei fehlender Ablage vollständiger Bericht im Chat mit NICHT ARCHIVIERT. Keine bestehenden Fachdateien verändern, nichts löschen/verschieben, keine E-Mails/Kalenderänderungen, keine Merges/Deploys/Freigaben. Fehlende Quellen blockieren nur abhängige Schritte; unabhängige Prüfungen fortsetzen. CPLM bleibt eigenständig.",
+    "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261111T130929\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+    "timing_mode": "condition_watch",
+    "display_schedule": null,
+    "is_enabled": true,
+    "conversation_id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b",
+    "is_self_owned_automation": false,
+    "default_timezone": "Europe/Vienna",
+    "next_run_time": "2026-11-11T14:09:29+01:00",
+    "last_run_time": "2026-11-11T12:28:49.305344+00:00",
+    "updated_at": "2026-11-11T12:30:22.884506+00:00",
+    "run_details": {
+      "last_run": {
+        "id": "4bf00af3-f920-8323-9456-2924005090e4",
+        "recorded_status": "completed",
+        "scheduled_for": "2026-11-11T12:09:29Z",
+        "started_at": "2026-11-11T12:13:42.023586Z",
+        "completed_at": "2026-11-11T12:28:45.589415Z",
+        "chat_ref": {
+          "type": "chatgpt",
+          "id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b"
+        }
+      },
+      "latest_result": {
+        "run_id": "4bf00af3-f920-8323-9456-2924005090e4",
+        "created_at": "2026-11-11T12:28:44.300839Z",
+        "scheduled_for": "2026-11-11T12:09:29Z",
+        "completed_at": "2026-11-11T12:28:45.589415Z",
+        "content_text": "**NEXUS-Konsistenzprüfung | 11.11.2026, 13:27 MEZ**\n\n**🔴 STATUS: ABWEICHUNG / NO_RELEASE / P8_UNBEWIESEN**\n\n| Prüfbereich | Ergebnis |\n|---|---|\n| **WORK / Registry** | 22 neue Dateien seit Vorlauf (begrenztes Listing); 429 Registry-Einträge; Registrierungslücken bestehen. |\n| **Rollen / Reviews** | NEXUS-ROLES v1.1: ID02 = ChatGPT Private / Chief Orchestrator, ID03 = QA. ACK ID03–ID08: **0/6**. |\n| **GitHub / Actions** | `main=88dbd336`; CI erfolgreich, Monitor und GitHub→WORK fehlgeschlagen. Drive→GitHub ebenfalls fehlgeschlagen. |\n| **Kritische Risiken** | `main` ungeschützt; Google-Drive-Metadaten melden `anyone:writer` für Governance-Dateien. ACL-Prüfung erforderlich. |\n\n**Archivierung:** ✅ Eine neue Markdown-Datei im vorgesehenen WORK-Ordner erstellt. Rohbyte-Readback und SHA256-Vergleich erfolgreich. Keine Änderungen an bestehenden Dateien, keine Commits, E-Mails oder Freigaben.\n\n**Offen:** `REGISTRATION_PENDING`, unabhängiges Peer-Review, ACK-Nachweise und Drive↔GitHub-Byteabgleich.\n\nurlVollständigen NEXUS-Statusbericht im Google Drive öffnenhttps://drive.google.com/file/d/1P72R9N-JKGnjpr5HFy00lk4xqa4qeO9Y/view",
+        "content_truncated": false,
+        "chat_ref": {
+          "type": "chatgpt",
+          "id": "6af2f6de-2ee8-83ed-9280-588bb6e7e09b"
+        },
+        "requires_user_action": false,
+        "is_failure_message": false
+      },
+      "delivery_status": "unknown"
+    },
+    "environment_selection": "inherited",
+    "environments": null
+  },
+  "scheduled_runs": [
+    {
+      "id": 42976319668,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T07:00:11Z",
+      "updated_at": "2026-11-11T12:10:09Z",
+      "run_attempt": 3,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42976319668"
+    },
+    {
+      "id": 42971784997,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T06:20:53Z",
+      "updated_at": "2026-11-11T06:21:13Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42971784997"
+    },
+    {
+      "id": 42932293076,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T00:33:34Z",
+      "updated_at": "2026-11-11T00:33:44Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42932293076"
+    },
+    {
+      "id": 42922768191,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T23:22:05Z",
+      "updated_at": "2026-11-10T23:22:23Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42922768191"
+    },
+    {
+      "id": 42887137055,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T19:37:33Z",
+      "updated_at": "2026-11-10T19:37:49Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42887137055"
+    },
+    {
+      "id": 42869072468,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T17:50:39Z",
+      "updated_at": "2026-11-10T17:50:55Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42869072468"
+    },
+    {
+      "id": 42809307158,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T11:39:54Z",
+      "updated_at": "2026-11-10T11:40:08Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42809307158"
+    },
+    {
+      "id": 42794051422,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T09:50:20Z",
+      "updated_at": "2026-11-10T09:50:34Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42794051422"
+    },
+    {
+      "id": 42749194337,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T03:24:06Z",
+      "updated_at": "2026-11-10T03:24:22Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42749194337"
+    },
+    {
+      "id": 42736386611,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-10T01:31:33Z",
+      "updated_at": "2026-11-10T01:31:46Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42736386611"
+    },
+    {
+      "id": 42698255968,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T20:59:59Z",
+      "updated_at": "2026-11-09T21:00:15Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42698255968"
+    },
+    {
+      "id": 42665092673,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "7eaeef1687158b13c3ba04b6d8689d610a5031d6",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T17:29:19Z",
+      "updated_at": "2026-11-09T17:29:34Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42665092673"
+    },
+    {
+      "id": 42599337351,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "ca523098e78e72b7a7625a5dbbe61220ea012955",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T10:13:46Z",
+      "updated_at": "2026-11-09T10:14:00Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42599337351"
+    },
+    {
+      "id": 42573318436,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T06:29:18Z",
+      "updated_at": "2026-11-09T06:29:34Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42573318436"
+    },
+    {
+      "id": 42551587807,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-09T02:33:20Z",
+      "updated_at": "2026-11-09T02:33:35Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42551587807"
+    },
+    {
+      "id": 42536487761,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-08T23:42:51Z",
+      "updated_at": "2026-11-08T23:43:11Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42536487761"
+    },
+    {
+      "id": 42531868731,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-08T22:46:09Z",
+      "updated_at": "2026-11-08T22:46:26Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42531868731"
+    },
+    {
+      "id": 42516379330,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-08T19:42:30Z",
+      "updated_at": "2026-11-08T19:42:44Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42516379330"
+    },
+    {
+      "id": 42511542147,
+      "name": "NEXUS Drive to GitHub",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-08T18:45:05Z",
+      "updated_at": "2026-11-08T18:45:19Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42511542147"
+    },
+    {
+      "id": 42493675875,
+      "name": "NEXUS Monitor",
+      "event": "schedule",
+      "head_sha": "fb103dbe6b0bd392c8bc6adc1b5988bac9cc5735",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-08T15:13:00Z",
+      "updated_at": "2026-11-08T15:13:20Z",
+      "run_attempt": 1,
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/42493675875"
+    }
+  ],
+  "recent_runs": [
+    {
+      "id": 43019423106,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "head_sha": "88dbd3362f510a845849fbcbb5a40dd8a4f4afb2",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T12:20:05Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43019423106"
+    },
+    {
+      "id": 43019355146,
+      "name": "CI",
+      "event": "push",
+      "head_sha": "88dbd3362f510a845849fbcbb5a40dd8a4f4afb2",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-11T12:19:36Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43019355146"
+    },
+    {
+      "id": 43019355129,
+      "name": "NEXUS Monitor",
+      "event": "push",
+      "head_sha": "88dbd3362f510a845849fbcbb5a40dd8a4f4afb2",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T12:19:36Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43019355129"
+    },
+    {
+      "id": 43019199583,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "head_sha": "0f66282fbc3d07de1c2dd820730b3737389f1e71",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T12:18:31Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43019199583"
+    },
+    {
+      "id": 43019119476,
+      "name": "NEXUS Monitor",
+      "event": "push",
+      "head_sha": "0f66282fbc3d07de1c2dd820730b3737389f1e71",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T12:17:56Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43019119476"
+    },
+    {
+      "id": 43019119426,
+      "name": "CI",
+      "event": "push",
+      "head_sha": "0f66282fbc3d07de1c2dd820730b3737389f1e71",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-11T12:17:56Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43019119426"
+    },
+    {
+      "id": 43018007133,
+      "name": "NEXUS GitHub to WORK",
+      "event": "workflow_run",
+      "head_sha": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T12:10:11Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43018007133"
+    },
+    {
+      "id": 43017927807,
+      "name": "NEXUS Monitor",
+      "event": "push",
+      "head_sha": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-11-11T12:09:37Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43017927807"
+    },
+    {
+      "id": 43017927744,
+      "name": "CI",
+      "event": "push",
+      "head_sha": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-11T12:09:37Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43017927744"
+    },
+    {
+      "id": 43017433704,
+      "name": "CI",
+      "event": "pull_request",
+      "head_sha": "9091dad4ab36e20e277a3f8c12b1fe5b9b7f7915",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-11T12:06:09Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43017433704"
+    },
+    {
+      "id": 43016682939,
+      "name": "CI",
+      "event": "pull_request",
+      "head_sha": "fce439312bc4f812836984089dfcda1a715c0f30",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-11T12:00:55Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43016682939"
+    },
+    {
+      "id": 43008770557,
+      "name": "CI",
+      "event": "pull_request",
+      "head_sha": "3c83fff57a41bd75167143ccce296b817c7ff167",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-11T11:03:35Z",
+      "html_url": "https://github.com/julianzotter/nexus-platform/actions/runs/43008770557"
+    }
+  ],
+  "end_to_end": "BLOCKED",
+  "registry_status": "REGISTRATION_PENDING",
+  "registry_reason": "No atomic compare-and-append available; avoid overwriting concurrent writers",
+  "ledger_id": null
+}
