@@ -354,6 +354,17 @@
       "evidence": "READ_UNVERIFIED_EXTERNAL_DRAFT",
       "observed_at": "2026-11-12",
       "limits": "Keine Berechnungs-/Prüfnachweise; nur 3 von 14 deklarierten Familien enthalten."
+    },
+    {
+      "id": "S32",
+      "title": "Nutzerinput FULL CATALOG v2.0",
+      "url": "user-provided:2026-11-12:timberloop-full-catalog-v2",
+      "locator": "Aktuelle Chatnachricht, Tabelle/SQL/YAML",
+      "revision": "v2.0 / 12.11.2026",
+      "visibility": "internal",
+      "evidence": "USER_PROVIDED_UNVERIFIED",
+      "observed_at": "2026-11-12",
+      "limits": "Keine EPDs, Schichtnachweise, Scorekriterien oder verifizierte Normfundstelle mitgeliefert."
     }
   ],
   "families": [
@@ -1087,5 +1098,379 @@
       "mapped_family_id": "AF-DE-02",
       "mapping_status": "RELATED_NOT_IDENTICAL"
     }
+  ],
+  "catalog14": [
+    {
+      "id": "CAT14-AW-01",
+      "legacy_id": "AW-01",
+      "title": "Holzrahmen + Zellulose/Holzfaser + VHF",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        300,
+        420
+      ],
+      "u_w_m2k_range": [
+        0.12,
+        0.22
+      ],
+      "mass_kg_m2_range": [
+        60,
+        110
+      ],
+      "note": "Austauschbare Fassade, hohe Vorfertigung",
+      "validated_properties": false,
+      "priority": "USER_PROPOSED_TARGET",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-AW-02",
+      "legacy_id": "AW-02",
+      "title": "Holzrahmen + WDVS/Putz",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 2.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        300,
+        460
+      ],
+      "u_w_m2k_range": [
+        0.11,
+        0.2
+      ],
+      "mass_kg_m2_range": [
+        70,
+        130
+      ],
+      "note": "Verklebte Schichten erschweren Trennung",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-AW-03",
+      "legacy_id": "AW-03",
+      "title": "Brettsperrholz + Außendämmung + VHF",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        320,
+        500
+      ],
+      "u_w_m2k_range": [
+        0.12,
+        0.22
+      ],
+      "mass_kg_m2_range": [
+        110,
+        200
+      ],
+      "note": "Dauerhafte Tragplatte, elementierbar",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-AW-04",
+      "legacy_id": "AW-04",
+      "title": "Holz-Beton-Hybrid + VHF",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 3.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        350,
+        550
+      ],
+      "u_w_m2k_range": [
+        0.12,
+        0.22
+      ],
+      "mass_kg_m2_range": [
+        250,
+        450
+      ],
+      "note": "Robustheit; tatsächlichen Verbund und Masse prüfen",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-AW-05",
+      "legacy_id": "AW-05",
+      "title": "Vorgefertigte Holztafel mit Re-Use-Bekleidung",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        300,
+        450
+      ],
+      "u_w_m2k_range": [
+        0.12,
+        0.22
+      ],
+      "mass_kg_m2_range": [
+        60,
+        140
+      ],
+      "note": "Reuse bei lösbaren Anschlüssen als Ziel",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-WTW-01",
+      "legacy_id": "WTW-01",
+      "title": "Doppelständer-Holzwand",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        260,
+        350
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        60,
+        110
+      ],
+      "note": "Entkopplung möglich",
+      "validated_properties": false,
+      "priority": "USER_PROPOSED_TARGET",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-WTW-02",
+      "legacy_id": "WTW-02",
+      "title": "Brettsperrholz + beidseitige Vorsatzschalen",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        240,
+        340
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        100,
+        170
+      ],
+      "note": "Anschlussabhängig",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-WTW-03",
+      "legacy_id": "WTW-03",
+      "title": "Zweischalige Brettsperrholzwand",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        260,
+        380
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        120,
+        210
+      ],
+      "note": "Konsequente Trennung erforderlich",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-WTW-04",
+      "legacy_id": "WTW-04",
+      "title": "Stahlbetonwand + Trockenbauvorsatz",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 3,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        250,
+        350
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        350,
+        550
+      ],
+      "note": "Flanken maßgebend",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-GD-01",
+      "legacy_id": "GD-01",
+      "title": "Brettsperrholz + Schüttung + Nassestrich",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 3,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        270,
+        450
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        250,
+        420
+      ],
+      "note": "Nassprozess",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-GD-02",
+      "legacy_id": "GD-02",
+      "title": "Holz-Beton-Verbunddecke",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 2.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        300,
+        500
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        350,
+        600
+      ],
+      "note": "Verbindungstechnik bestimmt Rückbaubarkeit",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-GD-03",
+      "legacy_id": "GD-03",
+      "title": "Brettsperrholz + Trockenschüttung + Trockenestrich",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        260,
+        450
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        180,
+        350
+      ],
+      "note": "Demontagefreundlichkeit nachzuweisen",
+      "validated_properties": false,
+      "priority": "USER_PROPOSED_TARGET",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-GD-04",
+      "legacy_id": "GD-04",
+      "title": "Holzrippendecke + trockener Bodenaufbau",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 4.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        300,
+        550
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        150,
+        320
+      ],
+      "note": "Materialeffizienz und Installation als Ziele",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    },
+    {
+      "id": "CAT14-GD-05",
+      "legacy_id": "GD-05",
+      "title": "Stahlbeton-Fertigteildecke + lösbarer Ausbau",
+      "status": "USER_PROVIDED_UNVERIFIED",
+      "source_ids": [
+        "S32"
+      ],
+      "catalog_version": "2.0",
+      "indicative_score_0_5": 3.5,
+      "verified_score_0_5": null,
+      "thickness_mm_range": [
+        260,
+        450
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        350,
+        650
+      ],
+      "note": "Reuse ganzer Elemente als Ziel",
+      "validated_properties": false,
+      "priority": "COMPARISON",
+      "system_scope": "Schematische Familie; Schichtfolge/Tragfunktion/Verbindung offen"
+    }
+  ],
+  "catalog14_limits": [
+    "Keine Score-Berechnung je Einzelkriterium; kein Ranking als Fachnachweis.",
+    "U-Werte, Dicke und Masse sind indikative Nutzerangaben, keine berechneten Projektwerte.",
+    "ÖNORM B 2320:2022 >=100 Jahre: USER_PROVIDED_UNVERIFIED; Ausgabe, Fundstelle und Anwendungsbereich vor Verwendung prüfen.",
+    "Prioritäten nicht der Holzforschung Austria als bestätigte Empfehlungen zuschreiben.",
+    "GWP A-C muss Module einzeln und Szenarien festlegen; Modul D separat; biogener Kohlenstoff ist nicht identisch mit vermiedenen Emissionen."
   ]
 }
