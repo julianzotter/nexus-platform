@@ -4,7 +4,8 @@ param(
     [switch]$DeepSeekAuth,
     [switch]$RFEM5Attach,
     [string]$RFEM6ModelName,
-    [string]$ApprovedSpecJson
+    [string]$ApprovedSpecJson,
+    [string]$RFEM6NewCandidate
 )
 $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -32,5 +33,10 @@ if ($RFEM6ModelName) {
     & $PythonExe (Join-Path $scriptDir "rfem6_readback.py") $ApprovedSpecJson `
         --model-name $RFEM6ModelName --out (Join-Path $outputAbs "rfem6_readback.json")
     if ($LASTEXITCODE -ne 0) { throw "RFEM6 readback command failed" }
+}
+if ($RFEM6NewCandidate) {
+    & $PythonExe (Join-Path $scriptDir "rfem6_collision.py") `
+        --candidate $RFEM6NewCandidate --out (Join-Path $outputAbs "rfem6_collision.json")
+    if ($LASTEXITCODE -ne 0) { throw "RFEM6 collision check failed" }
 }
 Write-Host "Gate reports: $outputAbs"
