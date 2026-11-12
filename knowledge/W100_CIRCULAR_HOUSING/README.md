@@ -9,7 +9,7 @@ engineering_release: NOT_GRANTED
 ---
 # W100 Zirkulärer serieller Wohnbau — Einstieg
 Tags: #Zirkularität #Bauteilkennwerte #SeriellerWohnbau #TimberLoop #AW #WTW #GD #W012 #W017
-35 kondensierte Wissensobjekte plus 3 ungeprüfte Kandidaten; 31 Quellen, 23 Schichtzeilen, 14 Projektreferenzen, 8 Aufbaufamilien und 8 Bausysteme.
+35 kondensierte Wissensobjekte plus 3 historische und 14 vollständige ungeprüfte Katalogvarianten; 32 Quellen, 23 Schichtzeilen, 14 Projektreferenzen, 8 Aufbaufamilien und 8 Bausysteme.
 Keine repräsentative Häufigkeitsrangfolge. Keine Freigabe für U/Schall/Brand/GWP/LCC/Reuse; Experten-Scores sind ungeprüfte Eingangsdaten.
 ## Dateien / Drive SSOT
 - [W100_data_v0.1.json](https://drive.google.com/file/d/1nKEZvEMYtMjLIV9xyHq4utfPM3Xxt1Ws/view?usp=drivesdk)
@@ -27,7 +27,7 @@ Keine repräsentative Häufigkeitsrangfolge. Keine Freigabe für U/Schall/Brand/
 [Draft PR 80](https://github.com/julianzotter/nexus-platform/pull/80)
 Repository private; knowledge/W100_CIRCULAR_HOUSING/. Kein Merge oder automatischer Dauer-Sync. JSON und SQL als portable Daten; Datenbank-Binärdatei in Drive.
 ## SQLite / Wiederfinden
-Bestehende W012_Knowledge_v0.3.sqlite wurde um w100_objects, w100_sources, w100_evidence, w100_layers sowie 38 Einträge in bestehender knowledge_documents/knowledge_fts erweitert. Alle ursprünglichen Zeilen erhalten. WORK-Datenbank ist benannter Snapshot, kein neuer globaler Master. AnythingSearch.db und eurocode.db wurden nicht identifiziert oder geändert.
+Bestehende W012_Knowledge_v0.3.sqlite wurde um w100_objects, w100_sources, w100_evidence, w100_layers sowie 52 Einträge in bestehender knowledge_documents/knowledge_fts erweitert. Alle ursprünglichen Zeilen erhalten. WORK-Datenbank ist benannter Snapshot, kein neuer globaler Master. AnythingSearch.db und eurocode.db wurden nicht identifiziert oder geändert.
 ```sql
 SELECT id,title,status FROM w100_objects WHERE kind='families';
 SELECT id,title,status FROM w100_objects WHERE kind='candidates';
@@ -35,9 +35,13 @@ SELECT * FROM w100_layers WHERE assembly_id='AS-FAV-DE' ORDER BY ordinal;
 SELECT o.id,o.title,s.url,s.locator FROM w100_objects o JOIN w100_evidence e ON e.object_id=o.id JOIN w100_sources s ON s.id=e.source_id WHERE o.id='AS-FAV-DE';
 SELECT id FROM knowledge_fts WHERE knowledge_fts MATCH 'W100 AND CLT' AND id LIKE 'W100:%';
 ```
-W100_import.sql erzeugt ausschließlich den isolierten w100_* Datenbereich auch in einer anderen SQLite-Datei; bindet dort nicht automatisch vorhandene globale Suchansichten an. Zweifacher Import auf leerer SQLite getestet: 38 Objekte ohne Dubletten.
+W100_import.sql erzeugt ausschließlich den isolierten w100_* Datenbereich auch in einer anderen SQLite-Datei; bindet dort nicht automatisch vorhandene globale Suchansichten an. Zweifacher Import auf leerer SQLite getestet: 52 Objekte ohne Dubletten.
 ## Neue Matrix
-[Original Google Doc](https://docs.google.com/document/d/1EwMAA4i9yQ8jUfF6NDOR-dyYdFT2L1Pu6ReLaiMEluQ/edit) enthält 3, nicht 14 Varianten. Externe AW-01/WTW-01/GD-03 und interne AF-* IDs sind nicht identisch. Vollständige 14er-Liste fehlt. Indikative Scores und Kennwertbereiche nicht als TimberLoop-Forschungsergebnisse deklarieren.
+[Original Google Doc](https://docs.google.com/document/d/1EwMAA4i9yQ8jUfF6NDOR-dyYdFT2L1Pu6ReLaiMEluQ/edit) enthält 3, nicht 14 Varianten. Externe AW-01/WTW-01/GD-03 und interne AF-* IDs sind nicht identisch. Die vollständige 14er-Liste wurde anschließend im Nutzertext übergeben und als CAT14-* Stand mit Status UNVERIFIED ergänzt. Indikative Scores und Kennwertbereiche nicht als TimberLoop-Forschungsergebnisse deklarieren.
 ## Prüfnachweis
-SQLite integrity_check ok; foreign_key_check leer; alte Zeilen vollständig enthalten; SQL-Replay zweimal bestanden; Rohbyte-Readback aller 11 oben verlinkten Artefakte identisch. GitHub Erststand 7/7 textgleich; Nachtrag wird separat rückgelesen.
+SQLite integrity_check ok; foreign_key_check leer; alte Zeilen vollständig enthalten; SQL-Replay zweimal bestanden; Rohbyte-Readback des Erststands bestanden; endgültiger Stand wird nach letzten Nachträgen erneut geprüft. Finalen Hash und Registerstatus im bestehenden file-registry.jsonl prüfen.
 Registry-Ereignisse werden im bestehenden file-registry.jsonl ergänzt; Registrierung bleibt von fachlichem Review getrennt. Numerische Ledger-ID offen.
+
+## Vollständiger Vorplanungskatalog
+[14 Familien v2.0, ungeprüft](https://drive.google.com/file/d/1C6lNcNtFNxNHz3KbhFq2RQRcYwxAouNB/view?usp=drivesdk)
+Der aktuelle Datenbestand zählt 52 Objekte: 8 Familien, 8 Bausysteme, 14 Projekte, 5 Schichtaufbauten, 3 historische Kandidaten und 14 neue Katalogvarianten. Keine dieser Zählungen ist eine Markt-Häufigkeitsstatistik.
