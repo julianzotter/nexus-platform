@@ -1,6 +1,10 @@
 """Offline determinism and mocked RFEM API-II mapping tests."""
 import unittest
+import tempfile
+import json
+from pathlib import Path
 from types import SimpleNamespace
+from cli import make_receipt, write_receipt_exclusive
 from geometry import FrameSpec, build_geometry
 from targets import rfem5_manifest, rfem6_new_model, rfem6_objects
 
@@ -31,20 +35,36 @@ class ParametricTests(unittest.TestCase):
     def test_rfem5_is_preview(self):
         self.assertEqual(rfem5_manifest(self.geometry)["mode"], "TRANSFER_PREVIEW_ONLY")
 
+    def test_json_receipt_hash_and_no_overwrite(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            spec = root / "spec.json"
+            spec.write_text(json.dumps(SAMPLE), encoding="utf-8")
+            receipt = make_receipt(spec, "rfem6")
+            report = root / "receipt.json"
+            write_receipt_exclusive(report, receipt)
+            self.assertEqual(json.loads(report.read_text(encoding="utf-8")), receipt)
+            with self.assertRaises(FileExistsError):
+                write_receipt_exclusive(report, receipt)
+
     def test_rfem6_mapping_and_write_gate(self):
         record = lambda name: type(name, (), {"__init__": lambda self, **kw: self.__dict__.update(kw)})
-        core = SimpleNamespace(**{name: record(name) for name in ("Material", "Section", "Node", "Line", "Member")})
+        core = SimpleNamespace(**{name: record(name) for name in ("Material", "CrossSection", "Node", "Line", "Member")})
         api = SimpleNamespace(structure_core=core)
         objects = rfem6_objects(self.geometry, api)
         self.assertEqual(len(objects), 3 + 18 + 26 * 2)
         calls = []
-        app = SimpleNamespace(create_model=lambda **kw: calls.append(kw),
-                              create_object_list=lambda x: calls.append(len(x)))
+        app = SimpleNamespace(create_model=lambda **kw: calls.append(kw) or "NEW_MODEL_ID",
+                              create_object_list=lambda **kw: calls.append(kw))
         with self.assertRaises(ValueError):
-            rfem6_new_model(self.geometry, "EXISTING_MODEL", app, api)
+            rfem6_new_model(self.geometry, "EXISTING_MODEL", app, api, allow_new_model=True)
         self.assertEqual(calls, [])
-        rfem6_new_model(self.geometry, "NEXUS_W012_TEST_001", app, api)
+        with self.assertRaises(PermissionError):
+            rfem6_new_model(self.geometry, "NEXUS_W012_TEST_001", app, api)
+        rfem6_new_model(self.geometry, "NEXUS_W012_TEST_001", app, api, allow_new_model=True)
         self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[1]["model_id"], "NEW_MODEL_ID")
+        self.assertFalse(calls[1]["skip_invalid_attributes"])
 
 
 if __name__ == "__main__":
