@@ -11,8 +11,8 @@ The HTML source was imported without intentional code changes. It has not been r
 ## Observed behavior from source inspection
 
 - Provider selection with one active provider/key at a time; no three-agent peer-review orchestration.
-- Direct browser API requests. Entered keys are stored in localStorage.
-- Generated HTML is rendered in an iframe without a sandbox attribute; generated scripts may access the parent origin and stored keys. Do not enter live credentials or render untrusted output until this is addressed.
+- Direct browser API requests. The imported version stored entered keys in localStorage; the reviewed patch removes those reads/writes and cleans only legacy credential slots at load.
+- Generated HTML now uses sandbox="allow-scripts" without same-origin. The direct DeepSeek browser path is disabled in favor of the bounded NEXUS adapter. Runtime browser cleanup/isolation still requires testing.
 - The validation stage only checks for non-empty output of a minimum length; its failure does not stop assembly. It is not engineering or code correctness validation.
 - No WebRTC voice implementation in this file. Provider endpoints and model availability have not been tested.
 
