@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 from pathlib import Path
 
 
@@ -31,6 +32,7 @@ def main() -> None:
         json.dump(result, stream, ensure_ascii=False, indent=2)
         stream.write("\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
+    sys.exit(0 if result["status"] == "NAME_AVAILABLE_NOT_RESERVED" else 2)
 
 
 if __name__ == "__main__":
