@@ -1,8 +1,8 @@
 {
   "integrity": "ok",
   "foreign_key_errors": [],
-  "objects": 38,
-  "sources": 31,
+  "objects": 52,
+  "sources": 32,
   "layers": 23,
   "fts_query_results": [
     [
@@ -37,5 +37,5 @@
     "knowledge_metadata": true,
     "knowledge_documents": true
   },
-  "sql_replay_twice_object_count": 38
+  "sql_replay_twice_object_count": 52
 }
