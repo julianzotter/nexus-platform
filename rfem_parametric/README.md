@@ -64,3 +64,7 @@ No default structural model or support restraint is inferred.
 - https://apidocs.dlubal.com/installation_python.html
 - https://www.dlubal.com/en/support-and-learning/support/knowledge-base/001921
 - Existing NEXUS: `plugins/nexus-aec-engineering/skills/rfem6-mcp-engineering/`.
+# JSON audit receipt: --out creates a NEW file, never replaces an existing one.
+# Example: python rfem_parametric/cli.py validated_w012.json --target rfem6 --out w012_rfem6_dryrun.json
+# Prompt -> DeepSeek proposal -> human input verification -> FrameSpec JSON -> offline Python -> RFEM preview JSON.
+# AI-generated dimensions or engineering inputs are NOT accepted as verified project evidence.
