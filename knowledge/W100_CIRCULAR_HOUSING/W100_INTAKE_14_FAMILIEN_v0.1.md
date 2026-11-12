@@ -19,3 +19,4 @@ variant_id, project_id, revision, ordinal, direction, material, product, thickne
 
 ## KPI-Vertrag — Vorschlag, nicht berechnet
 m_A = Summe(d_i [m] × rho_i [kg/m3] × Flächenanteil_i) [kg/m2]. Parallele Gefachmaterialien anteilig; örtliche Rippen separat. R_reuse,potential = 100 × belegte potenziell wiederverwendbare Masse / Gesamtmasse im gleichen Bilanzraum. Tatsächliche Wiederverwendungsquote separat nach realen Mengen. GWP: gleiche funktionelle Einheit und Bilanzmodule, Modul D separat. Verifizierter Score bleibt null bis Kriterien/Gewichte und Nachweise dokumentiert sind.
+
