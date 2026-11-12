@@ -5,13 +5,13 @@
   "files": [
     {
       "name": "26_11_12_1931_ID02_W100-CHAT-ERGEBNISSE_LEDGER-PENDING.md",
-      "bytes": 14154,
-      "sha256": "0fa8325b67b9e41d8f173988d4ff6621ac6fcad40edaf311372e3a11d4c57bb2"
+      "bytes": 14391,
+      "sha256": "3ab6d131d51eb460559589345ce408a4ed91a065547de2868ccb7961ff27f789"
     },
     {
       "name": "W012_Knowledge_v0.3_W100_20261112.sqlite",
-      "bytes": 2248704,
-      "sha256": "eb397e02932f4c678d8502e88a79c16cb4cd86702f4584911a2c0d4cb33b8c17"
+      "bytes": 2252800,
+      "sha256": "45984f3d5a4b0c0a695c4e0df8af0cea333c05c9acb744418e75fd1bb7076259"
     },
     {
       "name": "W100_AUFBAUFAMILIEN_v0.1.md",
@@ -25,18 +25,18 @@
     },
     {
       "name": "W100_QA.json",
-      "bytes": 631,
-      "sha256": "237bb3308cc893b811a9bb795af17026f993f9fdfbef0f13d41fff5e53a95e18"
+      "bytes": 667,
+      "sha256": "ee670dca4796dbdb4eb770f3cfdc5e1b8c16c28fe42650064f5c4290c6e25aff"
     },
     {
       "name": "W100_data_v0.1.json",
-      "bytes": 34249,
-      "sha256": "6d33826df653e1e9bfe97f006c2d415ee5f6daf53d96f8439b2728136ad5e51a"
+      "bytes": 37580,
+      "sha256": "bb2fcdb1bb668fb1557e7231a931da631d9926c2a9bddf0f252caade1b30d8f3"
     },
     {
       "name": "W100_import.sql",
-      "bytes": 32009,
-      "sha256": "ad8bf396a9764b25f99a23177029ffcdfd2f9714c0c5442f5b03588f18116ca8"
+      "bytes": 33989,
+      "sha256": "5598bbbee854c9250376c323c3e3f6ef4e21ff1d18ed61b03cedd9befacdee63"
     }
   ]
 }
