@@ -1,0 +1,3 @@
+interface:
+  display_name: "Agent Team Plan"
+  short_description: "Split a large task into verified agent work packages"
