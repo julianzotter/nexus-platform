@@ -1,0 +1,992 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "W100-CIRCULAR-HOUSING-20261112",
+  "version": "0.1.0",
+  "created_at": "2026-11-12T19:31:40+01:00",
+  "ticket_id": "WO-20261112-W100-CHAT-TO-KB",
+  "actor": {
+    "agent_id": "ID02",
+    "executor": "OpenAI Codex",
+    "executor_instance": "/root",
+    "model_id": null
+  },
+  "scope": "Chat-Ergebnisse: trans_city, industrialisierter Wohnbau, Aufbaufamilien, TimberLoop. Konsolidierte Ergebnisse, kein wortgetreues Chattranskript.",
+  "frequency_status": "NOT_ESTABLISHED",
+  "engineering_release": "NOT_GRANTED",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "FAV250 BWM Blatt 03",
+      "url": "https://drive.google.com/file/d/1ynUHuKWRd25J3P4pSPqG31bBPO-le76q/view",
+      "locator": "Wettbewerbsblatt, Schichtlisten und Systemtext",
+      "revision": "Wettbewerb; 23.10.2026 DWG/IFC nicht abgeglichen",
+      "visibility": "internal",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S02",
+      "title": "Eibengasse Bericht v4.0-S",
+      "url": "https://drive.google.com/file/d/1Rq3mbiywZ0k0w-rFBzhsbKBszitlSVkt/view",
+      "locator": "Kap. 1,3,7,8; Bauteile A-K",
+      "revision": "11.11.2026; Entwurf nicht prüffähig",
+      "visibility": "internal",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S03",
+      "title": "Rote Emma Fertigstellung",
+      "url": "https://newsroom.strabag.com/de/presse/strabag-at/2026-03/uebergabe-rote-emma",
+      "locator": "Fertigstellung; 360 geförderte Wohnungen",
+      "revision": "2026-03",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S04",
+      "title": "Rote Emma Konstruktion",
+      "url": "https://gernergernerplus.com/projekte/rote-emma/",
+      "locator": "Stahlbetonskelett, nichttragende Holzriegel, BTA",
+      "revision": "Webstand Abruf 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S05",
+      "title": "Rote Emma Elementdecke",
+      "url": "https://www.mischek-systembau.at/projekte/rote-emma",
+      "locator": "Strong & Active",
+      "revision": "Webstand Abruf 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S06",
+      "title": "PORR Living System",
+      "url": "https://www.porr-systembau.com/porr-living",
+      "locator": "Systemlogik; Fassade; Wärmepumpe",
+      "revision": "Webstand Abruf 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S07",
+      "title": "PORR Living INSTA-BLOC",
+      "url": "https://www.worldofporr.com/porr-living-leistbares-wohnen-mit-system",
+      "locator": "Haustechnikmodul",
+      "revision": "23.09.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S08",
+      "title": "Tetriqx Produkt",
+      "url": "https://newsroom.strabag.com/de/presse/strabag-at/2025-08/tetriqx",
+      "locator": "Wohnungstypen; Preisfußnote",
+      "revision": "14.08.2025; Preis 01.01.2025",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S09",
+      "title": "Tetriqx / Mischek Produktion",
+      "url": "https://work-on-progress.strabag.com/en/big-questions/housing-construction",
+      "locator": "Factory prefabrication; Preisfußnote",
+      "revision": "Webstand Abruf 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S10",
+      "title": "Mischek Geschichte",
+      "url": "https://www.mischek-systembau.at/unternehmen/geschichte",
+      "locator": "1959,1960; Automatisierung",
+      "revision": "Webstand Abruf 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S11",
+      "title": "Raymond Camus AFGC",
+      "url": "https://www.afgc.asso.fr/history-heritage/camus-raymond-2/",
+      "locator": "Patent 1948; integrierte Großtafeln",
+      "revision": "historischer Vergleich",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S12",
+      "title": "ACMS Variowohnen Bochum",
+      "url": "https://acms-architekten.de/detailseiten-projekte/variowohnungen-bochum",
+      "locator": "Baukastensystem, Betonstützen/Stahlträger/Hohldielen, Bäder",
+      "revision": "realisiert; Webstand 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S13",
+      "title": "ACMS Variowohnen Wuppertal",
+      "url": "https://acms-architekten.de/detailseiten-projekte/variowohnungen-wuppertal",
+      "locator": "132 Wohnplätze; Holzfassade; Erschließung",
+      "revision": "realisiert; Webstand 12.11.2026",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S14",
+      "title": "Lorenz-Reiter-Straße",
+      "url": "https://trans-city.at/tc/portfolio/lorenz-reiter-strasse/",
+      "locator": "SMART/PLUS; Nasskerne; Raumtiefe",
+      "revision": "fertig 09/2016; historischer Referenzvergleich",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S15",
+      "title": "LAA Kurbadstraße BAG2",
+      "url": "https://trans-city.at/tc/portfolio/kurbadstrasse-oberlaa-bag2/",
+      "locator": "Skelett, fixe Schächte, zonierte BTA/Trockenestrich",
+      "revision": "geplanter Baubeginn 10/2026; Ist nicht separat belegt",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S16",
+      "title": "HOME21 Fachpublikation",
+      "url": "https://trans-city.at/tc/wp-content/uploads/1805-architektur-05_2018-SIE.pdf",
+      "locator": "S.56-59, PDF S.3-6",
+      "revision": "2018; historischer Vergleich",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S17",
+      "title": "Stavangergasse",
+      "url": "https://trans-city.at/tc/portfolio/stavangergasse/",
+      "locator": "Tandems, AllSmart, Laubengangloggia",
+      "revision": "fertig 02/2018; historischer Vergleich",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S18",
+      "title": "Satzingerweg",
+      "url": "https://trans-city.at/tc/portfolio/satzingerweg/",
+      "locator": "10 Grundtypen, je 2-3 Varianten; Betonbau",
+      "revision": "fertig 08/2017; historischer Vergleich",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S19",
+      "title": "FUX",
+      "url": "https://trans-city.at/tc/portfolio/fux-wohngemeinschaft/",
+      "locator": "Gemeinschaft EG/1OG, 8 Schlafzimmer 2OG",
+      "revision": "fertig 09/2016; kleiner Sondertyp außerhalb Großbau-Stichprobe",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S20",
+      "title": "Anton-Schall-Gasse",
+      "url": "https://trans-city.at/tc/portfolio/anton-schall-gasse/",
+      "locator": "Betonskelett, Ziegelaußenwände, leichte Trennwände",
+      "revision": "fertig 11/2021; Referenzvergleich",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S21",
+      "title": "Village im Dritten BF03",
+      "url": "https://trans-city.at/tc/portfolio/village-im-dritten-baufeld-03/",
+      "locator": "Holzhybrid, tragende Holzfassade und Betonmittelwand",
+      "revision": "Website Fertigstellung 10/2026; nicht unabhängig bestätigt",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S22",
+      "title": "HFA TimberLoop",
+      "url": "https://www.holzforschung.at/forschung-entwicklung/projektliste/details/timberloop/",
+      "locator": "Projektbeschreibung",
+      "revision": "abgeschlossen",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S23",
+      "title": "HFA Kreislaufberichte",
+      "url": "https://www.holzforschung.at/forschung-entwicklung/kreislaufwirtschaft/",
+      "locator": "Schichtenmodell; AP2-6",
+      "revision": "Berichte 2025",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S24",
+      "title": "FFG TimberLoop",
+      "url": "https://projekte.ffg.at/projekt/6330433e-f36b-1410-85f6-00d3c07d99bb",
+      "locator": "Projektzeitraum und Status",
+      "revision": "01.09.2022-28.02.2025",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S25",
+      "title": "Statistik Austria Wohnen 2024",
+      "url": "https://www.statistik.at/fileadmin/publications/Wohnen_2024_Web-barrierefrei.pdf",
+      "locator": "Kap.8 Bauweise in Neuerrichtungen",
+      "revision": "Daten 2013-2023; keine Schichtstatistik",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S26",
+      "title": "Familienwohnbau Bergsteiggasse BAB",
+      "url": "https://fify-dynamo-assets.sos-at-vie-1.exo.io/b7ec257816f19f936bcfe8babbcd4789.pdf",
+      "locator": "S.4, Bauteile und Fußboden",
+      "revision": "05.05.2023; Übergabe geplant März 2024; Ist nicht verifiziert",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S27",
+      "title": "dataholz Mehrgeschossiger Wohnbau",
+      "url": "https://www.dataholz.eu/bauteile/mehrgeschossiger-wohnbau.htm",
+      "locator": "Bauteilkatalog",
+      "revision": "Referenzsysteme; kein Häufigkeitsnachweis",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S28",
+      "title": "proHolz Schallschutz Stellschrauben",
+      "url": "https://www.proholz.at/zuschnitt/80/konstruktive-faktoren-und-stellschrauben",
+      "locator": "Entkopplung, Schüttung, Vorsatzschalen",
+      "revision": "technischer Hintergrund; keine Projektstatistik",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S29",
+      "title": "a3 Bauen unter 2000 Euro",
+      "url": "https://a3bau.at/bauen-unter-2000-euro",
+      "locator": "PORR/UBM Kostenabgrenzung; Tetriqx",
+      "revision": "28.10.2026; Sekundärquelle",
+      "visibility": "public",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S30",
+      "title": "W100 Vorfertigung PDF",
+      "url": "https://drive.google.com/file/d/16Z9JFnIHd5eGeLQb-8il1zc0RQ2cHwvF/view",
+      "locator": "Druckseite 44; visuell und OCR gelesen",
+      "revision": "Publikationsdatum unbekannt; Branchenposition",
+      "visibility": "internal",
+      "evidence": "SOURCE_READ_IN_THIS_CHAT",
+      "observed_at": "2026-11-12",
+      "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    }
+  ],
+  "families": [
+    {
+      "id": "AF-AW-01",
+      "title": "Mineralisch mit WDVS",
+      "category": "AUSSENWAND",
+      "direction": "innen nach außen bzw. Wohnung zu Nachbarwohnung",
+      "sequence": [
+        "Oberfläche/Innenputz",
+        "Stahlbeton oder Mauerwerk",
+        "Dämmstoffsystem",
+        "Armierung",
+        "Oberputz"
+      ],
+      "source_ids": [
+        "S26"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Variantenfamilie; verklebte Schichten erschweren stofflich getrennten Rückbau."
+    },
+    {
+      "id": "AF-AW-02",
+      "title": "Vorgefertigter Holzrahmen",
+      "category": "AUSSENWAND",
+      "direction": "innen nach außen bzw. Wohnung zu Nachbarwohnung",
+      "sequence": [
+        "Innenbekleidung",
+        "optionale Installationsebene",
+        "Luftdichtungs-/Dampfbremskonzept",
+        "Holzrahmen mit Gefachdämmung",
+        "Außenbeplankung/Winddichtung",
+        "Putzsystem ODER Hinterlüftung und Bekleidung"
+      ],
+      "source_ids": [
+        "S01",
+        "S04",
+        "S13",
+        "S27"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Schema, keine einzelne geprüfte Variante. Nichttragende Ausführung kann Hülle und Tragwerk entflechten."
+    },
+    {
+      "id": "AF-AW-03",
+      "title": "Beton-Sandwich/Thermowand",
+      "category": "AUSSENWAND",
+      "direction": "innen nach außen bzw. Wohnung zu Nachbarwohnung",
+      "sequence": [
+        "Innere Betonschale",
+        "Ortbetonkern falls Halbfertigteil",
+        "Dämmung",
+        "Äußere Betonschale"
+      ],
+      "source_ids": [
+        "S01"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Fugen, Verbinder, Dämmstoff und selektiven Rückbau prüfen."
+    },
+    {
+      "id": "AF-WT-01",
+      "title": "Mineralische Wohnungstrennwand",
+      "category": "WOHNUNGSTRENNWAND",
+      "direction": "innen nach außen bzw. Wohnung zu Nachbarwohnung",
+      "sequence": [
+        "Oberfläche",
+        "schwere Beton- oder Schallschutzmauerwerkswand",
+        "optionale gedämmte entkoppelte Vorsatzschale",
+        "Oberfläche"
+      ],
+      "source_ids": [
+        "S26"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Tragende Wand begrenzt Zusammenlegung; Vorsatzschale nach Fachnachweis."
+    },
+    {
+      "id": "AF-WT-02",
+      "title": "Trockenbau-Wohnungstrennwand",
+      "category": "WOHNUNGSTRENNWAND",
+      "direction": "innen nach außen bzw. Wohnung zu Nachbarwohnung",
+      "sequence": [
+        "mehrlagige Gipsplatten",
+        "gedämmte akustisch getrennte Ständerkonstruktion",
+        "mehrlagige Gipsplatten"
+      ],
+      "source_ids": [
+        "S27",
+        "S28"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Schematische Alternative; nicht mit einfacher Wohnungsinnenwand verwechseln; exakte Systemzulassung offen."
+    },
+    {
+      "id": "AF-WT-03",
+      "title": "Mehrschalige Massivholztrennwand",
+      "category": "WOHNUNGSTRENNWAND",
+      "direction": "innen nach außen bzw. Wohnung zu Nachbarwohnung",
+      "sequence": [
+        "Bekleidung/Vorsatzschale je System",
+        "Massivholzschale",
+        "entkoppelte Zwischenlage bzw. zweites Wandsystem",
+        "Bekleidung je System"
+      ],
+      "source_ids": [
+        "S02",
+        "S27",
+        "S28"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Eibengasse 2x80mm betrifft Tragwerksangabe, kein kompletter Schall-/Brandnachweis."
+    },
+    {
+      "id": "AF-DE-01",
+      "title": "Stahlbetondecke mit schwimmendem Estrich",
+      "category": "DECKE",
+      "direction": "oben nach unten",
+      "sequence": [
+        "Bodenbelag",
+        "schwimmender Estrich",
+        "Trennlage",
+        "Trittschalldämmung",
+        "Ausgleichs-/Installationsschüttung",
+        "Stahlbetontragdecke",
+        "Spachtelung oder Unterdecke"
+      ],
+      "source_ids": [
+        "S01",
+        "S26"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Vorhandene Folienlagen projektbezogen; Reihenfolge keine universelle Ausführungsfreigabe."
+    },
+    {
+      "id": "AF-DE-02",
+      "title": "Holz-/CLT-Decke mit Akustikaufbau",
+      "category": "DECKE",
+      "direction": "oben nach unten",
+      "sequence": [
+        "Bodenbelag",
+        "Nass- ODER Trockenestrich",
+        "Trennlagen nach System",
+        "Trittschalldämmung",
+        "Beschwerung/Ausgleich",
+        "Holztragdecke",
+        "Sichtoberfläche ODER entkoppelte Unterdecke"
+      ],
+      "source_ids": [
+        "S02",
+        "S27",
+        "S28"
+      ],
+      "status": "DERIVED_FAMILY_REVIEW_PENDING",
+      "frequency": "NOT_ESTABLISHED",
+      "note": "Flanken, Fugen, Schüttung und elastische Lager projektbezogen prüfen."
+    }
+  ],
+  "systems": [
+    {
+      "id": "SYS-CAMUS",
+      "title": "Camus",
+      "description": "Tragende Beton-Großtafeln, teils Leitungen und Oberflächen integriert.",
+      "source_ids": [
+        "S11"
+      ],
+      "status": "HISTORICAL_REFERENCE",
+      "limits": "Patent 1948; keine belegte direkte Lizenzgenealogie zu Mischek."
+    },
+    {
+      "id": "SYS-MISCHEK",
+      "title": "Mischek Systembau",
+      "description": "Automatisierte Voll-/Halbfertigteilproduktion einschließlich BTA.",
+      "source_ids": [
+        "S10"
+      ],
+      "status": "ACTIVE_MANUFACTURER",
+      "limits": "Produktion ist kein Nachweis freier Grundrisse."
+    },
+    {
+      "id": "SYS-TETRIQX",
+      "title": "STRABAG Tetriqx",
+      "description": "Vorgeplante Wohnungstypen, industrielle Fertigung im Mischek-Werk.",
+      "source_ids": [
+        "S09"
+      ],
+      "status": "PRODUCT_REFERENCE",
+      "limits": "Spätere freie Umteilung nicht belegt; 1950 EUR/m² Preisstand 01.01.2025 nur 7 Geschosse/gewichtete Nutzfläche; zahlreiche Ausschlüsse."
+    },
+    {
+      "id": "SYS-PORR",
+      "title": "PORR Living",
+      "description": "Elementbaukasten, Holzrahmenfassade, integrierte Planung und Technikmodul INSTA-BLOC.",
+      "source_ids": [
+        "S06"
+      ],
+      "status": "PRODUCT_REFERENCE",
+      "limits": "Typenkombination ist nicht gleich späterer Umbaufreiheit; Herstellerangaben."
+    },
+    {
+      "id": "SYS-ACMS",
+      "title": "ACMS Variowohnen",
+      "description": "Betonstützen, flächenbündige Stahlträger, Spannbetonhohldielen, vorgefertigte Bäder.",
+      "source_ids": [
+        "S12"
+      ],
+      "status": "BUILT_REFERENCE",
+      "limits": "Bochum: größtenteils ohne tragende Innenwände; ca.10 Monate Zeitersparnis laut Büro."
+    },
+    {
+      "id": "SYS-SLIM",
+      "title": "SLIM BUILDING / HOME21",
+      "description": "Stahlstützen und STB-Elementdecken mit nichttragenden Außenwänden.",
+      "source_ids": [
+        "S16"
+      ],
+      "status": "BUILT_HISTORICAL_REFERENCE",
+      "limits": "Gewerbliche Nachnutzung geplant; tatsächlicher Umbau/Demontage nicht nachgewiesen."
+    },
+    {
+      "id": "SYS-SMARTPLUS",
+      "title": "trans_city SMART/PLUS",
+      "description": "Fixe Nassbereiche und kombinierbare Raummodule mit nutzungsoffenen Zusatzflächen.",
+      "source_ids": [
+        "S14"
+      ],
+      "status": "BUILT_HISTORICAL_REFERENCE",
+      "limits": "6,25m Raumtiefe; Zonierung ist projektspezifisch."
+    },
+    {
+      "id": "SYS-SKELETT",
+      "title": "Offener Skelettbau mit getrennten Schichten",
+      "description": "Tragwerk, Hülle, Ausbau und Technik als unterschiedlich langlebige Systeme.",
+      "source_ids": [
+        "S23"
+      ],
+      "status": "DERIVED_DESIGN_PRINCIPLE",
+      "limits": "Demontage, Wartung und Emissionsreduktion müssen konkret belegt werden."
+    }
+  ],
+  "projects": [
+    {
+      "id": "P-FAV250",
+      "title": "Favoritenstraße 250",
+      "owner": "W017 / WIGEBA-GESIBA",
+      "status": "PLANNED_COMPETITION_BASELINE",
+      "source_ids": [
+        "S01"
+      ],
+      "family_ids": [
+        "AF-AW-02",
+        "AF-AW-03",
+        "AF-DE-01"
+      ],
+      "notes": "5,40m Skelett; lokale Gurtstreifen. 14/15cm Deckentext uneinheitlich; kein freigegebener Endstand."
+    },
+    {
+      "id": "P-EIB-HOF",
+      "title": "Eibengasse Hoftrakt",
+      "owner": "W012 / ÖSW",
+      "status": "PLANNED_DRAFT_2026-11-11",
+      "source_ids": [
+        "S02"
+      ],
+      "family_ids": [
+        "AF-AW-02",
+        "AF-WT-03",
+        "AF-DE-02"
+      ],
+      "notes": "BSH/CLT, 160mm Regelgeschoss, 2x80mm CLT-Trennwand; Achs-/Brand-/Detailkonflikte offen."
+    },
+    {
+      "id": "P-EIB-STR",
+      "title": "Eibengasse Straßentrakt",
+      "owner": "W012 / ÖSW",
+      "status": "PLANNED_DRAFT_2026-11-11",
+      "source_ids": [
+        "S02"
+      ],
+      "family_ids": [
+        "AF-AW-02",
+        "AF-DE-01"
+      ],
+      "notes": "Betonfertigteiltragwerk; nichttragende Holzrahmenfassade; ältere Detailwerte nicht als aktuell freigeben."
+    },
+    {
+      "id": "P-EMMA",
+      "title": "Rote Emma",
+      "owner": "BWSG/MIGRA",
+      "status": "COMPLETED_2026",
+      "source_ids": [
+        "S03",
+        "S04",
+        "S05"
+      ],
+      "family_ids": [
+        "AF-AW-02"
+      ],
+      "notes": "360 geförderte Wohnungen; Betonskelett/Holzfassade und aktivierte Elementdecke; voller Boden-/Trennwandaufbau unbekannt."
+    },
+    {
+      "id": "P-ACMS-B",
+      "title": "ACMS Bochum",
+      "owner": "AKAFÖ",
+      "status": "COMPLETED_REFERENCE",
+      "source_ids": [
+        "S12"
+      ],
+      "family_ids": [],
+      "notes": "258 Wohnplätze; elementierter Hybridbau; variable Nachnutzung."
+    },
+    {
+      "id": "P-ACMS-W",
+      "title": "ACMS Wuppertal",
+      "owner": "Hochschul-Sozialwerk",
+      "status": "COMPLETED_REFERENCE",
+      "source_ids": [
+        "S13"
+      ],
+      "family_ids": [
+        "AF-AW-02"
+      ],
+      "notes": "132 Wohnplätze; kompakte Erschließung; Holzfassade."
+    },
+    {
+      "id": "P-LAA",
+      "title": "LAA Kurbadstraße BAG2",
+      "owner": "at home",
+      "status": "PLANNED_START_2026-10_NOT_INDEPENDENTLY_CONFIRMED",
+      "source_ids": [
+        "S15"
+      ],
+      "family_ids": [
+        "AF-AW-02"
+      ],
+      "notes": "Skelett; fixe Schächte; zonierte BTA und Trockenestrich; 143 Wohnungen."
+    },
+    {
+      "id": "P-LOR",
+      "title": "Lorenz-Reiter-Straße",
+      "owner": "MIGRA/HEIMBAU",
+      "status": "COMPLETED_2016_HISTORICAL_REFERENCE",
+      "source_ids": [
+        "S14"
+      ],
+      "family_ids": [],
+      "notes": "SMART/PLUS, 180 WE; keine Häufigkeitsstichprobe aktueller Projekte."
+    },
+    {
+      "id": "P-STA",
+      "title": "Stavangergasse",
+      "owner": "ARWAG/ÖVW",
+      "status": "COMPLETED_2018_HISTORICAL_REFERENCE",
+      "source_ids": [
+        "S17"
+      ],
+      "family_ids": [],
+      "notes": "AllSmart und Tandemwohnen; soziale Nähe und Privatheit."
+    },
+    {
+      "id": "P-SAT",
+      "title": "Satzingerweg",
+      "owner": "Neue Heimat",
+      "status": "COMPLETED_2017_HISTORICAL_REFERENCE",
+      "source_ids": [
+        "S18"
+      ],
+      "family_ids": [],
+      "notes": "10 Typologien, 2-3 Varianten; Betonwände und -decken."
+    },
+    {
+      "id": "P-FUX",
+      "title": "FUX",
+      "owner": "MIGRA/HEIMBAU",
+      "status": "COMPLETED_2016_SMALL_SPECIAL_TYPE",
+      "source_ids": [
+        "S19"
+      ],
+      "family_ids": [],
+      "notes": "Gemeinschaft/Rückzug vertikal; kein großvolumiger Wohnbau."
+    },
+    {
+      "id": "P-ASG",
+      "title": "Anton-Schall-Gasse",
+      "owner": "Siedlungsunion",
+      "status": "COMPLETED_2021_REFERENCE",
+      "source_ids": [
+        "S20"
+      ],
+      "family_ids": [],
+      "notes": "Betonstützen innen, Ziegelaußenwände, leichte Wohnungstrennwände."
+    },
+    {
+      "id": "P-V03",
+      "title": "Village im Dritten BF03",
+      "owner": "ARE",
+      "status": "WEBSITE_COMPLETION_2026-10",
+      "source_ids": [
+        "S21"
+      ],
+      "family_ids": [],
+      "notes": "Holzhybrid mit tragenden Holzfassaden und Betonmittelwand; hoher Vorfertigungsgrad belegt keine freie Umteilung."
+    },
+    {
+      "id": "P-KAPLAN",
+      "title": "Viktor-Kaplan-Straße",
+      "owner": "UBM/PORR",
+      "status": "PILOT_PLANNING_CONSTRUCTION_STATUS_NOT_RECHECKED",
+      "source_ids": [
+        "S29",
+        "S06"
+      ],
+      "family_ids": [
+        "AF-AW-02"
+      ],
+      "notes": "Pilot PORR Living laut a3; kein abgeschlossener Kosten-/Betriebsnachweis."
+    }
+  ],
+  "assemblies": [
+    {
+      "id": "AS-FAV-DE",
+      "project_id": "P-FAV250",
+      "family_id": "AF-DE-01",
+      "title": "FAV250 Wohnraumdecke",
+      "direction": "oben nach unten",
+      "source_id": "S01",
+      "locator": "Blatt03 DECKENAUFBAU",
+      "status": "DESIGN_NOT_APPROVED",
+      "layers": [
+        {
+          "ordinal": 1,
+          "material": "Fertigparkett",
+          "thickness_mm": 15,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 2,
+          "material": "Estrich mit Heizung/Kühlung",
+          "thickness_mm": 60,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 3,
+          "material": "Trittschalldämmung",
+          "thickness_mm": 30,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 4,
+          "material": "Schüttung",
+          "thickness_mm": 60,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 5,
+          "material": "Elementdecke",
+          "thickness_mm": 140,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 6,
+          "material": "Deckengurtstreifen",
+          "thickness_mm": 300,
+          "geometry": "local_rib_not_additive"
+        }
+      ],
+      "limits": "Gurtstreifen 750mm breit lokal; nicht als durchgehende Zusatzschicht summieren. Folien im Blatt nicht genannt. Fließtext nennt ca.15cm Decke."
+    },
+    {
+      "id": "AS-FAV-AW-HRW",
+      "project_id": "P-FAV250",
+      "family_id": "AF-AW-02",
+      "title": "FAV250 Holzrahmenfassade",
+      "direction": "innen nach außen",
+      "source_id": "S01",
+      "locator": "Blatt03 HOLZRIEGELWAND",
+      "status": "DESIGN_INCOMPLETE_AIRTIGHTNESS",
+      "layers": [
+        {
+          "ordinal": 1,
+          "material": "2x12,5mm Rigips Riduro",
+          "thickness_mm": 25,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 2,
+          "material": "KVH 60x240 und Glaswolle im Gefach",
+          "thickness_mm": 240,
+          "geometry": "parallel_frame_and_infill"
+        },
+        {
+          "ordinal": 3,
+          "material": "zusätzliche Glaswolle",
+          "thickness_mm": 80,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 4,
+          "material": "Holzfaser-Putzträgerplatte",
+          "thickness_mm": 40,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 5,
+          "material": "Putz",
+          "thickness_mm": 15,
+          "geometry": "continuous"
+        }
+      ],
+      "limits": "Gefachdämmung und Holzriegel liegen parallel, nicht doppelt zählen; Folien/Installationsebene nicht vollständig ausgewiesen."
+    },
+    {
+      "id": "AS-FAV-AW-BET",
+      "project_id": "P-FAV250",
+      "family_id": "AF-AW-03",
+      "title": "FAV250 Thermowand",
+      "direction": "innen nach außen",
+      "source_id": "S01",
+      "locator": "Blatt03 MASSIVWAND",
+      "status": "DESIGN_NOT_APPROVED",
+      "layers": [
+        {
+          "ordinal": 1,
+          "material": "innere Sichtbetonschale",
+          "thickness_mm": 60,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 2,
+          "material": "Ortbetonkern mit Gitterträgern",
+          "thickness_mm": 100,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 3,
+          "material": "Steinwolle werkseitig",
+          "thickness_mm": 120,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 4,
+          "material": "äußere Sichtbetonfertigteilschale hydrophobiert",
+          "thickness_mm": 70,
+          "geometry": "continuous"
+        }
+      ],
+      "limits": "Schalenverbinder, Lastabtragung und Rückbau nicht nachgewiesen."
+    },
+    {
+      "id": "AS-EIB-DE",
+      "project_id": "P-EIB-HOF",
+      "family_id": "AF-DE-02",
+      "title": "Eibengasse Rohdecke Hof",
+      "direction": "oben nach unten",
+      "source_id": "S02",
+      "locator": "Bauteil K",
+      "status": "PARTIAL_STRUCTURE_ONLY",
+      "layers": [
+        {
+          "ordinal": 1,
+          "material": "Fußboden-/Akustikaufbau",
+          "thickness_mm": null,
+          "geometry": "unknown"
+        },
+        {
+          "ordinal": 2,
+          "material": "CLT 5s Regelgeschoss",
+          "thickness_mm": 160,
+          "geometry": "continuous"
+        },
+        {
+          "ordinal": 3,
+          "material": "Unterseite/Bekleidung",
+          "thickness_mm": null,
+          "geometry": "unknown"
+        }
+      ],
+      "limits": "Kein vollständiger Schichtenaufbau; Dachflächen nicht mit Wohnraumdecken gleichsetzen."
+    },
+    {
+      "id": "AS-EIB-WT",
+      "project_id": "P-EIB-HOF",
+      "family_id": "AF-WT-03",
+      "title": "Eibengasse CLT Wohnungstrennwand",
+      "direction": "Wohnung nach Nachbarwohnung",
+      "source_id": "S02",
+      "locator": "Bauteil D",
+      "status": "PARTIAL_STRUCTURE_ONLY",
+      "layers": [
+        {
+          "ordinal": 1,
+          "material": "Bekleidung",
+          "thickness_mm": null,
+          "geometry": "unknown"
+        },
+        {
+          "ordinal": 2,
+          "material": "CLT 3s",
+          "thickness_mm": 80,
+          "geometry": "structural_shell"
+        },
+        {
+          "ordinal": 3,
+          "material": "Zwischenraum/Entkopplung",
+          "thickness_mm": null,
+          "geometry": "unknown"
+        },
+        {
+          "ordinal": 4,
+          "material": "CLT 3s",
+          "thickness_mm": 80,
+          "geometry": "structural_shell"
+        },
+        {
+          "ordinal": 5,
+          "material": "Bekleidung",
+          "thickness_mm": null,
+          "geometry": "unknown"
+        }
+      ],
+      "limits": "Tragende Wandschalen; keine freigegebene Gesamtkonstruktion oder Gebäudeakustik."
+    }
+  ],
+  "principles": [
+    "Langlebiges materialoptimiertes Primärtragwerk; Hülle, Ausbau und Technik getrennt.",
+    "Mechanische lösbare Fügung und dokumentierte Austausch-/Demontagewege.",
+    "Schadstoffarme Materialien und Holzschutz ohne unnötige chemische Behandlung; Reuse-Eignung prüfen.",
+    "GWP nur mit gleicher funktioneller Einheit, Mengenbasis und Bilanzgrenze vergleichen.",
+    "Vorfertigung, spätere Anpassbarkeit und Wiederverwendbarkeit getrennt nachweisen."
+  ],
+  "open_items": [
+    "Keine repräsentative Häufigkeitsstatistik.",
+    "FAV250 Planstand DWG/IFC 23.10.2026 nicht ausgewertet.",
+    "Eibengasse Achsen-/Brand-/Detailkonflikte nicht durch diese Wissensablage gelöst.",
+    "Rote Emma vollständige Boden- und Trennwand-Schichten fehlen.",
+    "SharePoint Recherche zweimal Connectorfehler; Ace kein Quellen-Suchbackend.",
+    "Ledgernummer durch zuständige Stelle offen; keine künstliche Nummer vergeben.",
+    "Quellenangaben aus tatsächlichen Abrufen im Chat; keine fachliche Freigabe oder unabhängiges Review."
+  ]
+}
