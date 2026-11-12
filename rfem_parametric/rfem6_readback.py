@@ -5,6 +5,7 @@ import argparse
 import json
 import math
 import os
+import sys
 from pathlib import Path
 
 from geometry import build_geometry, load_spec
@@ -37,15 +38,21 @@ def compare_member_topology(expected: list[dict], observed_members: list[object]
                             observed_lines: list[object]) -> dict:
     lines = {line.no: tuple(line.definition_nodes) for line in observed_lines}
     actual = {}
+    dangling = []
     for member in observed_members:
         ends = lines.get(member.line)
-        if ends is not None:
+        if ends is None:
+            dangling.append(member.no)
+        else:
             actual[member.no] = ends
     expected_map = {m["no"]: (m["start"], m["end"]) for m in expected}
     changed = [no for no, ends in expected_map.items() if actual.get(no) != ends]
     extras = sorted(actual.keys() - expected_map.keys())
-    return {"status": "MATCH" if not changed and not extras else "MISMATCH",
-            "changed_or_missing_ids": changed, "extra_ids": extras}
+    all_ids = {m.no for m in observed_members}
+    extras = sorted(all_ids - expected_map.keys())
+    return {"status": "MATCH" if not changed and not extras and not dangling else "MISMATCH",
+            "changed_or_missing_ids": changed, "extra_ids": extras,
+            "dangling_line_member_ids": sorted(dangling)}
 
 
 def readback(spec_path: Path, model_name: str, tolerance_m: float) -> dict:
@@ -89,6 +96,7 @@ def main() -> None:
         json.dump(result, stream, ensure_ascii=False, indent=2)
         stream.write("\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
+    sys.exit(0 if result["status"] == "PASS_GEOMETRY" else 2)
 
 
 if __name__ == "__main__":
