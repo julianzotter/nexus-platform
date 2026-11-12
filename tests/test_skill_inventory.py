@@ -62,10 +62,14 @@ class InventoryTests(unittest.TestCase):
 
     def test_crlf_inventory_preserves_raw_hash(self):
         import hashlib
-        p = write(self.root, "skills/crlf/SKILL.md", VALID.replace("\n", "\r\n"))
+        # write_bytes: text-mode write_text would turn "\r\n" into "\r\r\n" on Windows.
+        raw = VALID.replace("\n", "\r\n").encode("utf-8")
+        p = self.root / "skills/crlf/SKILL.md"
+        p.parent.mkdir(parents=True)
+        p.write_bytes(raw)
         rec = si.inventory_skill(p, self.root)
         self.assertEqual(rec["status"], "INCOMPLETE")
-        self.assertEqual(rec["sha256"], hashlib.sha256(p.read_bytes()).hexdigest())
+        self.assertEqual(rec["sha256"], hashlib.sha256(raw).hexdigest())
 
     def test_missing_name_is_invalid(self):
         text = "---\ndescription: only desc\n---\n"
