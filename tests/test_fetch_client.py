@@ -15,6 +15,17 @@ class FetchContracts(unittest.TestCase):
             with self.assertRaises((m.Blocked,ValueError)):m.checked_url(url,[])
         for response in [{'title':'Test','content':''},{'title':'Test','content':'x','truncated':True}]:
             with self.assertRaises(m.Blocked):m.normalize(response,'https://api-docs.deepseek.com/')
+    def test_callable_url_boundary_and_secret_redaction(self):
+        with patch.dict(os.environ,{'DEEPSEEK_API_KEY':'fixture'}),patch('urllib.request.build_opener') as network:
+            with self.assertRaises(m.Blocked):m.fetch('https://127.0.0.1/',30)
+            network.assert_not_called()
+        with patch.dict(os.environ,{'DEEPSEEK_API_KEY':'fixture\nsecret'}),patch('urllib.request.build_opener') as network:
+            with self.assertRaises(m.Blocked) as error:m.fetch('https://api-docs.deepseek.com/',30)
+            self.assertEqual(str(error.exception),'INVALID_CREDENTIAL_FORMAT')
+            network.assert_not_called()
+        with patch.dict(os.environ,{'DEEPSEEK_API_KEY':'fixture'}),patch('urllib.request.OpenerDirector.open',side_effect=ValueError('Bearer fixture-secret')):
+            with self.assertRaises(m.Blocked) as error:m.fetch('https://api-docs.deepseek.com/',30)
+            self.assertEqual(str(error.exception),'INVALID_HEADER_OR_PROVIDER_RESPONSE')
     def test_no_key_no_request(self):
         with patch.dict(os.environ,{},clear=True),patch('urllib.request.build_opener') as network:
             with self.assertRaises(m.Blocked):m.fetch('https://api-docs.deepseek.com/',30)

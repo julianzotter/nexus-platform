@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1.0",
+  "date": "2026-11-12",
+  "executor_instance": "/root",
+  "reviewer_instance": "/root/integration_review",
+  "status": "REVIEW_SNAPSHOT",
+  "offline_tests": {
+    "passed": 19,
+    "sdk_profile": "2.16.6",
+    "real_rfem_host": false
+  },
+  "review_history": [
+    "Material/analysis/hash and browser-bypass findings corrected; re-review PASS for offline scope.",
+    "Fetch callable URL/header-redaction findings reproduced, corrected and covered by regression test; final independent re-review PASS, 19/19 offline tests."
+  ],
+  "live_auth": "BLOCKED_DSH_STORE_NOT_AVAILABLE_ON_THIS_HOST",
+  "rfem_live": "NOT_RUN",
+  "work_registration": "REGISTRATION_PENDING",
+  "files": {
+    "integrations/deepseek-clients/fetch.py": "f3e164afad0ce86724802adcf165343156911af46c367efca8a92eae4b259cc1",
+    "orchestrator/nexus_orch/credentials.py": "d6c22a905df09696588f48b693c70c56c9a0f34f902fca7f6227549d3b4c9781",
+    "orchestrator/nexus_orch/deepseek.py": "0f30e90b8c0ec31996c6536ccd378b0eac9d5189f064e40cdab4e8784509c716",
+    "tests/test_fetch_client.py": "a0152da34852c2061e027f1d8717da7bd48b4c1ff0834d4df6228e1743e2a026",
+    "tools/rfem/rfem_frame_adapter.py": "e1473deb3fe9fda0e5628c35d1ed7f72bd25bc9f2f369f21bc318c082296ec60"
+  },
+  "independent_review_scope": "Offline source, tests and actual SDK object shapes with mocked host; no live authentication or engineering acceptance."
+}

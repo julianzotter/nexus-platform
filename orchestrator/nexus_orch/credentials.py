@@ -36,6 +36,8 @@ foreach($r in $a.Access){if($r.AccessControlType -eq 'Allow'){$sid=$r.IdentityRe
 def resolve_key(env_name: str, store: str | None = None, path: Path | None = None) -> str:
     key = os.environ.get(env_name)
     if key:
+        if len(key)>4096 or any(ord(c)<33 or ord(c)>126 for c in key):
+            raise CredentialError('INVALID_CREDENTIAL_FORMAT')
         return key
     if store != 'dsh' or env_name != 'DEEPSEEK_API_KEY':
         raise CredentialError('CREDENTIAL_BINDING_MISSING')

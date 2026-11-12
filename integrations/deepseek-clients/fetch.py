@@ -37,9 +37,11 @@ def normalize(data:dict,url:str)->dict:
             'sha256':hashlib.sha256(content.encode()).hexdigest(),'sha256_scope':'returned_markdown_utf8',
             'verification_status':'UNVERIFIED'}
 
-def fetch(url:str,timeout:float)->dict:
+def fetch(url:str,timeout:float,allow_hosts:list[str]|None=None)->dict:
+    url=checked_url(url,allow_hosts or [])
     key=os.environ.get('DEEPSEEK_API_KEY')
     if not key:raise Blocked('CREDENTIAL_BINDING_MISSING')
+    if len(key)>4096 or any(ord(c)<33 or ord(c)>126 for c in key):raise Blocked('INVALID_CREDENTIAL_FORMAT')
     if not 1<=timeout<=60:raise Blocked('INVALID_TIMEOUT')
     req=urllib.request.Request('https://api.deepseek.com/v1/tools/fetch',data=json.dumps({'url':url}).encode(),
         headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'},method='POST')
@@ -52,6 +54,7 @@ def fetch(url:str,timeout:float)->dict:
             return normalize(data,url)
     except urllib.error.HTTPError as e:raise Blocked(f'PROVIDER_HTTP_{e.code}_NOT_RETRIED') from None
     except (urllib.error.URLError,OSError,TimeoutError):raise Blocked('NETWORK_NOT_RETRIED') from None
+    except (ValueError,TypeError):raise Blocked('INVALID_HEADER_OR_PROVIDER_RESPONSE') from None
 
 def main()->int:
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--url',required=True)
@@ -63,7 +66,9 @@ def main()->int:
             print(json.dumps({'status':'DRY_RUN','endpoint':'https://api.deepseek.com/v1/tools/fetch','url':url}));return 0
         if not a.acceptance.strip():raise Blocked('ACCEPTANCE_REQUIRED')
         print(json.dumps({'status':'RESPONSE_RECEIVED','acceptance_criterion':a.acceptance,
-                          'acceptance_status':'NOT_EVALUATED',**fetch(url,a.timeout)},ensure_ascii=False));return 0
-    except (Blocked,ValueError) as e:
+                          'acceptance_status':'NOT_EVALUATED',**fetch(url,a.timeout,a.allow_host)},ensure_ascii=False));return 0
+    except Blocked as e:
         print(json.dumps({'status':'BLOCKED','reason':str(e)}));return 2
+    except (ValueError,TypeError):
+        print(json.dumps({'status':'BLOCKED','reason':'INVALID_INPUT_OR_RESPONSE'}));return 2
 if __name__=='__main__':raise SystemExit(main())

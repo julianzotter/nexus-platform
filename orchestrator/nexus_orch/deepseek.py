@@ -15,6 +15,8 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
         raise DeepSeekError('DEEPSEEK_REDIRECT_REJECTED')
 
 def request_json(path:str,key:str,payload:dict[str,Any]|None=None,timeout:float=45)->dict[str,Any]:
+    if not isinstance(key,str) or not key or len(key)>4096 or any(ord(c)<33 or ord(c)>126 for c in key):
+        raise DeepSeekError('INVALID_CREDENTIAL_FORMAT')
     if path not in ('/models','/chat/completions','/v1/tools/fetch'):
         raise DeepSeekError('ENDPOINT_NOT_ALLOWED')
     if not 1<=timeout<=60:raise DeepSeekError('INVALID_TIMEOUT')

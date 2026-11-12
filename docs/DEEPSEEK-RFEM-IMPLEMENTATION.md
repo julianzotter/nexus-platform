@@ -64,7 +64,7 @@ Erste registrierbare Toolkandidaten: `rfem_preflight_read`, `rfem_plan_frame`, `
 DeepSeek Chat und Fetch sind getrennte Basisslices. Responses wird als Vertrag vorbereitet, erst nach stabilem Live-Chat aktiviert. Normale modellgenerierte Tool-Roundtrips funktionieren auch mit Chat Completions; die dokumentierte Einschränkung betrifft extern eingefügte Tool-Calls mitten im Verlauf. Responses-Historie ist clientseitig vollständig mitzuführen; GitHub-/Context7-Tools benötigen ihre eigenen tatsächlichen Connectorrechte.
 
 ## 6. Nachweise und Grenzen
-Lokal: 12 Basis-/Security-/Geometrietests PASS; drei SDK-Tests separat mit echtem SDK und simuliertem Host; 17 RFEM-Protobuf-Objekte konstruiert und deterministisch serialisiert/rückgelesen. Das belegt SDK-Form und Mock-Verhalten, keinen RFEM-Serverlauf. Live-Credentials, Windows-ACL-Prüfung, RFEM-Verbindung, echtes `.rf6`, Solver und Ergebnisvergleich sind offen. Offizieller Harness-Gateway-Port lokal nicht bestätigt.
+Lokal: 16 Basis-/Security-/Geometrietests PASS; drei SDK-Tests separat mit echtem SDK und simuliertem Host; 17 RFEM-Protobuf-Objekte konstruiert und deterministisch serialisiert/rückgelesen. Das belegt SDK-Form und Mock-Verhalten, keinen RFEM-Serverlauf. Live-Credentials, Windows-ACL-Prüfung, RFEM-Verbindung, echtes `.rf6`, Solver und Ergebnisvergleich sind offen. Offizieller Harness-Gateway-Port lokal nicht bestätigt.
 
 ID01 vor Merge; unabhängiges versionsgebundenes Review. Bestehende WORK-Registry und Ledger beibehalten; diese Repository-Fassung ist REVIEW_SNAPSHOT / REGISTRATION_PENDING. Kein fremdes ACK, keine globale Synchronisation behauptet. DBHub bleibt SECURITY_BLOCKED bis gepatchte Version mindestens 0.22.6 plus tatsächlicher DB-Rechte-/Schreibnegativtest und Abnahme vorliegen.
 
