@@ -235,3 +235,8 @@ audit/
 .nexus-credentials/
 .nexus-state/
 mcp_bridge/.venv/
+
+# Isolated RFEM geometry outputs and local synthetic prompts
+.local-rfem-runs/
+.local-rfem-prompt.txt
+.venv-rfem/

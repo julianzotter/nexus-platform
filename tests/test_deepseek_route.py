@@ -1,7 +1,9 @@
-"""Expose DeepSeek contract checks to the main NEXUS unittest suite."""
+"""Expose PR83 checks without colliding with this wrapper's own module name."""
+import importlib.util
 from pathlib import Path
-import sys
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "deepseek_route_tests"))
-from test_deepseek_route import DeepSeekRouteTests  # noqa: F401
+path = Path(__file__).resolve().parents[1] / "deepseek_route_tests/test_deepseek_route.py"
+spec = importlib.util.spec_from_file_location("nexus_deepseek_contract", path)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+DeepSeekRouteTests = module.DeepSeekRouteTests

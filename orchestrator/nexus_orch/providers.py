@@ -1,5 +1,6 @@
 """Provider adapters (stdlib only). Sampling control depends on provider."""
 import base64, json, os, urllib.error, urllib.request
+from .dsh import complete as dsh_complete
 
 class ProviderError(RuntimeError):
     pass
@@ -28,6 +29,9 @@ class Provider:
             raise ProviderError(f"{self.name}: env {env} missing")
         return k
     def available(self):
+        if self.cfg.get("kind") == "dsh":
+            from .dsh import configured
+            return configured(self.cfg)  # Prerequisites only, not authenticated.
         try:
             self.key(); return True
         except ProviderError:
@@ -42,6 +46,8 @@ class Provider:
             raise ProviderError(f"{self.name}: parse error {type(e).__name__}: {e}") from e
 
     def _complete(self, prompt, system="", temperature=0.0):
+        if self.cfg["kind"] == "dsh":
+            return dsh_complete(self.cfg, prompt, system)
         post = lambda u, h, body: _post(u, h, body, self.cfg.get("timeout", 120))
         kind, base, model, key = self.cfg["kind"], self.cfg["base_url"], self.cfg["model"], self.key()
         if kind == "openai_compat":

@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "SYNTHETIC",
+  "units": "m",
+  "coordinate_system": "RFEM_GLOBAL_Z_DOWN",
+  "name": "SYNTHETIC_FRAME_NOT_W012",
+  "bays_x_m": [
+    4.0,
+    5.0
+  ],
+  "bays_y_m": [
+    3.0
+  ],
+  "storey_heights_m": [
+    3.0,
+    3.0
+  ],
+  "catalog": {
+    "rfem6_material": "S235",
+    "rfem5_material_text_id": "NameID|Steel S 235@TypeID|STEEL@StandardID|DIN EN 1993-1-1-10",
+    "section_columns": "IPE 100",
+    "section_beams": "IPE 100"
+  },
+  "source_refs": []
+}
