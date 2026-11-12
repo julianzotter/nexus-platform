@@ -89,3 +89,30 @@ license lock and explicit model readback; RFEM6 API-II server, SDK/build match,
 API entitlement, explicit model-id readback. Before any new-model write, a
 unique name must be verified against `get_model_list()` and returned object IDs
 must be checked by `get_object_list()`. The live writer currently fails closed.
+
+## Windows Gate 2: explicit read-only connection tests
+
+After refreshing this draft branch in an isolated Windows worktree, open the
+installed RFEM program and use the intended Python interpreter.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\rfem_parametric\Run-NexusRfemGates.ps1 `
+  -PythonExe python -OutputDir .\rfem_gate_run_001 -DeepSeekAuth -RFEM5Attach
+```
+
+DeepSeek authentication requires `DEEPSEEK_API_KEY` already in the process
+environment; the existing authorized DSH launcher must supply it. No `.dsh`
+file is read. RFEM5 probes only attachment to an already running COM server;
+the license and any actual model readback remain a separate gate.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\rfem_parametric\Run-NexusRfemGates.ps1 `
+  -PythonExe python -OutputDir .\rfem_gate_run_002 `
+  -RFEM6ModelName "EXACT_OPEN_MODEL_NAME" -ApprovedSpecJson .\W012_approved.json
+```
+
+RFEM6 requires an already running API-II server and matching `dlubal.api` SDK.
+The readback resolves a unique model name to its `ModelId.guid` and compares
+node coordinates and member line topology to the approved JSON. Its reports
+separate `BLOCKED` from `MISMATCH` and `PASS_GEOMETRY`. Load, support and design
+checks are excluded. No create, update, save, delete or solve calls are made.
