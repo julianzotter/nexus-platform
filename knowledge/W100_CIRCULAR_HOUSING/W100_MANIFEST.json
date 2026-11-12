@@ -1,0 +1,42 @@
+{
+  "package_id": "W100-CIRCULAR-HOUSING-20261112",
+  "version": "0.1.0",
+  "engineering_release": "NOT_GRANTED",
+  "files": [
+    {
+      "name": "26_11_12_1931_ID02_W100-CHAT-ERGEBNISSE_LEDGER-PENDING.md",
+      "bytes": 14154,
+      "sha256": "0fa8325b67b9e41d8f173988d4ff6621ac6fcad40edaf311372e3a11d4c57bb2"
+    },
+    {
+      "name": "W012_Knowledge_v0.3_W100_20261112.sqlite",
+      "bytes": 2248704,
+      "sha256": "eb397e02932f4c678d8502e88a79c16cb4cd86702f4584911a2c0d4cb33b8c17"
+    },
+    {
+      "name": "W100_AUFBAUFAMILIEN_v0.1.md",
+      "bytes": 4666,
+      "sha256": "031c5cf52119c5f348130945b9b52d71e0790b9daba34ca2eb77e1504f7495d6"
+    },
+    {
+      "name": "W100_BAUSYSTEME_v0.1.md",
+      "bytes": 3080,
+      "sha256": "96f4906b502970127ca052aa3b52b21d61659255ebcccc634ef3848ac48131d0"
+    },
+    {
+      "name": "W100_QA.json",
+      "bytes": 631,
+      "sha256": "237bb3308cc893b811a9bb795af17026f993f9fdfbef0f13d41fff5e53a95e18"
+    },
+    {
+      "name": "W100_data_v0.1.json",
+      "bytes": 34249,
+      "sha256": "6d33826df653e1e9bfe97f006c2d415ee5f6daf53d96f8439b2728136ad5e51a"
+    },
+    {
+      "name": "W100_import.sql",
+      "bytes": 32009,
+      "sha256": "ad8bf396a9764b25f99a23177029ffcdfd2f9714c0c5442f5b03588f18116ca8"
+    }
+  ]
+}
