@@ -343,6 +343,17 @@
       "evidence": "SOURCE_READ_IN_THIS_CHAT",
       "observed_at": "2026-11-12",
       "limits": "Quellenaussage, keine unabhängige Ausführungs- oder Leistungsprüfung."
+    },
+    {
+      "id": "S31",
+      "title": "20261112_1934_NEXUS_TIMBERLOOP_BAUTEILMATRIX.md",
+      "url": "https://docs.google.com/document/d/1EwMAA4i9yQ8jUfF6NDOR-dyYdFT2L1Pu6ReLaiMEluQ/edit",
+      "locator": "Tabellen und SQL/YAML",
+      "revision": "2026-11-12T18:35:33.367Z",
+      "visibility": "internal",
+      "evidence": "READ_UNVERIFIED_EXTERNAL_DRAFT",
+      "observed_at": "2026-11-12",
+      "limits": "Keine Berechnungs-/Prüfnachweise; nur 3 von 14 deklarierten Familien enthalten."
     }
   ],
   "families": [
@@ -988,5 +999,93 @@
     "SharePoint Recherche zweimal Connectorfehler; Ace kein Quellen-Suchbackend.",
     "Ledgernummer durch zuständige Stelle offen; keine künstliche Nummer vergeben.",
     "Quellenangaben aus tatsächlichen Abrufen im Chat; keine fachliche Freigabe oder unabhängiges Review."
+  ],
+  "external_intake": {
+    "source_url": "https://docs.google.com/document/d/1EwMAA4i9yQ8jUfF6NDOR-dyYdFT2L1Pu6ReLaiMEluQ/edit",
+    "source_title": "20261112_1934_NEXUS_TIMBERLOOP_BAUTEILMATRIX.md",
+    "source_mime": "text/plain",
+    "source_modified_at": "2026-11-12T18:35:33.367Z",
+    "declared_family_count": 14,
+    "documented_variant_count": 3,
+    "status": "UNVERIFIED_INDICATIVE_VALUES",
+    "scope": "Vorplanung; kein HFA-/TimberLoop-Kennwertnachweis",
+    "findings": [
+      "Datei ist ein natives Google Doc mit .md im Titel, keine Raw-Markdown-Datei.",
+      "Dokument enthält drei Varianten, nicht die vollständige Liste der 14 Familien.",
+      "4,5/5 ohne Einzelkriterien, Gewichtung oder Berechnungsprotokoll.",
+      "Dicken, U-Wert und Massen sind indikativ und ohne konkrete Schicht-/EPD-Nachweise.",
+      "SQL INSERT ohne Konfliktbehandlung nicht wiederholbar; Werte als TEXT ohne getrennte Einheiten.",
+      "m_A setzt Dicke in m und Rohdichte in kg/m3 voraus; bei Gefachen Flächenanteile berücksichtigen.",
+      "R_reuse muss Potenzial und tatsächlich wiederverwendete Masse unterscheiden; Systemgrenze und Nachweisstatus fehlen.",
+      "Prioritäten sind Nutzer-/Artefaktvorschläge, keine nachgewiesenen Empfehlungen des Forschungsprojekts TimberLoop."
+    ]
+  },
+  "candidates": [
+    {
+      "id": "EXT-AW-01",
+      "title": "AW-01 Holzrahmen + Zellulose/Holzfaser + VHF",
+      "status": "UNVERIFIED_INDICATIVE_VALUES",
+      "source_ids": [
+        "S31"
+      ],
+      "score_0_5": 4.5,
+      "thickness_mm_range": [
+        300,
+        420
+      ],
+      "u_w_m2k_range": [
+        0.12,
+        0.22
+      ],
+      "mass_kg_m2_range": [
+        60,
+        110
+      ],
+      "priority": "USER_PROPOSED",
+      "mapped_family_id": "AF-AW-02",
+      "mapping_status": "RELATED_NOT_IDENTICAL"
+    },
+    {
+      "id": "EXT-WTW-01",
+      "title": "WTW-01 Doppelständer-Holzwand",
+      "status": "UNVERIFIED_INDICATIVE_VALUES",
+      "source_ids": [
+        "S31"
+      ],
+      "score_0_5": 4.5,
+      "thickness_mm_range": [
+        260,
+        350
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        60,
+        110
+      ],
+      "priority": "USER_PROPOSED",
+      "mapped_family_id": "AF-WT-02",
+      "mapping_status": "RELATED_NOT_IDENTICAL"
+    },
+    {
+      "id": "EXT-GD-03",
+      "title": "GD-03 CLT + Trockenschüttung + Trockenestrich",
+      "status": "UNVERIFIED_INDICATIVE_VALUES",
+      "source_ids": [
+        "S31"
+      ],
+      "score_0_5": 4.5,
+      "thickness_mm_range": [
+        260,
+        450
+      ],
+      "u_w_m2k_range": null,
+      "mass_kg_m2_range": [
+        180,
+        350
+      ],
+      "priority": "USER_PROPOSED",
+      "mapped_family_id": "AF-DE-02",
+      "mapping_status": "RELATED_NOT_IDENTICAL"
+    }
   ]
 }
