@@ -212,6 +212,10 @@ Grenze: Tragende Wandschalen; keine freigegebene Gesamtkonstruktion oder Gebäud
 
 - [S30 W100 Vorfertigung PDF](https://drive.google.com/file/d/16Z9JFnIHd5eGeLQb-8il1zc0RQ2cHwvF/view) — Publikationsdatum unbekannt; Branchenposition; Druckseite 44; visuell und OCR gelesen; internal; am 12.11.2026 im Chat gelesen.
 
+- [S31 20261112_1934_NEXUS_TIMBERLOOP_BAUTEILMATRIX.md](https://docs.google.com/document/d/1EwMAA4i9yQ8jUfF6NDOR-dyYdFT2L1Pu6ReLaiMEluQ/edit) — 2026-11-12T18:35:33.367Z; Tabellen und SQL/YAML; internal; am 12.11.2026 im Chat gelesen.
+
+- [S32 Nutzerinput FULL CATALOG v2.0](user-provided:2026-11-12:timberloop-full-catalog-v2) — v2.0 / 12.11.2026; Aktuelle Chatnachricht, Tabelle/SQL/YAML; internal; am 12.11.2026 im Chat gelesen.
+
 ## Offene Punkte
 - Keine repräsentative Häufigkeitsstatistik.
 - FAV250 Planstand DWG/IFC 23.10.2026 nicht ausgewertet.
