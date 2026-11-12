@@ -84,5 +84,61 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(report["scope"], "structure_and_bytes_only")
 
 
+
+
+
+class SnapshotScopeTests(unittest.TestCase):
+    def test_manifest_verified_snapshot_is_archival_not_duplicate(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root, "skills/live/SKILL.md", VALID)
+            frozen = write(root, "skills/claude-ai/demo/SKILL.md", VALID)
+            digest = hashlib.sha256(frozen.read_bytes()).hexdigest()
+            write(root, "skills/claude-ai/MANIFEST.sha256", digest + "  ./demo/SKILL.md\n")
+            report = si.build_report(root)
+            self.assertEqual(report["duplicate_ids"], [])
+            archive = next(r for r in report["packages"] if "claude-ai" in r["path"])
+            self.assertEqual(archive["status"], "ARCHIVAL_SNAPSHOT")
+            self.assertEqual(archive["raw_structure_status"], "INCOMPLETE")
+            self.assertEqual(archive["sha256"], digest)
+
+    def test_changed_or_unmanifested_snapshot_is_invalid(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root, "skills/claude-ai/demo/SKILL.md", VALID)
+            for manifest in [None, "0" * 64 + "  demo/SKILL.md\n"]:
+                if manifest is not None:
+                    write(root, "skills/claude-ai/MANIFEST.sha256", manifest)
+                report = si.build_report(root)
+                self.assertEqual(report["packages"][0]["status"], "INVALID")
+
+    def test_duplicate_executable_candidates_remain_invalid(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root, "skills/a/SKILL.md", VALID)
+            write(root, "skills/b/SKILL.md", VALID)
+            report = si.build_report(root)
+            self.assertEqual(report["duplicate_ids"], ["demo-skill"])
+            self.assertTrue(all(r["status"] == "INVALID" for r in report["packages"]))
+
+
+class MixedScopeTests(unittest.TestCase):
+    def test_live_duplicates_do_not_invalidate_verified_archive(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root, "skills/a/SKILL.md", VALID)
+            write(root, "skills/b/SKILL.md", VALID)
+            frozen = write(root, "skills/claude-ai/demo/SKILL.md", VALID)
+            write(root, "skills/claude-ai/MANIFEST.sha256",
+                  hashlib.sha256(frozen.read_bytes()).hexdigest() + "  ./demo/SKILL.md\n")
+            report = si.build_report(root)
+            self.assertEqual(report["duplicate_ids"], ["demo-skill"])
+            archive = next(r for r in report["packages"] if "claude-ai" in r["path"])
+            self.assertEqual(archive["status"], "ARCHIVAL_SNAPSHOT")
+            self.assertNotIn("DUPLICATE_ID", archive["issues"])
+
+
 if __name__ == "__main__":
     unittest.main()

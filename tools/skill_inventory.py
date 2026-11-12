@@ -68,17 +68,46 @@ def inventory_skill(path: Path, root: Path = ROOT) -> dict[str, Any]:
 def find_duplicate_ids(records: list[dict[str, Any]]) -> list[str]:
     seen: dict[str, int] = {}
     for rec in records:
+        if rec.get("package_kind") == "ARCHIVAL_SNAPSHOT":
+            continue
         if rec["id"]:
             seen[rec["id"]] = seen.get(rec["id"], 0) + 1
     return sorted(k for k, n in seen.items() if n > 1)
 
 
+def classify_snapshot(record: dict[str, Any], root: Path) -> None:
+    """Only manifest-hash-verified frozen Claude artifacts are archival."""
+    rel = Path(record["path"])
+    snapshot_root = root / "skills" / "claude-ai"
+    if rel.parts[:2] != ("skills", "claude-ai"):
+        record["package_kind"] = "EXECUTABLE_CANDIDATE"
+        return
+    manifest = snapshot_root / "MANIFEST.sha256"
+    expected: dict[str, str] = {}
+    if manifest.is_file():
+        for line in manifest.read_text(encoding="utf-8").splitlines():
+            parts = line.split(maxsplit=1)
+            if len(parts) == 2:
+                expected[Path(parts[1].lstrip("*")).as_posix()] = parts[0]
+    snapshot_rel = (root / rel).relative_to(snapshot_root).as_posix()
+    record["raw_structure_status"] = record["status"]
+    if expected.get(snapshot_rel) == record["sha256"]:
+        record["package_kind"] = "ARCHIVAL_SNAPSHOT"
+        record["status"] = "ARCHIVAL_SNAPSHOT"
+    else:
+        record["package_kind"] = "UNVERIFIED_SNAPSHOT"
+        record["status"] = "INVALID"
+        record["issues"].append("SNAPSHOT_MANIFEST_HASH_MISSING_OR_MISMATCH")
+
+
 def build_report(root: Path = ROOT) -> dict[str, Any]:
     paths = sorted(root.glob("skills/**/SKILL.md"))
     records = [inventory_skill(p, root) for p in paths]
+    for record in records:
+        classify_snapshot(record, root)
     dups = find_duplicate_ids(records)
     for rec in records:
-        if rec["id"] in dups:
+        if rec["id"] in dups and rec.get("package_kind") != "ARCHIVAL_SNAPSHOT":
             rec["issues"].append("DUPLICATE_ID")
             rec["status"] = "INVALID"
     counts: dict[str, int] = {}
@@ -117,3 +146,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
