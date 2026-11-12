@@ -1,0 +1,365 @@
+{
+  "before_sha256": "89da01dabc0272d0bb2bd86e08e41ea47c69eb116dfbb83358ae62f724c8dbad",
+  "after_sha256": "c6409f54253f1163c53134dfc5c3011efa18ccc577670e97b42522393a5d28e6",
+  "before_events": 429,
+  "appended": 12,
+  "new_events": [
+    {
+      "artifact_id": "gdrive:1H8odmlPIuNwNgrHkbsvfAwbH2BkyUgEn",
+      "provider_file_id": "1H8odmlPIuNwNgrHkbsvfAwbH2BkyUgEn",
+      "name": "26_11_11_1310_ROLE-UNVERIFIED_WORK-INVENTORY_LEDGER-PENDING.json",
+      "canonical_uri": "https://drive.google.com/file/d/1H8odmlPIuNwNgrHkbsvfAwbH2BkyUgEn/view?usp=drivesdk",
+      "version": "1.0.0",
+      "provider_modified_at": "2026-11-11T12:10:24.875Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.734123+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "f6281dda9f6a79229c076ff5dad024aef2ab0361c841d1640a3b97da2428370b",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1cto-qnipO9lxWkmI33lH-UXbpt0ihCRR",
+      "provider_file_id": "1cto-qnipO9lxWkmI33lH-UXbpt0ihCRR",
+      "name": "26_11_11_1312_ROLE-UNVERIFIED_SCHEDULER-SOURCEPACK_LEDGER-PENDING.json",
+      "canonical_uri": "https://drive.google.com/file/d/1cto-qnipO9lxWkmI33lH-UXbpt0ihCRR/view?usp=drivesdk",
+      "version": "0.2.0",
+      "provider_modified_at": "2026-11-11T12:20:26.313Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.734684+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "dcb00018aefe9432d0d2627bf738e3ad5002969381d64a2c0e5a64007b5d856a",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ",
+      "provider_file_id": "1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ",
+      "name": "26_10_27_0915_ID03_AIM-NEXUS-KONZEPTREGISTER-v0.3.3_0101.md",
+      "canonical_uri": "https://drive.google.com/file/d/1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ/view",
+      "version": "0.3.4",
+      "provider_modified_at": "2026-11-11T12:04:42.749Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.734785+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "758125116263458f6d005e579bdc5f72053d89049c95f6e97a573b89fb592409",
+      "hash_scope": "complete_raw_file",
+      "legacy_ledger_artifact_id": "0101"
+    },
+    {
+      "artifact_id": "gdrive:13uKTtWHeK4Ki8v1nvcidLhhJSV6el6XW",
+      "provider_file_id": "13uKTtWHeK4Ki8v1nvcidLhhJSV6el6XW",
+      "name": "26_11_11_1302_ROLE-UNVERIFIED_AIM-v0.3.3-SNAPSHOT_LEDGER-PENDING.md",
+      "canonical_uri": "https://drive.google.com/file/d/13uKTtWHeK4Ki8v1nvcidLhhJSV6el6XW/view",
+      "version": "0.3.3",
+      "provider_modified_at": "2026-11-11T12:03:05.672Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.734859+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "d542089232e31bc3e27b76b8b990b69a11963a810564e9606f1b99a1c24b876b",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:19UILb_sDUzif4SLYGTdtOueofqqAUqVB",
+      "provider_file_id": "19UILb_sDUzif4SLYGTdtOueofqqAUqVB",
+      "name": "26_11_11_1322_ROLE-UNVERIFIED_PR75-SAFETY-REVIEW_UNREGISTERED.md",
+      "canonical_uri": "https://drive.google.com/file/d/19UILb_sDUzif4SLYGTdtOueofqqAUqVB/view?usp=drivesdk",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-11T12:23:30.388Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.734933+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "4327baf32ce8ec5ac45444102a5bf94a66ae6471f5ee5bd7399c224325b186a3",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1gt2XEe8R3_EX_4VLkQVtgFpdwa5QeiyF",
+      "provider_file_id": "1gt2XEe8R3_EX_4VLkQVtgFpdwa5QeiyF",
+      "name": "26_11_11_1322_ROLE-UNVERIFIED_PR75-ARCHITECTURE-REVIEW_LEDGER-PENDING.md",
+      "canonical_uri": "https://drive.google.com/file/d/1gt2XEe8R3_EX_4VLkQVtgFpdwa5QeiyF/view?usp=drivesdk",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-11T12:23:36.798Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.734995+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "4fcfa7909451a3dc9e35f9f67e85a145b72d456dce6faa40b6c53e38f9cd0b8d",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1DkuhS7alSvRHio0LswAYbT96i5jCiC4P",
+      "provider_file_id": "1DkuhS7alSvRHio0LswAYbT96i5jCiC4P",
+      "name": "github-scheduler-audit-evidence-20261111.json",
+      "canonical_uri": "https://drive.google.com/file/d/1DkuhS7alSvRHio0LswAYbT96i5jCiC4P/view?usp=drivesdk",
+      "version": "1.0.0",
+      "provider_modified_at": "2026-11-11T12:23:43.851Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.735276+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "d7e03c5fdfe299e5d79c31dfcc0f21bbb7b68a9fcad0a47686d12f2883e5aa25",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1j79qoIr63dnYpKmNn4kLmhzAmUu_uWc7",
+      "provider_file_id": "1j79qoIr63dnYpKmNn4kLmhzAmUu_uWc7",
+      "name": "26_11_11_1305_ROLE-UNVERIFIED_STATUSREPORT_SCHEDULER-INLINE-TEST_UNREGISTERED.md",
+      "canonical_uri": "https://drive.google.com/file/d/1j79qoIr63dnYpKmNn4kLmhzAmUu_uWc7/view",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-11T12:06:06.274Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.735409+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "1c5982f11a8dda38d8b89ca9f86d332aeafe939cff5254bda7e8f5fae89cf57f",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:163WUb_HcCp6pZQNtvu7WHXwpApw9ys_E",
+      "provider_file_id": "163WUb_HcCp6pZQNtvu7WHXwpApw9ys_E",
+      "name": "26_11_11_1316_ID-UNVERIFIED_NEXUS-LIFECYCLE_UNREGISTERED.md",
+      "canonical_uri": "https://drive.google.com/file/d/163WUb_HcCp6pZQNtvu7WHXwpApw9ys_E/view",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-11T12:16:57.309Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.735728+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "47cace75bb9b2d310a071a58453caeaee69c078522174235c05511130fc521ce",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4",
+      "provider_file_id": "1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4",
+      "name": "26_11_11_1326_ID02_SCHEDULER-ABNAHME_LEDGER-PENDING.md",
+      "canonical_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk",
+      "version": "1.1.0",
+      "provider_modified_at": "2026-11-11T12:31:18.411Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.735824+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "524dc93d32d957666b028b2557f638b7aa520499f20a045494a486f99a47fbc9",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:1P72R9N-JKGnjpr5HFy00lk4xqa4qeO9Y",
+      "provider_file_id": "1P72R9N-JKGnjpr5HFy00lk4xqa4qeO9Y",
+      "name": "26_11_11_1327_ID03_STATUSREPORT_NEXUS-CONSISTENCY-CHECK.md",
+      "canonical_uri": "https://drive.google.com/file/d/1P72R9N-JKGnjpr5HFy00lk4xqa4qeO9Y/view",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-11T12:27:49.163Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.735900+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "cb7d5034d33dfc97f22b8335c87ac2514a9216cf88766abea693887276e448e8",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "artifact_id": "gdrive:19gi9jN9S71ir_EdC5mOTUADVQI6dEfLr",
+      "provider_file_id": "19gi9jN9S71ir_EdC5mOTUADVQI6dEfLr",
+      "name": "26_11_11_1331_ID02_SCHEDULER-RUN-RECEIPTS_LEDGER-PENDING.json",
+      "canonical_uri": "https://drive.google.com/file/d/19gi9jN9S71ir_EdC5mOTUADVQI6dEfLr/view?usp=drivesdk",
+      "version": "1.0.0",
+      "provider_modified_at": "2026-11-11T12:31:45.586Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": "ID02",
+        "role_authority": "NEXUS-ROLES-v1.1 / Manifest §4",
+        "report_uri": "https://drive.google.com/file/d/1f4oF8axfoExzaA8vimLHwdFHq4dnPPv4/view?usp=drivesdk"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-11T12:32:38.735972+00:00",
+      "owner": "ID01",
+      "ticket_id": "nexus-platform#73",
+      "ledger_number": null,
+      "limitations": [
+        "Fortlaufende Ledgernummer nicht zugeteilt.",
+        "Registrierung ist keine Betriebs- oder Humanfreigabe."
+      ],
+      "sha256": "4ebb4aa95128fc2abcf31181b4972f132990dd08e1b3cf1e722611793ae6724f",
+      "hash_scope": "complete_raw_file"
+    }
+  ],
+  "concurrency_limitation": "compare-before-write; provider tool offers no atomic multi-writer lease",
+  "native_ticket_update_event": {
+    "artifact_id": "gdrive:1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE",
+    "provider_file_id": "1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE",
+    "name": "26_10_26_NEXUS_CONTROL_PLANE__TICKET_REGISTRY",
+    "canonical_uri": "https://docs.google.com/spreadsheets/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/edit?usp=drivesdk",
+    "version": "provider_modified_at:2026-11-11T12:35:30.938Z",
+    "provider_modified_at": "2026-11-11T12:35:30.938Z",
+    "provenance": {
+      "executor": "OpenAI Codex Work",
+      "executor_instance": "/root",
+      "role_id": "ID02",
+      "scope": [
+        "TICKETS!H20:K20",
+        "TICKETS!A29:K29"
+      ],
+      "representation": "canonical JSON of exact cell readback"
+    },
+    "verification_status": "CELL_READBACK_VERIFIED",
+    "registration_status": "REGISTERED",
+    "registered_at": "2026-11-11T12:36:58.280729+00:00",
+    "owner": "ID01",
+    "ticket_id": "nexus-platform#73",
+    "ledger_number": null,
+    "sha256": "ba20d11403bfa3b78458e80204bed9dc9ea8dda48c90ec6be56cd14c08107d8a",
+    "hash_scope": "changed_ranges_canonical_json_utf8_sorted_keys_no_whitespace",
+    "limitations": [
+      "Only the two changed ranges were byte-normalized; no whole-spreadsheet raw-file claim.",
+      "Fortlaufende Ledgernummer offen."
+    ]
+  },
+  "after_native_update_sha256": "b1fdf4dd02fcf7517c74d921dc53d12ba77f32015aef6ca42805bb8e84e59bb2"
+}

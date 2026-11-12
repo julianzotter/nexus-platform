@@ -1,0 +1,180 @@
+{
+  "bytes": 377044,
+  "sha256": "9b32afad90f5a822281e26cddfd251d7397f0fbe4f324ac60ec53ea7015b0c88",
+  "records": 415,
+  "parse_errors": [],
+  "missing_fields": {
+    "owner": 11
+  },
+  "ticket_null_without_limitations": [
+    343,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    384,
+    385,
+    386
+  ],
+  "selected": [
+    {
+      "line": 387,
+      "artifact_id": "gdrive:1nKZXgFhB7QFIrtLh4cXe1dDcOCYp9sng",
+      "provider_file_id": "1nKZXgFhB7QFIrtLh4cXe1dDcOCYp9sng",
+      "name": "26_11_10_1601_ROLE-UNVERIFIED_CLAUDE-INTERCONNECTIVITY_DECISIONS_UNREGISTERED.md",
+      "canonical_uri": "https://drive.google.com/file/d/1nKZXgFhB7QFIrtLh4cXe1dDcOCYp9sng/view?usp=drivesdk",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-10T15:02:27.787Z",
+      "provenance": {
+        "executor": "OpenAI Codex Work",
+        "executor_instance": "/root",
+        "role_id": null,
+        "github_review": "https://github.com/julianzotter/nexus-platform/pull/70"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-10T15:03:11.472Z",
+      "owner": "ID01",
+      "ticket_id": "WO-20261031-NEXUS-BOOTSTRAP-PERSONAL-SETTINGS",
+      "ledger_number": null,
+      "sha256": "c6864f93eb4ea65325f0e6014145e29fc1d2611ff3d9d1ab46416a92c1181c5a",
+      "hash_scope": "complete_raw_file"
+    },
+    {
+      "line": 388,
+      "artifact_id": "gdrive:1YOOUPB80tI6OgJH7172nPpyqFEY8EsAR",
+      "provider_file_id": "1YOOUPB80tI6OgJH7172nPpyqFEY8EsAR",
+      "name": "26_11_10_1602_ID06_WO-0-REUSE-CHECK+PROFILE-DRAFT_UNREGISTERED.md",
+      "canonical_uri": "https://drive.google.com/file/d/1YOOUPB80tI6OgJH7172nPpyqFEY8EsAR/view?usp=drivesdk",
+      "version": "0.1.0",
+      "provider_modified_at": "2026-11-10T15:02:55.012Z",
+      "provenance": {
+        "producer_role": "ID06",
+        "source": "Claude return, Drive and pinned PR #66 byte readback",
+        "github_review": "https://github.com/julianzotter/nexus-platform/pull/66"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED_DRIVE_GITHUB",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-10T16:31:52.678Z",
+      "owner": "ID01",
+      "ticket_id": "WO-20261031-NEXUS-BOOTSTRAP-PERSONAL-SETTINGS",
+      "ledger_number": null,
+      "hash_scope": "complete_raw_file",
+      "sha256": "58ac8c9eba439b0cc7f8b1910a7be91590165c438b7029591150609766de21f1"
+    },
+    {
+      "line": 389,
+      "artifact_id": "gdrive:1aZmOaz-WCfKgDO_2iyFoMTXAv9tQXgag",
+      "provider_file_id": "1aZmOaz-WCfKgDO_2iyFoMTXAv9tQXgag",
+      "name": "26_11_10_1601_ID06_CHAT-EXPORT-d96056dc_UNREGISTERED.md",
+      "canonical_uri": "https://drive.google.com/file/d/1aZmOaz-WCfKgDO_2iyFoMTXAv9tQXgag/view?usp=drivesdk",
+      "version": "1.0.0",
+      "provider_modified_at": "2026-11-10T15:02:51.872Z",
+      "provenance": {
+        "producer_role": "ID06",
+        "source": "Claude return, Drive and pinned PR #66 byte readback",
+        "github_review": "https://github.com/julianzotter/nexus-platform/pull/66"
+      },
+      "verification_status": "RAW_BYTE_READBACK_VERIFIED_DRIVE_GITHUB",
+      "registration_status": "REGISTERED",
+      "registered_at": "2026-11-10T16:31:52.678Z",
+      "owner": "ID01",
+      "ticket_id": "WO-20261031-NEXUS-BOOTSTRAP-PERSONAL-SETTINGS",
+      "ledger_number": null,
+      "hash_scope": "complete_raw_file",
+      "sha256": "293f26637a87cc959c6056a54f0edbe1f373c049d066bea4080021a651b18135"
+    }
+  ],
+  "sqlite_integrity": "ok",
+  "sqlite_records": 415,
+  "source_snapshots": {
+    "meta": [
+      {
+        "key": "agbs",
+        "id": "10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg",
+        "title": "_AGBS.md",
+        "version": "v005 FREIGEGEBEN_ID01",
+        "modified_at": "2026-11-02T18:24:59.764Z",
+        "url": "https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view",
+        "representation": "text/markdown",
+        "sha256": "4c454259b40b4174d2bb773660f54fa6fbd44a30e10b7f1f3c27925adc9445ea",
+        "bytes": 8008
+      },
+      {
+        "key": "front",
+        "id": "1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi",
+        "title": "_FRONTMATTER.md",
+        "version": "v005 ENTWURF",
+        "modified_at": "2026-11-02T18:37:16.906Z",
+        "url": "https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view",
+        "representation": "text/markdown",
+        "sha256": "8acd097743f4171c5ceabc383f1b349d9839c58ca8e04f6f3a549b10da8c5e52",
+        "bytes": 21199
+      },
+      {
+        "key": "baseline",
+        "id": "1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho",
+        "title": "00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28",
+        "version": "2026-09-28 ADOPTED + 2026-11-08 Nachtrag",
+        "modified_at": "2026-11-08T08:25:09.026Z",
+        "url": "https://docs.google.com/document/d/1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho/edit",
+        "representation": "text/plain",
+        "sha256": "f023ad5fa328b163dd3ae55d6f2f004ce24685f379dd9a8ab73ce8765a5ff448",
+        "bytes": 16887
+      }
+    ],
+    "small": [
+      {
+        "key": "export",
+        "id": "1aZmOaz-WCfKgDO_2iyFoMTXAv9tQXgag",
+        "title": "26_11_10_1601_ID06_CHAT-EXPORT-d96056dc_UNREGISTERED.md",
+        "url": "https://drive.google.com/file/d/1aZmOaz-WCfKgDO_2iyFoMTXAv9tQXgag/view",
+        "modified_at": "2026-11-10T15:02:51.872Z",
+        "sync": {
+          "exact": true,
+          "url": "https://github.com/julianzotter/nexus-platform/blob/2cd8be1ac6c6d2057ed3244a7e64a39ce455b332/reports/claude-ergo/26_11_10_1601_ID06_CHAT-EXPORT-d96056dc_UNREGISTERED.md",
+          "ref": "2cd8be1ac6c6d2057ed3244a7e64a39ce455b332"
+        },
+        "sha256": "293f26637a87cc959c6056a54f0edbe1f373c049d066bea4080021a651b18135",
+        "bytes": 11429
+      },
+      {
+        "key": "wo0",
+        "id": "1YOOUPB80tI6OgJH7172nPpyqFEY8EsAR",
+        "title": "26_11_10_1602_ID06_WO-0-REUSE-CHECK+PROFILE-DRAFT_UNREGISTERED.md",
+        "url": "https://drive.google.com/file/d/1YOOUPB80tI6OgJH7172nPpyqFEY8EsAR/view",
+        "modified_at": "2026-11-10T15:02:55.012Z",
+        "sync": {
+          "exact": true,
+          "url": "https://github.com/julianzotter/nexus-platform/blob/2cd8be1ac6c6d2057ed3244a7e64a39ce455b332/reports/claude-ergo/26_11_10_1602_ID06_WO-0-REUSE-CHECK%2BPROFILE-DRAFT_UNREGISTERED.md",
+          "ref": "2cd8be1ac6c6d2057ed3244a7e64a39ce455b332"
+        },
+        "sha256": "58ac8c9eba439b0cc7f8b1910a7be91590165c438b7029591150609766de21f1",
+        "bytes": 7982
+      },
+      {
+        "key": "matrix",
+        "id": "1nKZXgFhB7QFIrtLh4cXe1dDcOCYp9sng",
+        "title": "26_11_10_1601_ROLE-UNVERIFIED_CLAUDE-INTERCONNECTIVITY_DECISIONS_UNREGISTERED.md",
+        "url": "https://drive.google.com/file/d/1nKZXgFhB7QFIrtLh4cXe1dDcOCYp9sng/view",
+        "modified_at": "2026-11-10T15:02:27.787Z",
+        "sync": {
+          "exact": true,
+          "url": "https://github.com/julianzotter/nexus-platform/blob/61ec0c97e5e16a5c1f3ae0fbdfef467b09e0279e/docs/operations/2026-11-10/26_11_10_1601_ROLE-UNVERIFIED_CLAUDE-INTERCONNECTIVITY_DECISIONS_UNREGISTERED.md",
+          "ref": "61ec0c97e5e16a5c1f3ae0fbdfef467b09e0279e"
+        },
+        "sha256": "c6864f93eb4ea65325f0e6014145e29fc1d2611ff3d9d1ab46416a92c1181c5a",
+        "bytes": 3641
+      }
+    ]
+  },
+  "sqlite_latest_artifacts": 407,
+  "latest_missing_owner": 11,
+  "live_sqlite_connection": "NOT_VERIFIED",
+  "sqlite_scope": "temporary deterministic in-memory import of frozen JSONL snapshot"
+}
