@@ -7,6 +7,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(prog="nexus")
     sp = ap.add_subparsers(dest="cmd", required=True)
     sp.add_parser("status")
+    p = sp.add_parser("deepseek-auth", help="Explicit read-only DeepSeek model/auth probe")
+    p.add_argument("--execute", action="store_true")
     for c in ("run", "council"):
         p = sp.add_parser(c); p.add_argument("task"); p.add_argument("prompt"); p.add_argument("--system", default="")
     p = sp.add_parser("lesson"); [p.add_argument(f"--{k}", required=True) for k in ("agent", "context", "condition", "pattern", "evidence")]
@@ -18,8 +20,16 @@ def main(argv=None):
     sp.add_parser("eval-summary", help="vorhandene Berichte in evaluation/berichte auswerten")
     a = ap.parse_args(argv)
     o = Orchestrator()
+    if a.cmd == "deepseek-auth":
+        if not a.execute:
+            r = {"status": "NOT_RUN", "endpoint": "GET https://api.deepseek.com/models"}
+        else:
+            from .deepseek import models_probe
+            r = models_probe()
+        print(json.dumps(r, ensure_ascii=False, indent=2))
+        return 0 if r["status"] in ("NOT_RUN", "AUTHENTICATED") else 2
     if a.cmd == "status":
-        r = {"providers": {n: p.available() for n, p in o.providers.items()},
+        r = {"provider_status_scope": "credential_resolution_only_not_authentication", "providers": {n: p.available() for n, p in o.providers.items()},
              "routes": {k: o.chain(k) for k in o.cfg["routes"]}}
     elif a.cmd in ("run", "council"):
         try:

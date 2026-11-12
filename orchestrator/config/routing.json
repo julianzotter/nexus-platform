@@ -1,5 +1,5 @@
 {
-  "version": "1.2.1",
+  "version": "1.2.2-draft",
   "default_temperature": 0.0,
   "providers": {
     "perplexity": {
@@ -39,6 +39,32 @@
       "base_url": "https://vision.googleapis.com/v1",
       "model": "DOCUMENT_TEXT_DETECTION",
       "env_key": "GOOGLE_VISION_API_KEY"
+    },
+    "deepseek": {
+      "kind": "deepseek",
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-flash",
+      "env_key": "DEEPSEEK_API_KEY",
+      "credential_store": "dsh",
+      "thinking": {
+        "type": "disabled"
+      },
+      "reasoning_effort": "none",
+      "max_tokens": 2048,
+      "timeout": 45
+    },
+    "deepseek_review": {
+      "kind": "deepseek",
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-v4-pro",
+      "env_key": "DEEPSEEK_API_KEY",
+      "credential_store": "dsh",
+      "thinking": {
+        "type": "enabled"
+      },
+      "reasoning_effort": "high",
+      "max_tokens": 2048,
+      "timeout": 45
     }
   },
   "routes": {
@@ -103,6 +129,14 @@
       "fallback": [
         "gemini"
       ]
+    },
+    "deepseek_chat": {
+      "primary": "deepseek",
+      "fallback": []
+    },
+    "deepseek_review": {
+      "primary": "deepseek_review",
+      "fallback": []
     }
   },
   "privacy": {
