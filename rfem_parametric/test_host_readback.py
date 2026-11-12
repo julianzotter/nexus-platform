@@ -3,6 +3,7 @@ import unittest
 from types import SimpleNamespace
 
 from rfem6_readback import compare_nodes, compare_member_topology, unique_model_id
+from rfem6_collision import check_candidate
 
 
 class HostReadbackTests(unittest.TestCase):
@@ -12,6 +13,14 @@ class HostReadbackTests(unittest.TestCase):
         self.assertEqual(unique_model_id(SimpleNamespace(model_info=[model]), "TEST", common).guid, "id-1")
         with self.assertRaises(ValueError):
             unique_model_id(SimpleNamespace(model_info=[model, model]), "TEST", common)
+
+    def test_candidate_name_collision_fail_closed(self):
+        model = SimpleNamespace(name="NEXUS_W012_TEST_A", guid="id-1")
+        listing = SimpleNamespace(model_info=[model])
+        self.assertEqual(check_candidate(listing, "NEXUS_W012_TEST_A")["status"], "COLLISION")
+        self.assertEqual(check_candidate(listing, "NEXUS_W012_TEST_B")["status"],
+                         "NAME_AVAILABLE_NOT_RESERVED")
+        self.assertEqual(check_candidate(listing, "EXISTING")["status"], "REJECTED_PREFIX")
 
     def test_coordinate_comparison(self):
         expect = [{"no": 1, "x_m": 1.0, "y_m": 2.0, "z_m": 3.0}]
