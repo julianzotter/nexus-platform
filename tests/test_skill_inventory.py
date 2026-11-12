@@ -21,6 +21,11 @@ class ParseTests(unittest.TestCase):
         self.assertIsNone(err)
         self.assertEqual(fields["name"], "demo-skill")
 
+    def test_crlf_frontmatter(self):
+        fields, err = si.parse_frontmatter(VALID.replace("\n", "\r\n"))
+        self.assertIsNone(err)
+        self.assertEqual(fields["name"], "demo-skill")
+
     def test_missing_frontmatter(self):
         self.assertEqual(si.parse_frontmatter("# no fm")[1], "NO_FRONTMATTER")
 
@@ -54,6 +59,13 @@ class InventoryTests(unittest.TestCase):
         text = VALID.replace("---\n# Demo", "version: 1.0.0\nowner: julian\ntools: none\nruntime: any\n---\n# Demo")
         rec = si.inventory_skill(write(self.root, "skills/b/SKILL.md", text), self.root)
         self.assertEqual(rec["status"], "VALID_STRUCTURE")
+
+    def test_crlf_inventory_preserves_raw_hash(self):
+        import hashlib
+        p = write(self.root, "skills/crlf/SKILL.md", VALID.replace("\n", "\r\n"))
+        rec = si.inventory_skill(p, self.root)
+        self.assertEqual(rec["status"], "INCOMPLETE")
+        self.assertEqual(rec["sha256"], hashlib.sha256(p.read_bytes()).hexdigest())
 
     def test_missing_name_is_invalid(self):
         text = "---\ndescription: only desc\n---\n"
