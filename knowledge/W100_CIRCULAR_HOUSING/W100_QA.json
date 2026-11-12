@@ -1,0 +1,38 @@
+{
+  "integrity": "ok",
+  "foreign_key_errors": [],
+  "objects": 35,
+  "sources": 30,
+  "layers": 23,
+  "fts_query_results": [
+    [
+      "EXTRA:W012_PEER_REVIEW_FINAL.md"
+    ],
+    [
+      "W100-02"
+    ],
+    [
+      "W100:AF-DE-02"
+    ],
+    [
+      "W100:P-EIB-HOF"
+    ],
+    [
+      "W100:AS-EIB-DE"
+    ],
+    [
+      "W100:AS-EIB-WT"
+    ]
+  ],
+  "original_rows_preserved": {
+    "metadata": true,
+    "sources": true,
+    "records": true,
+    "record_sources": true,
+    "assemblies": true,
+    "layers": true,
+    "knowledge_metadata": true,
+    "knowledge_documents": true
+  },
+  "sql_replay_twice_object_count": 35
+}
