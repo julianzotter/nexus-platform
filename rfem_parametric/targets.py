@@ -19,8 +19,8 @@ def rfem6_objects(geometry: dict[str, Any], rfem: Any) -> list[Any]:
     core = rfem.structure_core
     objects = [core.Material(no=1, name=geometry["material"])]
     objects.extend((
-        core.Section(no=1, name=geometry["section_columns"], material=1),
-        core.Section(no=2, name=geometry["section_beams"], material=1),
+        core.CrossSection(no=1, name=geometry["section_columns"], material=1),
+        core.CrossSection(no=2, name=geometry["section_beams"], material=1),
     ))
     for node in geometry["nodes"]:
         objects.append(core.Node(no=node["no"], coordinate_1=node["x_m"],
@@ -29,17 +29,23 @@ def rfem6_objects(geometry: dict[str, Any], rfem: Any) -> list[Any]:
     for member in geometry["members"]:
         objects.append(core.Line(no=next_line, definition_nodes=[member["start"], member["end"]]))
         section = 1 if member["kind"] == "column" else 2
-        objects.append(core.Member(no=member["no"], line=next_line, section_start=section))
+        objects.append(core.Member(no=member["no"], line=next_line, cross_section_start=section))
         next_line += 1
     return objects
 
 
-def rfem6_new_model(geometry: dict[str, Any], model_name: str, app: Any, rfem: Any) -> None:
-    """Create a NEW model only; never activate/modify an existing model by ID."""
+def rfem6_new_model(geometry: dict[str, Any], model_name: str, app: Any, rfem: Any,
+                    *, allow_new_model: bool = False) -> Any:
+    """Explicitly gated NEW-model write; requires host-side uniqueness check."""
+    if not allow_new_model:
+        raise PermissionError("Live model creation requires separate explicit approval")
     if not model_name.startswith("NEXUS_W012_TEST_"):
         raise ValueError("Model name must carry isolated test prefix")
     if geometry["status"] != "GEOMETRY_ONLY_NO_SOLVER":
         raise ValueError("Unexpected geometry state")
     objects = rfem6_objects(geometry, rfem)
-    app.create_model(name=model_name)
-    app.create_object_list(objects)
+    # The caller must verify this proposed name does not collide with an open model.
+    # A host-specific uniqueness preflight and readback remain release gates.
+    model_id = app.create_model(name=model_name)
+    app.create_object_list(objs=objects, model_id=model_id, skip_invalid_attributes=False)
+    return model_id
