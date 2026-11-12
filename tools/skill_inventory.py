@@ -20,6 +20,7 @@ OPTIONAL = ("version", "owner", "tools", "runtime")
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str] | None, str | None]:
     """Parse a flat `key: value` YAML frontmatter block without external deps."""
+    text = text.replace("\r\n", "\n")
     if not text.startswith("---\n"):
         return None, "NO_FRONTMATTER"
     end = text.find("\n---", 4)
