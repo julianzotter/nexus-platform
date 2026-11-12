@@ -36,3 +36,8 @@ class HostReadbackTests(unittest.TestCase):
         self.assertEqual(compare_member_topology(expected, member, line)["status"], "MATCH")
         line[0].definition_nodes = [5, 3]
         self.assertEqual(compare_member_topology(expected, member, line)["status"], "MISMATCH")
+        line[0].definition_nodes = [3, 5]
+        member.append(SimpleNamespace(no=2, line=999))
+        result = compare_member_topology(expected, member, line)
+        self.assertEqual(result["status"], "MISMATCH")
+        self.assertEqual(result["dangling_line_member_ids"], [2])
