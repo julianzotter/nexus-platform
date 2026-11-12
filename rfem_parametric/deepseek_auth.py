@@ -3,8 +3,14 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import urllib.error
 import urllib.request
+
+
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
 
 
 def check_models() -> dict[str, object]:
@@ -17,7 +23,7 @@ def check_models() -> dict[str, object]:
         method="GET",
     )
     try:
-        with urllib.request.urlopen(req, timeout=15) as response:
+        with urllib.request.build_opener(NoRedirect).open(req, timeout=15) as response:
             payload = json.load(response)
             return {"status": "AUTH_OK" if response.status == 200 else "UNEXPECTED_STATUS",
                     "http_status": response.status,
@@ -30,4 +36,6 @@ def check_models() -> dict[str, object]:
 
 
 if __name__ == "__main__":
-    print(json.dumps(check_models(), indent=2, ensure_ascii=False))
+    result = check_models()
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    sys.exit(0 if result["status"] == "AUTH_OK" else 2)
