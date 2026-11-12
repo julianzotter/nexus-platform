@@ -29,6 +29,7 @@ FIELDS = ('nextPageToken,newStartPageToken,changes(fileId,removed,time,'
 class DriveReader:
     def __init__(self, token: str):
         self.token = token
+        self.operation = 'drive.reader.ready'
 
     def get(self, path: str, params: dict[str, str]) -> dict[str, Any]:
         import urllib.request
@@ -37,13 +38,16 @@ class DriveReader:
         return json.loads(retry(lambda: request_bytes(req)))
 
     def start_token(self) -> str:
+        self.operation = 'drive.changes.getStartPageToken'
         return self.get('/changes/startPageToken', {'supportsAllDrives': 'true'})['startPageToken']
 
     def changes(self, token: str) -> dict[str, Any]:
+        self.operation = 'drive.changes.list'
         return self.get('/changes', {'pageToken': token, 'fields': FIELDS, 'pageSize': '500',
                                      'supportsAllDrives': 'true', 'includeItemsFromAllDrives': 'true'})
 
     def parents(self, file_id: str) -> list[str]:
+        self.operation = 'drive.files.get_parents'
         return self.get(f'/files/{file_id}', {'fields': 'parents', 'supportsAllDrives': 'true'}).get('parents', [])
 
 
@@ -96,11 +100,13 @@ def main() -> int:
     args.out.mkdir(parents=True, exist_ok=True)
     now = datetime.now(timezone.utc).isoformat()
     state = json.loads(args.state.read_text()) if args.state.exists() else {}
+    reader = None
     try:
         reader = DriveReader(get_access_token())
         events, new_state = poll(reader, state, set(args.watch))
     except DeliveryError as exc:
-        report = {'status': 'BLOCKED', 'reason': str(exc), 'recorded_at': now}
+        report = {'status': 'BLOCKED', 'reason': str(exc), 'recorded_at': now,
+                  'operation': reader.operation if reader is not None else 'oauth.token_refresh'}
         (args.out / 'status.json').write_text(json.dumps(report, indent=2))
         print(json.dumps(report))
         return 2
@@ -117,3 +123,4 @@ def main() -> int:
 
 if __name__ == '__main__':
     raise SystemExit(main())
+

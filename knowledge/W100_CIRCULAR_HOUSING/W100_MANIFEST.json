@@ -1,0 +1,57 @@
+{
+  "package_id": "W100-CIRCULAR-HOUSING-20261112",
+  "version": "0.1.0+catalog2",
+  "engineering_release": "NOT_GRANTED",
+  "files": [
+    {
+      "name": "26_11_12_1931_ID02_W100-CHAT-ERGEBNISSE_LEDGER-PENDING.md",
+      "bytes": 14589,
+      "sha256": "68857f0f581f2b098eb3b89079a8a64180426378db04e36e7448de76e025db99"
+    },
+    {
+      "name": "W012_Knowledge_v0.3_W100_20261112.sqlite",
+      "bytes": 2301952,
+      "sha256": "43608d403716d321516e5f48166a49deb9af8c68d10b07428e661fa130843a49"
+    },
+    {
+      "name": "W100_AUFBAUFAMILIEN_v0.1.md",
+      "bytes": 4666,
+      "sha256": "031c5cf52119c5f348130945b9b52d71e0790b9daba34ca2eb77e1504f7495d6"
+    },
+    {
+      "name": "W100_BAUSYSTEME_v0.1.md",
+      "bytes": 3080,
+      "sha256": "96f4906b502970127ca052aa3b52b21d61659255ebcccc634ef3848ac48131d0"
+    },
+    {
+      "name": "W100_CATALOG14_v2.0_UNVERIFIED.md",
+      "bytes": 2806,
+      "sha256": "38e53ba9a8c5b61eabf338903c236c05e74a2fc9e84d33cdc45ce5097ca539f8"
+    },
+    {
+      "name": "W100_INDEX.md",
+      "bytes": 4649,
+      "sha256": "0f7ddb23ada7a19757599b0c088f1980b75e1b44f6ff8d80baacc0ce06a75f59"
+    },
+    {
+      "name": "W100_INTAKE_14_FAMILIEN_v0.1.md",
+      "bytes": 2083,
+      "sha256": "35a01a929dfcd0a67098cc2a1f1c45daf415d1f3444dcf5079caf4b558e4a5c9"
+    },
+    {
+      "name": "W100_QA.json",
+      "bytes": 667,
+      "sha256": "e786f0d5d9deea7b2659b0c4665d3db401ca54547ca04ae9c4e27fde9018c586"
+    },
+    {
+      "name": "W100_data_v0.1.json",
+      "bytes": 48300,
+      "sha256": "bccb8e975a54e823ee1ad7e3d4b3785c75a1d2b0299e235206188b84bf934d2b"
+    },
+    {
+      "name": "W100_import.sql",
+      "bytes": 44446,
+      "sha256": "795a1fd9ffe5445d119745195cb8cdbc98871a4ec43022c3c308b2f925028833"
+    }
+  ]
+}

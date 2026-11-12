@@ -1,0 +1,208 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "nexus-platform scheduler, WORK sync and repository audit",
+  "repository": "julianzotter/nexus-platform",
+  "observed_on": "2026-11-11",
+  "main": {
+    "sha": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+    "url": "https://github.com/julianzotter/nexus-platform/commit/434b77f5e50106dded4e86414b465c7c3f5448f8",
+    "deployment": "PR75 diagnostic squash, performed by parent"
+  },
+  "pull_requests": [
+    {
+      "number": 74,
+      "url": "https://github.com/julianzotter/nexus-platform/pull/74",
+      "head_sha": "fce439312bc4f812836984089dfcda1a715c0f30",
+      "state_at_review": "OPEN_DRAFT",
+      "change": "Align AGENTS.md with AGB v005 naming and separate role lookup from runtime",
+      "readback": "EXACT_MATCH",
+      "ci": {
+        "status": "SUCCESS",
+        "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43016682939/job/130509394262"
+      }
+    },
+    {
+      "number": 75,
+      "url": "https://github.com/julianzotter/nexus-platform/pull/75",
+      "head_sha": "9091dad4ab36e20e277a3f8c12b1fe5b9b7f7915",
+      "change": "Safe failing-operation labels for Drive auth check and poll",
+      "readback": "EXACT_MATCH_ALL_3_FILES",
+      "ci": {
+        "status": "SUCCESS",
+        "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43017433704/job/130511885348"
+      },
+      "deployment_status": "MERGED_BY_PARENT"
+    }
+  ],
+  "ci": {
+    "run_id": 43017927744,
+    "commit": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+    "status": "COMPLETED",
+    "conclusion": "SUCCESS",
+    "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43017927744"
+  },
+  "poll": {
+    "run_id": 42976319668,
+    "attempt": 3,
+    "job_id": 130513714120,
+    "run_metadata_original_head": "665906bf41e43a3b5f577b7417a08dbae573ff28",
+    "actual_checkout_log_sha": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+    "observed_at": "2026-11-11T12:10:03.8570736Z",
+    "report_recorded_at": "2026-11-11T12:10:03.767720+00:00",
+    "status": "BLOCKED",
+    "reason": "HTTP_400",
+    "operation": "oauth.token_refresh",
+    "checkpoint_save": "SKIPPED",
+    "url": "https://github.com/julianzotter/nexus-platform/actions/runs/42976319668",
+    "limitation": "Existing run was rerun; workflow checkout ref main executed newer code than original run metadata."
+  },
+  "delivery": {
+    "run_id": 43018007133,
+    "job_id": 130513840661,
+    "event": "workflow_run",
+    "actual_checkout_log_sha": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+    "observed_at": "2026-11-11T12:10:27.5679771Z",
+    "report_observed_at": "2026-11-11T12:10:27.298787+00:00",
+    "credential_source": "refresh_token",
+    "configured": true,
+    "missing_names": [],
+    "operation": "oauth.token_refresh",
+    "status": "BLOCKED",
+    "reason": "HTTP_400",
+    "write_test": "NOT_RUN",
+    "actual_delivery_step": "SKIPPED",
+    "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43018007133"
+  },
+  "monitor": {
+    "run_id": 43017927807,
+    "job_id": 130513573178,
+    "commit": "434b77f5e50106dded4e86414b465c7c3f5448f8",
+    "status": "INCOMPLETE",
+    "gate": "MONITOR_NOT_COMPLETE",
+    "observed_at": "2026-11-11T12:10:03.6762508Z",
+    "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43017927807",
+    "prior_artifact_evidence": {
+      "run_id": 42971784997,
+      "artifact_id": 13832469942,
+      "report_observed_at": "2026-11-11T06:21:07.248788+00:00",
+      "checks": {
+        "registry": "PASS",
+        "knowledge": "PASS",
+        "pull_requests": "PASS",
+        "coverage": "INCOMPLETE"
+      },
+      "limitation": "Prior artifact proves exact cause of prior monitor INCOMPLETE. New run status is verified from log, not assumed identical check breakdown."
+    }
+  },
+  "workflow_configuration": [
+    {
+      "path": ".github/workflows/nexus-monitor.yml",
+      "cadence": "17 * * * *",
+      "timezone": "UTC",
+      "events": [
+        "schedule",
+        "workflow_dispatch",
+        "push/main"
+      ]
+    },
+    {
+      "path": ".github/workflows/nexus-drive-poll.yml",
+      "cadence": "7,37 * * * *",
+      "timezone": "UTC",
+      "events": [
+        "schedule",
+        "workflow_dispatch",
+        "repository_dispatch:drive_change"
+      ],
+      "mode": "READ_ONLY_DRIVE"
+    },
+    {
+      "path": ".github/workflows/nexus-delivery.yml",
+      "events": [
+        "workflow_run:NEXUS Monitor completed/main",
+        "workflow_dispatch"
+      ],
+      "concurrency": "nexus-work-delivery-single-writer"
+    }
+  ],
+  "issue": {
+    "number": 73,
+    "url": "https://github.com/julianzotter/nexus-platform/issues/73",
+    "state_at_review": "OPEN",
+    "acceptance": [
+      "Persistent hourly GitHub/WORK/Critical Gates",
+      "Daily Lifecycle/Calendar",
+      "heartbeat",
+      "ACK",
+      "delta",
+      "CI",
+      "timestamps",
+      "fail-closed",
+      "safe append-only registry writeback with concurrent writer handling",
+      "independent ID03 review"
+    ]
+  },
+  "tests": {
+    "local_command": "python3 -m unittest discover -s tests -v",
+    "local_count": 32,
+    "local_result": "PASS",
+    "directory": "/workspace/scratch/9bfa104792af/drive-diag.qdgtr2",
+    "files": [
+      "tests/test_drive_operation_diagnostics.py",
+      "tests/test_drive_changes_poll.py",
+      "tests/test_deliver_work.py",
+      "tests/test_oauth_secret_setup.py"
+    ],
+    "runtime_note": "pytest module unavailable locally; equivalent existing unittest test classes executed successfully",
+    "readback_files": [
+      "tools/drive_auth_check.py",
+      "tools/drive_changes_poll.py",
+      "tests/test_drive_operation_diagnostics.py"
+    ]
+  },
+  "peer_review": {
+    "summary": "Parent reported two independent child reviews and parent review before diagnostic deployment. GitHub CodeRabbit skipped Drafts.",
+    "independent_review_paths": "Root to provide actual review evidence paths; this subagent did not independently inspect those review artifacts.",
+    "technical_release": "No engineering release asserted"
+  },
+  "oauth_diagnosis": {
+    "verified_operation": "POST https://oauth2.googleapis.com/token",
+    "before_drive_api": true,
+    "error_subtype": "UNKNOWN",
+    "credential_values": "NOT_READ_NOT_PRINTED",
+    "limitations": [
+      "HTTP400 does not establish invalid_grant vs invalid_client",
+      "Configured=true establishes nonempty variable presence only"
+    ],
+    "secure_helper": {
+      "path": "tools/configure_drive_oauth.py",
+      "new_consent": "--client-json <original Google Desktop OAuth client JSON> --publish",
+      "requirements": [
+        "installed client config",
+        "token_uri https://oauth2.googleapis.com/token",
+        "auth_uri Google OAuth allowlist",
+        "InstalledAppFlow with PKCE",
+        "local loopback server 127.0.0.1 dynamic port",
+        "offline consent returning refresh_token",
+        "drive scope",
+        "requires authenticated gh CLI for publishing"
+      ],
+      "existing_credentials": "--publish-existing --output <existing private OAuth JSON within checkout>",
+      "existing_requirements": [
+        "regular file, no symlink",
+        "inside repository checkout",
+        "owner-only permissions on POSIX",
+        "exact three nonempty single-line NEXUS_GOOGLE_* keys"
+      ],
+      "safety": "Secrets are sent to gh secret set through stdin, not command arguments; helper prints secret names and status only.",
+      "after_repair": "Read-only --check --require-write before poll and any delivery."
+    }
+  },
+  "registry_gate_note": {
+    "path": "tools/artifact_registry_gate.py",
+    "behavior": "Validates every historical record before selecting latest artifact event",
+    "append_only_correction_limitation": "Appending corrected records leaves historical missing owner errors in current history-wide validator",
+    "nulls": "owner:null and ticket_id:null pass presence-only validation",
+    "proposed_strategy": "Preserve immutable history and validate separately derived latest-per-artifact effective projection with versioned correction events and focused tests."
+  }
+}

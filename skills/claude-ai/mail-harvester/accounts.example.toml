@@ -1,0 +1,33 @@
+# mail-harvester accounts — copy to accounts.toml and adjust.
+# Passwords live ONLY in environment variables named below (see secrets.env.example).
+# Verified 2026: World4You IMAP = imap.world4you.com:993 (SSL); Gmail = imap.gmail.com:993.
+# `folders` is optional; if omitted, ALL folders of the mailbox are synced.
+
+[[account]]
+name = "zotterconsult"
+host = "imap.world4you.com"
+port = 993
+user = "office@zotterconsult.at"
+password_env = "MAIL_PASS_ZOTTERCONSULT"
+# folders = ["INBOX", "INBOX.Sent"]
+
+[[account]]
+name = "zotter-litschauer"
+host = "imap.world4you.com"
+port = 993
+user = "zt-office@zotter-litschauer.at"   # note the hyphen — the no-hyphen domain does not exist
+password_env = "MAIL_PASS_ZTLITSCHAUER"
+
+[[account]]
+name = "spline-zt"
+host = "imap.world4you.com"
+port = 993
+user = "j.zotter@spline-zt.at"
+password_env = "MAIL_PASS_SPLINE"
+
+[[account]]
+name = "gmail"
+host = "imap.gmail.com"
+port = 993
+user = "julian.zotter@gmail.com"
+password_env = "MAIL_PASS_GMAIL"          # Gmail App Password (16 chars), 2FA must be on
