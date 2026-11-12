@@ -1,6 +1,6 @@
 {
   "version": "1.2.1",
-  "default_temperature": 0.0,
+  "default_temperature": 0,
   "providers": {
     "perplexity": {
       "kind": "openai_compat",
@@ -39,6 +39,16 @@
       "base_url": "https://vision.googleapis.com/v1",
       "model": "DOCUMENT_TEXT_DETECTION",
       "env_key": "GOOGLE_VISION_API_KEY"
+    },
+    "deepseek": {
+      "kind": "openai_compat",
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-flash",
+      "env_key": "DEEPSEEK_API_KEY",
+      "supports_temperature": false,
+      "thinking": "disabled",
+      "max_tokens": 512,
+      "timeout": 30
     }
   },
   "routes": {
@@ -103,6 +113,10 @@
       "fallback": [
         "gemini"
       ]
+    },
+    "rfem_prompt": {
+      "primary": "deepseek",
+      "fallback": []
     }
   },
   "privacy": {
