@@ -43,9 +43,6 @@ def rfem6_new_model(geometry: dict[str, Any], model_name: str, app: Any, rfem: A
         raise ValueError("Model name must carry isolated test prefix")
     if geometry["status"] != "GEOMETRY_ONLY_NO_SOLVER":
         raise ValueError("Unexpected geometry state")
-    objects = rfem6_objects(geometry, rfem)
-    # The caller must verify this proposed name does not collide with an open model.
-    # A host-specific uniqueness preflight and readback remain release gates.
-    model_id = app.create_model(name=model_name)
-    app.create_object_list(objs=objects, model_id=model_id, skip_invalid_attributes=False)
-    return model_id
+    # Explicitly fail closed until host-side model-name collision checks and
+    # model-ID-bound object readback are implemented and tested on Windows.
+    raise NotImplementedError("Live API-II creation blocked pending host preflight and readback")
