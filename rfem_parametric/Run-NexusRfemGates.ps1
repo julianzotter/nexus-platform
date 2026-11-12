@@ -20,12 +20,12 @@ if ($LASTEXITCODE -ne 0) { throw "Preflight failed" }
 if ($LASTEXITCODE -ne 0) { throw "Offline tests failed" }
 if ($DeepSeekAuth) {
     & $PythonExe (Join-Path $scriptDir "deepseek_auth.py") |
-        Out-File -FilePath (Join-Path $outputAbs "deepseek_auth.json") -Encoding utf8 -NoClobber
+        Out-File -FilePath (Join-Path $outputAbs "deepseek_auth.json") -Encoding ascii -NoClobber
     if ($LASTEXITCODE -ne 0) { throw "DeepSeek authentication probe failed" }
 }
 if ($RFEM5Attach) {
     & $PythonExe (Join-Path $scriptDir "rfem5_probe.py") |
-        Out-File -FilePath (Join-Path $outputAbs "rfem5_probe.json") -Encoding utf8 -NoClobber
+        Out-File -FilePath (Join-Path $outputAbs "rfem5_probe.json") -Encoding ascii -NoClobber
     if ($LASTEXITCODE -ne 0) { throw "RFEM5 probe failed" }
 }
 if ($RFEM6ModelName) {
