@@ -3,7 +3,7 @@
 `AGENTS.md` is a stable-name entrypoint exception to the report timestamp rule.
 These instructions do not authenticate agents or constrain tools outside this repository.
 
-1. Read the complete current WORK `Folder.md` before action: https://drive.google.com/file/d/11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH/view. Follow its registry and current requirement links; read relevant original Work Orders, not memory snippets.
+1. Read the complete current WORK `Folder.md` before action: https://drive.google.com/file/d/1nDjF78dq3l8PGpXsauzBz1bzHescDSwv/view (current file discovered 2026-11-16; predecessor `11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH` is SUPERSEDED). Resolve the exact current `Folder.md` in WORK before each run; a renamed historical file is not current authority. Follow its registry and current requirement links; read relevant original Work Orders, not memory snippets.
 2. If live WORK access is unavailable, report that limitation immediately. A repository snapshot permits explicitly scoped local investigation; it is not evidence of current cloud-governance compliance.
 3. Establish shared scope, terminology, boundaries and observable acceptance criteria. Prefer one small executable slice and tests of behaviour.
 4. Publish WORK communication as actual UTF-8 Markdown, never a new Google Doc. Report names use `YY_MM_DD_HHMM_ID##_THEMA_###.md` (Europe/Vienna; artifact number from the existing ID ledger, never inferred from filenames); `Folder.md` and its stable log are documented exceptions.
@@ -26,3 +26,4 @@ Vor neuer Rollenentscheidung aktuellen Manifeststand lesen. Kennung ID02 in neue
 Publikation, Zustellung, ACK und unabhängige Prüfung getrennt erfassen. Die Bereitstellung allein belegt keine Kenntnisnahme anderer LLMs.
 Änderungsautorität: ausdrückliche ID01-Anweisung im Sprachdialog 2026-11-11 zur Ergänzung, Bekanntgabe, WORK/Frontmatter/AGB-Aktualisierung, GitHub-Synchronisierung, Sicherung und Ausrollung.
 Koordination: WO-20261111-ID02-PRIVATE-ROLLOUT. Geltung ausschließlich Rollenbezeichnung und deren Verteilung; keine technische Produktionsfreigabe.
+

@@ -52,7 +52,7 @@ class BootstrapContractTests(unittest.TestCase):
     def test_vienna_date_boundary_and_ledger_required(self):
         moment = datetime(2026, 10, 26, 23, 30, tzinfo=timezone.utc)
         self.assertEqual(report_filename('Befund.md', '0123', 'ID-03', moment),
-                         '26_10_27_0030_Befund_0123_ID03.md')
+                         '26_10_27_0030_ID03_Befund_0123.md')
         with self.assertRaisesRegex(ValueError, 'LEDGER'):
             report_filename('Befund.md', None, 'ID03')
 
