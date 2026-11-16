@@ -79,6 +79,13 @@ def append_event(client: Any, event: dict, write_mode: str) -> str:
     Compare-before-write detects observed conflicts only. Never claim this
     implements an exclusive writer, fencing, a lock, or distributed atomicity.
     """
+    if write_mode == 'conditional-cas':
+        from drive_conditional import ConditionalDrive, append_events
+        if not isinstance(client, ConditionalDrive):
+            raise DeliveryError('BLOCKED_CONDITIONAL_CLIENT_REQUIRED')
+        probe_event = getattr(client, 'probe_registration_event', None)
+        result = append_events(client, REGISTRY_ID, ([probe_event] if probe_event else []) + [event])
+        return result['registry_sha256']
     before = client.read(REGISTRY_ID)
     parsed = records(before)
     operations = [r for r in parsed if r.get('operation_id') == event['operation_id']]
@@ -132,7 +139,11 @@ def register_delivery(client: Any, receipt: dict, data: bytes, name: str,
         final_raw = client.read(REGISTRY_ID)
         latest = [r for r in records(final_raw)
                   if r.get('artifact_id') == event['artifact_id']]
-        if not latest or not same_event(latest[-1], event):
+        matches = bool(latest) and same_event(latest[-1], event)
+        if write_mode == 'conditional-cas' and latest:
+            from drive_conditional import registered_revision
+            matches = registered_revision(latest[-1], event)
+        if not matches:
             raise DeliveryError('REGISTRY_EVENT_CONFLICT')
         result.update(state='PERSISTED_VERIFIED', registration_status='REGISTERED',
                       registry_file_id=REGISTRY_ID, registry_sha256=hashlib.sha256(final_raw).hexdigest())

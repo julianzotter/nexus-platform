@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "ticket_id": "nexus-platform#73",
+  "ledger_report_id": "1M2ZvxwSuaIsKe_-VW_xiTWUCwBOGIXni",
+  "registry_file_id": "15m8T5cWbogIup9snzFwiB1g9HqNCoGow",
+  "ledger_file_id": "1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+  "source_ledger_sha256": "8b7cafe7f00d3e0b0db9792a1fe8c81fc258cc5de81e6760bcbfd24b37a89cff",
+  "artifacts": [
+    {
+      "file_id": "1Q-NimpW3jr1AdkOo1hnz2wVx2dqI3My4",
+      "name": "26_11_16_2205_ID06_REVIEW_MCP-SHORTLIST_0201.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:14.273Z",
+      "sha256": "9b39c0c40153a96d14cca407318d8d41a7a77ab8e2cd587a419af977f75eaa1b"
+    },
+    {
+      "file_id": "1mVg4XcIgX3r_P8Bi6wTaooSLjSKqiqK1",
+      "name": "26_11_16_2113_ID06_STATUSREPORT_CASEFLOW_0202.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:15.471Z",
+      "sha256": "5e9c7d0d706589b397f62bba194e2fec4ba98e2a39f14c982644950281af1984"
+    },
+    {
+      "file_id": "1Je9yTM1obFG89xbuhlW3YGF-XsVXzPii",
+      "name": "26_11_16_2220_ID06_AUDIT_GITHUB-DRIVE_0203.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:16.450Z",
+      "sha256": "9778f4c43d9746f1fee1d97da93f2f0cb3ca6123a5f01a94c11966d61afcfc44"
+    },
+    {
+      "file_id": "1iOqEs5b5t2u54WMRNqResX7BJ3HPn-7i",
+      "name": "26_11_16_2220_ID06_PLAN_RENAME_0204.csv",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:17.261Z",
+      "sha256": "263ab21c16766b51690bda272658d9b45c29a1aef29ba07fada23c2a948c187f"
+    },
+    {
+      "file_id": "1PmfzT9ZojAR49-CNn_zP3Z1EqWfdd4wM",
+      "name": "26_11_16_2235_ID06_SOFTWARE_DRIVE-OFFLINE-CHECK_0205.ps1",
+      "parent_id": "1fRa7rQvKi-BkhVIzjXPcY_u8iIJ4Vn5J",
+      "source_modified_at": "2026-11-16T21:50:18.614Z",
+      "sha256": "066afa7b53d59d3853e17363659d4ea04996699cbc2473a09b1213e59f3a8227"
+    },
+    {
+      "file_id": "1j8vrM0RoMRUb1q0X4dYEX4BU4B0UbAwd",
+      "name": "26_11_16_2240_ID06_ANALYSIS_OFFLINE-BRIDGE_0206.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:19.638Z",
+      "sha256": "97a59bb8953b204d81e02e1c63862bbf9865a88c748785e8ef3f2088532fb66a"
+    },
+    {
+      "file_id": "1P8_ggbe0D7pYZd8GdcIBTi8AlBUpRbJ0",
+      "name": "26_11_16_2230_ID06_STATUSREPORT_DRIVE-CLEANUP-GOV-MD_0207.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:21.030Z",
+      "sha256": "ddca0082df364e78b637225e3e832f250ab2c6ce8c1ea30b7451fedd8bf6be5a"
+    },
+    {
+      "file_id": "1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn",
+      "name": "00_NEXUS_MANIFEST__CURRENT__2026-09-28.md",
+      "parent_id": "1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV",
+      "source_modified_at": "2026-11-16T21:27:48.966Z",
+      "sha256": "cfcb2ea6088a474a6bb41654a86ed6de3e32e2b572aa57b9ce7ea6527238fdee"
+    },
+    {
+      "file_id": "1CdwNHr6i8lMG3k8A939kiznLMw8q7J69",
+      "name": "00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28.md",
+      "parent_id": "1j3FLJkWpQv6xGA_KO0D9sMyA11f0vxBV",
+      "source_modified_at": "2026-11-16T21:27:51.389Z",
+      "sha256": "015a635ff2745f6ae0bf61f02d3028039ea45acb86f24363db7185786d854858"
+    },
+    {
+      "file_id": "1M2ZvxwSuaIsKe_-VW_xiTWUCwBOGIXni",
+      "name": "26_11_16_2300_ID06_STATUSREPORT_ADMIN-RUN_0210.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:11.163Z",
+      "sha256": "aa2648127fb96426a6ccaf1432fe9ad3220b080264bde213494df26a20385b0e"
+    },
+    {
+      "file_id": "1nDjF78dq3l8PGpXsauzBz1bzHescDSwv",
+      "name": "Folder.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T21:50:06.607Z",
+      "sha256": "59340dd798d19862f12049c13ffd296a2629a38426232389d87c43e5b8ffb977"
+    },
+    {
+      "file_id": "1-N1JRwQsoTfHMZGQre6qKabGxfgf87h6",
+      "name": "26_11_16_2308_ID02_NEXUS-ADMIN-DEBUG_LEDGER-PENDING.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T22:08:24.518Z",
+      "sha256": "669ed6f5e6320156faa902d8aac860f0df624634b3ae552fe6e6e8bb96405ced"
+    }
+  ],
+  "technical_approval": false
+}

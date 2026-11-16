@@ -1,0 +1,40 @@
+name: NEXUS Control Register Repair
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nexus-drive-canonical-writer
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Validate credentials and WORK metadata
+        env:
+          NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
+          NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
+          NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
+        run: python tools/configure_drive_oauth.py --check --require-write --check-output reports/control-repair/preflight.json
+      - name: Repair with live stale-write and concurrent-write probe
+        env:
+          NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
+          NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
+          NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
+        run: python tools/repair_control_registers.py --apply
+      - name: Preserve receipts and immutable per-run preimages
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: nexus-control-repair-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/control-repair/
+          if-no-files-found: error
+          retention-days: 30

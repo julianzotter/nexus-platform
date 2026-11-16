@@ -4,6 +4,7 @@ import json
 import os
 from datetime import datetime, timezone
 from deliver_work import DriveClient, DeliveryError, WORK, get_access_token
+from oauth_errors import recovery_action
 
 NAMES = ('NEXUS_GOOGLE_CLIENT_ID', 'NEXUS_GOOGLE_CLIENT_SECRET', 'NEXUS_GOOGLE_REFRESH_TOKEN')
 
@@ -21,7 +22,7 @@ def check_access(require_write: bool = False, environ: dict[str, str] | None = N
                   folder_id=WORK, write_test='NOT_RUN', values_printed=False)
     if not presence['configured']:
         return dict(report, status='BLOCKED', reason='BLOCKED_DRIVE_CREDENTIALS')
-    report['operation'] = 'oauth.token_refresh'
+    report['operation'] = 'oauth.access_token_supplied' if presence['source'] == 'access_token' else 'oauth.token_refresh'
     try:
         client = DriveClient(get_access_token(environ))
         report['operation'] = 'drive.files.get_work_metadata'
@@ -36,5 +37,4 @@ def check_access(require_write: bool = False, environ: dict[str, str] | None = N
                     limitation='Metadata capability is not a byte-write/readback receipt.')
     except (DeliveryError, ValueError, OSError) as exc:
         reason = str(exc) if isinstance(exc, DeliveryError) else type(exc).__name__
-        return dict(report, status='BLOCKED', reason=reason)
-
+        return dict(report, status='BLOCKED', reason=reason, recovery_action=recovery_action(reason))

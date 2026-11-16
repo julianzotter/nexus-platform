@@ -22,6 +22,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 from delivery_errors import DeliveryError
+from oauth_errors import oauth_request
 
 DRIVE = 'https://www.googleapis.com/drive/v3'
 WORK = '1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP'
@@ -62,8 +63,8 @@ def get_access_token(environ: dict[str, str] | None = None) -> str:
         raise DeliveryError('BLOCKED_DRIVE_CREDENTIALS')
     payload = urllib.parse.urlencode(dict(zip(('client_id', 'client_secret', 'refresh_token'), values)) | {'grant_type': 'refresh_token'}).encode()
     req = urllib.request.Request('https://oauth2.googleapis.com/token', data=payload)
-    result = json.loads(retry(lambda: request_bytes(req)))
-    if not result.get('access_token'):
+    result = json.loads(retry(lambda: oauth_request(lambda: request_bytes(req))))
+    if not isinstance(result, dict) or not isinstance(result.get('access_token'), str) or not result['access_token'].strip():
         raise DeliveryError('OAUTH_TOKEN_MISSING')
     return result['access_token']
 
@@ -219,6 +220,12 @@ def download_artifact(repo: str, artifact: dict) -> bytes:
 def execute(args: argparse.Namespace, output: Path) -> dict:
     run, artifacts = collect_artifacts(args.repo, args.run_id)
     client = DriveClient(get_access_token())
+    if getattr(args, 'register', False) and args.registry_write_mode == 'conditional-cas':
+        from drive_conditional import ConditionalDrive
+        from repair_control_registers import source_event
+        client = ConditionalDrive(client, output / 'cas-probe.json')
+        probe = client.probe(args.folder)
+        client.probe_registration_event = source_event(client, {'file_id': probe['file_id'], 'sha256': probe['sha256']})
     receipts: list[dict] = []
     for artifact in artifacts:
         source_key = f"{args.repo}:{run['id']}:{run['run_attempt']}:{artifact['id']}"
@@ -257,6 +264,8 @@ def execute(args: argparse.Namespace, output: Path) -> dict:
 
 
 def failure_status(reason: str) -> str:
+    if reason.startswith(('OAUTH_HTTP_400', 'OAUTH_HTTP_401', 'OAUTH_HTTP_403')):
+        return 'BLOCKED'
     if reason.startswith('BLOCKED') or reason in {'HTTP_400', 'HTTP_401', 'HTTP_403', 'HTTP_404'}:
         return 'BLOCKED'
     if 'CONFLICT' in reason or 'DUPLICATE' in reason:
@@ -273,7 +282,7 @@ def main() -> int:
     parser.add_argument('--folder', default=WORK)
     parser.add_argument('--output', type=Path, default=Path('reports/delivery'))
     parser.add_argument('--register', action='store_true', help='Require existing-registry readback before full success')
-    parser.add_argument('--registry-write-mode', choices=('read-only', 'exclusive-writer'), default='read-only',
+    parser.add_argument('--registry-write-mode', choices=('read-only', 'exclusive-writer', 'conditional-cas'), default='read-only',
                         help='exclusive-writer requires externally established exclusivity; this flag is not a lock')
     parser.add_argument('--ticket-id')
     parser.add_argument('--owner', default='Julian Zotter')
