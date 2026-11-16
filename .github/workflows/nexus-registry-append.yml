@@ -1,0 +1,43 @@
+name: NEXUS Registry Append
+on:
+  workflow_dispatch:
+    inputs:
+      plan:
+        description: Path of a committed plan under registry/pending/
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: nexus-registry-single-writer
+  cancel-in-progress: false
+jobs:
+  append:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Validate plan path
+        env:
+          PLAN: ${{ inputs.plan }}
+        run: |
+          [[ "$PLAN" =~ ^registry/pending/[A-Za-z0-9_.-]+\.json$ && -f "$PLAN" ]] || exit 2
+          echo "PLAN=$PLAN" >> "$GITHUB_ENV"
+      - name: CAS append with raw readback (ledger fill + registry events)
+        env:
+          NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
+          NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
+          NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
+        run: python tools/registry_append.py --plan "$PLAN"
+      - if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: registry-append-result
+          path: reports/registry/append-result.json
+          if-no-files-found: warn
