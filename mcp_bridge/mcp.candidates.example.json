@@ -1,0 +1,25 @@
+{
+  "_status": "REVIEW_CANDIDATE 2026-11-16 - NOT ACTIVE. Pilot only after ID01 decision; see docs/integrations/2026-11-16-mcp-server-shortlist-review-candidate.md",
+  "_rules": "Pin exact versions before pilot (UNVERIFIED here). Read-only profiles. No secrets in this file. Copy entries into the client config manually; never merge into mcp.local.example.json without review.",
+  "mcpServers": {
+    "markitdown": {
+      "_prio": "P1",
+      "command": "markitdown-mcp",
+      "args": [],
+      "_install": "pip install markitdown-mcp==<PIN>",
+      "_constraint": "allow file: URIs from approved folders only; http(s) conversion = egress -> source-governance first"
+    },
+    "playwright": {
+      "_prio": "P1",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@<PIN>", "--isolated"],
+      "_constraint": "localhost / own artifacts only"
+    },
+    "dbhub-readonly": {
+      "_prio": "P2",
+      "command": "npx",
+      "args": ["-y", "@bytebase/dbhub@<PIN>", "--transport", "stdio", "--readonly", "--max-rows", "1000", "--dsn", "sqlite:///<PATH_TO_COPY_OF>/AnythingSearch.db"],
+      "_constraint": "operate on a copy; never a writable production DSN"
+    }
+  }
+}
