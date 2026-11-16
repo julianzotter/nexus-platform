@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Single-writer, compare-and-swap append to the canonical NEXUS registry files on Drive.
+"""Legacy offline plan helpers; direct CLI writes are retired.
 
 Writes in place (same Drive file ID) so references never break:
   1. ledger CSV  : fill-only patch of empty DRIVE_ID/SHA256 cells (never overwrites)
   2. file-registry.jsonl : append-only events, idempotent by (artifact_id, content_sha256)
-Each step: read raw bytes -> verify expected SHA256 (CAS) -> write -> raw readback check.
+Read/hash comparison alone is NOT atomic CAS. Use repair_control_registers.py
+for live mutations; these helpers require a probed ConditionalDrive writer.
 Placeholder "@SHA_OF:<drive_id>" in an event resolves to the live SHA256 of that file.
 """
 from __future__ import annotations
@@ -37,13 +38,17 @@ def sha(data: bytes) -> str:
 
 
 def cas_write(drive: Drive, file_id: str, expected: str | None, new: bytes, mime: str) -> dict[str, Any]:
-    """Write only if live bytes still match `expected`; verify raw readback."""
-    current = drive.read(file_id)
+    """Compatibility helper; never fall back to unconditional Drive replacement."""
+    from drive_conditional import ConditionalDrive
+    if not isinstance(drive, ConditionalDrive):
+        raise DeliveryError('BLOCKED_CONDITIONAL_CLIENT_REQUIRED')
+    snapshot = drive.snapshot(file_id)
+    current = snapshot.data
     if expected and sha(current) != expected:
         raise DeliveryError('CAS_CONFLICT')
     if new == current:
         return {'file_id': file_id, 'changed': False, 'sha256': sha(current)}
-    drive.replace(file_id, new, mime)
+    drive.replace_conditional(file_id, snapshot, new, mime)
     if sha(drive.read(file_id)) != sha(new):
         raise DeliveryError('READBACK_HASH_MISMATCH')
     return {'file_id': file_id, 'changed': True, 'before': sha(current), 'sha256': sha(new), 'bytes': len(new)}
@@ -115,13 +120,9 @@ def main() -> int:
     parser.add_argument('--plan', required=True, type=Path)
     parser.add_argument('--out', type=Path, default=Path('reports/registry/append-result.json'))
     args = parser.parse_args()
-    from deliver_work import DriveClient, get_access_token
-    plan = json.loads(args.plan.read_text(encoding='utf-8'))
     now = datetime.now(timezone.utc).isoformat()
-    try:
-        result = run(DriveClient(get_access_token()), plan, now)
-    except DeliveryError as exc:
-        result = {'status': 'BLOCKED', 'reason': str(exc), 'observed_at': now}
+    result = {'status': 'BLOCKED', 'reason': 'BLOCKED_LEGACY_WRITER_USE_REPAIR_CONTROL_REGISTERS',
+              'observed_at': now}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(result))

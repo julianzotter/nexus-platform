@@ -7,13 +7,26 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 from delivery_errors import DeliveryError
 from registry_append import append_events, cas_write, patch_ledger, run
+from drive_conditional import ConditionalDrive, Snapshot
 
 LEDGER = b'ID,TITLE,DRIVE_ID,SHA256\r\n0210,r,,SEE_REPORT_LOG\r\n0211,l,,\r\n'
 
 
-class FakeDrive:
+class FakeDrive(ConditionalDrive):
     def __init__(self, files):
         self.files = dict(files); self.writes = 0
+        self.client = self
+        self.probe_receipt = {'status': 'CAS_PROBE_PASS'}
+        self.probe_journal = None
+
+    def snapshot(self, file_id):
+        return Snapshot(self.read(file_id), '"' + sha(self.read(file_id)) + '"')
+
+    def replace_conditional(self, file_id, before, data, mime_type):
+        if before.etag != self.snapshot(file_id).etag:
+            raise DeliveryError('REGISTRY_SOURCE_CONFLICT')
+        self.replace(file_id, data, mime_type)
+        return sha(data)
 
     def read(self, file_id):
         return self.files[file_id]
@@ -27,6 +40,15 @@ def sha(b):
 
 
 class RegistryAppendTests(unittest.TestCase):
+    def test_unconditional_writer_is_rejected(self):
+        class UnsafeDrive:
+            def read(self, file_id):
+                return b'old'
+            def replace(self, *args):
+                raise AssertionError('Must not write without conditional support')
+        with self.assertRaisesRegex(DeliveryError, 'CONDITIONAL_CLIENT_REQUIRED'):
+            cas_write(UnsafeDrive(), 'f', sha(b'old'), b'new', 'text/plain')
+
     def test_ledger_fill_only_keeps_crlf(self):
         out = patch_ledger(LEDGER, {'0210': {'DRIVE_ID': 'X', 'SHA256': 'abc'}})
         self.assertIn(b'0210,r,X,abc\r\n', out)

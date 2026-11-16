@@ -18,9 +18,19 @@ ENV = {"GOOGLE_ACCESS_TOKEN": "TEST_ONLY_TOKEN"}
 class DriveOperationDiagnosticsTests(unittest.TestCase):
     def test_auth_refresh_error_identifies_operation_without_environment(self):
         with patch.object(drive_auth_check, "get_access_token", side_effect=DeliveryError("HTTP_400")):
-            result = drive_auth_check.check_access(environ=ENV)
+            result = drive_auth_check.check_access(environ={
+                'NEXUS_GOOGLE_CLIENT_ID': 'fixture-client',
+                'NEXUS_GOOGLE_CLIENT_SECRET': 'fixture-secret',
+                'NEXUS_GOOGLE_REFRESH_TOKEN': 'fixture-refresh',
+            })
         self.assertEqual(result["operation"], "oauth.token_refresh")
         self.assertEqual(result["reason"], "HTTP_400")
+        self.assertNotIn("TEST_ONLY_TOKEN", json.dumps(result))
+
+    def test_supplied_token_failure_is_not_claimed_as_refresh(self):
+        with patch.object(drive_auth_check, "get_access_token", side_effect=DeliveryError("HTTP_400")):
+            result = drive_auth_check.check_access(environ=ENV)
+        self.assertEqual(result["operation"], "oauth.access_token_supplied")
         self.assertNotIn("TEST_ONLY_TOKEN", json.dumps(result))
 
     def test_work_metadata_error_identifies_operation(self):
