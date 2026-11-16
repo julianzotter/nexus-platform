@@ -10,7 +10,7 @@ SOURCE_IDS = {
     'agbs': '10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg',
     'manifest': '1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg',
     'baseline': '1Ig0YFqbWji6B5-oOFcxuVpHb5GEBk0HlbJVz51rf9ho',
-    'folder': '11Z66aRKzFHfPp2rgUYl26Yd_kA46HWgH',
+    'folder': '1nDjF78dq3l8PGpXsauzBz1bzHescDSwv',
 }
 
 def policy_paths(work: Path, overrides: dict[str, str] | None = None) -> dict[str, str]:
@@ -73,4 +73,4 @@ def report_filename(topic: str, artifact_id: str, agent_id: str,
     if moment.tzinfo is None:
         raise ValueError('TIMEZONE_AWARE_TIMESTAMP_REQUIRED')
     stamp = moment.astimezone(ZoneInfo('Europe/Vienna')).strftime('%y_%m_%d_%H%M')
-    return f'{stamp}_{topic[:-3]}_{artifact_id}_{actor}.md'
+    return f'{stamp}_{actor}_{topic[:-3]}_{artifact_id}.md'
