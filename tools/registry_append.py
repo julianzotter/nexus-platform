@@ -48,6 +48,8 @@ def cas_write(drive: Drive, file_id: str, expected: str | None, new: bytes, mime
         raise DeliveryError('CAS_CONFLICT')
     if new == current:
         return {'file_id': file_id, 'changed': False, 'sha256': sha(current)}
+    if not expected:
+        raise DeliveryError('BLOCKED_EXPECTED_PREIMAGE_REQUIRED')
     drive.replace_conditional(file_id, snapshot, new, mime)
     if sha(drive.read(file_id)) != sha(new):
         raise DeliveryError('READBACK_HASH_MISMATCH')

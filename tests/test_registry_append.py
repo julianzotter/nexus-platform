@@ -40,6 +40,12 @@ def sha(b):
 
 
 class RegistryAppendTests(unittest.TestCase):
+    def test_changed_write_requires_derivation_preimage(self):
+        drive = FakeDrive({'f': b'concurrent'})
+        with self.assertRaisesRegex(DeliveryError, 'EXPECTED_PREIMAGE_REQUIRED'):
+            cas_write(drive, 'f', None, b'derived-from-old-state', 'text/plain')
+        self.assertEqual(drive.writes, 0)
+
     def test_unconditional_writer_is_rejected(self):
         class UnsafeDrive:
             def read(self, file_id):
