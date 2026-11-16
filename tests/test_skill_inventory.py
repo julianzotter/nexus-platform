@@ -102,3 +102,21 @@ class InventoryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ScopeDuplicateTests(unittest.TestCase):
+    def test_same_id_across_authoring_and_snapshot_is_mirror_not_duplicate(self):
+        recs = [{"id": "x", "path": "skills/x/SKILL.md", "sha256": "a"},
+                {"id": "x", "path": "skills/claude-ai/x/SKILL.md", "sha256": "b"}]
+        self.assertEqual(si.find_duplicate_ids(recs), [])
+        self.assertEqual(si.find_mirrored_ids(recs), [{"id": "x", "drift": True}])
+
+    def test_same_id_twice_in_authoring_is_still_duplicate(self):
+        recs = [{"id": "x", "path": "skills/x/SKILL.md"}, {"id": "x", "path": "skills/y/SKILL.md"}]
+        self.assertEqual(si.find_duplicate_ids(recs), ["x"])
+
+    def test_same_id_twice_in_snapshot_is_still_duplicate(self):
+        recs = [{"id": "x", "path": "skills/claude-ai/x/SKILL.md"},
+                {"id": "x", "path": "skills/claude-ai/_proposed/x/SKILL.md"}]
+        self.assertEqual(si.find_duplicate_ids(recs), ["x"])
+
