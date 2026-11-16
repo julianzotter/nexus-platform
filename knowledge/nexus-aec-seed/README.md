@@ -25,6 +25,7 @@ Source of authority: ID01 → CURRENT Manifest and Baseline → `_AGBS.md` v006 
 - `scripts/validate_seed.py`: checks uniqueness, referential integrity, HTTPS host identity, safe-access flags; optional separate, no-overwrite SQLite catalogue.
 - `scripts/validate_knowledge.py`: additional binding-date/Bundesland and canonical-unit/EPD-declared-unit checks. JSON Schema formal validation additionally requires a JSON Schema 2020-12 engine.
 - `scripts/meta_wissen_digest.py`: converts already source-verified observations into a reproducible weekly digest (dedup; no invented changes).
+- `scripts/rfem6_readonly_probe.py`: **offline** Windows/SDK identity check; opt-in `--live --ack-api-cost` calls only Dlubal's documented `Application.get_application_info()` and never changes or calculates a model. The live option is **not run** in this workspace and may incur API usage charges.
 - `tests/`: offline regression tests. Neither script crawls web sites or executes structural analyses.
 
 ## Source-of-truth and cross-reference rules
@@ -44,9 +45,11 @@ python -m unittest discover -s tests -v
 python scripts/validate_seed.py --seed seed/nexus_aec_top20_seed_v1.json
 python scripts/validate_seed.py --seed seed/nexus_aec_top20_seed_v1.json --sqlite /path/to/new-source-discovery.sqlite
 python scripts/meta_wissen_digest.py --observations /path/to/verified-observations.json --output /path/to/new-digest.md --as-of 2026-11-16T08:00:00+00:00
+python scripts/rfem6_readonly_probe.py
 ```
 
-The final two commands require user-supplied paths and verified observations; they are interface examples, not claims of execution.
+The SQLite and digest commands require an unused output path and, for the digest, source-verified observations; these are interface examples, not claims of execution.
+On the licensed Windows RFEM host, only after inspecting installed RFEM/SDK versions and API charging, the owner may explicitly run `python scripts/rfem6_readonly_probe.py --live --ack-api-cost`. This tests the application connection only; there is no model readback or solver result.
 
 ### Required next gates
 
