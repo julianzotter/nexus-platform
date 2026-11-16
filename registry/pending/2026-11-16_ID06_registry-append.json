@@ -1,0 +1,281 @@
+{
+ "ticket": "nexus-platform#94",
+ "ledger": {
+  "file_id": "1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+  "expected_sha256": "8b7cafe7f00d3e0b0db9792a1fe8c81fc258cc5de81e6760bcbfd24b37a89cff",
+  "fills": {
+   "0210": {
+    "DRIVE_ID": "1M2ZvxwSuaIsKe_-VW_xiTWUCwBOGIXni",
+    "SHA256": "aa2648127fb96426a6ccaf1432fe9ad3220b080264bde213494df26a20385b0e"
+   },
+   "0211": {
+    "DRIVE_ID": "1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+    "SHA256": "SELF_SEE_FILE_REGISTRY"
+   }
+  }
+ },
+ "registry": {
+  "file_id": "15m8T5cWbogIup9snzFwiB1g9HqNCoGow",
+  "expected_sha256": "e233e9acbeb835413f3a6950393e03028cdfd0aad4c7387e083440ef850d4eac",
+  "events": [
+   {
+    "artifact_id": "gdrive:1Q-NimpW3jr1AdkOo1hnz2wVx2dqI3My4",
+    "provider_file_id": "1Q-NimpW3jr1AdkOo1hnz2wVx2dqI3My4",
+    "name": "26_11_16_2205_ID06_REVIEW_MCP-SHORTLIST_0201.md",
+    "canonical_uri": "https://drive.google.com/file/d/1Q-NimpW3jr1AdkOo1hnz2wVx2dqI3My4/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "9b39c0c40153a96d14cca407318d8d41a7a77ab8e2cd587a419af977f75eaa1b",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0201"
+   },
+   {
+    "artifact_id": "gdrive:1mVg4XcIgX3r_P8Bi6wTaooSLjSKqiqK1",
+    "provider_file_id": "1mVg4XcIgX3r_P8Bi6wTaooSLjSKqiqK1",
+    "name": "26_11_16_2113_ID06_STATUSREPORT_CASEFLOW_0202.md",
+    "canonical_uri": "https://drive.google.com/file/d/1mVg4XcIgX3r_P8Bi6wTaooSLjSKqiqK1/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "5e9c7d0d706589b397f62bba194e2fec4ba98e2a39f14c982644950281af1984",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0202"
+   },
+   {
+    "artifact_id": "gdrive:1Je9yTM1obFG89xbuhlW3YGF-XsVXzPii",
+    "provider_file_id": "1Je9yTM1obFG89xbuhlW3YGF-XsVXzPii",
+    "name": "26_11_16_2220_ID06_AUDIT_GITHUB-DRIVE_0203.md",
+    "canonical_uri": "https://drive.google.com/file/d/1Je9yTM1obFG89xbuhlW3YGF-XsVXzPii/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "9778f4c43d9746f1fee1d97da93f2f0cb3ca6123a5f01a94c11966d61afcfc44",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0203"
+   },
+   {
+    "artifact_id": "gdrive:1iOqEs5b5t2u54WMRNqResX7BJ3HPn-7i",
+    "provider_file_id": "1iOqEs5b5t2u54WMRNqResX7BJ3HPn-7i",
+    "name": "26_11_16_2220_ID06_PLAN_RENAME_0204.csv",
+    "canonical_uri": "https://drive.google.com/file/d/1iOqEs5b5t2u54WMRNqResX7BJ3HPn-7i/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "263ab21c16766b51690bda272658d9b45c29a1aef29ba07fada23c2a948c187f",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0204"
+   },
+   {
+    "artifact_id": "gdrive:1PmfzT9ZojAR49-CNn_zP3Z1EqWfdd4wM",
+    "provider_file_id": "1PmfzT9ZojAR49-CNn_zP3Z1EqWfdd4wM",
+    "name": "26_11_16_2235_ID06_SOFTWARE_DRIVE-OFFLINE-CHECK_0205.ps1",
+    "canonical_uri": "https://drive.google.com/file/d/1PmfzT9ZojAR49-CNn_zP3Z1EqWfdd4wM/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "066afa7b53d59d3853e17363659d4ea04996699cbc2473a09b1213e59f3a8227",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0205"
+   },
+   {
+    "artifact_id": "gdrive:1j8vrM0RoMRUb1q0X4dYEX4BU4B0UbAwd",
+    "provider_file_id": "1j8vrM0RoMRUb1q0X4dYEX4BU4B0UbAwd",
+    "name": "26_11_16_2240_ID06_ANALYSIS_OFFLINE-BRIDGE_0206.md",
+    "canonical_uri": "https://drive.google.com/file/d/1j8vrM0RoMRUb1q0X4dYEX4BU4B0UbAwd/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "97a59bb8953b204d81e02e1c63862bbf9865a88c748785e8ef3f2088532fb66a",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0206"
+   },
+   {
+    "artifact_id": "gdrive:1P8_ggbe0D7pYZd8GdcIBTi8AlBUpRbJ0",
+    "provider_file_id": "1P8_ggbe0D7pYZd8GdcIBTi8AlBUpRbJ0",
+    "name": "26_11_16_2230_ID06_STATUSREPORT_DRIVE-CLEANUP-GOV-MD_0207.md",
+    "canonical_uri": "https://drive.google.com/file/d/1P8_ggbe0D7pYZd8GdcIBTi8AlBUpRbJ0/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "ddca0082df364e78b637225e3e832f250ab2c6ce8c1ea30b7451fedd8bf6be5a",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0207"
+   },
+   {
+    "artifact_id": "gdrive:1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn",
+    "provider_file_id": "1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn",
+    "name": "00_NEXUS_MANIFEST__CURRENT__2026-09-28.md",
+    "canonical_uri": "https://drive.google.com/file/d/1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "cfcb2ea6088a474a6bb41654a86ed6de3e32e2b572aa57b9ce7ea6527238fdee",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0208"
+   },
+   {
+    "artifact_id": "gdrive:1CdwNHr6i8lMG3k8A939kiznLMw8q7J69",
+    "provider_file_id": "1CdwNHr6i8lMG3k8A939kiznLMw8q7J69",
+    "name": "00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28.md",
+    "canonical_uri": "https://drive.google.com/file/d/1CdwNHr6i8lMG3k8A939kiznLMw8q7J69/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "015a635ff2745f6ae0bf61f02d3028039ea45acb86f24363db7185786d854858",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0209"
+   },
+   {
+    "artifact_id": "gdrive:1M2ZvxwSuaIsKe_-VW_xiTWUCwBOGIXni",
+    "provider_file_id": "1M2ZvxwSuaIsKe_-VW_xiTWUCwBOGIXni",
+    "name": "26_11_16_2300_ID06_STATUSREPORT_ADMIN-RUN_0210.md",
+    "canonical_uri": "https://drive.google.com/file/d/1M2ZvxwSuaIsKe_-VW_xiTWUCwBOGIXni/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "aa2648127fb96426a6ccaf1432fe9ad3220b080264bde213494df26a20385b0e",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Raw-byte SHA256 at upload; readback per admin report 0210"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0210"
+   },
+   {
+    "artifact_id": "gdrive:1nDjF78dq3l8PGpXsauzBz1bzHescDSwv",
+    "provider_file_id": "1nDjF78dq3l8PGpXsauzBz1bzHescDSwv",
+    "name": "Folder.md",
+    "canonical_uri": "https://drive.google.com/file/d/1nDjF78dq3l8PGpXsauzBz1bzHescDSwv/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "59340dd798d19862f12049c13ffd296a2629a38426232389d87c43e5b8ffb977",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "WORK policy file (stable-name exception); readback PASS"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94"
+   },
+   {
+    "artifact_id": "gdrive:1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+    "provider_file_id": "1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+    "name": "00_ID_LEDGER.csv",
+    "canonical_uri": "https://drive.google.com/file/d/1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "@SHA_OF:1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID06",
+     "executor": "Claude (claude.ai cloud session)",
+     "source_scope": "Hash resolved live after ledger fill-patch"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94",
+    "ledger_id": "0211"
+   },
+   {
+    "artifact_id": "gdrive:1-N1JRwQsoTfHMZGQre6qKabGxfgf87h6",
+    "provider_file_id": "1-N1JRwQsoTfHMZGQre6qKabGxfgf87h6",
+    "name": "26_11_16_2308_ID02_NEXUS-ADMIN-DEBUG_LEDGER-PENDING.md",
+    "canonical_uri": "https://drive.google.com/file/d/1-N1JRwQsoTfHMZGQre6qKabGxfgf87h6/view",
+    "version": "2026-11-16",
+    "provider_modified_at": "2026-11-16",
+    "content_sha256": "669ed6f5e6320156faa902d8aac860f0df624634b3ae552fe6e6e8bb96405ced",
+    "provenance": {
+     "ticket_id": "nexus-platform#94",
+     "actor": "ID02",
+     "executor": "OpenAI Codex /root",
+     "source_scope": "Hash from ID02 readback (PR #93); registered by ID06 writer, no ledger number"
+    },
+    "verification_status": "RAW_BYTE_SHA256_PASS; TECHNICAL_REVIEW_PENDING",
+    "registration_status": "REGISTERED_EVENT",
+    "owner": "Julian Zotter",
+    "ticket_id": "nexus-platform#94"
+   }
+  ]
+ }
+}
