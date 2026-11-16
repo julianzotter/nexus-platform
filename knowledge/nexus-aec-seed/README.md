@@ -26,6 +26,7 @@ Source of authority: ID01 → CURRENT Manifest and Baseline → `_AGBS.md` v006 
 - `scripts/validate_knowledge.py`: additional binding-date/Bundesland and canonical-unit/EPD-declared-unit checks. JSON Schema formal validation additionally requires a JSON Schema 2020-12 engine.
 - `scripts/meta_wissen_digest.py`: converts already source-verified observations into a reproducible weekly digest (dedup; no invented changes).
 - `scripts/rfem6_readonly_probe.py`: **offline** Windows/SDK identity check; opt-in `--live --ack-api-cost` calls only Dlubal's documented `Application.get_application_info()` and never changes or calculates a model. The live option is **not run** in this workspace and may incur API usage charges.
+- `config/meta_wissen_scheduler_contract_v1.json`: live-verified schedule IDs and disjoint owners for five timber-news sources and seven AEC official source-watch targets; scheduler tool remains the real state authority.
 - `tests/`: offline regression tests. Neither script crawls web sites or executes structural analyses.
 
 ## Source-of-truth and cross-reference rules
