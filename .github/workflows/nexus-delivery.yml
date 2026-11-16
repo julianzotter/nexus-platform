@@ -18,7 +18,7 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: nexus-work-delivery-single-writer
+  group: nexus-drive-canonical-writer
   cancel-in-progress: false
 jobs:
   deliver:
@@ -57,7 +57,7 @@ jobs:
           NEXUS_GOOGLE_CLIENT_ID: ${{ secrets.NEXUS_GOOGLE_CLIENT_ID }}
           NEXUS_GOOGLE_CLIENT_SECRET: ${{ secrets.NEXUS_GOOGLE_CLIENT_SECRET }}
           NEXUS_GOOGLE_REFRESH_TOKEN: ${{ secrets.NEXUS_GOOGLE_REFRESH_TOKEN }}
-        run: python tools/deliver_work.py --run-id "$SOURCE_RUN"
+        run: python tools/deliver_work.py --run-id "$SOURCE_RUN" --register --registry-write-mode conditional-cas --ticket-id 'nexus-platform#73' --owner ID02
       - name: Preserve receipts, failures and preallocated IDs
         if: ${{ always() }}
         uses: actions/upload-artifact@v6

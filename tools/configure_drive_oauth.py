@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import subprocess
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -13,15 +14,56 @@ REPO = 'julianzotter/nexus-platform'
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def write_private(path: Path, values: dict[str, str]) -> None:
+def write_private_bytes(path: Path, content: bytes) -> None:
     if path.is_symlink() or path.exists():
         raise ValueError('Refusing existing or symlink credential target')
     if ROOT not in path.resolve().parents:
         raise ValueError('Credential target must be inside this checkout')
     path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, 'O_NOFOLLOW', 0), 0o600)
-    with os.fdopen(fd, 'w', encoding='utf-8') as stream:
-        json.dump(values, stream)
+    try:
+        with os.fdopen(fd, 'wb') as stream:
+            if os.name == 'nt':
+                user = subprocess.run(['whoami'], capture_output=True, text=True)
+                if user.returncode or not user.stdout.strip():
+                    raise RuntimeError('Cannot establish Windows credential-file owner')
+                acl = subprocess.run(['icacls', str(path), '/inheritance:r', '/grant:r',
+                                      user.stdout.strip() + ':(F)'], capture_output=True)
+                if acl.returncode:
+                    raise RuntimeError('Cannot restrict Windows credential-file permissions')
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+    except BaseException:
+        path.unlink()
+        raise
+
+
+def write_private(path: Path, values: dict[str, str]) -> None:
+    write_private_bytes(path, json.dumps(values).encode('utf-8'))
+
+
+def renew_private(path: Path, values: dict[str, str], expected: bytes) -> Path:
+    """Serialize this local renewal, preserve prior bytes and atomically replace."""
+    read_existing(path)
+    lock = path.with_name(path.name + '.renew.lock')
+    lock_fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY | getattr(os, 'O_NOFOLLOW', 0), 0o600)
+    temporary = path.with_name(path.name + '.new-' + uuid.uuid4().hex)
+    previous = path.with_name(path.name + '.previous-' + uuid.uuid4().hex)
+    try:
+        if path.is_symlink() or path.read_bytes() != expected:
+            raise RuntimeError('Credential file changed during consent; retry renewal')
+        write_private_bytes(previous, expected)
+        write_private(temporary, values)
+        if path.is_symlink() or path.read_bytes() != expected:
+            raise RuntimeError('Credential file changed during renewal; original retained')
+        os.replace(temporary, path)
+        return previous
+    finally:
+        os.close(lock_fd)
+        if temporary.exists():
+            temporary.unlink()
+        lock.unlink()
 
 
 def publish_secrets(values: dict[str, str]) -> None:
@@ -39,9 +81,12 @@ def publish_secrets(values: dict[str, str]) -> None:
 
 
 def authorize(client_path: Path) -> dict[str, str]:
+    return authorize_config(json.loads(client_path.read_text()))
+
+
+def authorize_config(client: dict) -> dict[str, str]:
     # Optional setup-only dependency; normal CI/runtime does not need a browser or this library.
     from google_auth_oauthlib.flow import InstalledAppFlow
-    client = json.loads(client_path.read_text())
     config = client.get('installed', {})
     if config.get('token_uri') != 'https://oauth2.googleapis.com/token' or config.get('auth_uri') not in {
         'https://accounts.google.com/o/oauth2/auth', 'https://accounts.google.com/o/oauth2/v2/auth'}:
@@ -74,20 +119,24 @@ def main() -> int:
     parser.add_argument('--client-json', type=Path)
     parser.add_argument('--output', type=Path, default=ROOT / '.nexus-credentials/drive-oauth.json')
     parser.add_argument('--publish', action='store_true')
+    parser.add_argument('--renew', action='store_true', help='Renew consent using the existing private client; preserve previous credentials and replace only after WORK preflight')
     parser.add_argument('--publish-existing', action='store_true', help='Publish an existing private OAuth file; no new browser consent')
     parser.add_argument('--check', action='store_true', help='Read-only token refresh and exact WORK-folder access check')
     parser.add_argument('--require-write', action='store_true', help='Also require provider canAddChildren metadata; performs no write')
     parser.add_argument('--check-output', type=Path)
     parser.add_argument('--openai-env', type=Path, help='Install existing OPENAI_API_KEY from a local env file')
     args = parser.parse_args()
-    if sum(bool(x) for x in (args.check, args.publish_existing, args.openai_env, args.client_json)) != 1:
-        parser.error('Choose exactly one: --check, --publish-existing, --client-json, --openai-env')
+    if sum(bool(x) for x in (args.check, args.publish_existing, args.openai_env, args.client_json or args.renew)) != 1:
+        parser.error('Choose exactly one: --check, --publish-existing, --client-json/--renew, --openai-env')
+    if args.renew and (args.check or args.publish_existing or args.openai_env):
+        parser.error('--renew is a consent operation, not a check or existing-secret publication')
     if args.check:
         from drive_auth_check import check_access
         from deliver_work import save_json
         environment = dict(os.environ)
         if args.output.exists():
             environment.update(read_existing(args.output))
+            environment.pop('GOOGLE_ACCESS_TOKEN', None)
         report = check_access(args.require_write, environment)
         if args.check_output:
             save_json(args.check_output, report)
@@ -101,13 +150,46 @@ def main() -> int:
         values = dict(line.split('=', 1) for line in args.openai_env.read_text().splitlines() if '=' in line and not line.startswith('#'))
         publish_secrets({'OPENAI_API_KEY': values.get('OPENAI_API_KEY', '').strip()})
         return 0
-    values = authorize(args.client_json)
-    write_private(args.output, values)
+    previous = read_existing(args.output) if args.renew else None
+    expected = args.output.read_bytes() if args.renew else None
+    if not args.renew and args.output.exists():
+        raise ValueError('Credential file exists; use --renew for fresh consent')
+    if args.client_json:
+        values = authorize(args.client_json)
+    else:
+        values = authorize_config({'installed': {
+            'client_id': previous['NEXUS_GOOGLE_CLIENT_ID'],
+            'client_secret': previous['NEXUS_GOOGLE_CLIENT_SECRET'],
+            'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
+            'token_uri': 'https://oauth2.googleapis.com/token',
+            'redirect_uris': ['http://localhost'],
+        }})
+    from drive_auth_check import check_access
+    # Exact candidate credentials only: a stale GOOGLE_ACCESS_TOKEN must not mask failure.
+    preflight = check_access(True, values)
+    if preflight['status'] != 'READ_ACCESS_VERIFIED':
+        print(json.dumps(preflight))
+        return 2
+    snapshot = renew_private(args.output, values, expected) if args.renew else None
+    if not args.renew:
+        write_private(args.output, values)
     if args.publish:
         publish_secrets(values)
-    print(json.dumps({'credential_file': str(args.output), 'oauth_complete': True, 'published': args.publish, 'values_printed': False}))
+    print(json.dumps({'credential_file': str(args.output), 'previous_snapshot': str(snapshot) if snapshot else None,
+                      'oauth_complete': True, 'work_preflight': preflight['status'],
+                      'published': args.publish, 'values_printed': False}))
     return 0
 
 
+def cli() -> int:
+    try:
+        return main()
+    except Exception as exc:
+        # OAuth libraries and subprocess failures may include raw service text.
+        print(json.dumps({'status': 'BLOCKED', 'reason': 'OAUTH_SETUP_FAILED',
+                          'error_type': type(exc).__name__, 'values_printed': False}))
+        return 2
+
+
 if __name__ == '__main__':
-    raise SystemExit(main())
+    raise SystemExit(cli())

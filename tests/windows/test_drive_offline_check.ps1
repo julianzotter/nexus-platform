@@ -1,5 +1,12 @@
 # Behaviour tests use child processes because the diagnostic calls exit.
 $ErrorActionPreference = "Stop"
+foreach ($name in @("repair_drive_oauth.ps1", "repair_nexus_sync.ps1")) {
+    $tokens = $null
+    $parseErrors = $null
+    $path = Join-Path $PSScriptRoot ("..\..\tools\windows\" + $name)
+    [System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$tokens, [ref]$parseErrors) | Out-Null
+    if (@($parseErrors).Count -ne 0) { throw ("PowerShell parse failure: " + $name) }
+}
 $script = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot "..\..\tools\windows\drive_offline_check.ps1"))
 $engine = (Get-Process -Id $PID).Path
 $root = Join-Path ([IO.Path]::GetTempPath()) ("nexus-offline-test-" + [guid]::NewGuid())
