@@ -21,6 +21,11 @@ class ParseTests(unittest.TestCase):
         self.assertIsNone(err)
         self.assertEqual(fields["name"], "demo-skill")
 
+    def test_crlf_frontmatter(self):
+        fields, err = si.parse_frontmatter(VALID.replace("\n", "\r\n"))
+        self.assertIsNone(err)
+        self.assertEqual(fields["name"], "demo-skill")
+
     def test_missing_frontmatter(self):
         self.assertEqual(si.parse_frontmatter("# no fm")[1], "NO_FRONTMATTER")
 
@@ -55,6 +60,17 @@ class InventoryTests(unittest.TestCase):
         rec = si.inventory_skill(write(self.root, "skills/b/SKILL.md", text), self.root)
         self.assertEqual(rec["status"], "VALID_STRUCTURE")
 
+    def test_crlf_inventory_preserves_raw_hash(self):
+        import hashlib
+        # write_bytes: text-mode write_text would turn "\r\n" into "\r\r\n" on Windows.
+        raw = VALID.replace("\n", "\r\n").encode("utf-8")
+        p = self.root / "skills/crlf/SKILL.md"
+        p.parent.mkdir(parents=True)
+        p.write_bytes(raw)
+        rec = si.inventory_skill(p, self.root)
+        self.assertEqual(rec["status"], "INCOMPLETE")
+        self.assertEqual(rec["sha256"], hashlib.sha256(raw).hexdigest())
+
     def test_missing_name_is_invalid(self):
         text = "---\ndescription: only desc\n---\n"
         rec = si.inventory_skill(write(self.root, "skills/c/SKILL.md", text), self.root)
@@ -86,3 +102,21 @@ class InventoryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ScopeDuplicateTests(unittest.TestCase):
+    def test_same_id_across_authoring_and_snapshot_is_mirror_not_duplicate(self):
+        recs = [{"id": "x", "path": "skills/x/SKILL.md", "sha256": "a"},
+                {"id": "x", "path": "skills/claude-ai/x/SKILL.md", "sha256": "b"}]
+        self.assertEqual(si.find_duplicate_ids(recs), [])
+        self.assertEqual(si.find_mirrored_ids(recs), [{"id": "x", "drift": True}])
+
+    def test_same_id_twice_in_authoring_is_still_duplicate(self):
+        recs = [{"id": "x", "path": "skills/x/SKILL.md"}, {"id": "x", "path": "skills/y/SKILL.md"}]
+        self.assertEqual(si.find_duplicate_ids(recs), ["x"])
+
+    def test_same_id_twice_in_snapshot_is_still_duplicate(self):
+        recs = [{"id": "x", "path": "skills/claude-ai/x/SKILL.md"},
+                {"id": "x", "path": "skills/claude-ai/_proposed/x/SKILL.md"}]
+        self.assertEqual(si.find_duplicate_ids(recs), ["x"])
+

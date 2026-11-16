@@ -20,6 +20,7 @@ OPTIONAL = ("version", "owner", "tools", "runtime")
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str] | None, str | None]:
     """Parse a flat `key: value` YAML frontmatter block without external deps."""
+    text = text.replace("\r\n", "\n")
     if not text.startswith("---\n"):
         return None, "NO_FRONTMATTER"
     end = text.find("\n---", 4)
@@ -65,12 +66,35 @@ def inventory_skill(path: Path, root: Path = ROOT) -> dict[str, Any]:
     return record
 
 
+SNAPSHOT_PREFIX = "skills/claude-ai/"
+
+
+def scope_of(rec: dict[str, Any]) -> str:
+    """'snapshot' = byte copy of claude.ai account skills (skills/claude-ai/**); else 'authoring'."""
+    return "snapshot" if str(rec.get("path", "")).startswith(SNAPSHOT_PREFIX) else "authoring"
+
+
 def find_duplicate_ids(records: list[dict[str, Any]]) -> list[str]:
-    seen: dict[str, int] = {}
+    """IDs that occur more than once WITHIN the same scope (authoring or snapshot)."""
+    seen: dict[tuple[str, str], int] = {}
     for rec in records:
         if rec["id"]:
-            seen[rec["id"]] = seen.get(rec["id"], 0) + 1
-    return sorted(k for k, n in seen.items() if n > 1)
+            key = (scope_of(rec), rec["id"])
+            seen[key] = seen.get(key, 0) + 1
+    return sorted({k[1] for k, n in seen.items() if n > 1})
+
+
+def find_mirrored_ids(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """IDs present in both scopes; reported (not gated) with byte-drift flag."""
+    by_id: dict[str, dict[str, set[str]]] = {}
+    for rec in records:
+        if rec["id"]:
+            by_id.setdefault(rec["id"], {}).setdefault(scope_of(rec), set()).add(rec.get("sha256", ""))
+    out = []
+    for sid, scopes in sorted(by_id.items()):
+        if "authoring" in scopes and "snapshot" in scopes:
+            out.append({"id": sid, "drift": scopes["authoring"] != scopes["snapshot"]})
+    return out
 
 
 def build_report(root: Path = ROOT) -> dict[str, Any]:
@@ -84,8 +108,8 @@ def build_report(root: Path = ROOT) -> dict[str, Any]:
     counts: dict[str, int] = {}
     for rec in records:
         counts[rec["status"]] = counts.get(rec["status"], 0) + 1
-    return {"packages": records, "duplicate_ids": dups, "counts": counts,
-            "scope": "structure_and_bytes_only"}
+    return {"packages": records, "duplicate_ids": dups, "mirrored_ids": find_mirrored_ids(records),
+            "counts": counts, "scope": "structure_and_bytes_only"}
 
 
 def to_markdown(report: dict[str, Any]) -> str:
@@ -96,7 +120,8 @@ def to_markdown(report: dict[str, Any]) -> str:
     for r in report["packages"]:
         lines.append(f"| {r['path']} | {r['id'] or 'UNKNOWN'} | {r['status']} | "
                      f"`{r['sha256'][:16]}…` | {', '.join(r['issues']) or '-'} |")
-    lines += ["", f"Zählung: {report['counts']}", f"Duplikat-IDs: {report['duplicate_ids'] or 'keine'}"]
+    lines += ["", f"Zählung: {report['counts']}", f"Duplikat-IDs: {report['duplicate_ids'] or 'keine'}",
+              f"Gespiegelt (Authoring + claude.ai-Snapshot, nicht gegated): {report.get('mirrored_ids') or 'keine'}"]
     return "\n".join(lines) + "\n"
 
 
@@ -104,6 +129,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", default=str(ROOT / "reports" / "skills"))
     parser.add_argument("--strict", action="store_true", help="exit 1 on INVALID packages")
+    parser.add_argument("--strict-scope", choices=["all", "authoring", "snapshot"], default="all",
+                        help="packages counted by --strict (report always covers all)")
     args = parser.parse_args(argv)
     report = build_report()
     out = Path(args.out)
@@ -111,7 +138,8 @@ def main(argv: list[str] | None = None) -> int:
     (out / "skill-inventory.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (out / "skill-inventory.md").write_text(to_markdown(report), encoding="utf-8")
     print(json.dumps(report["counts"], ensure_ascii=False))
-    invalid = report["counts"].get("INVALID", 0)
+    invalid = sum(1 for r in report["packages"] if r["status"] == "INVALID"
+                  and (args.strict_scope == "all" or scope_of(r) == args.strict_scope))
     return 1 if (args.strict and invalid) else 0
 
 
