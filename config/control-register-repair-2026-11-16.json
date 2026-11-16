@@ -89,6 +89,13 @@
       "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
       "source_modified_at": "2026-11-16T22:08:24.518Z",
       "sha256": "669ed6f5e6320156faa902d8aac860f0df624634b3ae552fe6e6e8bb96405ced"
+    },
+    {
+      "file_id": "1sKh3C7frSCJDSklwKyk13vVr5A8-4boT",
+      "name": "26_11_16_2335_ID02_OAUTH-REGISTRY-REPAIR_LEDGER-PENDING.md",
+      "parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "source_modified_at": "2026-11-16T22:35:51.223Z",
+      "sha256": "30628904bf0b50880bb1807ed2cd43485709637499b3547d2a509bf87f5dd9ad"
     }
   ],
   "technical_approval": false
