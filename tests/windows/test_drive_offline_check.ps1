@@ -67,3 +67,5 @@ try {
 } finally {
     if (Test-Path $root) { Remove-Item -LiteralPath $root -Recurse -Force }
 }
+# Expected failing child processes must not become the test harness exit status.
+exit 0
