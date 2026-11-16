@@ -56,3 +56,13 @@ Keine geplante Ausführung als erfolgreiche Durchführung melden. Kein Produktio
 - Kein neuerer konsistenter AnythingSearch-Snapshot gefunden. Die Prüfwerte zum [Archiv vom 04.10.2026](https://drive.google.com/file/d/1eVQeaxKW0gBmxyYbTN6bkCMCx5flkADR/view) bleiben als historische Messung vom 02.11. verlinkt.
 - Aktueller Refresh INCOMPLETE. Drive-Poller und WORK-Preflight melden HTTP 400, Monitor meldet INCOMPLETE. Drei CI-Tests schlagen fehl. Die Belege stehen im Delta-Bericht.
 - Das [Artefaktregister](https://drive.google.com/file/d/15m8T5cWbogIup9snzFwiB1g9HqNCoGow/view) war diesmal vollständig lesbar und führt den Bericht vom 02.11. als REGISTERED.
+
+
+## Delta-Erhebung 16.11.2026
+
+- [Delta-Bericht](../docs/infrastructure-status/2026-11-16/DELTA_STATUS.md) und [Erhebungsbelege](../docs/infrastructure-status/2026-11-16/DELTA_EVIDENCE.json).
+- [WORK-Fassung](https://drive.google.com/file/d/1VeuE3XVJFTWfrNvFNHHPN3r5oi26Aa9E/view), vollständig zurückgelesen: 16.343 Bytes, SHA-256 `cf7ce6f59deb0d9aacc1eabd29385940075b0108727e581dda2ea4383d111251`.
+- 66 Dokumenttreffer im vergleichbaren Filter, davon 25 zusätzliche IDs gegenüber 09.11.; alle bisherigen 41 IDs weiter sichtbar. KB-/AI-Ordnernamensuche 167 Treffer. Keine globale Vollständigkeitsbehauptung.
+- Neu gesichtet: Basic-Knowledge-Tree, FT-Träger-Dashboard, GWP-HTML mit zwei separaten JS-Datenteilen, Timber-Blueprint und GPT-Migrationspilot. Inhaltssichtung und Dokumentaussagen sind im Bericht getrennt.
+- Refresh-Status: Runner vom 16.11. scheitern bei `oauth.token_refresh` mit `HTTP_400`; Poller und WORK-Delivery nicht betriebsfähig belegt. Neuer konsistenter AnythingSearch-Snapshot nicht gefunden; kein SQLite-Zugriff in diesem Lauf.
+- Registrierung `REGISTRATION_PENDING / EXCLUSIVE_WRITER_UNVERIFIED`, Ledgernummer unzugeteilt. Kanonische Register und Berechtigungen blieben unverändert.
