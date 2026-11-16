@@ -1,0 +1,35 @@
+{
+  "contract_version": "1.0.0",
+  "observed_at_date": "2026-11-16",
+  "status": "ACTIVE_SCHEDULES_VERIFIED_NOT_FUTURE_RUN_VERIFIED",
+  "governance": "NEXUS Manifest/Baseline; ID03 registers new WORK artifacts; ID01 controls release",
+  "automations": [
+    {
+      "id": "Automation_465069362f9c81919df70b0c1e872f43",
+      "title": "Meta-Wissen Holzbau Weekly",
+      "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261116T080000\nRRULE:FREQ=WEEKLY;BYDAY=MO\nEND:VEVENT",
+      "is_enabled": true,
+      "source_ids": ["PROHOLZ", "HOLZBAU_AUSTRIA", "HOLZFORSCHUNG", "STUDIEN_HOLZLEIMBAU", "HABITAT2030"],
+      "output_folder_id": "1s3fE047BisUMEog-F_qY-U5p2CzOj5Pi",
+      "format": "YYYY_MM_DD_META_WISSEN_HOLZBAU_WEEKLY.md",
+      "purpose": "Five original news sources, deduplicated technical newsletter"
+    },
+    {
+      "id": "Automation_578039180c0081919ad472961753d56f",
+      "title": "NEXUS META_WISSEN AEC Source Watch",
+      "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Europe/Vienna:20261123T090000\nRRULE:FREQ=WEEKLY;BYDAY=MO\nEND:VEVENT",
+      "is_enabled": true,
+      "source_ids": ["OIB", "BAUBOOK", "IBO", "OEKOBAUDAT", "EOTA", "TU_REPOSITUM", "DLUBAL_API"],
+      "output_folder_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "format": "YY_MM_DD_HHMM_ID##_META_WISSEN_AEC_LEDGER-ASSIGNED.md",
+      "purpose": "Seven official version/change sources: regulation, building materials, circularity, EPD/LCA, ETA/EAD, research and RFEM SDK"
+    }
+  ],
+  "constraints": {
+    "no_duplicate_source_assignments": true,
+    "weekly_local_timezone": "Europe/Vienna",
+    "no_claim_of_future_run_execution": true,
+    "no_unassigned_ledger_numbers": true,
+    "separate_authoritative_numerical_or_engineering_gates": true
+  }
+}
