@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "scope": "READ_ONLY_AUDIT_NOT_A_SECOND_REGISTRY",
+  "ledger": {
+    "file_id": "1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK",
+    "sha256": "8b7cafe7f00d3e0b0db9792a1fe8c81fc258cc5de81e6760bcbfd24b37a89cff",
+    "rows": 201,
+    "duplicate_ids": [],
+    "selected": [
+      {
+        "ID": "0208",
+        "DATE": "2026-11-16",
+        "TYPE": "GOVERNANCE",
+        "TITLE": "00_NEXUS_MANIFEST__CURRENT__2026-09-28.md",
+        "DRIVE_ID": "1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn",
+        "FOLDER": "LLM-LOCAL-SSOT",
+        "SHA256": "cfcb2ea6088a474a6bb41654a86ed6de3e32e2b572aa57b9ce7ea6527238fdee",
+        "VALIDITY": "CURRENT",
+        "MATURITY": "MIRROR",
+        "SUPERSEDES": "",
+        "CANON": "true",
+        "ACTOR": "ID06",
+        "NAME_SCHEMA_OK": "0",
+        "NOTE": "Verbatim .md export of GDoc edit source (bridge governance file); name fixed by NEXUS_GOVERNANCE_FILES_JSON"
+      },
+      {
+        "ID": "0209",
+        "DATE": "2026-11-16",
+        "TYPE": "GOVERNANCE",
+        "TITLE": "00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28.md",
+        "DRIVE_ID": "1CdwNHr6i8lMG3k8A939kiznLMw8q7J69",
+        "FOLDER": "LLM-LOCAL-SSOT",
+        "SHA256": "015a635ff2745f6ae0bf61f02d3028039ea45acb86f24363db7185786d854858",
+        "VALIDITY": "CURRENT",
+        "MATURITY": "MIRROR",
+        "SUPERSEDES": "",
+        "CANON": "true",
+        "ACTOR": "ID06",
+        "NAME_SCHEMA_OK": "0",
+        "NOTE": "Verbatim .md export of GDoc edit source (bridge governance file); name fixed by NEXUS_GOVERNANCE_FILES_JSON"
+      },
+      {
+        "ID": "0210",
+        "DATE": "2026-11-16",
+        "TYPE": "STATUSREPORT",
+        "TITLE": "26_11_16_2300_ID06_STATUSREPORT_ADMIN-RUN_0210.md",
+        "DRIVE_ID": "",
+        "FOLDER": "LLM-LOCAL-SSOT/WORK",
+        "SHA256": "SEE_REPORT_LOG",
+        "VALIDITY": "CURRENT",
+        "MATURITY": "REVIEW_PENDING",
+        "SUPERSEDES": "",
+        "CANON": "false",
+        "ACTOR": "ID06",
+        "NAME_SCHEMA_OK": "1",
+        "NOTE": "Admin run: merges, ledger merge, Folder.md"
+      },
+      {
+        "ID": "0211",
+        "DATE": "2026-11-16",
+        "TYPE": "LEDGER",
+        "TITLE": "00_ID_LEDGER.csv (merge of deltas 0182-0188 + ID07 v0.4 PENDING)",
+        "DRIVE_ID": "",
+        "FOLDER": "LLM-LOCAL-SSOT",
+        "SHA256": "",
+        "VALIDITY": "CURRENT",
+        "MATURITY": "CANONICAL",
+        "SUPERSEDES": "00_ID_LEDGER_BEFORE-MERGE_2026-11-16.csv",
+        "CANON": "true",
+        "ACTOR": "ID06",
+        "NAME_SCHEMA_OK": "1",
+        "NOTE": "Merged deltas ID06(0186,0188), ID07 v0.4; next free ID 0212"
+      }
+    ]
+  },
+  "file_registry": {
+    "file_id": "15m8T5cWbogIup9snzFwiB1g9HqNCoGow",
+    "sha256": "e233e9acbeb835413f3a6950393e03028cdfd0aad4c7387e083440ef850d4eac",
+    "rows": 460,
+    "modified_at": "2026-11-12T18:47:37.749Z"
+  },
+  "folder": {
+    "file_id": "1nDjF78dq3l8PGpXsauzBz1bzHescDSwv",
+    "sha256": "59340dd798d19862f12049c13ffd296a2629a38426232389d87c43e5b8ffb977"
+  },
+  "registration_status": "BLOCKED_UNSAFE_MULTIWRITER_REPLACEMENT",
+  "technical_approval": false
+}
