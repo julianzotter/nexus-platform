@@ -16,7 +16,7 @@ timestamp: 2026-11-16T23:30+01:00
 1. Google Cloud Console → APIs & Services → OAuth consent screen → **Publish app** ("In production"). Unverified own-use app is fine; prevents the 7-day expiry.
 2. In `C:\Users\<USER>\nexus-platform`: `git pull` then
    `pip install -r tools/oauth-setup-requirements.txt`
-   `python tools/configure_drive_oauth.py --publish` (browser consent with julian.zotter@gmail.com; writes the 3 secrets, prints no values).
+   `python tools/configure_drive_oauth.py --client-json <Desktop-client.json> --publish` (first rename an existing `.nexus-credentials/drive-oauth.json`; browser consent with julian.zotter@gmail.com; writes the 3 secrets, prints no values).
 3. Check: GitHub → Actions → "NEXUS GitHub to WORK" → Run workflow (latest Monitor run id) → preflight must not show HTTP_400.
 
 ## Step 2 – registry/ledger append (automated, single writer)
