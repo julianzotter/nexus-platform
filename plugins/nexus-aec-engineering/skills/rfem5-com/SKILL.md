@@ -38,7 +38,7 @@ Dateien in diesem Skill-Ordner (Pfad = Ordner dieser SKILL.md):
 | `scripts/rfem5_paths.py [--json f] [--backup ordner]` | Pfadinventar RFEM/Python/Registry, Sicherung der Benutzer-Einstellungen (ZIP + SHA256SUMS) |
 | `scripts/rfem_interfaces_probe.py [--key-name N]` | Schnittstellen-Landkarte live: RF5 COM, RF6 gRPC (mit/ohne Key), SOAP 8081, Installationen/MCP – Key nie ausgegeben (Handbuch Kap. 16) |
 
-RFEM 6 / dlubal.api: Stand 17.11.2026 **blockiert** (Key/Abo/Lizenzserver) – Details und Freischaltschritte Handbuch Kap. 16. CAD/BIM-Daten (DXF/IFC/CSV/RF6) → Skill **`cad-statik-pipeline`**.
+RFEM 6 / dlubal.api: Stand 17.11.2026 **blockiert** – alle drei vorhandenen Dlubal-Keys abgelehnt, SOAP 8081 hört nicht. Lokale Wege ohne Key: ① RF5 über COM (dieser Skill), ② RF6-Datei-Inventar bzw. IFC-Export aus RFEM 6 → `cad-statik-pipeline`, ③ SOAP-Webservice (derzeit aus) – Handbuch Kap. 16 / 16.1. CAD/BIM-Daten (DXF/IFC/CSV/RF6) → Skill **`cad-statik-pipeline`**.
 
 Freigabestufen (wie `rfem6-mcp-engineering`): **G0** nur lesen · **G1** freigegebene Werte an Arbeitskopie ändern + rechnen · **G2** Topologie/Lagerkonzept nur nach Entscheidung des Tragwerksplaners · **G3** Quelle überschreiben nur mit Freigabe + Vorgänger + Hash · **G4** Ingenieurfreigabe nur durch Menschen. Bei unklarer Modellidentität, Einheitenkonflikt, fehlgeschlagenem Rücklesen oder fehlender Konvergenz: stoppen und dokumentieren.
 
@@ -111,4 +111,4 @@ Backup vor Änderungen an `General Data` (Kopie mit Hash), sonst gehen Benutzerb
 
 ## 6. RFEM 6 (Abgrenzung)
 
-RFEM 6: `dlubal.api` (gRPC, Port 9000) – benötigt **API-Key** (Dlubal-Konto), sonst `UNAUTHENTICATED`. Alternative ohne Key: .rf5 in RFEM 6 über *Datei → Öffnen* importieren.
+RFEM 6: `dlubal.api` (gRPC, Port 9000) – benötigt **gültigen API-Key + API-II-Abo**, sonst `UNAUTHENTICATED`; die drei vorhandenen Keys sind ungültig. Ohne Key: .rf5 in RFEM 6 über *Datei → Öffnen* importieren, RFEM 6 → IFC-Export → `cad-statik-pipeline`, `.rf6` nur als Inventar. Key nie selbst eintragen – Benutzer setzt `RFEM_API_KEY`.

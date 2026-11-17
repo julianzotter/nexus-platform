@@ -54,6 +54,10 @@ class Model:
     members: list = field(default_factory=list)
     supports: list = field(default_factory=list)
     surfaces: list = field(default_factory=list)
+    # Lasten (SI, globales System der Quelle): {"cases": [{id, name, category}],
+    #   "items": [{case, kind: nodal|member|line|surface, targets: [ids], dir: X|Y|Z|PX|PY|PZ|MX|MY|MZ, value, dist, note}]}
+    #   value in N (nodal), Nm (nodal M*), N/m (member/line), N/m² (surface); P* = projizierte Richtung
+    loads: dict = field(default_factory=lambda: {"cases": [], "items": []})
     extra: dict = field(default_factory=dict)  # formatspezifische Zusatzinfos (Zählungen, Rohdaten-Hinweise)
 
     # ---------- Hilfen ----------
@@ -63,7 +67,8 @@ class Model:
     def summary(self):
         return dict(nodes=len(self.nodes), members=len(self.members), supports=len(self.supports),
                     surfaces=len(self.surfaces), sections=len({m.section for m in self.members if m.section}),
-                    materials=len({m.material for m in self.members if m.material}))
+                    materials=len({m.material for m in self.members if m.material}),
+                    load_cases=len(self.loads.get("cases", [])), load_items=len(self.loads.get("items", [])))
 
     def fingerprint(self):
         """SHA-256 über sortierte, gerundete Geometrie+Topologie (unabhängig von Nummerierung der Quelle nicht!)."""
@@ -91,6 +96,12 @@ class Model:
         for s in self.supports:
             if s.node not in ids:
                 f.append(f"LAGER_OHNE_KNOTEN:{s.node}")
+        seen = {}
+        for n in sorted(self.nodes, key=lambda n: n.id):            # koordinatengleiche Knoten (RFEM fasst sie zusammen)
+            k = (round(n.x, 4), round(n.y, 4), round(n.z, 4))
+            if k in seen:
+                f.append(f"DOPPELTE_KOORDINATEN:{seen[k]}={n.id}")
+            seen.setdefault(k, n.id)
         used = {m.n1 for m in self.members} | {m.n2 for m in self.members}
         free = len(ids - used - {s.node for s in self.supports} - {k for sf in self.surfaces for k in sf.nodes})
         if free:
@@ -127,7 +138,7 @@ def to_json(m: Model, path):
              nodes=[asdict(n) for n in sorted(m.nodes, key=lambda n: n.id)],
              members=[asdict(x) for x in sorted(m.members, key=lambda x: x.id)],
              supports=[asdict(s) for s in sorted(m.supports, key=lambda s: s.node)],
-             surfaces=[asdict(s) for s in sorted(m.surfaces, key=lambda s: s.id)], extra=m.extra)
+             surfaces=[asdict(s) for s in sorted(m.surfaces, key=lambda s: s.id)], loads=m.loads, extra=m.extra)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, indent=1)
     return path
@@ -139,7 +150,8 @@ def from_json(path) -> Model:
         raise ValueError(f"kein NSM-JSON: {path}")
     return Model(meta=d["meta"], nodes=[Node(**n) for n in d["nodes"]], members=[Member(**x) for x in d["members"]],
                  supports=[Support(**s) for s in d.get("supports", [])],
-                 surfaces=[Surface(**s) for s in d.get("surfaces", [])], extra=d.get("extra", {}))
+                 surfaces=[Surface(**s) for s in d.get("surfaces", [])],
+                 loads=d.get("loads") or {"cases": [], "items": []}, extra=d.get("extra", {}))
 
 
 # ---------------------------------------------------------------- CSV (neutral, Semikolon, UTF-8)
@@ -152,6 +164,13 @@ def to_csv(m: Model, folder):
     w("members.csv", ["id", "n1", "n2", "section", "material", "type"],
       [(x.id, x.n1, x.n2, x.section, x.material, x.type) for x in sorted(m.members, key=lambda x: x.id)])
     w("supports.csv", ["node", "fix"], [(s.node, s.fix) for s in sorted(m.supports, key=lambda s: s.node)])
+    w("surfaces.csv", ["id", "nodes", "thickness_m", "material"],
+      [(s.id, " ".join(map(str, s.nodes)), "" if s.thickness is None else s.thickness, s.material) for s in sorted(m.surfaces, key=lambda s: s.id)])
+    w("load_cases.csv", ["id", "name", "category"], [(c["id"], c.get("name", ""), c.get("category", "")) for c in m.loads.get("cases", [])])
+    w("load_items.csv", ["case", "kind", "targets", "dir", "value", "dist", "a_m", "b_m", "line_nodes", "note"],
+      [(i["case"], i["kind"], " ".join(map(str, i["targets"])), i["dir"], i["value"], i.get("dist", "uniform"),
+        i.get("a", ""), i.get("b", ""), "|".join(" ".join(map(str, ln)) for ln in i.get("line_nodes", [])), i.get("note", ""))
+       for i in m.loads.get("items", [])])
     with open(os.path.join(folder, "meta.json"), "w", encoding="utf-8") as f:
         json.dump(m.meta, f, ensure_ascii=False, indent=1)
     return folder
@@ -170,7 +189,21 @@ def from_csv(folder) -> Model:
                  nodes=[Node(int(a["id"]), r(a["x_m"]), r(a["y_m"]), r(a["z_m"])) for a in rd("nodes.csv")],
                  members=[Member(int(a["id"]), int(a["n1"]), int(a["n2"]), a["section"], a["material"], a["type"])
                           for a in rd("members.csv")],
-                 supports=[Support(int(a["node"]), a["fix"]) for a in rd("supports.csv")])
+                 supports=[Support(int(a["node"]), a["fix"]) for a in rd("supports.csv")],
+                 surfaces=[Surface(int(a["id"]), [int(x) for x in a["nodes"].split()],
+                                   float(a["thickness_m"]) if a["thickness_m"] else None, a["material"]) for a in rd("surfaces.csv")],
+                 loads={"cases": [dict(id=a["id"], name=a["name"], category=a["category"]) for a in rd("load_cases.csv")],
+                        "items": [_load_item(a) for a in rd("load_items.csv")]})
+
+
+def _load_item(a):
+    it = dict(case=a["case"], kind=a["kind"], targets=[int(x) for x in a["targets"].split()], dir=a["dir"],
+              value=float(a["value"]), dist=a["dist"], note=a.get("note", ""))
+    if a.get("a_m"):
+        it["a"], it["b"] = float(a["a_m"]), float(a["b_m"])
+    if a.get("line_nodes"):
+        it["line_nodes"] = [[int(x) for x in s.split()] for s in a["line_nodes"].split("|")]
+    return it
 
 
 # ---------------------------------------------------------------- SQLite (abfragbar, z. B. für Agenten/Dashboards)

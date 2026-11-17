@@ -601,11 +601,23 @@ Prüfwerkzeug: `python scripts\rfem_interfaces_probe.py [--key-name NAME] [--jso
 | Weg | Version hier | Technik / Port | Authentifizierung | Live-Befund | Einsatz |
 |---|---|---|---|---|---|
 | **A · RF5 COM** | RFEM 5.29.01.161059 | comtypes + `RFEM5_64.dll` | RF-COM-Lizenz, `LockLicense` | ✅ PASS (Selbsttest 16/16) | produktiv |
-| **B · RF6 gRPC (API II)** | RFEM 6.12 (`RFEM6.exe` hört auf `::9000`) · `dlubal.api` 2.12.8 (Minor passt) | `rfem.Application(url, port=9000)` | API-Key (Bearer) **+** API-Abo (auch Free) **+** Lizenzserver | ⛔ ohne Key: `UNAUTHENTICATED – API key is in incorrect format`; mit Key-Store-Eintrag `nexus_aec_engine`: 1. Lauf „Verbindung zum Dlubal-Lizenzserver ist blockiert“, 2. Lauf `API key is either missing or invalid` | blockiert bis Key/Abo/Firewall geklärt |
-| **C · RF6 WebServices (API I, SOAP)** | – | Port 8081, `RFEM_Python_Client` | – | ⛔ Port geschlossen; API I seit 23.04.2025 im Wartungsmodus | nicht verwenden |
+| **B · RF6 gRPC (API II)** | RFEM 6.12 (`RFEM6.exe` hört auf `::9000`) · `dlubal.api` 2.12.8 (Minor passt) | `rfem.Application(url, port=9000)` | API-Key (Bearer) **+** API-Abo (auch Free) **+** Lizenzserver | ⛔ ohne Key: `UNAUTHENTICATED – API key is in incorrect format`; **alle drei vorhandenen Dlubal-Keys** (Fingerabdrücke SHA-256/12: `6a169f28afba` Key-Store `nexus_aec_engine`, `d37afae812be` Drive-Textdatei, `dd16c94ef566` HTML-Chatexport) → `API key is either missing or invalid`; einmalig „Verbindung zum Dlubal-Lizenzserver ist blockiert“ | blockiert bis gültiger Key + Abo |
+| **C · RF6 WebServices (API I, SOAP)** | RFEM 6.12 | Port 8081, `RFEM_Python_Client` | kein API-Key (lokal), aber Webservice-Lizenz/Option | ⛔ in den Programmoptionen aktiviert (Screenshot), **kein Listener auf 8081** (nur `RFEM6.exe` auf `::9000`); API I seit 23.04.2025 im Wartungsmodus | nach RFEM-6-Neustart erneut prüfen; nur Übergang |
 | **D · Dlubal-MCP** | – | `bin\python.exe -m rfem_mcp_server` (STDIO) bzw. `dlubal-mcp` (pip) | wie B | ⛔ in RFEM 6.12 nicht enthalten (erst ab 6.13.0002) | nach Update |
 | **E · RF6-Datei ohne API** | `.rf6` | ZIP + SQLite (`model.db`) | keine | ✅ Inventar (Skill `cad-statik-pipeline`) | Bestandsaufnahme |
 | **F · RF5 → RF6** | – | RFEM 6 *Datei → Öffnen* `.rf5` | – | – | Migration |
+
+### 16.1 Die drei lokalen Wege ohne API-Key (Stand 17.11.2026)
+
+| # | Weg | Key nötig | Stand | Wofür |
+|---|---|---|---|---|
+| 1 | **RFEM 5 über COM** (Weg A) | nein (RF-COM-Lizenz) | ✅ vollständig getestet: Selbsttest 16/16, Lesen/Schreiben inkl. Flächen und Lasten (Skill `cad-statik-pipeline`, K01–K11) | Modellaufbau, Rechnung, Ergebnisse – produktiver Weg |
+| 2 | **RFEM-6-Dateien direkt** (Weg E) bzw. **IFC-Export aus RFEM 6** | nein | ✅ `.rf6` = ZIP + SQLite → Inventar (K06); Geometrie/Lasten über *Datei → Export → IFC* aus RFEM 6 und dann `cad-statik-pipeline` (IFC-Leser wie K01/K02) | Bestandsaufnahme, Übergabe RF6 → NSM → RF5 |
+| 3 | **SOAP-Webservice von RFEM 6** (Weg C) | nein (lokal), Webservice-Option nötig | ⛔ Option gesetzt, Port 8081 hört nicht | nur Übergang; Prüfung: RFEM 6 neu starten, dann `rfem_interfaces_probe.py` (Teil C) bzw. `Test-NetConnection 127.0.0.1 -Port 8081` |
+
+**Vorhandene Dlubal-API-Keys:** drei Keys gefunden (Key-Store, Drive-Textdatei, HTML-Chatexport), **alle drei vom Server abgelehnt** (`missing or invalid`). In `C:\zotter_ai\keys` liegt **kein** Dlubal-Key. Ursache vermutlich: Key widerrufen/abgelaufen oder kein aktives API-II-Abo. Zwei Fundstellen enthalten den Key **im Klartext** in Drive → Key im Extranet widerrufen, Dateien bereinigen (Benutzeraktion).
+
+**Umgebungsvariablen (Analyse 17.11.2026, nur Namen):** keine Variable mit `RFEM`/`DLUBAL`; `RFEM_API_KEY` ist nicht gesetzt. Auffällig: derselbe Wert unter `OPENAI_API_KEY`, `DeepSeek-Bridge` und `DeepSeek-Bridge1` (Fingerabdruck gleich), `GEMMA_API_KEY` zusätzlich als Systemvariable. Empfehlung: einen gültigen Key nur sitzungsweise als `RFEM_API_KEY` setzen, nie dauerhaft und nie in Drive/Git.
 
 **Widerlegt:** „RFEM-API-Zugriff lokal ohne Key“ (Notiz in `NEXUS.CAD.PYTHON.md`) – die Zeile `api_key_value=None, … port=9000` ist nur die **Standardsignatur** von `rfem.Application()`; der Server lehnt ohne Key ab.
 

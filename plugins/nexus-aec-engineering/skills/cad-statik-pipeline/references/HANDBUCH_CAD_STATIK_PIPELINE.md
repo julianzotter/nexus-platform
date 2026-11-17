@@ -2,14 +2,14 @@
 
 | | |
 |---|---|
-| Version | 1.0 · 17.11.2026 · ID06 (Claude Code) |
+| Version | 1.1 · 17.11.2026 · ID06 (Claude Code) – 1.1: Flächen + Lasten (IFC/RF5/SAF), SAF-Leser, DWG über GNU LibreDWG, Layerfilter, Teillasten, Lastvergleich, K09–K11 |
 | Zweck | CAD- und BIM-Daten deterministisch in ein **neutrales Statikmodell (NSM)** überführen, gegeneinander prüfen und als RFEM-Modell anlegen – nachvollziehbar, mit Prüfsummen und Befunden |
-| Prüfstatus | 8 Offline-Tests PASS · Testsammlung K01–K08 live geprüft (7 PASS, 1 erwartet blockiert), siehe Kap. 8 |
+| Prüfstatus | 12 Offline-Tests PASS · Testsammlung K01–K11 live geprüft (10 PASS, K10 erwartete Abweichung durch Quelldatenfehler), siehe Kap. 8 |
 | Ablage | SSOT `G:\Meine Ablage\_developement\LLM-LOCAL-SSOT\NEXUS.CAD.SKILLS\cad-statik-pipeline\` · installiert `%USERPROFILE%\.claude\skills\cad-statik-pipeline\` |
 | Abhängig | Python 3.12 · `ezdxf` · `ifcopenshell` · `numpy` · für RF5: Skill `rfem5-com` (comtypes, laufendes RFEM 5) |
 
 ## Inhalt
-1. Prinzip · 2. Das neutrale Modell (NSM) · 3. Formate und Datendarstellungen · 4. Kommandos · 5. Rezepte · 6. Koordinaten und Einheiten · 7. Namenszuordnung Querschnitt/Material · 8. Testsammlung · 9. Öffentliche Testdaten · 10. Grenzen und Befunde · 11. Freigabestufen
+1. Prinzip · 2. Das neutrale Modell (NSM) · 3. Formate und Datendarstellungen · 4. Kommandos · 5. Rezepte · 6. Koordinaten und Einheiten · 7. Namenszuordnung Querschnitt/Material · 8. Testsammlung · 9. Öffentliche Testdaten · 10. Grenzen und Befunde · 11. Freigabestufen · 12. Lasten und Lastvergleich · 13. Datenqualitäts-Befunde
 
 ---
 
@@ -39,7 +39,8 @@ Datei `scripts/nsm.py`, Beispiel `templates/beispiel_fachwerk.nsm.json`.
 | `nodes` | `id`, `x`, `y`, `z` [m] | auf 1 µm gerundet |
 | `members` | `id`, `n1`, `n2`, `section`, `material`, `type` (`beam`, `cable`, `truss` …) | Querschnitt/Material als Name der Quelle |
 | `supports` | `node`, `fix` | `fix` = feste Freiheitsgrade: `x y z` (Verschiebung), `X Y Z` (Verdrehung) |
-| `surfaces` | `id`, `nodes`, `thickness`, `material` | Flächen derzeit nur gelesen, nicht nach RF5 geschrieben |
+| `surfaces` | `id`, `nodes` (geordneter Außenrand), `thickness` [m], `material` | IFC: Kantenzug; RF5: verkettete Randlinien; nach RF5 als ebene Fläche mit konstanter Dicke |
+| `loads` | `cases` [`id`, `name`, `category`, `self_weight`]; `items` [`case`, `kind` nodal/member/line/surface, `targets`, `dir` X/Y/Z/PX/PY/PZ/MX/MY/MZ, `value`, `dist` uniform/partial, `a`/`b` Teillast [m], `line_nodes`] | SI (N, Nm, N/m, N/m²); je Richtung ein Eintrag wie in RFEM; globales System der Quelle |
 | `extra` | Inventare, Hinweise, RFEM-Bibliotheks-IDs | formatspezifisch |
 
 `Model.validate()` meldet: doppelte Knotennummern, ungültige Koordinaten, Stäbe ohne Knoten, Nulllängen, Lager ohne Knoten, `INFO_FREIE_KNOTEN` (z. B. Flächenknoten).
@@ -51,10 +52,11 @@ Datei `scripts/nsm.py`, Beispiel `templates/beispiel_fachwerk.nsm.json`.
 |---|---|---|---|---|---|
 | **DXF – RFEM-Export** | ✓ | ✓ | ezdxf | Knoten, Stäbe, Querschnitt+Material aus Layername | Knoten = **Würfel aus 12 Kanten** (Kante 0,2 m) auf `DL_NODES`; nur vollständige Würfel zählen (sonst Scheinwürfel zwischen Nachbarn); Stäbe als LINE auf Layer `Querschnitt$Material`, `/` als `(SLASH)`; Koordinaten im **RFEM-Modellsystem** |
 | **DXF – generisch** | ✓ | – | ezdxf | Linien/Polylinien = Stabachsen, Layer = Querschnitt | `$INSUNITS` wird in Meter umgerechnet; **Umriss-Modus:** Layer aus lauter Rechtecken → Mittellinie, Quadrate → Stützenpunkt; Zeichnungslayer (Bemaßung, Text, Schraffur, Achsen, `SECTION`) werden ignoriert |
-| **DWG** | (✓) | – | externer Konverter → DXF | wie DXF | Version wird erkannt (z. B. AC1032); Konverter: ODA File Converter (ohne Mitgliedschaft nur nicht-kommerziell) oder GNU LibreDWG `dwg2dxf` (GPL-3) – derzeit **nicht installiert** |
-| **IFC – Statikmodell (SAV)** | ✓ | – | ifcopenshell | `IfcStructuralPointConnection` → Knoten (ID aus Name), `IfcStructuralCurveMember` → Stäbe, `IfcStructuralSurfaceMember` → Flächen, `IfcBoundaryNodeCondition` → Lager, Profil/Material aus Relationen, Lastzählung | RFEM-IFC: Rohkoordinaten im RFEM-System, Platzierungsmatrix = **Drehung 180° um X** → Weltkoordinaten Z nach oben; IFC2X3 kennt `IfcStructuralCurveAction` nicht (dort `IfcStructuralLinearAction`) |
+| **DWG** | ✓ | – | **GNU LibreDWG 0.14** `dwg2dxf` (GPL-3, nur Test) → DXF | wie DXF | Konverter unter `C:\zotter_ai\tools\libredwg-0.14\extracted\` (oder Umgebungsvariable `NSM_DWG2DXF`); AC1032 geprüft; große Pläne mit `--layers` filtern |
+| **SAF (Excel)** | ✓ | – | openpyxl | Knoten, Stäbe (inkl. Rippen), Flächen, Punktlager, Lastfälle, Punkt-/Linien-/Flächenlasten (global) | kN → N; Koordinatensystem „Global“/„Local“; Stäbe mit Zwischenknoten werden gemeldet |
+| **IFC – Statikmodell (SAV)** | ✓ | – | ifcopenshell | `IfcStructuralPointConnection` → Knoten (ID aus Name), `IfcStructuralCurveMember` → Stäbe, `IfcStructuralSurfaceMember` → Flächen, `IfcBoundaryNodeCondition` → Lager, Profil/Material aus Relationen, **Lastgruppen (LOAD_CASE) mit Punkt-/Linien-/Flächeneinwirkungen**, freie Linien (`IfcStructuralCurveConnection`) für Linienlasten | RFEM-IFC: Rohkoordinaten im RFEM-System, Platzierungsmatrix = **Drehung 180° um X** → Weltkoordinaten Z nach oben; IFC2X3 kennt `IfcStructuralCurveAction` nicht (dort `IfcStructuralLinearAction`); Lastvektoren mit derselben Platzierungsdrehung transformiert; Kraft-/Längeneinheiten (z. B. lbf, inch) umgerechnet; IFC4 `IfcStructuralLoadConfiguration` → Teillast |
 | **IFC – physisch** | ✓ | – | ifcopenshell + numpy | IfcBeam/IfcColumn/IfcMember → Achse | `Axis`-Darstellung bevorzugt; sonst **Achse aus Extrusionsquader** (Rechteck/Kreis, längste Kante) – als Näherung markiert |
-| **RF5** | ✓ | ✓ | COM (Skill `rfem5-com`) | Knoten, Linien, Stäbe (Typ), Querschnitte, Materialien (inkl. Bibliotheks-TextID), Knotenlager, Flächen | Lesen öffnet eine **Kopie** in `%TEMP%\NSM_SANDBOX` und schließt sie; Schreiben legt ein **neues** Modell an (nur `SANDBOX`), Achsdrehung automatisch |
+| **RF5** | ✓ | ✓ | COM (Skill `rfem5-com`) | Knoten, Linien, Stäbe (Typ), Querschnitte, Materialien (inkl. Bibliotheks-TextID), Knotenlager, Flächen, **Lastfälle + Knoten-/Stab-/Linien-/Flächenlasten** (gleichmäßig, global/projiziert; Stab-Teillast als Trapez) | Lesen öffnet eine **Kopie** in `%TEMP%\NSM_SANDBOX` und schließt sie; Schreiben legt ein **neues** Modell an (nur `SANDBOX`), Achsdrehung automatisch |
 | **RF6** | Inventar | – | ZIP + SQLite (ohne API) | Zählungen (Knoten, Linien, Stäbe, Flächen, Lager, Lastfälle), Versionsstempel | `.rf6` = ZIP mit `model.db` (SQLite, >3.000 Tabellen, Schema undokumentiert), XML, `preview.glb` – **nur** Inventar/Fingerabdruck; Geometrie über dlubal.api, IFC- oder SAF-Export |
 | **RFEM-CSV-Tabellenexport** | ✓ | – | csv (cp1252) | `1.1 Knoten`, `1.2 Linien`, `1.3 Materialien`, `1.13 Querschnitte`, `1.17 Stäbe`, `1.7 Knotenlager` | 2 Kopfzeilen, leere Nummernzeilen werden gefiltert, Lager `+` = fest; Koordinaten auf 3 Nachkommastellen gerundet |
 | **NSM-JSON** | ✓ | ✓ | json | alles | Austausch, Archiv, Agenten |
@@ -64,8 +66,8 @@ Datei `scripts/nsm.py`, Beispiel `templates/beispiel_fachwerk.nsm.json`.
 ## 4. Kommandos (`scripts/pipeline.py`)
 
 ```bash
-python pipeline.py inspect  <quelle>                                  # Zusammenfassung, Befunde, Fingerabdruck
-python pipeline.py convert  <quelle> <ziel.json|ziel.sqlite|ziel.dxf|ordner/|ziel.rf5> [--map mapping.json]
+python pipeline.py inspect  <quelle> [--layers REGEX]                 # Zusammenfassung, Befunde, Fingerabdruck
+python pipeline.py convert  <quelle> <ziel.json|ziel.sqlite|ziel.dxf|ordner/|ziel.rf5> [--map mapping.json] [--layers REGEX]
 python pipeline.py compare  <A> <B> [--tol 0.005] [--2d] [--report r.md] [--json r.json]
 python pipeline.py learn-map <A-quelle> <B-rf5.nsm.json> <mapping.json>  # Namenszuordnung aus PASS-Paar ableiten
 python pipeline.py rf5-active <ziel.json>                             # aktives RFEM-5-Modell (nur lesen)
@@ -109,6 +111,19 @@ sqlite3 modell.sqlite "SELECT section, COUNT(*), ROUND(SUM(length_m),2) FROM mem
 python pipeline.py inspect modell.rf6
 ```
 
+**G · DWG-Stützenplan → Stützenpunkte**
+```bash
+python pipeline.py convert plan.dwg stuetzen.nsm.json --layers "^0SP_S_"     # Umrisse ≤ 1,0 m → Punkte
+```
+
+**H · SAF → RF5 mit Lasten, Rückprüfung**
+```bash
+python pipeline.py convert modell.xlsx saf.nsm.json
+python pipeline.py convert saf.nsm.json "D:\…\SANDBOX\saf.rf5" --map mapping.json
+python pipeline.py convert "D:\…\SANDBOX\saf.rf5" rueck.nsm.json
+python pipeline.py compare saf.nsm.json rueck.nsm.json                       # inkl. Lastvergleich je Lastfall
+```
+
 **F · Als Python-Bibliothek**
 ```python
 import sys; sys.path.insert(0, r"…\cad-statik-pipeline\scripts")
@@ -136,42 +151,42 @@ Manifest: `references/testkorpus.json` (Quellen, SHA-256, Ergebnisse) – neu er
 
 | ID | Fall | Ergebnis |
 |---|---|---|
-| K01 | EIS26 BETONBAU – DXF ↔ IFC ↔ RF5 (1.519 Knoten, 376 Stäbe, 245 Flächen) | **3× PASS**, max. 6 µm |
-| K02 | IFC → NSM → neues RF5 → Rücklesen (mit gelernter Zuordnung) | **PASS** gegen IFC und gegen Original-RF5, Querschnittsnamen identisch |
+| K01 | EIS26 BETONBAU – DXF ↔ IFC ↔ RF5 (1.519 Knoten, 376 Stäbe, 245 Flächen) | **3× PASS**, max. 6 µm; IFC ↔ RF5 zusätzlich 8/8 Lastfälle gleich |
+| K02 | IFC → NSM → neues RF5 **mit Flächen und Lasten** → Rücklesen | **PASS**: 245/245 Flächen, 8/8 Lastfälle (ΣF, Σp·n 0,0 %), 9 freie Linien |
 | K03 | Böblingen 5e – RFEM-CSV ↔ RF5 (86 Knoten, 88 Stäbe, 35 Lager) | **PASS**, max. 0,49 mm (CSV-Rundung) |
 | K04 | Plan-DXF (Umrisse, mm) ↔ IFC4 physisch – 6 Träger | **PASS (2D)** |
 | K05 | Plan-DXF ↔ IFC4 physisch – 3 Stützen | **PASS (2D)** |
 | K06 | RF6 ohne API – `04_Tensioned_beam.rf6`, `CTR001.rf6` | Inventar **PASS** |
-| K07 | DWG AC1032 | erwartet **BLOCKED** (kein Konverter) |
-| K08 | Synthetisches Pratt-Fachwerk | 8 Offline-Tests **PASS** |
+| K07 | DWG AC1032 → DXF (LibreDWG 0.14) | **PASS** (0 Prüffehler, mm → m) |
+| K08 | Synthetisches Pratt-Fachwerk | 12 Offline-Tests **PASS** |
+| K09 | buildingSMART IFC4X3 (Zoll/lbf, Teillast) → RF5 → Rücklesen | **PASS** (−17.512,7 N/m auf 2,438–4,877 m = −42,7 kN) |
+| K10 | SAF 2.2.0 Haus → RF5 → Rücklesen | Lasten 3/3, Flächen 11/11 gleich; **erwartete Abweichung**: Stab 45 mit Nulllänge, Knoten 84 koordinatengleich (Quelldatei) |
+| K11 | DWG-Stützenplan, Layerfilter `^0SP_S_` | **PASS**: 113 Stützenpunkte |
 
-K01, K02, K07 sind Kundendaten: nur lokal (`D:\RFEM`, Ergebnisse in `D:\RFEM_SANDBOX_CAD`), nicht auf GitHub.
+K01, K02, K07, K11 sind Kundendaten: nur lokal (`D:\RFEM`, Ergebnisse in `D:\RFEM_SANDBOX_CAD`), nicht auf GitHub.
 
 **Gefundene Fehlerquellen beim Aufbau (alle behoben, als Regel festgehalten):** Würfel dicht benachbarter Knoten berühren sich (Union-Find zieht zusammen) · Scheinwürfel aus 7/12 Kanten · Kantenlängen 0,20001 m durch Rundung · Achsumrechnung als Drehung statt Spiegelung · IFC2X3-Entitäten fehlen · Plan-DXF enthält Umrisse statt Systemlinien · Schnittmarkierungs-Layer.
 
-## 9. Öffentliche Testdaten (recherchiert, nicht heruntergeladen)
+## 9. Öffentliche Testdaten
 
-| Rang | Quelle | Lizenz | Nutzen |
-|---|---|---|---|
-| 1 | buildingSMART IFC4.3 Sample Models – `structural-analysis-model/structural-curve-member` | CC BY-ND 4.0 | offizielles SAV-Beispiel mit Lasten und Referenzreaktionen (Einheiten Zoll/lbf) |
-| 2 | IfcOpenShell/analysis-models (`portal_01`, `cantilever_01`, …) | keine Lizenz angegeben → nur intern | IFC4 + neutrales JSON je Modell |
-| 3 | SAF – Structural Analysis Format (saf.guide, Beispiel-Repo) | „offenes Format“, keine formale Lizenz | RFEM 6 importiert/exportiert SAF – zweiter Eingangspfad |
-| 4 | Frame3DD-Beispiele (Pratt-Fachwerk, Rahmen) | GPL-3 | Referenzausgaben vorhanden |
-| 5 | PyNite `Testing/` | MIT | Lehrbuchwerte als Sollwerte |
-| 6 | ezdxf `examples_dxf/` | MIT | Parser-Grenzfälle DXF R12–R2018 |
-| 7 | GNU LibreDWG `dwg2dxf` | GPL-3 (externes Werkzeug) | DWG → DXF |
-| – | Dlubal-Verifikationsbeispiele (VE 0079/0080/0039/0205/0106) | proprietär | RFEM-nah, siehe rfem5-com-Handbuch Kap. 14 |
+**Geladen** am 17.11.2026 nach `D:\RFEM_SANDBOX_CAD\OEFFENTLICH\`, nur Testzweck:
 
-Lücke: kein frei lizenziertes **IFC2X3-SAV**-Beispiel – eigener RFEM-Export (wie K01) ist dafür die beste Quelle. RFEM 6 importiert laut Dlubal IFC 2x3/4.0/4.3 (SAV → Knoten/Stäbe/Flächen); ob Lasten mitkommen, ist offen.
+| Datei | Quelle | Lizenz | SHA-256 (16) | Fall |
+|---|---|---|---|---|
+| `structural-curve-member.ifc` (15.275 B) | github.com/buildingSMART/IFC4.x-specification-models | laut Repo CC BY-ND 4.0 → unverändert verwenden | `9ccd7cc699cddf11` | K09 |
+| `SAF_example_HOUSE_metric_ZYX_220.xlsx` (133.350 B) | github.com/StructuralAnalysisFormat/StructuralAnalysisFormat-Examples | keine formale Lizenz → nur intern | `5b0f8271edfcad66` | K10 |
+| `libredwg-0.14-win64.zip` (12.084.779 B) | github.com/LibreDWG/libredwg, Release 0.14 | GPL-3 (externes Werkzeug), Signatur vorhanden, Schlüssel nicht importiert | `1ad7e15344d20b34` | K07, K11 |
+
+**Weitere Kandidaten** (nicht geladen): IfcOpenShell/analysis-models (ohne Lizenz – nur intern), Frame3DD (GPL-3, Referenzausgaben), PyNite `Testing/` (MIT, Lehrbuchwerte), ezdxf `examples_dxf/` (MIT), Dlubal-Verifikationsbeispiele (proprietär). Lücke: kein frei lizenziertes IFC2X3-Statikmodell – eigener RFEM-Export (K01) ist dafür die beste Quelle.
 
 ## 10. Grenzen und Befunde
 
-- Flächen werden gelesen und gezählt, aber noch **nicht** nach RF5 geschrieben (Befund `FLAECHEN_NICHT_UEBERTRAGEN`).
-- Lasten: nur gezählt (IFC), nicht übertragen.
-- Lager im RFEM-DXF nicht kodiert; im generischen DXF nie.
-- Federlager werden nicht als „fest“ gewertet (Hinweis).
-- RF6: nur Inventar; Geometrie über RFEM-6-API, sobald der Zugang freigeschaltet ist (siehe rfem5-com-Handbuch Kap. 16).
-- Achse aus Volumenkörper = Näherung (Exzentrizitäten/Systemlinien prüfen).
+- Flächen: eben, konstante Dicke; **Öffnungen, gekrümmte Ränder, Flächen-Regionen** werden nicht übertragen.
+- Lasten: nur **gleichmäßige** Kräfte im **globalen** System (auch projiziert) sowie Stab-Teillasten. Lokale Lastachsen, veränderliche bzw. hydrostatische Lasten (RFEM „Linear Z“), Temperatur, Vorspannung und Stabmomente werden **gemeldet, nicht übertragen**.
+- Eigengewicht: RF5 → RF5 übernimmt den Schalter; aus IFC/SAF nicht ableitbar → in RFEM prüfen.
+- Lager sind im RFEM-DXF nicht kodiert; Federlager werden nicht als „fest“ gewertet; SAF-Linien-/Flächenlager nicht übertragen.
+- RF6: nur Inventar; Geometrie über die RFEM-6-API (derzeit gesperrt, siehe rfem5-com Kap. 16) oder über den IFC-Export.
+- Achse aus Volumenkörper = Näherung; Umriss ≤ 1,0 m = Stützenpunkt (der Querschnittsname geht dabei verloren).
 
 ## 11. Freigabestufen (wie rfem5-com / rfem6-mcp-engineering)
 
@@ -181,3 +196,21 @@ Lücke: kein frei lizenziertes **IFC2X3-SAV**-Beispiel – eigener RFEM-Export (
 | G1 | – (Werte im Bestand ändern: Skill `rfem5-com`, Beispiel bsp03) |
 | G2 | `convert … .rf5` = neues Modell mit Topologie, Querschnitts-/Materialzuordnung → **Entscheidung Tragwerksplaner** |
 | G3/G4 | nie automatisch; `FINAL_RELEASE = HUMAN_SIGNOFF_REQUIRED` |
+
+## 12. Lasten und Lastvergleich
+
+`compare` ordnet Lastfälle über die Nummer im Namen zu (`LF3` ↔ `LC3`) und vergleicht je Lastfall zwei **geometrieunabhängige** Kennwerte (Toleranz 0,1 %):
+- **ΣF** [kN] = Σ Knotenkräfte + Σ q·L (Stab-, Linien- und Teillasten),
+- **Σp·n** [kN/m²] = Σ Flächenlast × Anzahl Zielflächen, unabhängig davon, wie die Flächenränder unterteilt sind.
+
+Zwischen RFEM-System und Welt werden die Lastvektoren wie die Geometrie gedreht (y, z negiert). Unterschiedliche Randunterteilung (IFC teilt Ränder an jedem Knoten, RFEM speichert durchgehende Linien) wird bei der Flächenzuordnung über Knoten-Teilmengen berücksichtigt.
+
+## 13. Datenqualitäts-Befunde (aus den Tests)
+
+| Befund | Bedeutung | gefunden in |
+|---|---|---|
+| `DOPPELTE_KOORDINATEN:a=b` | zwei Knoten an derselben Stelle – RFEM fasst sie zusammen | SAF-Beispiel (Knoten 84) |
+| `STAB_NULLLAENGE` | Anfangs- = Endknoten – wird beim Schreiben übersprungen | SAF-Beispiel (Stab 45) |
+| „…-Last ohne Objekt“ | Last mit leerer Objektliste (Altlast nach gelöschten Objekten) – wird nicht übertragen; RFEM exportiert sie auch nicht nach IFC | EIS26-RF5: 1.458 Flächen-, 53 Stab-, 9 Knotenlasten |
+| `FLAECHENDICKE_PLATZHALTER` | Quelle ohne Dicke | – |
+| `LASTEN_NICHT_UEBERTRAGEN` | Lastart außerhalb des Umfangs (Kap. 10) | EIS26 LF12 Wasserdruck (Linear Z, lokal) |

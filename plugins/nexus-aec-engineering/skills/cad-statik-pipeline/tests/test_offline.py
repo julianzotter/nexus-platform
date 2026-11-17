@@ -72,6 +72,32 @@ class Roundtrip(unittest.TestCase):
     def test_expand_list(self):
         self.assertEqual(formats.expand_list("1-3, 7,9-10"), [1, 2, 3, 7, 9, 10])
 
+    def test_loads_roundtrip_and_resultants(self):
+        m = fachwerk()
+        m.loads = {"cases": [dict(id="LF1", name="Test", category=1)],
+                   "items": [dict(case="LF1", kind="nodal", targets=[7], dir="Z", value=-10000.0, dist="uniform", note=""),
+                             dict(case="LF1", kind="member", targets=[5, 6], dir="Z", value=-2000.0, dist="uniform", note=""),
+                             dict(case="LF1", kind="member", targets=[1], dir="Z", value=-1000.0, dist="partial", a=1.0, b=2.5, note="")]}
+        F = pipeline.load_resultants(m)["LF1"]["F"]
+        self.assertAlmostEqual(F[2], -10000 - 2000 * 6 - 1000 * 1.5)        # 2 Obergurtstäbe à 3 m, Teillast 1,5 m
+        for back in (nsm.from_json(nsm.to_json(m, os.path.join(self.tmp, "l.json"))),):
+            self.assertEqual(back.loads["items"][2]["a"], 1.0)
+            self.assertEqual(pipeline.compare(m, back)["lasten"]["gleich"], 1)
+        c = nsm.from_csv(nsm.to_csv(m, os.path.join(self.tmp, "lcsv")))
+        self.assertEqual(len(c.loads["items"]), 3)
+
+    def test_rotation_applies_to_loads(self):
+        m = fachwerk(); m.loads = {"cases": [dict(id="LF1")], "items": [dict(case="LF1", kind="nodal", targets=[7], dir="Z", value=-5.0, dist="uniform")]}
+        r = pipeline.load_resultants(m, flip=True)["LF1"]["F"]
+        self.assertEqual(r[2], 5.0)
+
+    def test_duplicate_coordinates_flagged(self):
+        m = fachwerk(); m.nodes.append(Node(99, 0.0, 0.0, 0.0))
+        self.assertTrue(any(f.startswith("DOPPELTE_KOORDINATEN:1=99") for f in m.validate()))
+
+    def test_chain_polygon(self):
+        self.assertEqual(formats._chain([[1, 2], [3, 2], [3, 4], [4, 1]]), [1, 2, 3, 4])
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
