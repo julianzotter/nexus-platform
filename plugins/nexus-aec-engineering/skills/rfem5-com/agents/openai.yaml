@@ -1,0 +1,4 @@
+interface:
+  display_name: "RFEM 5 COM"
+  short_description: "RFEM 5.29 per Python/comtypes lesen, ändern, rechnen, prüfen"
+  default_prompt: "Nutze $rfem5-com: Selbsttest ausführen und das aktive Modell nur lesend auswerten (G0)."

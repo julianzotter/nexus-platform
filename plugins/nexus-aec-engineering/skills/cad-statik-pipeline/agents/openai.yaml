@@ -1,0 +1,4 @@
+interface:
+  display_name: "CAD-Statik-Pipeline"
+  short_description: "DXF/IFC/CSV/RF5/RF6 ↔ neutrales Statikmodell ↔ RFEM"
+  default_prompt: "Nutze $cad-statik-pipeline: Quelle nach NSM konvertieren und mit dem RFEM-Modell vergleichen (G0)."

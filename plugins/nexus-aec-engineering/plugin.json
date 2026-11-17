@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "nexus-aec-engineering",
-  "version": "0.1.0",
-  "description": "Evidence-bound AEC dashboards, RFEM orchestration and connectivity audits. Skills only; live RFEM requires separately connected local Dlubal tools.",
+  "version": "0.2.0",
+  "description": "Evidence-bound AEC dashboards, RFEM 5 COM and RFEM 6 orchestration, CAD/BIM-to-structural pipeline and connectivity audits. Live RFEM requires locally connected Dlubal tools.",
   "author": {
     "name": "ZOTTERCONSULT"
   },
@@ -11,7 +11,7 @@
       "interface": {
         "displayName": "NEXUS AEC Engineering",
         "shortDescription": "AEC, RFEM und Connectivity",
-        "longDescription": "Three reusable skills, version-aware RFEM setup, offline result validation and audit packaging. Does not deploy or connect a server.",
+        "longDescription": "Five reusable skills: RFEM 5 COM (comtypes), RFEM 6 MCP/gRPC, CAD-Statik-Pipeline (DXF/IFC/CSV/SQLite/RF5/RF6 ↔ neutral model), dashboards and connectivity audits; offline regression tests, audit packaging. Does not deploy or connect a server.",
         "developerName": "ZOTTERCONSULT",
         "category": "Productivity",
         "capabilities": [],
