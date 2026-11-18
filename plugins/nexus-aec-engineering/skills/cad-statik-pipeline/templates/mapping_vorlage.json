@@ -1,0 +1,12 @@
+{
+ "_hinweis": "Zuordnung Quellname → RFEM-5-Bibliothek. Leer/fehlend = Platzhalter + Befund (G2: Tragwerksplaner bestätigt).",
+ "materials": {
+  "S235": "NameID|Baustahl S 235 JR@TypeID|STEEL@NormID|DIN EN 10025-2@Norm|DIN EN 10025-2:2005-04",
+  "*": "NameID|Baustahl S 235 JR@TypeID|STEEL@NormID|DIN EN 10025-2@Norm|DIN EN 10025-2:2005-04"
+ },
+ "sections": {
+  "RO 88.9x3.2": "RO 88.9x3.2",
+  "RO 76.1x3.2": "RO 76.1x3.2",
+  "*": "RO 88.9x3.2"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "schema": "nexus.nsm/0.1",
+ "source": "synthetisch: Pratt-Fachwerk 4×3 m, h=3 m (Vorlage)",
+ "format": "synthetisch",
+ "units": {
+  "length": "m",
+  "force": "N",
+  "moment": "Nm"
+ },
+ "z_axis": "up",
+ "created": "2026-11-17T00:00:00+01:00"
+}

@@ -1,0 +1,192 @@
+{
+ "meta": {
+  "schema": "nexus.nsm/0.1",
+  "source": "synthetisch: Pratt-Fachwerk 4×3 m, h=3 m (Vorlage)",
+  "format": "synthetisch",
+  "units": {
+   "length": "m",
+   "force": "N",
+   "moment": "Nm"
+  },
+  "z_axis": "up",
+  "created": "2026-11-17T00:00:00+01:00"
+ },
+ "summary": {
+  "nodes": 8,
+  "members": 13,
+  "supports": 2,
+  "surfaces": 0,
+  "sections": 2,
+  "materials": 1
+ },
+ "fingerprint": "f750e278298b42f70c34b298dc1ebf9f42f28459065eaa5acf144bc63b7b2954",
+ "findings": [],
+ "nodes": [
+  {
+   "id": 1,
+   "x": 0.0,
+   "y": 0.0,
+   "z": 0.0
+  },
+  {
+   "id": 2,
+   "x": 3.0,
+   "y": 0.0,
+   "z": 0.0
+  },
+  {
+   "id": 3,
+   "x": 6.0,
+   "y": 0.0,
+   "z": 0.0
+  },
+  {
+   "id": 4,
+   "x": 9.0,
+   "y": 0.0,
+   "z": 0.0
+  },
+  {
+   "id": 5,
+   "x": 12.0,
+   "y": 0.0,
+   "z": 0.0
+  },
+  {
+   "id": 6,
+   "x": 3.0,
+   "y": 0.0,
+   "z": 3.0
+  },
+  {
+   "id": 7,
+   "x": 6.0,
+   "y": 0.0,
+   "z": 3.0
+  },
+  {
+   "id": 8,
+   "x": 9.0,
+   "y": 0.0,
+   "z": 3.0
+  }
+ ],
+ "members": [
+  {
+   "id": 1,
+   "n1": 1,
+   "n2": 2,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 2,
+   "n1": 2,
+   "n2": 3,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 3,
+   "n1": 3,
+   "n2": 4,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 4,
+   "n1": 4,
+   "n2": 5,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 5,
+   "n1": 6,
+   "n2": 7,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 6,
+   "n1": 7,
+   "n2": 8,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 7,
+   "n1": 1,
+   "n2": 6,
+   "section": "RO 76.1x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 8,
+   "n1": 8,
+   "n2": 5,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 9,
+   "n1": 2,
+   "n2": 6,
+   "section": "RO 76.1x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 10,
+   "n1": 3,
+   "n2": 7,
+   "section": "RO 76.1x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 11,
+   "n1": 4,
+   "n2": 8,
+   "section": "RO 76.1x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 12,
+   "n1": 6,
+   "n2": 3,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  },
+  {
+   "id": 13,
+   "n1": 8,
+   "n2": 3,
+   "section": "RO 88.9x3.2",
+   "material": "S235",
+   "type": "truss"
+  }
+ ],
+ "supports": [
+  {
+   "node": 1,
+   "fix": "xyz"
+  },
+  {
+   "node": 5,
+   "fix": "yz"
+  }
+ ],
+ "surfaces": [],
+ "extra": {}
+}

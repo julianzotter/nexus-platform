@@ -1,0 +1,14 @@
+id;n1;n2;section;material;type
+1;1;2;RO 88.9x3.2;S235;truss
+2;2;3;RO 88.9x3.2;S235;truss
+3;3;4;RO 88.9x3.2;S235;truss
+4;4;5;RO 88.9x3.2;S235;truss
+5;6;7;RO 88.9x3.2;S235;truss
+6;7;8;RO 88.9x3.2;S235;truss
+7;1;6;RO 76.1x3.2;S235;truss
+8;8;5;RO 88.9x3.2;S235;truss
+9;2;6;RO 76.1x3.2;S235;truss
+10;3;7;RO 76.1x3.2;S235;truss
+11;4;8;RO 76.1x3.2;S235;truss
+12;6;3;RO 88.9x3.2;S235;truss
+13;8;3;RO 88.9x3.2;S235;truss
