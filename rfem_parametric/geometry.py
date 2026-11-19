@@ -41,35 +41,30 @@ def positions(lengths: tuple[float, ...]) -> tuple[float, ...]:
 
 
 def build_geometry(spec: FrameSpec) -> dict[str, Any]:
-    """Create numbered nodes and members in an orthogonal frame grid."""
-    xs, ys, zs = (positions(v) for v in (spec.spans_x_m, spec.spans_y_m, spec.storeys_m))
-    ids: dict[tuple[int, int, int], int] = {}
-    nodes: list[dict[str, Any]] = []
-    for k, z in enumerate(zs):
-        for j, y in enumerate(ys):
-            for i, x in enumerate(xs):
-                no = len(nodes) + 1
-                ids[i, j, k] = no
-                nodes.append({"no": no, "x_m": x, "y_m": y, "z_m": z})
-    members: list[dict[str, Any]] = []
-    def add(a: tuple[int, int, int], b: tuple[int, int, int], kind: str) -> None:
-        members.append({"no": len(members) + 1, "start": ids[a], "end": ids[b], "kind": kind})
-    for k in range(len(zs)):
-        for j in range(len(ys)):
-            for i in range(len(xs)):
-                if k + 1 < len(zs):
-                    add((i, j, k), (i, j, k + 1), "column")
-                if k > 0 and i + 1 < len(xs):
-                    add((i, j, k), (i + 1, j, k), "beam_x")
-                if k > 0 and j + 1 < len(ys):
-                    add((i, j, k), (i, j + 1, k), "beam_y")
-    return {
-        "project": spec.project, "unit": "m", "nodes": nodes, "members": members,
-        "base_nodes": [ids[i, j, 0] for j in range(len(ys)) for i in range(len(xs))],
-        "material": spec.material, "section_columns": spec.section_columns,
-        "section_beams": spec.section_beams, "loads": "UNDEFINED",
-        "supports": "UNDEFINED", "status": "GEOMETRY_ONLY_NO_SOLVER",
-    }
+    """Legacy preview shape delegated to the shared deterministic geometry core.
+
+    Legacy input lacks source locators: it remains an unverified synthetic preview.
+    The newer CLI/schema is required for a sourced PROJECT input.
+    """
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "orchestrator"))
+    from nexus_orch.geometry import generate
+    model = generate({"schema_version": "1.0.0", "scope": "SYNTHETIC", "units": "m",
+        "coordinate_system": "RFEM_GLOBAL_Z_DOWN", "name": "LEGACY_UNVERIFIED_PREVIEW",
+        "bays_x_m": list(spec.spans_x_m), "bays_y_m": list(spec.spans_y_m),
+        "storey_heights_m": list(spec.storeys_m), "source_refs": [],
+        "catalog": {"rfem6_material": spec.material,
+                    "rfem5_material_text_id": "UNRESOLVED_NOT_FOR_COM_TRANSFER",
+                    "section_columns": spec.section_columns, "section_beams": spec.section_beams}})
+    lines = {line["no"]: line["nodes"] for line in model["lines"]}
+    members = [{"no": m["no"], "start": lines[m["line"]][0],
+                "end": lines[m["line"]][1], "kind": m["role"]} for m in model["members"]]
+    return {"project": spec.project, "unit": "m", "nodes": model["nodes"], "members": members,
+            "base_nodes": [n["no"] for n in model["nodes"] if n["z_m"] == 0],
+            "material": spec.material, "section_columns": spec.section_columns,
+            "section_beams": spec.section_beams, "loads": "UNDEFINED", "supports": "UNDEFINED",
+            "scope": "LEGACY_UNVERIFIED_PREVIEW", "coordinate_system": "RFEM_GLOBAL_Z_DOWN",
+            "status": "GEOMETRY_ONLY_NO_SOLVER"}
 
 
 def load_spec(path: Path) -> FrameSpec:
