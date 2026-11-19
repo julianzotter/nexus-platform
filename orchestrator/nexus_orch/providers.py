@@ -1,4 +1,4 @@
-"""Provider adapters (stdlib only). temperature=0.0 default, deterministic."""
+"""Provider adapters. Sampling settings do not guarantee deterministic output."""
 import base64, json, os, urllib.error, urllib.request
 
 class ProviderError(RuntimeError):
@@ -23,6 +23,12 @@ class Provider:
         env = self.cfg.get("env_key")
         if env is None:
             return ""
+        if self.cfg.get("credential_store") == "dsh":
+            from .credentials import CredentialError, resolve_key
+            try:
+                return resolve_key(env, "dsh")
+            except CredentialError as exc:
+                raise ProviderError(f"{self.name}: {exc}") from None
         k = os.environ.get(env)
         if not k:
             raise ProviderError(f"{self.name}: env {env} missing")
@@ -44,6 +50,12 @@ class Provider:
     def _complete(self, prompt, system="", temperature=0.0):
         post = lambda u, h, body: _post(u, h, body, self.cfg.get("timeout", 120))
         kind, base, model, key = self.cfg["kind"], self.cfg["base_url"], self.cfg["model"], self.key()
+        if kind == "deepseek":
+            from .deepseek import DeepSeekError, complete
+            try:
+                return complete(self.cfg, prompt, system, key)
+            except DeepSeekError as exc:
+                raise ProviderError(f"{self.name}: {exc}") from None
         if kind == "openai_compat":
             msgs = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": prompt}]
             h = {"Authorization": f"Bearer {key}"} if key else {}

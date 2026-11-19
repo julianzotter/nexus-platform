@@ -182,7 +182,7 @@
     <button class="provider-btn" data-provider="anthropic">Anthropic</button>
     <button class="provider-btn" data-provider="openai">OpenAI</button>
     <button class="provider-btn" data-provider="ollama">Ollama (lokal)</button>
-    <input type="password" class="api-key-input" id="apiKeyInput" placeholder="API-Key für aktiven Provider">
+    <input type="password" class="api-key-input" id="apiKeyInput" placeholder="API-Key nur für diese Sitzung (nicht gespeichert)">
     <input type="text" class="api-key-input ollama-url" id="ollamaUrl" placeholder="http://localhost:11434" value="http://localhost:11434">
   </div>
 
@@ -247,7 +247,7 @@
       </div>
       <div class="output-area" style="flex:1; overflow:hidden;">
         <div class="output-content" id="tab-code" style="display:flex; height:100%;"><textarea id="codeResult" readonly placeholder="Generierter Code erscheint hier…"></textarea></div>
-        <div class="output-content" id="tab-preview" style="display:none; height:100%;"><iframe id="previewFrame"></iframe></div>
+        <div class="output-content" id="tab-preview" style="display:none; height:100%;"><iframe id="previewFrame" sandbox="allow-scripts"></iframe></div>
         <div class="output-content" id="tab-pipeline" style="display:none; height:100%; overflow:auto;"><pre id="pipelineLog"></pre></div>
       </div>
     </div>
@@ -260,6 +260,8 @@
     // ════════════════════════════════════════════════════════════════════════
 
     // ---------- Globale Zustände ----------
+    // Remove only obsolete credential slots without reading their values.
+    try { Object.keys(localStorage).filter(k => k.startsWith('vc_apikey_')).forEach(k => localStorage.removeItem(k)); } catch { window.alert('Alte Schlüsselablage konnte nicht bereinigt werden. Keine echten API-Keys in diesem Prototyp verwenden.'); }
     const STATE = {
       provider: 'gemini',
       apiKey: '',
@@ -402,6 +404,7 @@
         return {
           name: baseConfig.name,
           generate: async (prompt, apiKey, ollamaUrl) => {
+            if (id === 'deepseek') throw new Error('DeepSeek: Verwende den geprüften NEXUS-Python-Adapter; direkter Browserpfad ist deaktiviert.');
             const req = baseConfig.buildRequest(prompt, apiKey, ollamaUrl);
             const fetchOpts = { method:'POST', headers:{ 'Content-Type':'application/json', ...(req.headers||{}) }, body:JSON.stringify(req.body) };
             const response = await fetch(req.url, fetchOpts);
@@ -443,7 +446,7 @@
           document.querySelectorAll('.provider-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           STATE.provider = btn.dataset.provider;
-          const savedKey = localStorage.getItem('vc_apikey_' + STATE.provider) || '';
+          const savedKey = ''; // API keys are never read from browser persistence.
           document.getElementById('apiKeyInput').value = savedKey;
           document.querySelector('.ollama-url').style.display = STATE.provider === 'ollama' ? 'inline-block' : 'none';
         });
@@ -520,7 +523,7 @@
       const provider = PROVIDER_FACTORY.getProvider(STATE.provider);
       const apiKey = document.getElementById('apiKeyInput').value.trim();
       if (!apiKey && STATE.provider !== 'ollama') throw new Error('API-Key fehlt');
-      localStorage.setItem('vc_apikey_'+STATE.provider, apiKey);
+      // Session-only input; no credential persistence.
 
       const inputText = document.getElementById('vibeInput').value.trim();
       const templateContext = STATE.selectedTemplate

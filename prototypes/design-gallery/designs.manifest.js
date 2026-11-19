@@ -133,8 +133,8 @@ window.NEXUS_DESIGNS = {
    "kind": "html",
    "path": "prototypes/vibe-coder-v2.3/index.html",
    "preview": "../../prototypes/vibe-coder-v2.3/index.html",
-   "sha256": "1090708698435091817fab1510e3fdb5a397b337afbcef108cc22e1a584ad7b6",
-   "bytes": 36304,
+   "sha256": "ddb676f73cef4d81d7f4c86dec02ba2bd52add5807b673106f26a3382aa4b34d",
+   "bytes": 36819,
    "status": "prototype_unreviewed",
    "summary": "Source: [Google Drive HTML](https://drive.google.com/file/d/1KurGBe1SVcub-ZdkMPIjRUZSrRsCEmHG/view) Original title: VIBE CODER v2.3 – Multi‑Provider · Free‑Tier · 3D‑Visual.html Drive modification time: 2026-03-16T04:06:05.035Z. Imported: 2026-10-13. The HTML source was imported without intentional code changes. It has not been run or deployed. Repository import does not establish production readiness. - Provider sel",
    "tags": [
