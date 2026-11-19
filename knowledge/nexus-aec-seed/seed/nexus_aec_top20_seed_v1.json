@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "seed_id": "NEXUS-AEC-TOP20-2026-11-16",
+  "date": "2026-11-16",
+  "state": "PROPOSED",
+  "authority": "ID01 approval pending; source-specific access rights apply",
+  "purpose": "Source discovery and controlled ingestion targets, not an inventory of ingested records",
+  "source_of_truth": "Google Drive NEXUS WORK; GitHub review mirror",
+  "sources": [
+    {"rank":1,"id":"DATAHOLZ","host":"dataholz.eu","url":"https://www.dataholz.eu/bauteile/ids.htm","lane":"ASSEMBLY","cadence":"weekly","access":"PUBLISHER_TERMS_REVIEW","method":"IDS_VERSIONED_DOWNLOAD","priority":"P0"},
+    {"rank":2,"id":"OIB","host":"oib.or.at","url":"https://www.oib.or.at/kernaufgaben/oib-richtlinien/","lane":"REGULATION","cadence":"weekly","access":"PUBLIC_METADATA","method":"OFFICIAL_VERSION_WATCH","priority":"P0"},
+    {"rank":3,"id":"PROHOLZ","host":"proholz.at","url":"https://www.proholz.at/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P1"},
+    {"rank":4,"id":"HOLZFORSCHUNG","host":"holzforschung.at","url":"https://www.holzforschung.at/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P1"},
+    {"rank":5,"id":"HOLZBAU_AUSTRIA","host":"holzbauaustria.at","url":"https://www.holzbauaustria.at/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P1"},
+    {"rank":6,"id":"AUSTRIAN_STANDARDS","host":"austrian-standards.at","url":"https://www.austrian-standards.at/","lane":"STANDARD_INDEX","cadence":"monthly","access":"LICENSED_FULLTEXT_EXCLUDED","method":"EDITION_METADATA_ONLY","priority":"P0"},
+    {"rank":7,"id":"BAUBOOK","host":"baubook.at","url":"https://www.baubook.at/","lane":"MATERIAL_LCA","cadence":"weekly","access":"API_AND_LICENSE_CHECK","method":"PRODUCT_EPDS_WITH_LICENSE","priority":"P0"},
+    {"rank":8,"id":"IBO","host":"ibo.at","url":"https://www.ibo.at/","lane":"CIRCULARITY","cadence":"weekly","access":"PUBLISHER_TERMS_REVIEW","method":"METHOD_VERSION_WATCH","priority":"P0"},
+    {"rank":9,"id":"TU_REPOSITUM","host":"repositum.tuwien.at","url":"https://repositum.tuwien.at/handle/20.500.12708/210734","lane":"RESEARCH","cadence":"monthly","access":"OPEN_ACCESS_LICENSE_CHECK","method":"HANDLE_DOI_BIBLIOGRAPHY","priority":"P0"},
+    {"rank":10,"id":"STUDIEN_HOLZLEIMBAU","host":"studiengemeinschaft-holzleimbau.de","url":"https://www.studiengemeinschaft-holzleimbau.de/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P1"},
+    {"rank":11,"id":"OEKOBAUDAT","host":"oekobaudat.de","url":"https://www.oekobaudat.de/","lane":"MATERIAL_LCA","cadence":"monthly","access":"DATASET_LICENSE_CHECK","method":"VERSIONED_LCA_DATASET","priority":"P0"},
+    {"rank":12,"id":"EOTA","host":"eota.eu","url":"https://www.eota.eu/etassessments","lane":"PRODUCT_ASSESSMENT","cadence":"weekly","access":"PUBLIC_METADATA","method":"ETA_EAD_LOOKUP","priority":"P0"},
+    {"rank":13,"id":"DLUBAL_API","host":"apidocs.dlubal.com","url":"https://apidocs.dlubal.com/","lane":"ENGINEERING_API","cadence":"monthly","access":"OFFICIAL_DOCS","method":"SDK_RELEASE_WATCH","priority":"P0"},
+    {"rank":14,"id":"INFORMATIONSDIENST_HOLZ","host":"informationsdienst-holz.de","url":"https://informationsdienst-holz.de/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P1"},
+    {"rank":15,"id":"HABITAT2030","host":"habitat2030.at","url":"https://habitat2030.at/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P1"},
+    {"rank":16,"id":"KLIMAAKTIV","host":"klimaaktiv.at","url":"https://www.klimaaktiv.at/","lane":"SUSTAINABILITY","cadence":"weekly","access":"PUBLIC_METADATA","method":"CRITERIA_VERSION_WATCH","priority":"P1"},
+    {"rank":17,"id":"FORUM_HOLZBAU","host":"forum-holzbau.com","url":"https://www.forum-holzbau.com/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P2"},
+    {"rank":18,"id":"LIGNUM","host":"lignum.ch","url":"https://www.lignum.ch/","lane":"META_WISSEN","cadence":"weekly","access":"PUBLIC_METADATA","method":"SITEMAP_RSS_IF_AVAILABLE","priority":"P2"},
+    {"rank":19,"id":"EUR_LEX","host":"eur-lex.europa.eu","url":"https://eur-lex.europa.eu/","lane":"REGULATION","cadence":"weekly","access":"OFFICIAL_LEGAL_TEXT","method":"CELEX_VERSION_WATCH","priority":"P0"},
+    {"rank":20,"id":"BUILDINGSMART","host":"standards.buildingsmart.org","url":"https://standards.buildingsmart.org/","lane":"INTEROPERABILITY","cadence":"monthly","access":"OFFICIAL_SPECIFICATION","method":"IFC_IDS_SCHEMA_WATCH","priority":"P1"}
+  ],
+  "links": [
+    {"from":"OIB","relation":"REGULATORY_CONTEXT_FOR","to":"DATAHOLZ"},
+    {"from":"OIB","relation":"REGULATORY_CONTEXT_FOR","to":"BAUBOOK"},
+    {"from":"BAUBOOK","relation":"LCA_COMPLEMENTS","to":"OEKOBAUDAT"},
+    {"from":"IBO","relation":"CIRCULARITY_CRITERIA_FOR","to":"DATAHOLZ"},
+    {"from":"EOTA","relation":"PRODUCT_ASSESSMENT_FOR","to":"DATAHOLZ"},
+    {"from":"BUILDINGSMART","relation":"IDS_IFC_VALIDATION_OF","to":"DATAHOLZ"},
+    {"from":"TU_REPOSITUM","relation":"METHOD_EVIDENCE_FOR","to":"DLUBAL_API"},
+    {"from":"DLUBAL_API","relation":"MODEL_INPUT_USES_REVIEWED","to":"DATAHOLZ"},
+    {"from":"EUR_LEX","relation":"EU_REGULATORY_CONTEXT_FOR","to":"IBO"}
+  ],
+  "controls": {
+    "no_web_crawl_without_rights": true,
+    "no_bypass_of_robots_or_access_controls": true,
+    "norm_version_and_austrian_implementation_required": true,
+    "engineering_solver_is_the_only_calculation_authority": true,
+    "human_release_required": true,
+    "do_not_promote_drafts_to_binding": true
+  }
+}
