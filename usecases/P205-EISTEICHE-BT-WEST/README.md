@@ -18,6 +18,8 @@ Ergänzung um kostenrelevante „Besondere Herstellanweisungen seitens Statik".
 | `suchindex.sqlite` | SQLite-Suchindex (20.301 Dateien, FTS5) — aus dem Projektordner regenerierbar |
 | `EIS BAUMEISTER-LV 20260619_Analyse_Statik_BT-WEST.docx` | Strukturierte LV-Analyse |
 | `EIS BAUMEISTER-LV 20260619_Statikbericht_Pakete_BT-WEST.docx` | Statikbericht-Paketstruktur (11 Pakete, A/B/C-Blöcke) |
+| `26_11_19_ID02_LV-AUSZUG_STATIK_BT-WEST_Positionen+Mengen.md` | LV-Auszug (Positionen + Mengen, paketweise) |
+| `26_11_19_ID02_LV-AUSZUG_STATIK_BT-WEST_Positionen+Mengen.csv` | LV-Auszug als CSV (Excel-Filter) |
 
 ## Kanonische Ablage (Google Drive, Projektordner)
 - `WORK\` — Statusreports
