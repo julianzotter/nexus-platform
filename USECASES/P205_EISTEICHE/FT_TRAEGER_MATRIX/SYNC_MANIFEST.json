@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "status": "SNAPSHOT_VERIFIED_REVIEW_PENDING",
+  "usecase_id": "P205_EISTEICHE_FT_TRAEGER_MATRIX",
+  "authority": "Google Drive WORK is canonical; GitHub is versioned review snapshot",
+  "report_name": "26_11_19_ID01_QUICK-STATUSREPORT_P205-EISTEICHE–FT-TRÄGER-MATRIX_V1.0.md",
+  "drive": {
+    "file_id": "14pCIOHvnsyy7amRiA-X0r4mlRTSFdKaV",
+    "folder_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+    "url": "https://drive.google.com/file/d/14pCIOHvnsyy7amRiA-X0r4mlRTSFdKaV/view",
+    "sha256": "1ecb6cc18babd5ce68bda4fc8a12c0ae7b9027967955d516958d2e30465b72d6",
+    "bytes": 7990
+  },
+  "github": {
+    "repository": "julianzotter/nexus-platform",
+    "branch": "codex/usecase-p205-ft-status-20261119-v1",
+    "path": "USECASES/P205_EISTEICHE/FT_TRAEGER_MATRIX/26_11_19_ID01_QUICK-STATUSREPORT_P205-EISTEICHE–FT-TRÄGER-MATRIX_V1.0.md",
+    "file_blob_sha": "eabc7e3b0f40baaa3e756806451b3d8471d05cb5",
+    "initial_commit_sha": "a632e3b0f06fd2199b7d3b44dfba0e03d66eb62b"
+  },
+  "verification": {
+    "drive_exact_local_base64_match": true,
+    "github_exact_drive_utf8_text_match": true,
+    "snapshot_bytes_identical": true,
+    "verified_at_utc": "2026-11-19T12:30:37.979Z"
+  },
+  "automatic_sync": {
+    "status": "NOT_VERIFIED",
+    "reason": "WORK/Folder.md (2026-11-16) reports Drive↔GitHub OAuth HTTP_400 refresh error"
+  },
+  "governance": {
+    "requested_by": "ID01",
+    "executor_role": "ID02",
+    "registration_status": "PENDING",
+    "ticket_id": null,
+    "technical_release": "BLOCKED",
+    "independent_review": "PENDING"
+  }
+}
