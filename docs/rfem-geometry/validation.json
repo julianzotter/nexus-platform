@@ -1,0 +1,48 @@
+{
+  "status": "OFFLINE_TESTED_REVIEW_CANDIDATE",
+  "source_base_commit": "50dd64a3680836c3e43fb194b8d15bb097313bfd",
+  "executor": "OpenAI Codex /root",
+  "role_id": "ID02",
+  "reviewer": "OpenAI Codex /root/rfem_diff_review",
+  "observed_at": "2026-11-12T22:06:33.103732+00:00",
+  "tests": {
+    "command": "PYTHONPATH=orchestrator python -m pytest -q tests orchestrator/tests/test_orch.py",
+    "passed": 70,
+    "subtests_passed": 2,
+    "scope": "materialized PR83 source subset; full repository suite not run"
+  },
+  "rfem6_sdk": "2.16.6",
+  "rfem5_live": "NOT_RUN",
+  "rfem6_live": "NOT_RUN",
+  "dsh_live": "NOT_RUN",
+  "deepseek_auth": "NOT_RUN",
+  "solver": "NOT_RUN",
+  "work_registry": "REGISTRATION_PENDING",
+  "source_sha256": {
+    ".gitignore": "27ad2f8130b62d8da36563909f1a1183377f70678e43bfcda3616bd391ac0980",
+    "orchestrator/config/routing.json": "743266da7cf835177c524c9ae206dec81c0a340bcdaff9548856f99da0b3fcf9",
+    "orchestrator/examples/synthetic-frame.json": "317b1f025f6756fd58a5f0b76b6ce89588bcd54d856490f96ee8c926d30b7d5a",
+    "orchestrator/nexus_orch/cli.py": "1831aab4db8f5b751bb457a8ca970c1b40c9c49d95e1b9b5d45b4057da263be4",
+    "orchestrator/nexus_orch/dsh.py": "3d8dcea7287c9c8ffe522e5a7baae7b27ba06535d36801ca0c5ee670f86094d6",
+    "orchestrator/nexus_orch/geometry.py": "506a2b6ecce2e54adc6af0368bc324eaf429ecae29c3b957ef0e861c79a6c976",
+    "orchestrator/nexus_orch/geometry_plan.py": "451420344a97a5759a04f780b9ed824d29fcb68606467fbb1744b795256ad914",
+    "orchestrator/nexus_orch/geometry_run.py": "d554c034e88a8d025fd8e4499f955bd19ecbec7ef206fdc3f05b744092627b0e",
+    "orchestrator/nexus_orch/providers.py": "b553f6e432776459d5395a15756bf871b218833b42d4d8770dd29dd7888329fb",
+    "orchestrator/nexus_orch/rfem5.py": "ea8ae576599cb5a3cf96653d2c1662ad9b12c77de45d633c7f4604c7b23f0dcb",
+    "orchestrator/nexus_orch/rfem6.py": "8f0160735ad8435ac47bcf10de5e308c5a6b328a919233aa66cb4c50120756a0",
+    "orchestrator/requirements-rfem5.txt": "595bc57421c588e7f844483c3414d9b5364086328fbb253c6e8ee1cf9875cc98",
+    "orchestrator/requirements-rfem6.txt": "0c7434db868fd58aab3e0434de03a91b5d00b9d8a92a14e77b82a41ea93c6440",
+    "orchestrator/schemas/geometry-input.schema.json": "49a8afa11147ed11fc73db7d9ca5ad8d7b475422cc916f443a70ee4e080dff8c",
+    "orchestrator/tests/test_geometry.py": "fd6a89f45128b01fb5f2a01063e8f54fc574ca0f7b7d15c523f7d1d4a5491e03",
+    "rfem_parametric/geometry.py": "bb22f3273849562109d51cd55d1c290336b1035408f1360ec7a844bfe41c0fbe",
+    "tests/test_deepseek_route.py": "b3636046f6359cdcfd7c6e163de8d3a2dd7a127d34bd55d4136344454e58e006",
+    "tests/test_geometry_engine.py": "b0977aa0030496806af8e49653147ee26c98d778f54c6d1f476a3d08d77dfac8"
+  },
+  "independent_review": {
+    "verdict": "BOUNDED_PASS_OFFLINE_DRAFT",
+    "passed": 70,
+    "subtests_passed": 2,
+    "git_diff_check": "PASS",
+    "live_acceptance": false
+  }
+}

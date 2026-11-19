@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NEXUS frame geometry input 1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "units",
+    "coordinate_system",
+    "name",
+    "bays_x_m",
+    "bays_y_m",
+    "storey_heights_m",
+    "catalog",
+    "source_refs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "scope": {
+      "enum": [
+        "SYNTHETIC",
+        "PROJECT"
+      ]
+    },
+    "units": {
+      "const": "m"
+    },
+    "coordinate_system": {
+      "const": "RFEM_GLOBAL_Z_DOWN"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "bays_x_m": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "number",
+        "minimum": 0.0001,
+        "maximum": 1000
+      }
+    },
+    "bays_y_m": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "number",
+        "minimum": 0.0001,
+        "maximum": 1000
+      }
+    },
+    "storey_heights_m": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "number",
+        "minimum": 0.0001,
+        "maximum": 1000
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rfem6_material",
+        "rfem5_material_text_id",
+        "section_columns",
+        "section_beams"
+      ],
+      "properties": {
+        "rfem6_material": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rfem5_material_text_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section_columns": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section_beams": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "scope": {
+            "const": "PROJECT"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

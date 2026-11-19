@@ -1,5 +1,6 @@
-"""Provider adapters (stdlib only). temperature=0.0 default, deterministic."""
+"""Provider adapters (stdlib only). Sampling control depends on provider."""
 import base64, json, os, urllib.error, urllib.request
+from .dsh import complete as dsh_complete
 
 class ProviderError(RuntimeError):
     pass
@@ -28,6 +29,9 @@ class Provider:
             raise ProviderError(f"{self.name}: env {env} missing")
         return k
     def available(self):
+        if self.cfg.get("kind") == "dsh":
+            from .dsh import configured
+            return configured(self.cfg)  # Prerequisites only, not authenticated.
         try:
             self.key(); return True
         except ProviderError:
@@ -42,6 +46,8 @@ class Provider:
             raise ProviderError(f"{self.name}: parse error {type(e).__name__}: {e}") from e
 
     def _complete(self, prompt, system="", temperature=0.0):
+        if self.cfg["kind"] == "dsh":
+            return dsh_complete(self.cfg, prompt, system)
         post = lambda u, h, body: _post(u, h, body, self.cfg.get("timeout", 120))
         kind, base, model, key = self.cfg["kind"], self.cfg["base_url"], self.cfg["model"], self.key()
         if kind == "openai_compat":
@@ -50,6 +56,15 @@ class Provider:
             body = {"model": model, "messages": msgs}
             if self.cfg.get("supports_temperature", True):  # O-01: gpt-5 akzeptiert keine Temperatur
                 body["temperature"] = temperature
+            if self.name == "deepseek":
+                mode = self.cfg.get("thinking", "disabled")
+                if mode not in ("enabled", "disabled"):
+                    raise ProviderError("deepseek: invalid thinking setting")
+                body["thinking"] = {"type": mode}
+                body.pop("temperature", None)
+                if mode == "enabled":
+                    body["reasoning_effort"] = self.cfg.get("reasoning_effort", "high")
+                body["max_tokens"] = self.cfg.get("max_tokens", 512)
             d = post(f"{base}/chat/completions", h, body)
             return {"text": d["choices"][0]["message"]["content"], "citations": d.get("citations", []), "model": model}
         if kind == "anthropic":
