@@ -1,0 +1,16 @@
+{
+  "run_date": "2026-11-22T18:48:28.195536+01:00",
+  "status": "PREFLIGHT_VERIFIED__ASR_BLOCKED",
+  "source_file_id": "1lBVzoKG8R9SDy0XsJSpwdxS-CHbASaUi",
+  "source_filename": "26_11_22_KNEIDINGER-WIGEBA.mp3",
+  "source_size_bytes": 118936512,
+  "source_sha256": "b20818d7bdd83177a80749832963aad1220b9eec64c1f2759fb6275b1ea17434",
+  "duration_s": 4955.688,
+  "codec": "mp3",
+  "sample_rate_hz": 48000,
+  "channels": 2,
+  "original_pipeline_drive_id": "1qkXKaMfljrJJLjNVEyCdiC-DnY1UQrVT",
+  "asr_executed": false,
+  "blocker": "faster_whisper and model weights absent in ChatGPT container; external model download/network unavailable; user local Windows runtime not accessible",
+  "next_step": "Run unchanged original algorithm with compatible local GPU and independently QA audio coverage"
+}
