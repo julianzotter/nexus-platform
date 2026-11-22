@@ -1,0 +1,23 @@
+model_pass1: small
+model_pass2: large-v3
+device: cuda
+compute_type: float16
+language: de
+chunk_seconds: 240
+overlap_seconds: 15
+beam_size: 5
+max_prompt_terms: 40
+min_term_frequency: 2
+low_logprob_threshold: -0.65
+max_refinement_rounds: 2
+seed_terms:
+  - MCP Server
+  - TypeScript
+  - Rust
+  - ast-grep
+  - Abstract Syntax Tree
+  - GitHub
+  - LangChain
+  - Mastra
+  - Quellreferenzierung
+  - Halluzinationen
