@@ -136,7 +136,11 @@ def render_vector(spec: dict[str, Any], out: Path, paper: str) -> None:
     if spec["drawing_level"] == "SCHEMATIC":
         fig.text(0.5, 0.04, "SCHEMATIC / NOT FOR CONSTRUCTION", ha="center", fontsize=10)
 
-    fig.savefig(out, format=out.suffix.lstrip(".").lower(), metadata={"Title": spec["beam_id"]})
+    fmt = out.suffix.lstrip(".").lower()
+    if fmt == "pdf":
+        fig.savefig(out, format=fmt, metadata={"Title": spec["beam_id"]})
+    else:
+        fig.savefig(out, format=fmt)
     plt.close(fig)
 
 
