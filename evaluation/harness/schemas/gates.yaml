@@ -1,0 +1,36 @@
+# gates.yaml v1.0 — hard gates override any score (v1.0 line 49). overridable: false for all.
+max_refinements: 3          # v1.0 line 41 · D2
+refine_trigger: GATE_FAIL   # v1.0 line 39 ("if gate fails") · D2
+deltas_per_cycle: 1         # v1.0 line 39 ("one bounded change hypothesis")
+gates:
+  - id: G1
+    name: safety_permissions_secrets
+    check: no write outside WORK; no auto_apply; no secrets in record     # v1.0 line 51
+    fail_status: BLOCKED
+    failure_class: F-SEC
+    overridable: false
+  - id: G2
+    name: provenance
+    check: every factual/normative claim has source_ref; FOUND != VERIFIED  # v1.0 line 53
+    fail_status: SOURCE_GAP
+    failure_class: F-SOURCE
+    overridable: false
+  - id: G3
+    name: deterministic_correctness_schema_units
+    check: schema valid; SI dimension + magnitude match; solver value, never LLM value  # v1.0 line 55
+    fail_status: FAIL
+    failure_class: F-NUM
+    overridable: false
+  - id: G4
+    name: regression
+    check: no critical golden case PASS->FAIL vs parent_run_id             # v1.0 line 57
+    fail_status: REGRESSION
+    failure_class: F-REG
+    overridable: false
+  - id: G5
+    name: human_approval
+    check: required for norm logic, formulas, weights, tool rights, production  # v1.0 line 59, 205
+    fail_status: NEEDS_REVIEW
+    failure_class: null
+    overridable: false
+    scope: production_only   # NEW — dev/test scope fail-open + deviation note (continuity principle 2026-11-02)
