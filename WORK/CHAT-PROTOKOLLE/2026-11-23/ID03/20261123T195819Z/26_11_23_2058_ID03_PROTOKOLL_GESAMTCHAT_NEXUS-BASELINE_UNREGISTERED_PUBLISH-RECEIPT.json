@@ -1,0 +1,193 @@
+{
+  "schema": "nexus-publication-receipt/v1",
+  "artifact_category": "publication_receipt_and_runlog",
+  "role_id": "ID03",
+  "provider": "OpenAI",
+  "run_id": "ID03-CHAT-ARCHIVE-20261123T195819Z",
+  "continuation_of_run_id": "ID03-BASELINE-EVAL-20261123T181602Z",
+  "ticket_id": "WO-20261112-ID02-CAPABILITY-ACK",
+  "created_at_utc": "2026-11-23T20:02:35+00:00",
+  "authorization": "Explicit user request to upload the available whole-chat protocol to julianzotter/nexus-platform and Google Drive.",
+  "status": "PRIMARY_ARTIFACTS_PUBLISHED_AND_READBACK_VERIFIED",
+  "registration_status": "REGISTRATION_PENDING",
+  "ledger_number": null,
+  "repository": "julianzotter/nexus-platform",
+  "branch": "id03/baseline-eval-20261123t181602z",
+  "github_directory": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z",
+  "expected_previous_head": "066a03c9d987816ff7c8a3f2ada9d378110d5051",
+  "archive_commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+  "archive_commit_url": "https://github.com/julianzotter/nexus-platform/commit/0348753303d1625d9379f381ff0b0c9d43caf077",
+  "branch_update_guard": "expected_sha; force=false",
+  "drive_parent_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+  "local_mount_test": "NOT_RUN_THIS_ARCHIVE_RUN",
+  "local_git_push_test": "NOT_RUN; published via GitHub API",
+  "full_native_chat_export": false,
+  "original_audio_included": false,
+  "archive_members": 11,
+  "protocol_chronology_events": 45,
+  "faq_topics": 15,
+  "document_review": {
+    "result": "PASS",
+    "scope": "Protocol sections 1-8, provenance and coverage only",
+    "kind": "separate internal document reviewer; not external role acceptance",
+    "reviewed_file_sha256": "a8448e8c6edbc26e753968e2d3ed36b3bda6d0d23d5844d12562b6d0f800581f"
+  },
+  "integrity_qa": {
+    "zip_crc": "PASS",
+    "manifest_hashes": "PASS",
+    "original_source_byte_preservation": "PASS",
+    "prior_gap_prefix_preservation": "PASS",
+    "sensitive_pattern_scan": {
+      "private_key": 0,
+      "github_token": 0,
+      "openai_key": 0,
+      "signed_bearer_query": 0
+    },
+    "archive_members": 11,
+    "known_limits": [
+      "not_native_complete_chat_export",
+      "original_audio_unavailable",
+      "later_foreign_claims_not_reaudited"
+    ]
+  },
+  "artifacts": [
+    {
+      "name": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.md",
+      "bytes": 65557,
+      "sha256": "a8448e8c6edbc26e753968e2d3ed36b3bda6d0d23d5844d12562b6d0f800581f",
+      "drive": {
+        "id": "1PZZ4j4ttezgKss3yIt_bXW1rNmRNOnVv",
+        "url": "https://docs.google.com/document/d/1PZZ4j4ttezgKss3yIt_bXW1rNmRNOnVv/edit?usp=drivesdk&ouid=110406241821899437720&rtpof=true&sd=true",
+        "parent_ids": [
+          "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+        ],
+        "modified_time": "2026-11-23T19:59:44.891Z",
+        "readback_at": "2026-11-23T20:00:21+00:00",
+        "sha256": "a8448e8c6edbc26e753968e2d3ed36b3bda6d0d23d5844d12562b6d0f800581f",
+        "result": "PASS"
+      },
+      "github": {
+        "commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+        "path": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z/26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.md",
+        "blob_sha": "4da32f5fb4ab1d813f451a0500386a86aba1b1d9",
+        "readback_at": "2026-11-23T20:01:50+00:00",
+        "sha256": "a8448e8c6edbc26e753968e2d3ed36b3bda6d0d23d5844d12562b6d0f800581f",
+        "result": "PASS"
+      },
+      "all_three_copies_byte_equal": true
+    },
+    {
+      "name": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.zip",
+      "bytes": 263323,
+      "sha256": "9a47895888995cfe3d04bc6b825520cacf4e06e0ae1f0b4f0c2130ad6757be84",
+      "drive": {
+        "id": "1vtgtfDKzX-Oky-tqE9-8MOv_qlT22MW9",
+        "url": "https://drive.google.com/file/d/1vtgtfDKzX-Oky-tqE9-8MOv_qlT22MW9/view?usp=drivesdk",
+        "parent_ids": [
+          "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+        ],
+        "modified_time": "2026-11-23T19:59:49.279Z",
+        "readback_at": "2026-11-23T20:00:21+00:00",
+        "sha256": "9a47895888995cfe3d04bc6b825520cacf4e06e0ae1f0b4f0c2130ad6757be84",
+        "result": "PASS"
+      },
+      "github": {
+        "commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+        "path": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z/26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.zip",
+        "blob_sha": "df3b673884c43fff6b530c0b5365d8b58697040f",
+        "readback_at": "2026-11-23T20:01:50+00:00",
+        "sha256": "9a47895888995cfe3d04bc6b825520cacf4e06e0ae1f0b4f0c2130ad6757be84",
+        "result": "PASS"
+      },
+      "all_three_copies_byte_equal": true
+    },
+    {
+      "name": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED_INVENTAR.json",
+      "bytes": 5459,
+      "sha256": "d91d33f15dbe585fd341fc1d21f459d6d6b76b570d9265d0c9ae8ba1f9ea0307",
+      "drive": {
+        "id": "1ncCUfkBMDTXq-3ODI9ru6VxqojZRDw65",
+        "url": "https://drive.google.com/file/d/1ncCUfkBMDTXq-3ODI9ru6VxqojZRDw65/view?usp=drivesdk",
+        "parent_ids": [
+          "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"
+        ],
+        "modified_time": "2026-11-23T19:59:53.320Z",
+        "readback_at": "2026-11-23T20:00:21+00:00",
+        "sha256": "d91d33f15dbe585fd341fc1d21f459d6d6b76b570d9265d0c9ae8ba1f9ea0307",
+        "result": "PASS"
+      },
+      "github": {
+        "commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+        "path": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z/26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED_INVENTAR.json",
+        "blob_sha": "85f8b179526f0d9867225a0bbc1ff79763754d5d",
+        "readback_at": "2026-11-23T20:01:50+00:00",
+        "sha256": "d91d33f15dbe585fd341fc1d21f459d6d6b76b570d9265d0c9ae8ba1f9ea0307",
+        "result": "PASS"
+      },
+      "all_three_copies_byte_equal": true
+    }
+  ],
+  "registry_deltas": [
+    {
+      "operation": "REGISTER_NEW_ARTIFACT_CANDIDATE",
+      "role_id": "ID03",
+      "filename": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.md",
+      "drive_file_id": "1PZZ4j4ttezgKss3yIt_bXW1rNmRNOnVv",
+      "sha256": "a8448e8c6edbc26e753968e2d3ed36b3bda6d0d23d5844d12562b6d0f800581f",
+      "bytes": 65557,
+      "github_commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+      "github_path": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z/26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.md",
+      "status": "REGISTRATION_PENDING",
+      "ledger_number": null
+    },
+    {
+      "operation": "REGISTER_NEW_ARTIFACT_CANDIDATE",
+      "role_id": "ID03",
+      "filename": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.zip",
+      "drive_file_id": "1vtgtfDKzX-Oky-tqE9-8MOv_qlT22MW9",
+      "sha256": "9a47895888995cfe3d04bc6b825520cacf4e06e0ae1f0b4f0c2130ad6757be84",
+      "bytes": 263323,
+      "github_commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+      "github_path": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z/26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.zip",
+      "status": "REGISTRATION_PENDING",
+      "ledger_number": null
+    },
+    {
+      "operation": "REGISTER_NEW_ARTIFACT_CANDIDATE",
+      "role_id": "ID03",
+      "filename": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED_INVENTAR.json",
+      "drive_file_id": "1ncCUfkBMDTXq-3ODI9ru6VxqojZRDw65",
+      "sha256": "d91d33f15dbe585fd341fc1d21f459d6d6b76b570d9265d0c9ae8ba1f9ea0307",
+      "bytes": 5459,
+      "github_commit": "0348753303d1625d9379f381ff0b0c9d43caf077",
+      "github_path": "WORK/CHAT-PROTOKOLLE/2026-11-23/ID03/20261123T195819Z/26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED_INVENTAR.json",
+      "status": "REGISTRATION_PENDING",
+      "ledger_number": null
+    }
+  ],
+  "runlog": [
+    {
+      "event": "ARCHIVE_COMPILED",
+      "at": "2026-11-23T20:58:19+01:00",
+      "result": "PASS; source snapshots and original attachments preserved"
+    },
+    {
+      "event": "DRIVE_RAW_READBACK",
+      "result": "PASS",
+      "scope": "three primary artifacts",
+      "evidence": "artifacts[].drive"
+    },
+    {
+      "event": "GITHUB_API_COMMIT_AND_RAW_READBACK",
+      "result": "PASS",
+      "scope": "three primary artifacts at archive_commit",
+      "evidence": "artifacts[].github"
+    },
+    {
+      "event": "BOUNDED_OUTPUT_PERSISTENCE",
+      "result": "PASS",
+      "scope": "protocol markdown, ZIP archive and inventory; not all files in every runtime"
+    }
+  ],
+  "receipt_self_hash": "external_only; no self-referential full-file hash"
+}
