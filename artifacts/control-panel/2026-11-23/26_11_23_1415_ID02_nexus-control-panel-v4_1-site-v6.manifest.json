@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "artifact": "NEXUS AEC Control Panel v4.1 / Sites version 6",
+  "site_project_id": "appgprj_6afbb82d7b348191a51f51911f49b717",
+  "site_version": 6,
+  "source_commit": "022b8f045253f0c9bbacfab2e33654bb26309b8e",
+  "deployment_id": "appgdep_6b04398ea89c819180851986a8089a83",
+  "deployment_status": "succeeded",
+  "production_url": "https://nexus-sync-diagnose.julianzotter.chatgpt.site",
+  "archive": "26_11_23_1415_ID02_nexus-control-panel-v4_1-site-v6.tar.gz",
+  "archive_sha256": "1d943ed7524f8162e1acfeb80847bb0e9e8348300870f8d30ad400e85c495f36",
+  "github_transport": "26_11_23_1415_ID02_nexus-control-panel-v4_1-site-v6.tar.gz.b64",
+  "github_transport_sha256": "28bd041a9d32c54e582d2f2645ebb4e17a76343267a5bf7d5c3528258f5270fe",
+  "created_at": "2026-11-23T14:15:00+01:00"
+}

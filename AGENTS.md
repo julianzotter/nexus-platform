@@ -27,3 +27,12 @@ Publikation, Zustellung, ACK und unabhängige Prüfung getrennt erfassen. Die Be
 Änderungsautorität: ausdrückliche ID01-Anweisung im Sprachdialog 2026-11-11 zur Ergänzung, Bekanntgabe, WORK/Frontmatter/AGB-Aktualisierung, GitHub-Synchronisierung, Sicherung und Ausrollung.
 Koordination: WO-20261111-ID02-PRIVATE-ROLLOUT. Geltung ausschließlich Rollenbezeichnung und deren Verteilung; keine technische Produktionsfreigabe.
 
+## NEXUS Control Panel / WORK startup gate — ID01 2026-11-23
+
+1. At every NEXUS chat/task start and after context loss, read the current canonical WORK governance plus the latest Control Panel receipt. Record `panel_version`, `source_commit`, `as_of`, runtime identity and connector status in a `BOOTSTRAP_ACK`.
+2. If that read or identity check fails, report `BOOTSTRAP_BLOCKED`; do not infer current project, watcher, ACK, registry or release status from memory.
+3. The live panel is a status projection, not an engineering or registry authority. Its 10-s browser refresh only detects a newly published panel snapshot; Drive/GitHub watcher receipts and local watchdog evidence remain separate gates.
+4. After every material authorized NEXUS status change, the designated single writer MUST persist a UTF-8 Markdown status report in the Drive communication folder `WORK`, mirror the reviewed report and panel manifest/archive in GitHub, then perform readback/hash verification. Read-only agents submit content to the designated writer; they do not bypass write authorization.
+5. Publication, delivery, readback, agent ACK, independent review, registry reconciliation and ID01 technical approval are separate states. Absence of any required receipt remains `UNKNOWN` or `BLOCKED`.
+6. Canonical panel: https://nexus-sync-diagnose.julianzotter.chatgpt.site · Drive WORK: https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP · GitHub: https://github.com/julianzotter/nexus-platform
+
