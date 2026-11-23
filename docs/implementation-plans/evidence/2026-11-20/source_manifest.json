@@ -1,0 +1,276 @@
+{
+  "schema_version": "1.0.0",
+  "document_state": "PROPOSED",
+  "role_id": "ID02",
+  "executor": "OpenAI Codex",
+  "executor_instance": "/root",
+  "provider": "OpenAI",
+  "model_id": null,
+  "source_commit": "61849c90b45b6e7376a197fd1e9508ded154f860",
+  "sources": [
+    {
+      "source_id": "S01",
+      "provider": "google_drive",
+      "provider_file_id": "10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg",
+      "title": "_AGBS.md",
+      "url": "https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-17T20:34:50.489Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S02",
+      "provider": "google_drive",
+      "provider_file_id": "1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn",
+      "title": "00_NEXUS_MANIFEST__CURRENT__2026-09-28.md",
+      "url": "https://drive.google.com/file/d/1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-17T19:21:49.987Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S03",
+      "provider": "google_drive",
+      "provider_file_id": "1CdwNHr6i8lMG3k8A939kiznLMw8q7J69",
+      "title": "00_NEXUS_BASELINE_INSTRUCTIONS__CURRENT__2026-09-28.md",
+      "url": "https://drive.google.com/file/d/1CdwNHr6i8lMG3k8A939kiznLMw8q7J69/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-17T19:21:52.328Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S04",
+      "provider": "google_drive",
+      "provider_file_id": "1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi",
+      "title": "_FRONTMATTER.md",
+      "url": "https://drive.google.com/file/d/1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-17T20:09:14.203Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S05",
+      "provider": "google_drive",
+      "provider_file_id": "15m8T5cWbogIup9snzFwiB1g9HqNCoGow",
+      "title": "file-registry.jsonl",
+      "url": "https://drive.google.com/file/d/15m8T5cWbogIup9snzFwiB1g9HqNCoGow/view",
+      "mime": "application/x-ndjson",
+      "provider_modified_at": "2026-11-19T09:40:37.856Z",
+      "access": "RAW_BYTES_BASE64",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S06",
+      "provider": "google_drive",
+      "provider_file_id": "1YiVFpt9z0PaxnpvvSdfeGvBLu-SW97iJ",
+      "title": "26_11_18_Ausbau-NEXUS-AI-OS-Plattform_NEXUS-BENUTZERHANDBUCH-IMPL-GUIDE.md",
+      "url": "https://drive.google.com/file/d/1YiVFpt9z0PaxnpvvSdfeGvBLu-SW97iJ/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-18T12:13:19.382Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "core_architecture_and_routing_sections",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S07",
+      "provider": "google_drive",
+      "provider_file_id": "1HpducdBEOf9RGPZkkVw8p70sds_HQ8td",
+      "title": "26_11_19_1445_ID02_DEEPSEEK-HARNESS-NEXUS-AI-BENUTZERHANDBUCH-IMPLEMENTIERUNGSGUIDE_LEDGER-PENDING.md",
+      "url": "https://drive.google.com/file/d/1HpducdBEOf9RGPZkkVw8p70sds_HQ8td/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-19T14:02:10.729Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S08",
+      "provider": "google_drive",
+      "provider_file_id": "1SHOFokCl-v8SiVviD651fRl8HxqgVsGJ",
+      "title": "26_11_19_ID04_GEMINI_Deepseek_harness_nexus_ai_benutzerhandbuch_v1.3.md",
+      "url": "https://drive.google.com/file/d/1SHOFokCl-v8SiVviD651fRl8HxqgVsGJ/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-19T13:46:00.186Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S09",
+      "provider": "google_drive",
+      "provider_file_id": "1KXhtfSyEU--2RocZNRQwd0kxB7HuGpnj",
+      "title": "26_11_20_0827_ID02_NEXUS-CRITICAL-GATES_LEDGER-PENDING.md",
+      "url": "https://drive.google.com/file/d/1KXhtfSyEU--2RocZNRQwd0kxB7HuGpnj/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-20T07:27:38.567Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S10",
+      "provider": "google_drive",
+      "provider_file_id": "1sEBduX1yrpAJivfZIAafPOVGC2PMbwmx",
+      "title": "26_11_20_0827_ID02_CPLM-AUDIT_LEDGER-PENDING.md",
+      "url": "https://drive.google.com/file/d/1sEBduX1yrpAJivfZIAafPOVGC2PMbwmx/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-20T07:31:29.713Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S12",
+      "provider": "google_drive",
+      "provider_file_id": "1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE",
+      "title": "26_10_26_NEXUS_CONTROL_PLANE__TICKET_REGISTRY",
+      "url": "https://drive.google.com/file/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/view",
+      "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "provider_modified_at": "2026-11-11T23:13:06.477Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S13",
+      "provider": "google_drive",
+      "provider_file_id": "1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ",
+      "title": "26_10_27_0915_ID03_AIM-NEXUS-KONZEPTREGISTER-v0.3.3_0101.md",
+      "url": "https://drive.google.com/file/d/1y7jmHlyxq7Ja2xA2FM6MJapOjIkIMlqZ/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-11T12:04:42.749Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S14",
+      "provider": "google_drive",
+      "provider_file_id": "1qH1UYv3IQyhzkMQA71TAaZlTsqfUqeFB",
+      "title": "26_11_19_Gemini+ID01_QUICK-STATUS-MATRIX_PostgreSQL+PGVector+Ollama+FastMCP.md",
+      "url": "https://drive.google.com/file/d/1qH1UYv3IQyhzkMQA71TAaZlTsqfUqeFB/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-19T17:18:19.573Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "status_and_tool_matrix_and_selected_transcript",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S15",
+      "provider": "google_drive",
+      "provider_file_id": "1qEn8IJih3dx-UiYAVKdl9uTjGgDW48xD",
+      "title": "26_11_19_2010_ID01_OLLAMA-TREE-ANALYSE.md",
+      "url": "https://drive.google.com/file/d/1qEn8IJih3dx-UiYAVKdl9uTjGgDW48xD/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-19T17:49:41.720Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S16",
+      "provider": "google_drive",
+      "provider_file_id": "1XnD3KGMfLkLT75FWvlvgeWfTj1thVX_J",
+      "title": "26_11_19_2115_ID01_404-MODEL-NOT-FOUND-DIAGNOSE.md",
+      "url": "https://drive.google.com/file/d/1XnD3KGMfLkLT75FWvlvgeWfTj1thVX_J/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-19T17:57:29.555Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S17",
+      "provider": "google_drive",
+      "provider_file_id": "1Lk45X80PrUI7GLXxDZOApVjU3t2vTbkZ",
+      "title": "26_11_10_1829_ID07_INSPECT_ANYTHINGSEARCH-SCHEMA_LEDGER-PENDING.md",
+      "url": "https://drive.google.com/file/d/1Lk45X80PrUI7GLXxDZOApVjU3t2vTbkZ/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-10T17:29:15.709Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    },
+    {
+      "source_id": "S24",
+      "provider": "google_drive",
+      "provider_file_id": "1OXKmuSPdXTwwy3AfECQR4hRm1iNu_4JR",
+      "title": "_TROUBLESHOOTING.md",
+      "url": "https://drive.google.com/file/d/1OXKmuSPdXTwwy3AfECQR4hRm1iNu_4JR/view",
+      "mime": "text/markdown",
+      "provider_modified_at": "2026-11-17T20:13:24.791Z",
+      "access": "READABLE_TEXT",
+      "review_scope": "task_relevant_content",
+      "assertion_limit": "Content read is not runtime verification"
+    }
+  ],
+  "github_sources": [
+    {
+      "path": "tools/monitor_repo.py",
+      "blob_sha": "1e0f6b98c59f64c835a6224fe934e53daea94c4d",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/tools/monitor_repo.py"
+    },
+    {
+      "path": "tools/export_dashboard.py",
+      "blob_sha": "a19748561a3ea56133f160639d6720c2e2bb6a2c",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/tools/export_dashboard.py"
+    },
+    {
+      "path": "tools/assert_operational_evidence.py",
+      "blob_sha": "1e9a66da8567db3f7c43d63e775862342230ed1c",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/tools/assert_operational_evidence.py"
+    },
+    {
+      "path": "schemas/dashboard-snapshot.schema.json",
+      "blob_sha": "3c7feef764175e01c4dc1e26c8572df3cf5ecd02",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/schemas/dashboard-snapshot.schema.json"
+    },
+    {
+      "path": "schemas/knowledge-item.schema.json",
+      "blob_sha": "ce5bc7913c123fb7042a2a036fa313e96ab4ac58",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/schemas/knowledge-item.schema.json"
+    },
+    {
+      "path": "docs/operations/review/2026-10-27/nexus_knowledge_object_schema_v0.4.0_REVIEW.json",
+      "blob_sha": "7f32c81bb483087214b98e2aa55cdf1dcc2825e2",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/docs/operations/review/2026-10-27/nexus_knowledge_object_schema_v0.4.0_REVIEW.json"
+    },
+    {
+      "path": "prototypes/data-dashboard/README.md",
+      "blob_sha": "5bbaa7ffd9319ab7f5a3c1eadbcc4e75cdbbde06",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/prototypes/data-dashboard/README.md"
+    },
+    {
+      "path": "knowledge/nexus-aec-seed/config/meta_wissen_scheduler_contract_v1.json",
+      "blob_sha": "dc0884f97cc39e29dff3333c73aa5e1e36279342",
+      "url": "https://github.com/julianzotter/nexus-platform/blob/61849c90b45b6e7376a197fd1e9508ded154f860/knowledge/nexus-aec-seed/config/meta_wissen_scheduler_contract_v1.json"
+    }
+  ],
+  "run_ids": [
+    44691542520,
+    44666539475,
+    44599353545
+  ],
+  "ci_job_id": 135826199769,
+  "registry_raw_sha256": "dfc3dd2ad5d17322a6307f393ebb9e79531053d057ec20cf0e00c2d9d4b1f716",
+  "coverage": "BOUNDED_TASK_SOURCES; NO_ACCOUNT_WIDE_SCAN; NO_WINDOWS_RUNTIME_ACCESS",
+  "unresolved_terms": [
+    "DIE LUST"
+  ],
+  "peer_review": "NOT_RUN",
+  "human_release": "NOT_RELEASED",
+  "registration_status": "REGISTRATION_PENDING",
+  "telemetry": {
+    "tokens": "NOT_EXPOSED",
+    "cost": "NOT_MEASURED"
+  }
+}
