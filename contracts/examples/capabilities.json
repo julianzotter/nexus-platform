@@ -1,0 +1,43 @@
+{
+  "adapter_version": "0.1.0",
+  "evidence_refs": [
+    "docs/QA.md#fixture-only"
+  ],
+  "execution_kind": "fixture_only",
+  "known_limitations": [
+    "Replays supplied values; does not solve equilibrium or implement any design standard."
+  ],
+  "profiles": [
+    {
+      "algorithms": [
+        "linear_direct"
+      ],
+      "form_target_kinds": [],
+      "id": "fixture-linear-beam",
+      "load_kinds": [
+        "nodal_force"
+      ],
+      "member_kinds": [
+        "beam"
+      ],
+      "reference_kinds": [
+        "none"
+      ],
+      "supports_gravity": false,
+      "supports_initial_state": false,
+      "supports_rotated_supports": false,
+      "theory": "linear_static"
+    }
+  ],
+  "schema_version": "nexus-capabilities/0.1",
+  "solver_name": "FixtureReplay",
+  "solver_version": "no-solver",
+  "supported_model_schemas": [
+    "nexus-model/0.1"
+  ],
+  "supported_results": [
+    "u_z",
+    "M_R_y",
+    "N"
+  ]
+}

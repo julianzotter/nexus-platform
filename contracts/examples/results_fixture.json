@@ -1,0 +1,73 @@
+{
+  "adapter_version": "0.1.0",
+  "evidence_refs": [
+    "docs/QA.md#fixture-only"
+  ],
+  "execution_kind": "fixture_only",
+  "hash_profile": "nexus-c14n/0.1",
+  "model_hash": "738443046142241fc8fcd21c408b1534db100f75aabed29486a4b5a3b1957612",
+  "model_id": "SYNTHETIC-CONTRACT-FIXTURE",
+  "model_revision": "1",
+  "schema_version": "nexus-results/0.1",
+  "solver_name": "FixtureReplay",
+  "solver_version": "no-solver",
+  "states": [
+    {
+      "convergence": {
+        "criterion": "software fixture only",
+        "iterations": null,
+        "normalized_residual": null,
+        "status": "not_required"
+      },
+      "state_id": "STATE1",
+      "status": "solved",
+      "warnings": []
+    }
+  ],
+  "values": [
+    {
+      "frame": "global",
+      "object_id": "N2",
+      "object_kind": "node",
+      "quantity": "u_z",
+      "sign_convention": "nexus-results/0.1",
+      "state_id": "STATE1",
+      "station": null,
+      "unit": "m",
+      "value": "0"
+    },
+    {
+      "frame": "global",
+      "object_id": "N1",
+      "object_kind": "node",
+      "quantity": "M_R_y",
+      "sign_convention": "nexus-results/0.1",
+      "state_id": "STATE1",
+      "station": null,
+      "unit": "Nm",
+      "value": "0"
+    },
+    {
+      "frame": "member_local",
+      "object_id": "M1",
+      "object_kind": "member",
+      "quantity": "N",
+      "sign_convention": "nexus-results/0.1",
+      "state_id": "STATE1",
+      "station": "0",
+      "unit": "N",
+      "value": "0"
+    },
+    {
+      "frame": "member_local",
+      "object_id": "M1",
+      "object_kind": "member",
+      "quantity": "N",
+      "sign_convention": "nexus-results/0.1",
+      "state_id": "STATE1",
+      "station": "1",
+      "unit": "N",
+      "value": "0"
+    }
+  ]
+}

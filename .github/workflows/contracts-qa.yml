@@ -1,0 +1,47 @@
+name: Contracts QA
+on:
+  pull_request:
+    paths: ['contracts/**', '.github/workflows/contracts-qa.yml']
+  push:
+    branches: [main]
+    paths: ['contracts/**', '.github/workflows/contracts-qa.yml']
+permissions:
+  contents: read
+jobs:
+  contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: contracts
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Manifest integrity (present files must match; missing files are listed)
+        run: |
+          python - <<'PY'
+          import hashlib, pathlib, sys
+          bad = 0
+          for line in pathlib.Path("MANIFEST.sha256").read_text().splitlines():
+              digest, path = line.split(None, 1)
+              p = pathlib.Path(path.lstrip("*"))
+              if not p.is_file() or p.name == ".importlinter":
+                  print("NOT_VERIFIED", p)
+                  continue
+              if hashlib.sha256(p.read_bytes()).hexdigest() != digest:
+                  print("MISMATCH", p)
+                  bad += 1
+          sys.exit(1 if bad else 0)
+          PY
+      - run: python -m pip install -e . -r requirements-qa.txt
+      - run: python -m pytest -q
+      - run: python -m mypy src
+      - name: Import linter
+        run: python -c "from importlinter.cli import lint_imports_command; lint_imports_command()" --no-cache
+        env:
+          PYTHONPATH: src
+      - run: python -m nexus.bootstrap.demo
+        env:
+          PYTHONPATH: src

@@ -1,0 +1,81 @@
+{
+  "observed_at": "2026-10-27T08:44:53.729975+01:00",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "versions": {
+    "pytest": "9.1.1",
+    "mypy": "1.20.2",
+    "import-linter": "2.15",
+    "jsonschema": "4.26.0"
+  },
+  "scope": "software contracts only; no structural calculation or vendor API invocation",
+  "overall": "PASS",
+  "runs": [
+    {
+      "name": "pytest",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=qa/pytest.xml"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "elapsed_seconds": 1.418,
+      "log": "qa/pytest.log"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "mypy",
+        "src"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.22,
+      "log": "qa/mypy.log"
+    },
+    {
+      "name": "import_linter",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-c",
+        "from importlinter.cli import lint_imports_command; lint_imports_command()",
+        "--no-cache"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.118,
+      "log": "qa/import_linter.log"
+    },
+    {
+      "name": "demo",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "nexus.bootstrap.demo"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.082,
+      "log": "qa/demo.log"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "src"
+      ],
+      "returncode": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.034,
+      "log": "qa/compile.log"
+    }
+  ]
+}

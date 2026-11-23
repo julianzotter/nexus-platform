@@ -1,0 +1,37 @@
+{
+  "evidence": [
+    {
+      "id": "E1",
+      "locator": "fixture-only",
+      "sha256": null,
+      "uri": "docs/QA.md",
+      "version": "0.1.0"
+    }
+  ],
+  "exclusions": [
+    "engineering design"
+  ],
+  "findings": [
+    {
+      "evidence_ids": [
+        "E1"
+      ],
+      "id": "F1",
+      "message": "No design calculation supplied",
+      "object_ref": "model",
+      "state_id": "STATE1",
+      "status": "not_evaluated",
+      "unit": null,
+      "value": null
+    }
+  ],
+  "method_id": "fixture-status",
+  "method_version": "0.1.0",
+  "model_hash": "738443046142241fc8fcd21c408b1534db100f75aabed29486a4b5a3b1957612",
+  "results_hash": "ac8538bf2c22ce51f09d05928df45e60b836f77e1ad0b5c8f20a58f3fdc28cfe",
+  "schema_version": "nexus-check/0.1",
+  "scope": [
+    "software contract demonstration"
+  ],
+  "standards": []
+}

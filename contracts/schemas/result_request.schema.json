@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:aec:contracts:0.1:ResultRequest",
+  "title": "ResultRequest",
+  "$comment": "Structural validation only; Python domain invariants are also mandatory.",
+  "$ref": "#/$defs/ResultRequest",
+  "$defs": {
+    "ResultRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResultSelection"
+          }
+        }
+      },
+      "required": [
+        "state_ids",
+        "selections"
+      ]
+    },
+    "ResultSelection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quantity": {
+          "enum": [
+            "N",
+            "V_y",
+            "V_z",
+            "M_y",
+            "M_z",
+            "T",
+            "u_x",
+            "u_y",
+            "u_z",
+            "phi_x",
+            "phi_y",
+            "phi_z",
+            "R_x",
+            "R_y",
+            "R_z",
+            "M_R_x",
+            "M_R_y",
+            "M_R_z"
+          ]
+        },
+        "object_kind": {
+          "enum": [
+            "node",
+            "member"
+          ]
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+            "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+          }
+        }
+      },
+      "required": [
+        "quantity",
+        "object_kind",
+        "object_ids"
+      ]
+    }
+  }
+}
