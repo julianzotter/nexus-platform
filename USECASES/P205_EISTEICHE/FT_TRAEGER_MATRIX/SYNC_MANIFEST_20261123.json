@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "status": "SNAPSHOT_REVIEW_PENDING",
+  "usecase_id": "P205_EISTEICHE_FT_TRAEGER_MATRIX",
+  "authority": "Google Drive WORK is canonical; GitHub is versioned review snapshot",
+  "drive_folder_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+  "files": [
+    {
+      "name": "26_11_23_FT_Traeger_Matrix_VersD-RevE_Dashboard_v1.1.html",
+      "path": "USECASES/P205_EISTEICHE/FT_TRAEGER_MATRIX/26_11_23_FT_Traeger_Matrix_VersD-RevE_Dashboard_v1.1.html",
+      "bytes": 1350473,
+      "sha256": "1de517ecc5d001f53d4a46111a02054d5419a2c72e60d39ba92ae53c0c624276",
+      "drive_file_id": "1eSOB7LU5rQKGJuCfIPevlKYjuXSecErb",
+      "drive_url": "https://drive.google.com/file/d/1eSOB7LU5rQKGJuCfIPevlKYjuXSecErb/view"
+    },
+    {
+      "name": "RPT_FTM_GAP-ANALYSE_DASHBOARD-v1.1_20261123.md",
+      "path": "USECASES/P205_EISTEICHE/FT_TRAEGER_MATRIX/RPT_FTM_GAP-ANALYSE_DASHBOARD-v1.1_20261123.md",
+      "bytes": 6172,
+      "sha256": "d0d92256855efce1eca7989498d72f3738d60acc89d4fa359cb02b835e272085",
+      "drive_file_id": "1oQ3QhHmm8Lte8mR5LE74Ifsj_GkrWEWy",
+      "drive_url": "https://drive.google.com/file/d/1oQ3QhHmm8Lte8mR5LE74Ifsj_GkrWEWy/view"
+    },
+    {
+      "name": "26_11_23_0905_CLAUDE_FTM-TASK-COMPLETION-MATRIX_REGISTRATION-PENDING.md",
+      "path": "USECASES/P205_EISTEICHE/FT_TRAEGER_MATRIX/26_11_23_0905_CLAUDE_FTM-TASK-COMPLETION-MATRIX_REGISTRATION-PENDING.md",
+      "bytes": 4510,
+      "sha256": "6a45e861309daa9c84ff09a7d0840817061be6e77936d55ff2658677390f950c",
+      "drive_file_id": "1e-0hlnyCqpuTHtUUBsY62g3UT9nMbszL",
+      "drive_url": "https://drive.google.com/file/d/1e-0hlnyCqpuTHtUUBsY62g3UT9nMbszL/view"
+    }
+  ],
+  "verification": {
+    "local_bytes_equal_uploaded_bytes": true,
+    "drive_raw_readback_sha256": {
+      "26_11_23_0905_CLAUDE_FTM-TASK-COMPLETION-MATRIX_REGISTRATION-PENDING.md": "MATCH",
+      "other_files": "NOT_RUN (size match only)"
+    },
+    "created_at": "2026-11-23T09:15:00+01:00"
+  },
+  "predecessor": {
+    "name": "26_11_13_FT_Traeger_Matrix_VersD_Dashboard.html",
+    "drive_file_id": "11iVnKGobGw7pu-TV9IhOXOOU_vLlOohg",
+    "sha256": "3c8ea0249525855fb06974045f8ac17d53a862813f9566ff8b97f50b4752e438",
+    "in_repository": false
+  },
+  "governance": {
+    "requested_by": "ID01",
+    "executor": "Claude (claude.ai chat, Fable 5.2); role ID not confirmed in manifest",
+    "registration_status": "PENDING",
+    "ticket_id": null,
+    "technical_release": "BLOCKED",
+    "independent_review": "PENDING"
+  }
+}
