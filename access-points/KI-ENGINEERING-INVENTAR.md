@@ -66,3 +66,13 @@ Keine geplante Ausführung als erfolgreiche Durchführung melden. Kein Produktio
 - Neu gesichtet: Basic-Knowledge-Tree, FT-Träger-Dashboard, GWP-HTML mit zwei separaten JS-Datenteilen, Timber-Blueprint und GPT-Migrationspilot. Inhaltssichtung und Dokumentaussagen sind im Bericht getrennt.
 - Refresh-Status: Runner vom 16.11. scheitern bei `oauth.token_refresh` mit `HTTP_400`; Poller und WORK-Delivery nicht betriebsfähig belegt. Neuer konsistenter AnythingSearch-Snapshot nicht gefunden; kein SQLite-Zugriff in diesem Lauf.
 - Registrierung `REGISTRATION_PENDING / EXCLUSIVE_WRITER_UNVERIFIED`, Ledgernummer unzugeteilt. Kanonische Register und Berechtigungen blieben unverändert.
+
+
+## Delta-Erhebung 23.11.2026
+
+- [Delta-Bericht](../docs/infrastructure-status/2026-11-23/DELTA_STATUS.md), [Erhebungsbelege](../docs/infrastructure-status/2026-11-23/DELTA_EVIDENCE.json) und [Report-Log](../docs/infrastructure-status/2026-11-23/RUNLOG.md).
+- [WORK-Fassung](https://drive.google.com/file/d/1uYvL3CTu5FQUgmfEVHG_riKmkcTDofgF/view): 18614 Bytes, SHA-256 `e3aadf26ec50a756fd2356706c86751c23327317ca4f6fefc07fa0a1e4192ca0`, vollständiger Rohbytevergleich bestätigt.
+- Vergleichbarer Dokumentfilter: 100 Treffer, 34 zusätzliche IDs, alle vorherigen 66 weiterhin sichtbar. Masterlisten: 86 direkte Dokumente. Breite Ordnersuche: 548 Kandidaten unter geändertem Scope, kein Vergleich mit den früheren 167.
+- Neue Quellen: Entwicklungs-Tree Ind01, NEXUS-SSoT-Bericht, Knowledge-System-Implementierungsplan und FT-Träger-Dashboard v1.1. Dokumentaussagen, Metadaten und ausgeführte Tests bleiben getrennt.
+- Refresh: `OAUTH_HTTP_400_INVALID_GRANT`; CI am geprüften Head scheitert an fehlendem `dlubal`; Monitor INCOMPLETE. Kein aktueller konsistenter AnythingSearch-Snapshot und kein SQLite-Zugriff dieses Laufs.
+- Aktuelle WORK-Regel: [Folder.md](https://drive.google.com/file/d/1nDjF78dq3l8PGpXsauzBz1bzHescDSwv/view); frühere Folder-ID ist archiviert. AGB-Rohinhalt v007.1 bestätigt. Registrierung beim benannten Writer offen; kanonische Register und Berechtigungen unverändert.
