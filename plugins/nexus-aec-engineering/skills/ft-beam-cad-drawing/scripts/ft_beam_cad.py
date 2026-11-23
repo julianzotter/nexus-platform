@@ -42,6 +42,14 @@ def validate_spec(spec: dict[str, Any]) -> None:
             raise ValueError(f"REBAR_DETAIL blocked; unresolved rebar geometry: {unresolved}")
 
 
+def _dim_h(msp, x1: float, x2: float, z: float, label: str) -> None:
+    tick = 35.0
+    msp.add_line((x1, z), (x2, z), dxfattribs={"layer": "FT_BEMASSUNG"})
+    msp.add_line((x1, z-tick), (x1, z+tick), dxfattribs={"layer": "FT_BEMASSUNG"})
+    msp.add_line((x2, z-tick), (x2, z+tick), dxfattribs={"layer": "FT_BEMASSUNG"})
+    msp.add_text(label, dxfattribs={"height": 45, "layer": "FT_BEMASSUNG"}).set_placement(((x1+x2)/2, z+55))
+
+
 def make_dxf(spec: dict[str, Any], out: Path) -> None:
     doc = ezdxf.new("R2010", setup=True)
     for name in LAYERS:
@@ -52,6 +60,11 @@ def make_dxf(spec: dict[str, Any], out: Path) -> None:
 
     outline = [(float(x), float(z)) for x, z in spec["outline_mm"]]
     msp.add_lwpolyline(outline, close=True, dxfattribs={"layer": "FT_SCHALUNG"})
+    x_min, x_max = min(x for x, _ in outline), max(x for x, _ in outline)
+    z_min, z_max = min(z for _, z in outline), max(z for _, z in outline)
+    frame = [(x_min-500, z_min-700), (x_max+500, z_min-700), (x_max+500, z_max+1200), (x_min-500, z_max+1200)]
+    msp.add_lwpolyline(frame, close=True, dxfattribs={"layer": "FT_RAHMEN"})
+    _dim_h(msp, x_min, x_max, z_min-250, f"L={x_max-x_min:.0f} mm")
 
     for corbel in spec.get("corbels", []):
         pts = [(float(x), float(z)) for x, z in corbel["outline_mm"]]
@@ -64,6 +77,7 @@ def make_dxf(spec: dict[str, Any], out: Path) -> None:
         z0 = float(op["bottom_mm"])
         pts = [(x-w/2, z0), (x+w/2, z0), (x+w/2, z0+h), (x-w/2, z0+h)]
         msp.add_lwpolyline(pts, close=True, dxfattribs={"layer": "FT_DURCHBRUCH"})
+        _dim_h(msp, x-w/2, x+w/2, z0-100, f"{w:g}")
         label = f"{op['id']} {w:g}x{h:g} @ {x/1000:.2f}m"
         msp.add_text(label, dxfattribs={"height": 60, "layer": "FT_TEXT"}).set_placement((x-w/2, z0+h+80))
 
