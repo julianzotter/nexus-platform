@@ -1,19 +1,19 @@
 ---
 name: _FRONTMATTER
-version: v006-ID02-ROLE-ADOPTED
+version: v007-ID01-CONTROL-PANEL-START-GATE
 status: ENTWURF
-timestamp: "2026-11-11T13:16:00.928632+01:00"
+timestamp: "2026-11-23T14:15:00+01:00"
 agent_id: ID02
 executor: OpenAI Codex
 executor_instance: /root
 artifact_id: gdrive:1rKnQMZbhO6ii0ThnJLhUCRYrXFcDvRbi
 gate: PENDING_HUMAN_TECHNICAL_RELEASE
-supersedes: v004; additive navigation and AGB-v005 continuity reference; ENTWURF unchanged
+supersedes: v006-ID02-ROLE-ADOPTED; additive Control Panel bootstrap and WORK/GitHub reporting gate; ENTWURF unchanged
 role_authority_source: Manifest §4; NEXUS-ROLES-v1.1
 capability_snapshot_status: HISTORICAL_WITH_CURRENT_ID01_OVERRIDE
 hash_scope: body_utf8_after_closing_frontmatter_lf
-content_hash_sha256: 193b31e3ccdf634e2303135a0a51bf2c57a11a94173d0c0ded38523eae4e6e0f
-hash: 193b31e3ccdf634e2303135a0a51bf2c57a11a94173d0c0ded38523eae4e6e0f
+content_hash_sha256: c0c1534a48171b1b599a562f07f6ae5526f32d8f955ec9bba7af73be8d196fe1
+hash: c0c1534a48171b1b599a562f07f6ae5526f32d8f955ec9bba7af73be8d196fe1
 change_authority: ID01; direkte Anweisung sofort ändern am 2026-10-27
 navigation_change_authority: Direct ID01 request in current conversation 2026-11-02
 role_name: ChatGPT Private
@@ -192,3 +192,13 @@ Führend ist jetzt AGB v005: https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLY
 - Bestehende GitHub-Reviewstände: https://github.com/julianzotter/nexus-platform/pull/59 ; https://github.com/julianzotter/GEMINI-LIVE-DESKTOP-STUDIO-/pull/1
 Die bereits verlinkten rekursiven Wegweiser bleiben die Navigationssicht; kein weiterer Masterindex wird angelegt. REPORTS und NEXUS.REPORTS sind verschiedene tatsächlich vorhandene Ordner. Metadatenauffindbarkeit ist kein Nachweis der Volltext-/Ingestionabdeckung.
 Keine pauschale Kommunikationssperre: sichere unabhängige Entwicklung/Tests und autorisierte additive Markdown-Berichte fortsetzen, Abweichungen dokumentieren. Keine Löschungen/E-Mails; keine ungeprüften Persistenz-/Memory-/Freigabeclaims. Vollständige Registrierung und technische Freigabe bleiben separate Abschlussbedingungen.
+
+## NEXUS Control Panel / WORK startup gate — ID01 2026-11-23
+
+1. At every NEXUS chat/task start and after context loss, read the current canonical WORK governance plus the latest Control Panel receipt. Record `panel_version`, `source_commit`, `as_of`, runtime identity and connector status in a `BOOTSTRAP_ACK`.
+2. If that read or identity check fails, report `BOOTSTRAP_BLOCKED`; do not infer current project, watcher, ACK, registry or release status from memory.
+3. The live panel is a status projection, not an engineering or registry authority. Its 10-s browser refresh only detects a newly published panel snapshot; Drive/GitHub watcher receipts and local watchdog evidence remain separate gates.
+4. After every material authorized NEXUS status change, the designated single writer MUST persist a UTF-8 Markdown status report in the Drive communication folder `WORK`, mirror the reviewed report and panel manifest/archive in GitHub, then perform readback/hash verification. Read-only agents submit content to the designated writer; they do not bypass write authorization.
+5. Publication, delivery, readback, agent ACK, independent review, registry reconciliation and ID01 technical approval are separate states. Absence of any required receipt remains `UNKNOWN` or `BLOCKED`.
+6. Canonical panel: https://nexus-sync-diagnose.julianzotter.chatgpt.site · Drive WORK: https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP · GitHub: https://github.com/julianzotter/nexus-platform
+
