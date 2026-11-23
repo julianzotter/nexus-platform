@@ -1,5 +1,6 @@
 ---
 name: mp3-texta
+description: Reproduce the archived local MP3 transcription workflow with deterministic preflight, source-bound execution, QA gates, and registration controls; use only for explicitly selected local audio and never imply validated transcription without review.
 version: 0.1.0-candidate
 status: PROPOSED_REVIEW_REQUIRED
 owner_id: ID01

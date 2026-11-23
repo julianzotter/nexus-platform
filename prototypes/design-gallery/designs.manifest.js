@@ -3,6 +3,22 @@ window.NEXUS_DESIGNS = {
  "commit": "7eaeef1687158b13c3ba04b6d8689d610a5031d6",
  "designs": [
   {
+   "id": "HTML-2FFBC04F",
+   "title": "FT-Träger-Matrix 26.02 Vers-D — Dashboard",
+   "kind": "html",
+   "path": "USECASES/P205_EISTEICHE/FT_TRAEGER_MATRIX/26_11_23_FT_Traeger_Matrix_VersD-RevE_Dashboard_v1.1.html",
+   "preview": "../../USECASES/P205_EISTEICHE/FT_TRAEGER_MATRIX/26_11_23_FT_Traeger_Matrix_VersD-RevE_Dashboard_v1.1.html",
+   "sha256": "1de517ecc5d001f53d4a46111a02054d5419a2c72e60d39ba92ae53c0c624276",
+   "bytes": 1350473,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "USECASES",
+    "P205_EISTEICHE",
+    "FT_TRAEGER_MATRIX"
+   ]
+  },
+  {
    "id": "HTML-F2E1C8C5",
    "title": "Teil 2 · AI-Stack in WebUI-Dashboards – How-to für Vibe Coder, Prompter und Ingenieure",
    "kind": "html",

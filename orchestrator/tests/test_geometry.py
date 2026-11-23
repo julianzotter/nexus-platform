@@ -193,6 +193,7 @@ def test_input_hash_domains_explicit(spec, tmp_path):
 
 
 def test_rfem6_new_model_binds_every_call(spec, monkeypatch):
+    pytest.importorskip("dlubal.api")
     from dlubal.api import rfem
     from nexus_orch import rfem6
     app = Mock()
