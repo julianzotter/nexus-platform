@@ -1,0 +1,51 @@
+# RECONSTRUCTED 2026-11-23: the original .importlinter listed in MANIFEST.sha256
+# was not present in the Drive source folder. Contract names follow qa/import_linter.log.
+[importlinter]
+root_package = nexus
+include_external_packages = True
+
+[importlinter:contract:ports-and-adapters]
+name = Ports and adapters dependencies
+type = layers
+layers =
+    nexus.bootstrap
+    nexus.application | nexus.adapters
+    nexus.domain
+
+[importlinter:contract:domain-no-vendor]
+name = Domain has no vendor or framework imports
+type = forbidden
+source_modules =
+    nexus.domain
+forbidden_modules =
+    pydantic
+    openpyxl
+    PyNite
+    numpy
+    scipy
+    pandas
+    ifcopenshell
+    ezdxf
+    RFEM
+    jsonschema
+    requests
+    httpx
+
+[importlinter:contract:application-no-vendor]
+name = Application has no vendor or framework imports
+type = forbidden
+source_modules =
+    nexus.application
+forbidden_modules =
+    pydantic
+    openpyxl
+    PyNite
+    numpy
+    scipy
+    pandas
+    ifcopenshell
+    ezdxf
+    RFEM
+    jsonschema
+    requests
+    httpx

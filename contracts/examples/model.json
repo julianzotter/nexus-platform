@@ -1,0 +1,202 @@
+{
+  "global_frame": {
+    "x": [
+      "1",
+      "0",
+      "0"
+    ],
+    "y": [
+      "0",
+      "1",
+      "0"
+    ],
+    "z": [
+      "0",
+      "0",
+      "1"
+    ]
+  },
+  "load_cases": [
+    {
+      "id": "LC1",
+      "name": "synthetic-load-case"
+    }
+  ],
+  "loads": [
+    {
+      "case_id": "LC1",
+      "global_vector_N": [
+        "0",
+        "0",
+        "-1000"
+      ],
+      "id": "LOAD1",
+      "kind": "nodal_force",
+      "node_id": "N2"
+    }
+  ],
+  "materials": [
+    {
+      "density_kg_m3": "7850",
+      "id": "MAT1",
+      "law": "linear_elastic_isotropic",
+      "name": "synthetic-elastic-material",
+      "poisson_ratio": "0.3",
+      "thermal_expansion_per_K": "0.000012",
+      "young_modulus_Pa": "210000000000"
+    }
+  ],
+  "members": [
+    {
+      "end_node_id": "N2",
+      "frame": {
+        "x": [
+          "1",
+          "0",
+          "0"
+        ],
+        "y": [
+          "0",
+          "1",
+          "0"
+        ],
+        "z": [
+          "0",
+          "0",
+          "1"
+        ]
+      },
+      "id": "M1",
+      "kind": "beam",
+      "reference_state": null,
+      "section_id": "S1",
+      "start_node_id": "N1"
+    }
+  ],
+  "model_id": "SYNTHETIC-CONTRACT-FIXTURE",
+  "nodes": [
+    {
+      "coordinates_m": [
+        "0",
+        "0",
+        "0"
+      ],
+      "id": "N1"
+    },
+    {
+      "coordinates_m": [
+        "2",
+        "0",
+        "0"
+      ],
+      "id": "N2"
+    }
+  ],
+  "origin_m": [
+    "0",
+    "0",
+    "0"
+  ],
+  "result_request": {
+    "selections": [
+      {
+        "object_ids": [
+          "N2"
+        ],
+        "object_kind": "node",
+        "quantity": "u_z",
+        "stations": []
+      },
+      {
+        "object_ids": [
+          "N1"
+        ],
+        "object_kind": "node",
+        "quantity": "M_R_y",
+        "stations": []
+      },
+      {
+        "object_ids": [
+          "M1"
+        ],
+        "object_kind": "member",
+        "quantity": "N",
+        "stations": [
+          "0",
+          "1"
+        ]
+      }
+    ],
+    "state_ids": [
+      "STATE1"
+    ]
+  },
+  "revision": "1",
+  "schema_version": "nexus-model/0.1",
+  "sections": [
+    {
+      "Iy_m4": "0.0001",
+      "Iz_m4": "0.0001",
+      "area_m2": "0.01",
+      "id": "S1",
+      "material_id": "MAT1",
+      "torsional_constant_m4": "0.00001"
+    }
+  ],
+  "states": [
+    {
+      "case_factors": [
+        {
+          "case_id": "LC1",
+          "factor": "1"
+        }
+      ],
+      "form_targets": [],
+      "gravity_m_s2": [
+        "0",
+        "0",
+        "0"
+      ],
+      "id": "STATE1",
+      "initial_state_id": null,
+      "numerics": {
+        "algorithm": "linear_direct",
+        "max_iterations": 1,
+        "relative_equilibrium_tolerance": "0.000001"
+      },
+      "theory": "linear_static"
+    }
+  ],
+  "supports": [
+    {
+      "fixed_dofs": [
+        "u_x",
+        "u_y",
+        "u_z",
+        "phi_x",
+        "phi_y",
+        "phi_z"
+      ],
+      "frame": {
+        "x": [
+          "1",
+          "0",
+          "0"
+        ],
+        "y": [
+          "0",
+          "1",
+          "0"
+        ],
+        "z": [
+          "0",
+          "0",
+          "1"
+        ]
+      },
+      "id": "SUP1",
+      "node_id": "N1"
+    }
+  ],
+  "units_profile": "SI-m-N-Pa-kg-s-K-rad/1"
+}

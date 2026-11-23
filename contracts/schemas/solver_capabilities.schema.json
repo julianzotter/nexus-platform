@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:aec:contracts:0.1:SolverCapabilities",
+  "title": "SolverCapabilities",
+  "$comment": "Structural validation only; Python domain invariants are also mandatory.",
+  "$ref": "#/$defs/SolverCapabilities",
+  "$defs": {
+    "SolverCapabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "nexus-capabilities/0.1"
+          ]
+        },
+        "solver_name": {
+          "type": "string"
+        },
+        "solver_version": {
+          "type": "string"
+        },
+        "adapter_version": {
+          "type": "string"
+        },
+        "execution_kind": {
+          "enum": [
+            "fixture_only",
+            "solver"
+          ]
+        },
+        "supported_model_schemas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supported_results": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "N",
+              "V_y",
+              "V_z",
+              "M_y",
+              "M_z",
+              "T",
+              "u_x",
+              "u_y",
+              "u_z",
+              "phi_x",
+              "phi_y",
+              "phi_z",
+              "R_x",
+              "R_y",
+              "R_z",
+              "M_R_x",
+              "M_R_y",
+              "M_R_z"
+            ]
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CapabilityProfile"
+          }
+        },
+        "known_limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "solver_name",
+        "solver_version",
+        "adapter_version",
+        "execution_kind",
+        "supported_model_schemas",
+        "supported_results",
+        "profiles",
+        "known_limitations",
+        "evidence_refs"
+      ]
+    },
+    "CapabilityProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "theory": {
+          "enum": [
+            "linear_static",
+            "large_displacement_static",
+            "form_finding"
+          ]
+        },
+        "member_kinds": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "beam",
+              "truss",
+              "tension_only",
+              "compression_only",
+              "cable"
+            ]
+          }
+        },
+        "load_kinds": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "nodal_force",
+              "nodal_moment",
+              "uniform_member_load",
+              "temperature_change",
+              "member_prestress"
+            ]
+          }
+        },
+        "reference_kinds": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "none",
+              "unstrained_length",
+              "initial_axial_force",
+              "reference_geometry"
+            ]
+          }
+        },
+        "algorithms": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "linear_direct",
+              "newton_raphson",
+              "arc_length"
+            ]
+          }
+        },
+        "form_target_kinds": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "axial_force",
+              "sag"
+            ]
+          }
+        },
+        "supports_gravity": {
+          "type": "boolean"
+        },
+        "supports_initial_state": {
+          "type": "boolean"
+        },
+        "supports_rotated_supports": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "theory",
+        "member_kinds",
+        "load_kinds",
+        "reference_kinds",
+        "algorithms"
+      ]
+    }
+  }
+}

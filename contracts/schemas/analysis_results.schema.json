@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:aec:contracts:0.1:AnalysisResults",
+  "title": "AnalysisResults",
+  "$comment": "Structural validation only; Python domain invariants are also mandatory.",
+  "$ref": "#/$defs/AnalysisResults",
+  "$defs": {
+    "AnalysisResults": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "nexus-results/0.1"
+          ]
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "model_revision": {
+          "type": "string"
+        },
+        "model_hash": {
+          "type": "string"
+        },
+        "hash_profile": {
+          "enum": [
+            "nexus-c14n/0.1"
+          ]
+        },
+        "solver_name": {
+          "type": "string"
+        },
+        "solver_version": {
+          "type": "string"
+        },
+        "adapter_version": {
+          "type": "string"
+        },
+        "execution_kind": {
+          "enum": [
+            "fixture_only",
+            "solver"
+          ]
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/StateResult"
+          }
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResultValue"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "model_id",
+        "model_revision",
+        "model_hash",
+        "hash_profile",
+        "solver_name",
+        "solver_version",
+        "adapter_version",
+        "execution_kind",
+        "states",
+        "values",
+        "evidence_refs"
+      ]
+    },
+    "StateResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state_id": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "solved",
+            "partial",
+            "failed"
+          ]
+        },
+        "convergence": {
+          "$ref": "#/$defs/Convergence"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "state_id",
+        "status",
+        "convergence"
+      ]
+    },
+    "Convergence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "converged",
+            "not_required",
+            "failed",
+            "unknown"
+          ]
+        },
+        "criterion": {
+          "type": "string"
+        },
+        "normalized_residual": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "iterations": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "criterion"
+      ]
+    },
+    "ResultValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state_id": {
+          "type": "string"
+        },
+        "object_kind": {
+          "enum": [
+            "node",
+            "member"
+          ]
+        },
+        "object_id": {
+          "type": "string"
+        },
+        "quantity": {
+          "enum": [
+            "N",
+            "V_y",
+            "V_z",
+            "M_y",
+            "M_z",
+            "T",
+            "u_x",
+            "u_y",
+            "u_z",
+            "phi_x",
+            "phi_y",
+            "phi_z",
+            "R_x",
+            "R_y",
+            "R_z",
+            "M_R_x",
+            "M_R_y",
+            "M_R_z"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "unit": {
+          "enum": [
+            "N",
+            "Nm",
+            "m",
+            "rad"
+          ]
+        },
+        "frame": {
+          "enum": [
+            "global",
+            "member_local"
+          ]
+        },
+        "sign_convention": {
+          "enum": [
+            "nexus-results/0.1"
+          ]
+        },
+        "station": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "state_id",
+        "object_kind",
+        "object_id",
+        "quantity",
+        "value",
+        "unit",
+        "frame",
+        "sign_convention"
+      ]
+    }
+  }
+}

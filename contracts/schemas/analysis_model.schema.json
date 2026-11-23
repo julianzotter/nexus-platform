@@ -1,0 +1,1000 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:aec:contracts:0.1:AnalysisModel",
+  "title": "AnalysisModel",
+  "$comment": "Structural validation only; Python domain invariants are also mandatory.",
+  "$ref": "#/$defs/AnalysisModel",
+  "$defs": {
+    "AnalysisModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "nexus-model/0.1"
+          ]
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "units_profile": {
+          "enum": [
+            "SI-m-N-Pa-kg-s-K-rad/1"
+          ]
+        },
+        "origin_m": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "global_frame": {
+          "$ref": "#/$defs/Frame"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Node"
+          }
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Member"
+          }
+        },
+        "materials": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Material"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Section"
+          }
+        },
+        "supports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Support"
+          }
+        },
+        "loads": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/NodalForce"
+              },
+              {
+                "$ref": "#/$defs/NodalMoment"
+              },
+              {
+                "$ref": "#/$defs/UniformMemberLoad"
+              },
+              {
+                "$ref": "#/$defs/TemperatureChange"
+              },
+              {
+                "$ref": "#/$defs/MemberPrestress"
+              }
+            ]
+          }
+        },
+        "load_cases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LoadCase"
+          }
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AnalysisState"
+          }
+        },
+        "result_request": {
+          "$ref": "#/$defs/ResultRequest"
+        }
+      },
+      "required": [
+        "schema_version",
+        "model_id",
+        "revision",
+        "units_profile",
+        "origin_m",
+        "global_frame",
+        "nodes",
+        "members",
+        "materials",
+        "sections",
+        "supports",
+        "loads",
+        "load_cases",
+        "states",
+        "result_request"
+      ]
+    },
+    "Frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "y": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "z": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": []
+    },
+    "Node": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "coordinates_m": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "id",
+        "coordinates_m"
+      ]
+    },
+    "Member": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "start_node_id": {
+          "type": "string"
+        },
+        "end_node_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "beam",
+            "truss",
+            "tension_only",
+            "compression_only",
+            "cable"
+          ]
+        },
+        "section_id": {
+          "type": "string"
+        },
+        "frame": {
+          "$ref": "#/$defs/Frame"
+        },
+        "reference_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UnstrainedLength"
+            },
+            {
+              "$ref": "#/$defs/InitialAxialForce"
+            },
+            {
+              "$ref": "#/$defs/ReferenceGeometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "start_node_id",
+        "end_node_id",
+        "kind",
+        "section_id",
+        "frame"
+      ]
+    },
+    "UnstrainedLength": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "unstrained_length"
+          ]
+        },
+        "length_m": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "reference_temperature_K": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "kind",
+        "length_m",
+        "reference_temperature_K"
+      ]
+    },
+    "InitialAxialForce": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "initial_axial_force"
+          ]
+        },
+        "tension_positive_force_N": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "reference_temperature_K": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "kind",
+        "tension_positive_force_N",
+        "reference_temperature_K"
+      ]
+    },
+    "ReferenceGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "reference_geometry"
+          ]
+        },
+        "reference_temperature_K": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "kind",
+        "reference_temperature_K"
+      ]
+    },
+    "Material": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "law": {
+          "enum": [
+            "linear_elastic_isotropic"
+          ]
+        },
+        "young_modulus_Pa": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "poisson_ratio": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "density_kg_m3": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "thermal_expansion_per_K": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "law",
+        "young_modulus_Pa",
+        "poisson_ratio",
+        "density_kg_m3",
+        "thermal_expansion_per_K"
+      ]
+    },
+    "Section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "material_id": {
+          "type": "string"
+        },
+        "area_m2": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "Iy_m4": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "Iz_m4": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "torsional_constant_m4": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "id",
+        "material_id",
+        "area_m2",
+        "Iy_m4",
+        "Iz_m4",
+        "torsional_constant_m4"
+      ]
+    },
+    "Support": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "fixed_dofs": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "u_x",
+              "u_y",
+              "u_z",
+              "phi_x",
+              "phi_y",
+              "phi_z"
+            ]
+          }
+        },
+        "frame": {
+          "$ref": "#/$defs/Frame"
+        }
+      },
+      "required": [
+        "id",
+        "node_id",
+        "fixed_dofs",
+        "frame"
+      ]
+    },
+    "NodalForce": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "nodal_force"
+          ]
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "global_vector_N": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "id",
+        "case_id",
+        "kind",
+        "node_id",
+        "global_vector_N"
+      ]
+    },
+    "NodalMoment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "nodal_moment"
+          ]
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "global_vector_Nm": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "id",
+        "case_id",
+        "kind",
+        "node_id",
+        "global_vector_Nm"
+      ]
+    },
+    "UniformMemberLoad": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "uniform_member_load"
+          ]
+        },
+        "member_id": {
+          "type": "string"
+        },
+        "vector_N_per_m": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "frame": {
+          "enum": [
+            "global",
+            "member_local"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "case_id",
+        "kind",
+        "member_id",
+        "vector_N_per_m",
+        "frame"
+      ]
+    },
+    "TemperatureChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "temperature_change"
+          ]
+        },
+        "member_id": {
+          "type": "string"
+        },
+        "delta_K": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "id",
+        "case_id",
+        "kind",
+        "member_id",
+        "delta_K"
+      ]
+    },
+    "MemberPrestress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "case_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "member_prestress"
+          ]
+        },
+        "member_id": {
+          "type": "string"
+        },
+        "tension_positive_force_N": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "id",
+        "case_id",
+        "kind",
+        "member_id",
+        "tension_positive_force_N"
+      ]
+    },
+    "LoadCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "AnalysisState": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "theory": {
+          "enum": [
+            "linear_static",
+            "large_displacement_static",
+            "form_finding"
+          ]
+        },
+        "case_factors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CaseFactor"
+          }
+        },
+        "numerics": {
+          "$ref": "#/$defs/NumericalSettings"
+        },
+        "gravity_m_s2": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "initial_state_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "form_targets": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ForceTarget"
+              },
+              {
+                "$ref": "#/$defs/SagTarget"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "theory",
+        "case_factors",
+        "numerics"
+      ]
+    },
+    "CaseFactor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "factor": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "case_id",
+        "factor"
+      ]
+    },
+    "NumericalSettings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "enum": [
+            "linear_direct",
+            "newton_raphson",
+            "arc_length"
+          ]
+        },
+        "max_iterations": {
+          "type": "integer"
+        },
+        "relative_equilibrium_tolerance": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "algorithm",
+        "max_iterations",
+        "relative_equilibrium_tolerance"
+      ]
+    },
+    "ForceTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "axial_force"
+          ]
+        },
+        "tension_positive_force_N": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        }
+      },
+      "required": [
+        "member_id",
+        "kind",
+        "tension_positive_force_N"
+      ]
+    },
+    "SagTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "sag"
+          ]
+        },
+        "sag_m": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "station_fraction": {
+          "type": "string",
+          "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+          "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+        },
+        "global_direction_unit": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            },
+            {
+              "type": "string",
+              "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+              "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "member_id",
+        "kind",
+        "sag_m",
+        "station_fraction",
+        "global_direction_unit"
+      ]
+    },
+    "ResultRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResultSelection"
+          }
+        }
+      },
+      "required": [
+        "state_ids",
+        "selections"
+      ]
+    },
+    "ResultSelection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quantity": {
+          "enum": [
+            "N",
+            "V_y",
+            "V_z",
+            "M_y",
+            "M_z",
+            "T",
+            "u_x",
+            "u_y",
+            "u_z",
+            "phi_x",
+            "phi_y",
+            "phi_z",
+            "R_x",
+            "R_y",
+            "R_z",
+            "M_R_x",
+            "M_R_y",
+            "M_R_z"
+          ]
+        },
+        "object_kind": {
+          "enum": [
+            "node",
+            "member"
+          ]
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+            "description": "Finite base-10 Decimal. Unit is fixed by the field/contract."
+          }
+        }
+      },
+      "required": [
+        "quantity",
+        "object_kind",
+        "object_ids"
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:aec:contracts:0.1:MappingReport",
+  "title": "MappingReport",
+  "$comment": "Structural validation only; Python domain invariants are also mandatory.",
+  "$ref": "#/$defs/MappingReport",
+  "$defs": {
+    "MappingReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_format": {
+          "type": "string"
+        },
+        "target_schema": {
+          "type": "string"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MappingIssue"
+          }
+        }
+      },
+      "required": [
+        "source_format",
+        "target_schema",
+        "issues"
+      ]
+    },
+    "MappingIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_ref": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "warning",
+            "error",
+            "loss"
+          ]
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_ref",
+        "code",
+        "severity",
+        "message"
+      ]
+    }
+  }
+}

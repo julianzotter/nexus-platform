@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nexus:aec:contracts:0.1:CompatibilityReport",
+  "title": "CompatibilityReport",
+  "$comment": "Structural validation only; Python domain invariants are also mandatory.",
+  "$ref": "#/$defs/CompatibilityReport",
+  "$defs": {
+    "CompatibilityReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "enum": [
+            "nexus-compatibility/0.1"
+          ]
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "model_revision": {
+          "type": "string"
+        },
+        "adapter_version": {
+          "type": "string"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CompatibilityIssue"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "model_id",
+        "model_revision",
+        "adapter_version",
+        "issues"
+      ]
+    },
+    "CompatibilityIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "E_SCHEMA",
+            "E_RESULT",
+            "E_STATE_PROFILE"
+          ]
+        },
+        "object_ref": {
+          "type": "string"
+        },
+        "required_capability": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "object_ref",
+        "required_capability",
+        "message"
+      ]
+    }
+  }
+}
