@@ -1,7 +1,9 @@
 ---
 artifact_type: standards_watch_report
-title: AT Structural Standards Watch — Burgenland OIB-Richtlinie 6:2025
+title: AT Structural Standards Watch — Burgenland LGBl. 75/2026 / OIB-Richtlinie 6:2025
 created_at: 2026-11-23T08:30:23+01:00
+refined_at: 2026-11-23T09:26:31+01:00
+revision: 2
 monitor_window_start: 2026-11-16
 role_id: ID02
 agent_name: ChatGPT Private / ChatGPT Chief Orchestrator
@@ -11,83 +13,145 @@ provider: OpenAI
 model_id: null
 ticket_id: null
 registration_status: REGISTRATION_PENDING
-verification_status: SOURCE_CROSSCHECK_PASS
-review_status: INDEPENDENT_REVIEW_NOT_RUN
+verification_status: SOURCE_CROSSCHECK_PASS_AFTER_CORRECTION
+peer_review_status: PASS_AFTER_REFINEMENT
+peer_review_executor_instance: /root/standards_peer_review
+peer_review_role_id: null
+review_status: SEPARATE_INSTANCE_REVIEW_COMPLETED_SAME_MODEL_FAMILY
 authority: ID01 direct request
-scope: Austria / Burgenland / OIB-Richtlinie 6 / documentation and approval workflow
+scope: Austria / Burgenland / energy, life-cycle GWP, solar readiness, documentation and approval workflow
 ---
 
-# AT Structural Standards Watch — Burgenland OIB-Richtlinie 6:2025
+# AT Structural Standards Watch — Burgenland LGBl. 75/2026 / OIB-Richtlinie 6:2025
 
-## Status
+## Entscheidungskern
 
-🟡 PLANEN — für laufende und neue Projekte im Burgenland.
-
-Neu im amtlichen Monitoring erkannt wurde die geänderte OIB-Übernahmeübersicht für das Burgenland. Die dort angeführte Landesdatumsangabe 22.10.2026 ist strikt von Kundmachung und Inkrafttreten zu unterscheiden. Rechtlich maßgebend sind LGBl. Nr. 75/2026 vom 04.11.2026 und das Inkrafttreten am 05.11.2026.
-
-## Dokument, Version und Thema
-
-- Burgenländische Bauverordnung 2008, § 36 Abs. 1, Fassung LGBl. Nr. 75/2026
-- OIB-Richtlinie 6 „Energieeinsparung und Wärmeschutz“, Ausgabe September 2025
-- Leitfaden „Energietechnisches Verhalten von Gebäuden“, September 2025
-- Berechnung des kostenoptimalen Anforderungsniveaus, März 2023/Fassung Juni 2026
-- OIB-Dokument „Nationales Begleitdokument zu ISO-Anhängen“, Juli 2026
-- OIB-Dokument „Unabhängiges Kontrollsystem für Energieausweise“, April 2026
+1. 🔴 **Sofort berücksichtigen:** Neue Gebäude müssen seit Inkrafttreten so geplant und ausgeführt werden, dass ihr Solarenergiepotenzial optimiert und eine spätere kosteneffiziente Installation ermöglicht wird. Das kann Tragwerkskonzept, Dach-, Fassaden- und Balkonflächen, Lastannahmen, Befestigungen und Durchdringungen beeinflussen.
+2. 🟡 **GWP-Prozess planen:** Das Lebenszyklus-Treibhauspotenzial wird bei neuen Gebäuden über 1.000 m² für Bauansuchen nach dem 31.12.2027 und bei allen neuen Gebäuden für Bauansuchen nach dem 31.12.2029 verpflichtender Inhalt des Energieausweises.
+3. 🟡 **Einreich- und Kontrollprozess umstellen:** OIB-Richtlinie 6:2025 samt Begleitdokumenten, digitale Energieausweise, Datenbankregistrierung und unabhängige Kontrolle sind in der neuen Rechtslage verankert.
 
 ## Rechts- und Normstatus
 
 | Ereignis | Datum | Status |
 |---|---:|---|
-| OIB-Übernahmeübersicht, Burgenland | 22.10.2026 | OIB-Tabellendatum; nicht als Kundmachungs- oder Inkrafttretensdatum verwenden |
-| LGBl. Nr. 75/2026 | 04.11.2026 | amtlich kundgemacht |
-| § 36 Abs. 1 Bgld. BauVO in neuer Fassung | 05.11.2026 | in Kraft; OIB-Richtlinie 6:2025 und genannte Begleitdokumente verbindlich |
+| Verordnung der Burgenländischen Landesregierung | 22.10.2026 | Beschluss-/Verordnungsdatum; dieses Datum führt auch die OIB-Übersicht in ihrer Rubrik „Inkrafttreten“ |
+| LGBl. Nr. 75/2026 | 04.11.2026 | authentisch kundgemacht |
+| §§ 34–34k, § 36 Abs. 1 und weitere geänderte Bestimmungen | 05.11.2026 | Inkrafttreten gemäß § 43 Abs. 10 am Tag nach der Kundmachung |
+| Solarenergieanlage: neue Nichtwohngebäude > 250 m² | 01.01.2027 | Errichtungspflicht, soweit technisch geeignet sowie wirtschaftlich und funktional realisierbar |
+| Gebäude-GWP: neue Gebäude > 1.000 m² | Bauansuchen nach 31.12.2027 | Berechnung und Angabe im Energieausweis verpflichtend |
+| Solarenergieanlage: bestimmte bestehende Nichtwohngebäude > 500 m² | 01.01.2028 | bei größerer Renovierung oder bestimmten bewilligungspflichtigen Dach-/Systemmaßnahmen, vorbehaltlich § 34f |
+| Gebäude-GWP: alle neuen Gebäude | Bauansuchen nach 31.12.2029 | Berechnung und Angabe im Energieausweis verpflichtend |
+| Solarenergieanlage: neue Wohngebäude und bestimmte neue überdachte Parkplätze | 01.01.2030 | Errichtungspflicht, soweit technisch geeignet sowie wirtschaftlich und funktional realisierbar |
 
-Unverändert bleiben im Burgenland die OIB-Richtlinien 1 bis 5 in der Ausgabe 2019 sowie der Nationale Plan zur OIB-Richtlinie 6 in der Ausgabe 2018. Behörden können Abweichungen nur bei nachgewiesenem gleichwertigem Schutzniveau zulassen.
+**Datumsregel:** Die OIB-Webübersicht nennt für Burgenland den 22.10.2026 unter „Inkrafttreten“. Der authentische Rechtsakt ist jedoch am 04.11.2026 ausgegeben worden und bestimmt das Inkrafttreten am Folgetag. Für Rechtsanwendung und NEXUS-Status sind daher Verordnungsdatum, Kundmachung und Inkrafttreten getrennt zu speichern.
 
-## Betroffener Workflow
+## Treffer 1 — Lebenszyklus-GWP im Energieausweis
 
-- Energieausweis- und Einreichunterlagen
-- Wärmebrückennachweise an Tragwerksanschlüssen
-- thermische und bauphysikalische Annahmen für Balkone, Konsolen, Befestigungen, Dächer sowie Holz- und HBV-Bauteile
-- Dimensionierung und Dokumentation gebäudetechnischer Systeme
-- behördliche Prüfung und unabhängige Kontrolle von Energieausweisen
+**Dokument/Klauseln:** LGBl. Nr. 75/2026, § 34 Abs. 3 und § 34b Abs. 4 Z 5.
 
-## Konkrete fachliche Auswirkung
+**Rechtsstatus:** veröffentlicht und seit 05.11.2026 in Kraft; die konkrete Nachweispflicht greift gestaffelt nach dem Datum des Bauansuchens.
 
-Keine Änderung der EC2-, EC5-, CEN/TS-19103-, Last- oder Sicherheitsbeiwerte. Es liegt keine neue landesrechtliche Übernahme der zweiten Eurocode-Generation vor.
+**Betroffener Workflow:** frühe Variantenplanung, Mengenmodell, Material- und Produktdaten, Ausschreibung, As-built-Dokumentation, Energieausweis und Behördenprozess.
 
-Die materielle Wirkung betrifft die Dokumentations-, Koordinations- und Behördenprozesse. Tragwerksplanung und Bauphysik müssen insbesondere Wärmebrücken, Feuchte- und Anschlussdetails bei tragenden Durchdringungen und Hybridanschlüssen konsistent dokumentieren. Die Änderung führt weder automatisch eine OIB-Richtlinie 7 noch eine eigenständige Gebäude-GWP-/LCA-Nachweispflicht ein.
+**Fachliche Auswirkung:**
 
-## Action Points
+- ab 01.01.2028 für neue Gebäude mit Nutzfläche > 1.000 m²;
+- ab 01.01.2030 für alle neuen Gebäude;
+- Berechnung nach Anhang III der Richtlinie (EU) 2024/1275 in der jeweils maßgebenden Fassung;
+- das unionsrechtliche Berechnungsframework verwendet relevante Teile von EN 15978, einen Referenzzeitraum von 50 Jahren sowie gemäß CPR bereitgestellte Produktdaten, wenn verfügbar;
+- EN-15804-EPDs bleiben wichtige Produktdatenquellen, dürfen aber nicht ohne Prüfung der Datenhierarchie, Systemgrenzen und nationalen Berechnungsvorgaben als alleiniger Rechtsnachweis behandelt werden;
+- prEN 15978:2025 ist als Entwurfsreferenz nicht wie eine veröffentlichte verbindliche Norm anzuwenden.
 
-1. Berechnungsvorlagen: Jurisdiktionsfeld `Burgenland — OIB RL 6:2025 — gültig ab 05.11.2026` ergänzen; Tragwerks-Solver unverändert lassen.
-2. Nachweisberichte: Rechtsgrundlage und Fassungen ausdrücklich anführen; Wärmebrückenannahmen an tragenden Anschlüssen nachvollziehbar dokumentieren.
-3. Freigaben: Bei Einreichungen ab 05.11.2026 Energieausweis, Kontrollanforderungen und Schnittstellen zwischen Tragwerk, Bauphysik und Haustechnik prüfen.
-4. Holz/HBV: Feuchte-, Wärmebrücken- und Anschlussdetails zwischen Holz, Beton und Verbindungsmitteln koordinieren.
-5. NEXUS/SSOT: getrennte Statusereignisse `OIB-Tabellendatum 2026-10-22`, `Kundmachung 2026-11-04`, `Inkrafttreten 2026-11-05` erfassen; Geltungsbereich ausschließlich Burgenland; Flag `keine EC-/RL1-/GWP-Änderung`.
+**Priorität:** 🟡 planen; für Projekte > 1.000 m² mit Einreichung ab 2028 bereits jetzt in Leistungsbild, BIM/Mengenstruktur und Ausschreibung vorbereiten.
+
+**Action Points:**
+
+1. Berechnungsvorlagen um `jurisdiction`, `permit_application_date`, `useful_floor_area`, `reference_study_period`, Lebenszyklusmodule, Mengenquelle, Produktdatentyp, Datenstand und Prüfer ergänzen.
+2. Nachweisberichte zwischen Vorentwurfs-LCA, Ausschreibungsstand und verpflichtendem As-built-GWP im Energieausweis unterscheiden.
+3. Ausschreibungen auf nachvollziehbare Produktdaten, EPD-/DoPC-Identität, Gültigkeitsstand und CPR-Regime vorbereiten.
+4. NEXUS/SSOT: Rechtsauslöser 2028/2030, EN-15978-Bezug, CPR-Datenhierarchie und noch festzulegende nationale Detailparameter getrennt modellieren.
+
+## Treffer 2 — Solarbereitschaft und gestaffelte Errichtungspflichten
+
+**Dokument/Klausel:** LGBl. Nr. 75/2026, § 34f; amtliche Erläuterungen zu § 34f.
+
+**Rechtsstatus:** § 34f seit 05.11.2026 in Kraft; einzelne Errichtungspflichten beginnen 2027, 2028 beziehungsweise 2030.
+
+**Betroffener Workflow:** Tragwerkskonzept, Dach-/Fassaden-/Balkonplanung, Nutzlast- und Einwirkungsannahmen, Befestigungen, Durchdringungen, Brandschutzschnittstellen, Ausschreibung und Einreichpläne.
+
+**Fachliche Auswirkung:** Die amtlichen Erläuterungen nennen ausdrücklich die statische Eignung für spätere Solarenergieanlagen. Dach-, Fassaden- und Balkonflächen sollen so geplant werden, dass spätere Installationen ohne kostspielige strukturelle Änderungen möglich sind; Durchdringungen sollen gebündelt und geeignete Flächen freigehalten werden. Projektabhängig sind zusätzliche ständige Lasten, Wind- und Schneeeinwirkungen, lokale Einleitungen, Befestigungs- und Abdichtungsdetails zu berücksichtigen. Die Eurocode-Formeln ändern sich nicht, wohl aber das projektspezifische Einwirkungs- und Anschlussmodell.
+
+**Priorität:** 🔴 sofort für neue Burgenland-Projekte; 🟡 terminbezogen für die gestaffelten Errichtungspflichten.
+
+**Action Points:**
+
+1. Tragwerkskonzept und Lastenheft um reservierte Solarflächen, Systemgewicht, Wartungswege, Befestigungszonen und Nachrüstlastfall ergänzen.
+2. Nachweisberichte explizit kennzeichnen, ob nur Solarbereitschaft oder bereits eine konkrete Anlage nachgewiesen wird.
+3. Einreich- und Ausschreibungspläne mit nutzbaren Dach-/Fassaden-/Balkonflächen, Durchdringungen und Tragreserven koordinieren.
+4. Für Bestands-Nichtwohngebäude > 500 m² ab 2028 bei größerer Renovierung, bei bewilligungspflichtigen Arbeiten am Dach oder bei Installation eines gebäudetechnischen Systems die Solarpflicht und Ausnahmen projektbezogen prüfen.
+
+## Treffer 3 — OIB-Richtlinie 6:2025, Energieausweis und Kontrolle
+
+**Dokument/Klauseln:** § 34b, § 34e, § 34g und § 36 Abs. 1 Z 9 Bgld. BauVO 2008.
+
+**Rechtsstatus:** seit 05.11.2026 in Kraft und für Burgenland verbindlich.
+
+Verbindlich einbezogen sind:
+
+- OIB-Richtlinie 6 „Energieeinsparung und Wärmeschutz“, Ausgabe 2025;
+- Leitfaden „Energietechnisches Verhalten von Gebäuden“, September 2025;
+- Berechnung des kostenoptimalen Anforderungsniveaus, März 2023/Fassung Juni 2026;
+- OIB-Dokument „Nationales Begleitdokument zu ISO-Anhängen“, Juli 2026;
+- OIB-Dokument „Unabhängiges Kontrollsystem für Energieausweise“, April 2026.
+
+Energieausweise sind digital auszustellen, in der Energieausweisdatenbank zu registrieren und dem unabhängigen Kontrollsystem unterworfen. Nach § 34e Abs. 2 sind der vollständige Energieausweis sowie alle für die Berechnung der Gesamtenergieeffizienz erforderlichen Daten und Unterlagen elektronisch zu übermitteln.
+
+**Priorität:** 🟡 planen.
+
+**Action Points:**
+
+1. Für Vorhaben, die nach der seit 05.11.2026 geltenden Rechtslage zu beurteilen sind, Energieausweis- und Einreichprozess umstellen; anhängige Verfahren und spezielle Übergangsfragen gesondert prüfen.
+2. Schnittstellen zwischen Tragwerk, Bauphysik und Haustechnik nachvollziehbar versionieren; Wärmebrücken- und Feuchtewirkungen nur projektbezogen ableiten.
+3. Bewertungen geänderter gebäudetechnischer Systeme dokumentieren und dem Eigentümer übergeben, soweit § 34g greift.
+
+## Abgrenzung zur Tragwerksnormung
+
+- Keine nachgewiesene Änderung der Bemessungsformeln oder Nationalen Anhänge von EC2, EC5 oder CEN/TS 19103 durch LGBl. Nr. 75/2026.
+- OIB-Richtlinien 1 bis 5 bleiben in § 36 Abs. 1 als Ausgabe 2019 genannt; der Nationale Plan zur OIB-Richtlinie 6 bleibt Ausgabe 2018.
+- Projektlastmodelle und Anschlussdetails können sich durch Solarbereitschaft oder konkrete Solarenergieanlagen dennoch ändern.
+- Abweichungen: § 36 Abs. 4 verlangt bei Abweichung ein gleichwertiges Schutzniveau; § 36 Abs. 5 ermöglicht darüber hinaus begründete Einzelfallabweichungen bei örtlichen oder sachlichen Verhältnissen, sofern § 1 weiterhin erfüllt ist.
 
 ## Evidenz / Primärquellen
 
-1. OIB, Übernahmeübersicht: https://www.oib.or.at/kernaufgaben/oib-richtlinien/
-2. OIB-Richtlinie 6:2025 und Begleitdokumente: https://www.oib.or.at/richtlinien/oib-richtlinien-2025/oib-richtlinie-6/
-3. RIS, Burgenländische Bauverordnung 2008, konsolidierte Fassung: https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=LrBgld&Gesetzesnummer=20000684
-4. RIS, authentisches Landesgesetzblatt, LGBl. Nr. 75/2026 vom 04.11.2026: https://www.ris.bka.gv.at/Ergebnis.wxe?Abfrage=LgblAuth
+1. RIS, authentisches Landesgesetzblatt — Trefferliste LGBl. Nr. 75/2026: https://www.ris.bka.gv.at/Ergebnis.wxe?Abfrage=LgblAuth
+2. Amtliche Informationskopie des Landes Burgenland, LGBl. Nr. 75/2026: https://apps.bgld.gv.at/web/landesrecht.nsf/xsp/.ibmmodres/domino/OpenAttachment/web/landesrecht.nsf/5BF3608F44587EBBC1258EA50045797D/fldFile/LGBl%2075-2026_sig.pdf
+3. Anlage 9 / OIB-Richtlinie 6:2025: https://apps.bgld.gv.at/web/landesrecht.nsf/xsp/.ibmmodres/domino/OpenAttachment/web/landesrecht.nsf/008E856C041CCC57C1258EA50045B429/fldFile/LGBl%2075-2026%20Anlage%209_sig.pdf
+4. Amtliche Erläuterungen: https://apps.bgld.gv.at/web/landesrecht.nsf/xsp/.ibmmodres/domino/OpenAttachment/web/landesrecht.nsf/7DCAF53090B39C49C1258EA500457D03/fldFileErlaeuterungen/LGBl%2075-2026%20Erl%C3%A4uterungen_sig.pdf
+5. RIS, konsolidierte Bgld. BauVO 2008: https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=LrBgld&Gesetzesnummer=20000684
+6. OIB-Übernahmeübersicht: https://www.oib.or.at/kernaufgaben/oib-richtlinien/
+7. OIB-Richtlinie 6:2025 und Begleitdokumente: https://www.oib.or.at/richtlinien/oib-richtlinien-2025/oib-richtlinie-6/
+8. Richtlinie (EU) 2024/1275, konsolidierter Text/Anhang III: https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:02024L1275-20260524
+9. Delegierte Verordnung (EU) 2026/52: https://eur-lex.europa.eu/eli/reg_del/2026/52/oj
 
-## Prüfgrenzen und QA
+## Peer Review und Refinement
 
-- VERIFIED: OIB führt für Burgenland zur OIB-Richtlinie 6:2025 das Datum 22.10.2026.
-- VERIFIED: LGBl. Nr. 75/2026 wurde am 04.11.2026 kundgemacht.
-- VERIFIED: Die geänderten Bestimmungen traten laut Inkrafttretensregel am Folgetag, 05.11.2026, in Kraft.
-- VERIFIED: § 36 Abs. 1 erklärt OIB-Richtlinie 6:2025 und die bezeichneten Begleitdokumente für verbindlich.
-- VERIFIED: OIB-Richtlinien 1 bis 5 bleiben in der Ausgabe 2019 genannt.
-- DERIVED: Auswirkungen auf Wärmebrücken-, Anschluss- und Koordinationsdokumentation folgen aus dem Regelungsgegenstand Energieeinsparung/Wärmeschutz; projektspezifische Umsetzung bleibt Planer- und Behördenprüfung.
-- NOT CLAIMED: keine Aussage über eine Änderung von EC2-/EC5-Bemessungsformeln oder eine neue GWP-/LCA-Pflicht.
-- REGISTRATION_PENDING: kein Register-/Ledgerwrite durch diese Runtime; ausschließlich der benannte Ledger-Schreiber darf registrieren.
+**Erstrunde:** FAIL_WITH_FINDINGS.
+
+Behobene Befunde:
+
+1. Falsche Aussage „keine Gebäude-GWP-/LCA-Nachweispflicht“ entfernt und durch die gesetzlichen Stichtage 2028/2030 ersetzt.
+2. Strukturell relevante Solarbereitschaft und Errichtungspflichten ergänzt.
+3. 22.10.2026 als Verordnungsdatum präzisiert; Kundmachung und Inkrafttreten getrennt.
+4. Abweichungsregeln nach § 36 Abs. 4 und 5 vollständig dargestellt.
+5. Pauschale Einreichungs- und Wärmebrückenaussagen auf den projektbezogenen Geltungsbereich begrenzt.
+6. Direkte Links zu Rechtsakt, Anlage und Erläuterungen ergänzt.
+
+**Re-Review-Status:** PASS_AFTER_REFINEMENT. Materielle Befunde und vier redaktionelle Präzisierungen in Revision 2 umgesetzt; separate Instanz, gleiche Modellfamilie. Keine externe fachliche oder behördliche Freigabe behauptet.
 
 ## Ergebnisvertrag
 
-- FINDINGS: ein qualifizierter, dokumentations- und genehmigungsrelevanter Landesrechtsstatus.
-- EVIDENCE/SOURCES: vier amtliche Primärquellen oben.
-- ARTIFACTS: dieses Markdown-Artefakt; Drive- und GitHub-IDs werden im Übergabebeleg ergänzt.
-- RISKS: Verwechslung des OIB-Tabellendatums mit dem rechtlichen Inkrafttreten; unzulässige Ableitung einer Eurocode- oder GWP-Änderung.
-- NEXT_ACTION: Vorlage und SSOT-Matrix für Burgenland aktualisieren; Registereintrag durch autorisierten Ledger-Schreiber; unabhängige Fachprüfung bei konkretem Projektbezug.
+- FINDINGS: drei materielle Workflowänderungen — Solar, Gebäude-GWP, digitaler Energieausweis/Kontrolle.
+- EVIDENCE/SOURCES: neun amtliche Primärquellen beziehungsweise amtliche Informationskopien.
+- ARTIFACTS: dieses Markdown-Artefakt; Drive-ID und GitHub-PR sind im Übergabebeleg dokumentiert.
+- RISKS: falsche Datumssemantik; verspätete GWP-Datenstruktur; nicht berücksichtigte Solar-Nachrüstlasten; Vermischung von Entwurf und verbindlicher Norm.
+- NEXT_ACTION: Burgenland-Projektmatrix, Lastenhefte, LCA-Datenmodell, Berichtsvorlagen und Ausschreibungsklauseln aktualisieren; Registereintrag durch autorisierten Ledger-Schreiber.
