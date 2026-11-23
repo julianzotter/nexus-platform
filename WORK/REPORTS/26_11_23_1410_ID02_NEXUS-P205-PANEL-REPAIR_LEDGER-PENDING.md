@@ -11,11 +11,14 @@ Status: `PARTIAL_COMPLETE / LOCAL_WINDOWS_EXECUTION_REQUIRED`
 - Das private Control Panel ist als Version 6 aus Source-Commit `022b8f045253f0c9bbacfab2e33654bb26309b8e` erfolgreich deployed.
 - Version 6 zeigt PR #116 als `MERGED` und prüft veröffentlichte `control-data.json` alle 10 s auf Änderungen.
 - GitHub-Workflows `nexus-monitor.yml`, `nexus-drive-poll.yml` und `nexus-delivery.yml` sind konfiguriert. Der letzte belegte Betriebsstatus bleibt wegen `OAUTH_HTTP_400_INVALID_GRANT` und `MONITOR_NOT_COMPLETE` nicht grün.
+- `_FRONTMATTER.md` wurde in Drive als `v007-ID01-CONTROL-PANEL-START-GATE` bytegenau aktualisiert; Start-ACK, WORK-Report und GitHub-Mirror sind damit verpflichtende Gates.
+- GitHub-PR #117 enthält Skript, Tests, Startregeln, Report und Panel-v6-Archiv. CI-Lauf #294 ist erfolgreich; Merge und Human Review sind noch offen.
 
 ## IMPLEMENTED
 
 - Vollständiges PowerShell-Skript `P205_FT_Excel_Native_Recalc_v1_2.ps1` mit Pflichtparametern, SHA-256-Gate, read-only Source, `CalculateFullRebuild`, Save/Close/Readback-Kopie und COM-Cleanup.
 - Statische Vertragstests verhindern die ursprüngliche uninitialisierte `$source`-Variable und prüfen Fail-Closed-/Audit-Invarianten.
+- Drive-Readback für Frontmatter, Skript und Report ist bytegleich. Panel-Archiv-Readback bestätigt SHA-256 `1d943ed7524f8162e1acfeb80847bb0e9e8348300870f8d30ad400e85c495f36`.
 
 ## OFFEN / REIHENFOLGE
 
