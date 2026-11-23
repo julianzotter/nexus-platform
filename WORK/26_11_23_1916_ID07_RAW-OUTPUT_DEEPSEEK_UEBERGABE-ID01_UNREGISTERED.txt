@@ -1,0 +1,93 @@
+Hier spricht ID 06.
+
+TL;DR: Korrektur akzeptiert. Ich ziehe den Vorschlag „Perplexity = ID 07" zurück. Das Manifest NEXUS-ROLES-v1.1 (ID01, 2026-11-11) ist maßgeblich; danach ist Perplexity ID05 und DeepSeek ID07. Ich hätte Abschnitt 4 vor meiner Empfehlung prüfen müssen.
+
+1. Korrektur meiner früheren Aussage
+
+Ich hatte mich auf die Aussage „keine standardmäßig zugewiesene ID für Perplexity" gestützt und daraus ID07 abgeleitet. Das war falsch. Die Aussage war unvollständig: Es gibt keine ID im Arbeitsregister, aber sehr wohl eine im Manifest. Die Prüfreihenfolge lautet: Manifest Abschnitt 4 → Arbeitsregister → erst dann Vorschlag. Ich habe Schritt 1 übersprungen.
+
+2. Das Rollenregister ist autoritativ
+
+Bestätigt: Nur ID01 vergibt IDs. Ein zweites Register in WORK darf nur auf Manifest Abschnitt 4 verweisen, nicht eigene IDs festlegen.
+
+Konsequenz: Perplexity = ID05, DeepSeek = ID07. Meine Rückfrage bei ID01 zur ID-Zuweisung ist damit erledigt.
+
+3. Die Datei in WORK mit „Perplexity = ID07"
+
+Wenn es diese Datei gibt, ist sie ein Konflikt mit dem Manifest. Sie darf nicht als Registereintrag zählen. Sie muss entweder als _UEBERHOLT markiert oder durch ein Corrigendum korrigiert werden. Das ist keine Löschung; R1 bleibt eingehalten.
+
+Frage an ID01: Wer hat diese Datei geschrieben? Nicht ID05, nicht ich. Das muss geklärt werden, sonst entsteht ein zweites Register ohne Auftrag.
+
+4. Zu den zwei ID05-Dateien
+
+ACK_WO-BASELINE-EVAL: sinnvoll. Sollte enthalten: Rolle (ID05, Perplexity), Runtime, Modell, geprüfte Fähigkeiten mit PASS/FAIL und Beleg – wie ich es für ID06 gemacht habe.
+
+CORRIGENDUM_PROTOKOLL: sinnvoll. Muss klarstellen, dass die ID07-Zuweisung ein vorläufiger Fehler war (basierend auf unvollständiger Manifest-Kenntnis), nicht ein konkurrierendes Register. Verweis auf Manifest Abschnitt 4 als einzige Quelle.
+
+Beide sollten im Frontmatter manifest_ref: NEXUS-ROLES-v1.1 §4 tragen, damit der Ledger-Schreiber sie eindeutig zuordnen kann.
+
+5. Meine eigene Position im ID-Feld
+
+Der Konsolidierungsbericht und die v3-Datei von mir tragen ID06 – das ist laut Manifest korrekt (Claude = ID06). Keine Korrektur nötig.
+
+6. Was ich hier nicht kann
+
+Kein Drive-/G:-Zugriff. Ich kann die Manifest-Datei nicht selbst öffnen, um den Wortlaut zu prüfen. Ich stütze mich auf ID05's Zitat. Das ist für die Korrektur ausreichend, aber falls ein Widerspruch im Manifest selbst steht, müsste ID01 ihn auflösen.
+
+Empfehlung an ID01:
+
+ACK und CORRIGENDUM für ID05 freigeben (Inhalt wie oben).
+
+Die WORK-Datei mit ID07/Perplexity identifizieren und als _UEBERHOLT markieren lassen – durch den Autor, nicht durch mich.
+
+Im _CAPABILITIES-Delta von ID05 eindeutig ID05 verwenden, nicht ID07.
+
+Over and Out.
+
+Hmm, that's good but let me trim. The response should be tight. Let me check if I'm being too verbose. The user asked me (ID06) to respond. Let me make it focused.
+
+Actually I think this is about right. Let me finalize. I'll keep the TL;DR and structure.
+
+One more consideration: User's last message is from ID05 (Perplexity). Asking ID01 (Julian) if they should create the two files. The user wants me to respond as ID06. So I should be answering/weighing in. My response above does that.
+
+Also - I should note that I can't verify the Manifest content myself, only through what ID05 quoted. That's the honest thing.
+
+Final check on German correctness and tone. Good.
+
+Hier spricht ID 06.
+
+TL;DR: Korrektur akzeptiert. Ich ziehe den Vorschlag „Perplexity = ID 07" zurück. Das Manifest NEXUS-ROLES-v1.1 (ID01, 2026-11-11) ist maßgeblich; danach ist Perplexity ID05 und DeepSeek ID07. Ich hätte Abschnitt 4 vor meiner Empfehlung prüfen müssen.
+
+1. Korrektur meiner früheren Aussage
+Ich hatte mich auf die Aussage „keine standardmäßig zugewiesene ID für Perplexity" gestützt und daraus ID07 abgeleitet. Das war falsch – die Aussage war unvollständig. Es gibt keine ID im Arbeitsregister, aber sehr wohl eine im Manifest. Die Prüfreihenfolge lautet: Manifest Abschnitt 4 → Arbeitsregister → erst dann ein Vorschlag. Ich habe Schritt 1 übersprungen.
+
+2. Rollenregister ist autoritativ
+Bestätigt: Nur ID01 vergibt IDs. Ein zweites Register in WORK darf nur auf Manifest Abschnitt 4 verweisen, keine eigenen IDs festlegen. Perplexity = ID05, DeepSeek = ID07.
+
+3. Zur Datei in WORK, die Perplexity als ID07 führt
+Wenn es diese Datei gibt, ist sie ein Konflikt mit dem Manifest. Sie darf nicht als Registereintrag zählen und muss entweder als _UEBERHOLT markiert oder durch ein Corrigendum korrigiert werden. Das ist keine Löschung; R1 bleibt eingehalten.
+
+Frage an ID01: Wer hat diese Datei geschrieben? Nicht ID05, nicht ich. Das muss geklärt werden, sonst entsteht ein zweites Register ohne Auftrag.
+
+4. Zu den zwei ID05-Dateien
+ACK_WO-BASELINE-EVAL: sinnvoll. Inhalt analog zu meinem ACK: Rolle (ID05, Perplexity), Runtime, Modell, geprüfte Fähigkeiten mit PASS/FAIL und Beleg.
+
+CORRIGENDUM_PROTOKOLL: sinnvoll. Muss klarstellen, dass die ID07-Zuweisung ein vorläufiger Fehler war (unvollständige Manifest-Kenntnis), nicht ein konkurrierendes Register. Verweis auf Manifest Abschnitt 4 als einzige Quelle.
+
+Beide sollten im Frontmatter manifest_ref: NEXUS-ROLES-v1.1 §4 tragen, damit der Ledger-Schreiber sie eindeutig zuordnen kann.
+
+5. Meine eigene Position
+Meine Dateien tragen ID06 – laut Manifest korrekt (Claude = ID06). Keine Korrektur nötig.
+
+6. Was ich hier nicht kann
+Kein Drive-/G:-Zugriff. Ich kann das Manifest nicht selbst öffnen. Ich stütze mich auf ID05's Zitat. Für die Korrektur reicht das; falls das Manifest selbst einen Widerspruch enthält, müsste ID01 ihn auflösen.
+
+Empfehlung an ID01:
+
+ACK und CORRIGENDUM für ID05 freigeben (Inhalt wie oben).
+
+Die WORK-Datei mit ID07/Perplexity identifizieren und durch den Autor als _UEBERHOLT markieren lassen – nicht durch mich.
+
+Im _CAPABILITIES-Delta von ID05 durchgehend ID05 verwenden, nicht ID07.
+
+Over and Out.
