@@ -1,0 +1,9 @@
+﻿signal_id,priority,energy,title,release_gate,route
+S01,P0,40,RevF stale/mixed result cache,STOP,ID06:EXCEL_ENGINE -> ID07:RED_TEAM_AUDIT
+S02,P0,40,RFEM mapping metadata missing,STOP,ID04:RFEM_RESULTS -> ID04:GEOMETRY_PLAN
+S07,P0,40,Expected workbook hash must match run target,STOP,ID04:SOURCE_IDENTITY
+S03,P0,38,Stored >105% inventory not resolved,STOP,ID07:RED_TEAM_AUDIT
+S05,P0,36,Historical HESS scope not transferable,STOP,ID02:RELEASE_GOVERNANCE
+S04,P0,35,EG-F and 2OG-3 geometry only partly resolved,STOP,ID04:GEOMETRY_PLAN -> ID04:SOURCE_IDENTITY
+S06,P0,33,Excel COM script invoked incompletely,E2E_OPEN,ID06:EXCEL_ENGINE
+S08,P0,30,Tender and drawings depend on unresolved proof state,BLOCKED,ID02:RELEASE_GOVERNANCE -> ID04:GEOMETRY_PLAN

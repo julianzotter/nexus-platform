@@ -1,0 +1,69 @@
+{
+  "manifest_version": "1.0",
+  "created_vienna": "2026-11-23T12:35:05+01:00",
+  "project": "P205_Campus_Eisteiche_BIG / FT-Träger",
+  "run_id": "P205-FT-PR-26_11_23_1104",
+  "author_role": "ID02",
+  "engineering_release": "BLOCKED",
+  "registration_status": "REGISTRATION_PENDING",
+  "local_artifacts": [
+    {"name": "26_11_23_1104_ID02_P205_FT-AUDIT.sqlite", "sha256": "5b8d1bd3d919acfe790362a23c7d4ac27f49acb944bf4334e40812f5bd5710f6"},
+    {"name": "26_11_23_1104_ID02_P205_FT-SIGNAL-ENERGY-MATRIX.csv", "sha256": "381de3c230651e77550bfba5e94e11f5e6da600ab2dc8511705085a73ce21711"},
+    {"name": "26_11_23_1104_ID02_P205_FT-PEER-REVIEW_v1.2_LEDGER-PENDING.md", "sha256": "cdb33deed055302efb3fd93cfa41cb77bbdf3f52681119be1b4339885493ba61"},
+    {"name": "26_11_23_1104_ID02_P205_FT-MOE-ROUTER_v1.0_LEDGER-PENDING.md", "sha256": "c8006379f442914d16c31d5f9b39e13f36550a650885a37b16987c7fa5200cd9"},
+    {"name": "26_11_23_1104_ID02_P205_FT-TRUE-RUN-WORKFLOW_v1.0_LEDGER-PENDING.md", "sha256": "417615742c47f55523f99b4727851155e9e34386dd1f99163a0e633fd9e087fa"},
+    {"name": "26_11_23_1104_ID02_P205_FT-POWERSHELL-E2E-HANDOFF_v1.0.md", "sha256": "f7936fde14c62ba9cf8cd9f753ac1918c7e7c50e69b76cc7845dc399c6824700"},
+    {"name": "26_11_23_1104_ID02_build_P205_FT_AUDIT_DB.py", "sha256": "aa1f3673262e0a0aa6873652b30d49c0f048678ad18c284e3b2aef69cecf13b5"}
+  ],
+  "drive_ft_workspace": {
+    "folder_id": "1wB2eKFLkI0D1ybFS35qqnbNfg0ClDkJ5",
+    "files": {
+      "sqlite": "1E-cO2WYu5SnmJ3t6aD_RQMhbWm61Q38K",
+      "matrix_csv": "1iz2r0QmLh4HIgjJ8G_zuor6k6K8u71Ac",
+      "peer_review": "1sQGptnmPxtcBF3f-tQt6LfHSgBlECXPt",
+      "moe_router": "1Y5TT-t0ofMxlhbHlaVAwU56xS6mJ_mhe",
+      "true_run_workflow": "1pg2_b1eyKcInHG2BZyPVDetsfb16TK03",
+      "powershell_handoff": "1irjcsgLsraXA_TMqJT9W-hanBzvQ-q9z",
+      "builder": "1vzhPsxjlMJMSWGIWDr82MeDNiAFaC2-r"
+    }
+  },
+  "drive_work_reporting": {
+    "folder_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+    "peer_review": "1P-1GjkltbLJ0dB8_Jy7Y_H3dy2NssSxY",
+    "moe_router": "1StCvZcllNNmoMqCarrgOV9Cq1SDwCAMn",
+    "true_run_workflow": "12wWMpiKjCLHraSYxlp7j74rfuNwOiBIN",
+    "powershell_handoff": "1P5UCX-BPILClRiQDwMoQ7ybhY9iNTOY_"
+  },
+  "github": {
+    "repository": "julianzotter/nexus-platform",
+    "visibility": "private",
+    "branch": "work/p205-ft-peer-review-20261123-id02",
+    "head_commit": "3d7b6e62723cf83a087f90c04ded0f53921cc1a8",
+    "pull_request": "https://github.com/julianzotter/nexus-platform/pull/116",
+    "pull_request_state": "OPEN_DRAFT",
+    "sqlite_blob_sha": "e238e33cea27359237a181b347abafcfe81f0109"
+  },
+  "readback": {
+    "local_sqlite_integrity": "ok",
+    "local_foreign_key_violations": 0,
+    "drive_sqlite_sha256": "5b8d1bd3d919acfe790362a23c7d4ac27f49acb944bf4334e40812f5bd5710f6",
+    "drive_sqlite_integrity": "ok",
+    "github_sqlite_blob_matches_created_blob": true
+  },
+  "power_panel": {
+    "drive_file_id": "1hUswc3CCUlXR8s0r0a3r7kOEF45ZlEcU",
+    "sha256": "86cf3eddb8c381fd8bac58d33877c55a3d275dca2592948e2efa5d05f4361726"
+  },
+  "ace_knowledge_graph": {
+    "status": "BLOCKED_REAUTHENTICATION",
+    "message": "Graph creation was attempted; the Ace Knowledge Graph connector requires reauthentication. No saved graph receipt was returned."
+  },
+  "open_gates": [
+    "Windows Excel Desktop E2E and persisted OOXML cache readback",
+    "RFEM model/member/local-x/combination/axes/unit/sign mapping",
+    "binding plan revision and position list",
+    "independent review of every current utilization above 105 percent",
+    "explicit ID01 technical approval",
+    "registry and ledger reconciliation"
+  ]
+}
