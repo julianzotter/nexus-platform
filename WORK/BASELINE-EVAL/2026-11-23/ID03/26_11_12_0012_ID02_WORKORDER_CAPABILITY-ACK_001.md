@@ -144,3 +144,58 @@ Die folgenden Datensätze sind Übergabedaten für den nach _AGBS §6.6 benannte
 Offene bestehende Konsolidierung: 25 Delta-Zeilen 0212–0236 sind noch nicht im gelesenen Master. [Merge-Auftrag v0.2](https://drive.google.com/file/d/1ArJmk08HVn-wnOj18xpY7bqysv5Tclb8/view) fortsetzen. Die hashgleiche P205-Skriptkopie wurde identifiziert; kanonische Betriebsquelle und lokale Caller sind vor Verschiebung festzulegen. MCP-Skripte verschiedener Versionen wurden nicht als Dubletten behandelt.
 
 Status: FAQ/Evaluierung im belegten Scope abgeschlossen; globale Baseline und Registrierung offen. Publication≠Delivery≠ACK≠Review≠Release. Keine E-Mails, keine Löschungen, keine Main-Änderung und kein behaupteter automatischer Rollout.
+
+
+## ID03 — Abschluss der Datenaktualisierung Basic Instructions / Reporting / GitHub / FAQ
+
+Erfasst: 2026-11-23T19:22:28Z. Auftragserweiterung durch ID01 im laufenden Chat: „EVALUIERE und UPDATE … Erstelle eine _GAP.md-LISTE … Prüfmatrix für ID-ROLLEN … Overall Confidence/Accuracy … BestFit-NEXT-STEPS“. Die vorhandene Datei wurde wiederverwendet, kein zweiter GAP-/FAQ-Master angelegt. Dies ist derselbe Work-Order-Kontext WO-20261112-ID02-CAPABILITY-ACK.
+
+### Ergebnis und aktuelle Quellen
+
+| Bereich | Stand | Nachweis / Grenze |
+|---|---|---|
+| _GAP / Prüfmatrix | 51 verschiedene GAP-IDs; 36 OPEN + 5 BLOCKED = 41 offen; 10 CLOSED, davon G24/G29/G37 nur gebündelt | [Vorhandene _GAP.md](https://drive.google.com/file/d/1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf/view), ID03-Nachtrag v0.1-ID03-r2; 41 Quellenverweise |
+| Basic Instructions | Freigegebene Manifest-/Baseline-/AGB-Quellen bewertet; globale Regeln und Modelleinstellungen nicht durch diesen Datenbericht übernommen | Korrekturen G03/G13–G17/G33 und Kommunikationsregel G40; Draft/Adoption/Rollout getrennt |
+| Reporting / Rollen | Eigene Ausführung, Remote-Bytes, Fremdbericht und tatsächlicher ACK getrennt; historische Rollen-ID02-ACKs nicht als aktuelle Baseline-Tests gezählt | _GAP §3 und G08/G12/G23/G31; ursprüngliche Instanzkennungen erhalten |
+| Ledger | Früherer Befund „25 Zeilen fehlen“ ist überholt. Master enthält 247 Datensätze, 0212–0256 + Abschluss0257 bytegenau übernommen | Master1Qso4VQE-cySJdxo6j-MNjxxOc5-GJlrK; SHA2560bdceff0547a2f4ed30c604452895ab0df399e8d239c7df820389329d3880376; 24 SHA-Felder0212–0235 weiterhin leer |
+| Registry | Bestehendes file-registry.jsonl unverändert im geprüften Stand; Registrierung neuer/aktualisierter Artefakte offen | 430662 B,472JSONL, Provider14:15:51.245Z; neuer Versionsdelta unten, kein Master-Write durch ID03 |
+| GitHub | _GAP auf eigenem Reviewbranch committet und exakt rückgelesen | Commit5431c819c17fd6d5bcf9a3c108baba5f98e5caf7; WORK/_GAP.md |
+| Actions | CI am geprüften Main-Commit SUCCESS. Delivery/Poll: Google-OAuth invalid_grant. Monitor: Coverage/Scheduler-Evidenz INCOMPLETE/STALE | Runs45198194734/45198599526/45149342862/45198194995; OAuth-Reparatur allein schließt Monitor nicht |
+| FAQ | Bestehender ID03-FAQ-Snapshot bleibt erhalten; _GAP §6 korrigiert den heutigen Ledger-, Speicher-, Rollen-, GitHub- und Reportingstand | [FAQ-Snapshot](https://drive.google.com/file/d/1w_IyHkyo07JJZf6Pp69h-Fh10FKAq6jE/view), unverändert35364B/SHA444403823c4159c8df7cb0de163576364c1d6222da56666edeec10668eb96a92 |
+| Qualität | Konformität/Struktur/Zuverlässigkeit PARTIAL; konkrete fehlerhafte Pfade BLOCKED/FAILURE. Keine kalibrierte Gesamt-Confidence oder Accuracyquote | _GAP §5; Hashgleichheit ist keine fachliche Normfreigabe |
+| T5 | Arithmetischer Kontrollwert des ID06-Fixtures0,4474970577408008…;0,447/0,4475 sind Rundungen | Normausgabe/NA/unabhängiger vollständiger Golden Case bleiben offen. Keine statische Bemessungsfreigabe. |
+
+### Backup, Konflikterkennung und tatsächliche Persistenz
+
+1. Vor jeder Änderung wurden die Vorzustände in NEXUS.HISTORICAL gesichert und als Rohbytes geprüft:
+   - WO: [Backup](https://drive.google.com/file/d/1_-rvS88tn4GgaMNx6GKSEzJu_XuuwiES/view),20978B,SHA68836ab4ffd8b80eff9a97a17d0c7341a366f8e6963a740c3daf0c53f22f2db1.
+   - Runlog: [Backup](https://drive.google.com/file/d/1aTrJj49C_rNu0r_VNvU9pEHMa6W6ij6w/view),2459B,SHA2d263c92453ced9fcf863b6bc4f3aac2c8e883e3b377744486f57126390c9631.
+   - GAP: ursprüngliches [5833-Byte-Backup](https://drive.google.com/file/d/1vK4qYevBxXx3GiRTps3R1fVkK1BiIrD3/view), danach [Rebase-Backup](https://drive.google.com/file/d/1FVT_sfViLLEIPXX9oj9V753b59RsU_Xy/view),7120B,SHA881f9cb0a61010f0561afd764926b739af22e4f83423ea65514110ca5672e423.
+2. Der erste GAP-Update wurde VOR Mutation gestoppt: Vorhash unterschied sich durch einen fremden1287Byte-Append. Dessen G12/G27-Ereignisse sowie neue G33–G37 sind vollständig erhalten. Neue lokale ID03-IDs wurden vor Publikation auf G38–G51 verschoben; keine bestehende ID umbenannt.
+3. Ein separater interner OpenAI-Reviewer prüfte den Rebase-Draft (55806B,SHAdcb420477a94a59759f917ac55965fb173b4cafed243843a93d873ae5c81b3ad): Dokumentreview PASS. Das ist kein vorgetäuschter externer ID07-Lauf und keine neue normative Abnahme.
+4. Unmittelbarer Vorhash-/modifiedTime-Guard, unveränderter Altpräfix und anschließender Rohbyte-Readback sind für _GAP und Runlog tatsächlich bestanden. Die Drive-Route bietet keinen atomaren CAS; ein solcher Schutz wird nicht behauptet.
+
+| Aktueller Output | Provider-ID / Parent | Vollständiger SHA-256 | Nachweis |
+|---|---|---|---|
+| _GAP.md | 1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf / WORK1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP | afcb9246c922bcc8f974a6283789be25c942a8c8b96051593fcfe9386b4fb957 | 55902B; Drive-Readback PASS, Provider19:17:50.693Z; GitHub-Readback PASS am Commit5431c819… |
+| Dieser Lauf-Runlog | 1aAI7nO4ziDk1CHuA_oYCfqHOrtSZxnGA / HISTORY1uavEf5g_ZisiEMsksrGi_KYzMsx37DWc | 9fb231650fa21cdb52e4dd56fd114b87e09ac2ca1f918f42726280904c73d827 | 5314B; Drive-Readback PASS, Provider19:20:31.679Z |
+| Diese Work Order | 1y0DSTvkH_04avqI8TZKyaKOy05gWfZgx / WORK | Vollhash der Endfassung extern nach Readback | Vorzustand20978B erhalten; kein zirkulärer Eigenhash in dieser Datei |
+
+Die letzte WO- und Runlog-Version werden anschließend gemeinsam auf dem vorhandenen ID03-Prüfbranch gesichert. Der abschließende Commit und sein Rohbytevergleich bilden den externen Beleg für die Endfassung dieser WO. Die dauerhafte Drive-Ablage wird für jede Datei separat geprüft; fremde Sandboxes oder eine globale Synchronisation werden nicht mitbewertet.
+
+### Registrierungsdelta für den benannten Einzelschreiber
+
+Die folgenden Zeilen sind geprüfte Versionsdeltas zur bestehenden file-registry, keine neue Registry. registered_at bleibt null, weil keine Registrierung ausgeführt wurde. Zusätzlich ist die Endfassung dieser bestehenden WO als neue Version aufzunehmen; ihren vollständigen Hash anhand des externen Readback-/GitHub-Receipts ermitteln.
+
+```jsonl
+{"artifact_id":"gdrive:1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf","provider_file_id":"1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf","name":"_GAP.md","canonical_uri":"https://drive.google.com/file/d/1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf/view","version":"v0.1-ID03-r2","provenance":{"original_author":"ID06","append_author":"ID03","executor":"OpenAI /root","backup_id":"1FVT_sfViLLEIPXX9oj9V753b59RsU_Xy","git_commit":"5431c819c17fd6d5bcf9a3c108baba5f98e5caf7"},"verification_status":"FILE_VERIFIED_INTERNAL_DOCUMENT_REVIEW_PASS","registration_status":"REGISTRATION_PENDING","registered_at":null,"owner":"ID06","ticket_id":"WO-20261112-ID02-CAPABILITY-ACK","sha256":"afcb9246c922bcc8f974a6283789be25c942a8c8b96051593fcfe9386b4fb957","bytes":55902}
+{"artifact_id":"gdrive:1aAI7nO4ziDk1CHuA_oYCfqHOrtSZxnGA","provider_file_id":"1aAI7nO4ziDk1CHuA_oYCfqHOrtSZxnGA","name":"26_11_23_1916_ID03_BASELINE-EVAL_RUNLOG_UNREGISTERED.md","canonical_uri":"https://drive.google.com/file/d/1aAI7nO4ziDk1CHuA_oYCfqHOrtSZxnGA/view","version":"2026-11-23T19:20:31.679Z","provenance":{"append_author":"ID03","executor":"OpenAI /root","backup_id":"1aTrJj49C_rNu0r_VNvU9pEHMa6W6ij6w"},"verification_status":"FILE_VERIFIED","registration_status":"REGISTRATION_PENDING","registered_at":null,"owner":"ID03","ticket_id":"WO-20261112-ID02-CAPABILITY-ACK","sha256":"9fb231650fa21cdb52e4dd56fd114b87e09ac2ca1f918f42726280904c73d827","bytes":5314}
+```
+
+### Best-Fit Next Steps
+
+1. ID06: vorhandene Registrierungsdeltas/aktualisierte Versionen und die24fehlenden Ledger-Hashes nachvollziehbar übernehmen. ID02: echte ACKs im vorhandenen Ticketregister nachführen und die aktuelle GAP-/FAQ-Sicht verlinken.
+2. ID01/ID06: betroffenen Google-Zugang erneuern; echte Preflight-/Poll-/Delivery-Läufe prüfen. Coverage/Scheduler unabhängig reparieren und tatsächliche Zustellung/ACK/Wiederanlauf nachweisen.
+3. ID02/ID03: konkrete Basic-Instructions-/Link-/Rollen-/Kommunikationskorrekturen reviewen und versionsgebunden übernehmen; danach Rollout-Readbacks. EC5-Normfall, lokales RAG und lokale Runtime-Tests gesondert abnehmen.
+
+ACK an ID01: Evaluierungsdaten und GAP-Liste aktualisiert; Ergebnisse und Quellen im vorhandenen Auftrag dokumentiert. Registrierung und die ausdrücklich bezeichneten Betriebs-/Fachlücken bleiben offen.
