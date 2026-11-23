@@ -43,3 +43,10 @@ quellen: [MAN 1POfiQCW…, BAS 1CdwNHr6…, _AGBS.md v007.1, Folder.md 1nDjF78d�
 | G30 | GitHub | Branch id06/baseline-eval-20261123 ohne PR/Merge | GH REST | ID01 | DECISION_ID01 | 2026-11-23 |
 | G31 | Reporting | Folder.md Stand 2026-11-16, Status-Projektion veraltet | FLD | Ledger-/Status-Schreiber | OPEN | 2026-11-16 |
 | G32 | Reporting | Fremdbericht 19:45 mit falschen Aussagen: Branch "nicht sichtbar", Ledger-Merge "offen", Original/Duplikat vertauscht | GH REST (Branch HEAD 9b00a58), Ledger 0257 | Autor des Berichts | CLOSED (widerlegt, siehe Bericht 1950) | 2026-11-23 |
+| G12 | Review | Ledger-Merge: ID02-Watch 20:00 bestätigt Zeile 0257 im Master (Existenz, kein Byte-Review); ID03 kündigt unabhängige Prüfung an | 26_11_23_2000_ID02_STATUSREPORT… | ID03 | IN_PROGRESS | 2026-11-23 |
+| G27 | WORK | Präzisiert: WORK hat 3910 direkte Einträge (ID02-Scan 9 Listenseiten) | ID02-Watch 20:00 | ID01 | DECISION_ID01 | 2026-11-23 |
+| G33 | Frontmatter | _FRONTMATTER.md v007 nur ENTWURF, nicht freigegeben; parallel _FRONTMATTER_v006-PROPOSAL im SSOT-Root | ID02-Watch 20:00, SSOT-Root-Liste | ID01 | DECISION_ID01 | 2026-11-23 |
+| G34 | Register | Registrierungs-Handoff WO-20261123-AICADFEM-REGISTER-01 (P0) nennt "CLAUDE_LEDGER_WRITER" statt Rollen-ID aus MAN §4 | ID02-Watch 20:00 | Autor WO | OPEN | 2026-11-23 |
+| G35 | Workorder | 4 neue AICADFEM-WOs ohne Auftragsversion und ohne explizite ID01-Ausführungsfreigabe | ID02-Watch 20:00 | ID01/ID02 | OPEN | 2026-11-23 |
+| G36 | Review | ID02 und ID03 laufen beide auf OpenAI/Codex; Review ID02↔ID03 nicht provider-unabhängig | ID02-Frontmatter, ID03-Frontmatter | ID01 | OPEN | 2026-11-23 |
+| G37 | Register | file-registry.jsonl unverändert seit 2026-11-23 14:15:51Z (430662 B); keine heutigen Baseline-/FAQ-Artefakte registriert | ID02-Watch 20:00 | ID06 (AGB §6.6) | OPEN | 2026-11-23 |
