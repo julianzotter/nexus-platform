@@ -1,0 +1,112 @@
+{
+  "schema": "nexus-chat-archive-manifest/v1",
+  "run_id": "ID03-CHAT-ARCHIVE-20261123T195819Z",
+  "created_at": "2026-11-23T20:58:19+01:00",
+  "protocol_file_name": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.md",
+  "coverage": "Protocol of available conversation plus preserved source files; not a complete native chat export.",
+  "file_count_excluding_manifest": 10,
+  "hash_algorithm": "SHA-256",
+  "manifest_self_hash": "external_only",
+  "entries": [
+    {
+      "path": "PROTOKOLL.md",
+      "original_name": "26_11_23_2058_ID03_PROTOKOLL_GESAMTCHAT_NEXUS-BASELINE_UNREGISTERED.md",
+      "bytes": 65557,
+      "sha256": "a8448e8c6edbc26e753968e2d3ed36b3bda6d0d23d5844d12562b6d0f800581f",
+      "source": "this_archive_run",
+      "provenance": "compiled_available_chat_protocol",
+      "source_modified_at": null,
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "sources/Eingefuegter_Text_3_original.txt",
+      "original_name": "Eingefügter Text(3).txt",
+      "bytes": 24839,
+      "sha256": "503fe457d933694ccdeb8e45774298051a8150819ed9555967c22acb405450b1",
+      "source": "user_uploaded_text_attachment",
+      "provenance": "original_bytes_unchanged",
+      "source_modified_at": null,
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "sources/image_3_original.png",
+      "original_name": "image(3).png",
+      "bytes": 164169,
+      "sha256": "3b9a8722d674e4eb189000b8f4844aec72b05527c8c13ab9dac95265fccd508f",
+      "source": "file_00000000d9988246b38a39f3ccfb944c; libfile_fde3_f-d26bf9bcf81c819191316cc0401390ae_916c080d08ac8191902ddae0dbfdc116",
+      "provenance": "original_bytes_unchanged",
+      "source_modified_at": null,
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/id03/26_11_12_0012_ID02_WORKORDER_CAPABILITY-ACK_001.md",
+      "original_name": "26_11_12_0012_ID02_WORKORDER_CAPABILITY-ACK_001.md",
+      "bytes": 29386,
+      "sha256": "450ce2acedb1d7bc2bc9f31af4343810ac679ecc09dc033bb8958677d32ae1e3",
+      "source": "https://drive.google.com/file/d/1y0DSTvkH_04avqI8TZKyaKOy05gWfZgx/view",
+      "provenance": "previously_verified_ID03_snapshot",
+      "source_modified_at": "2026-11-23T19:22:36.029Z",
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/id03/_GAP_ID03_SNAPSHOT_20261123T191750Z.md",
+      "original_name": "_GAP.md",
+      "bytes": 55902,
+      "sha256": "afcb9246c922bcc8f974a6283789be25c942a8c8b96051593fcfe9386b4fb957",
+      "source": "https://drive.google.com/file/d/1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf/view",
+      "provenance": "previously_verified_ID03_snapshot",
+      "source_modified_at": "2026-11-23T19:17:50.693Z",
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/id03/26_11_23_1923_ID03_NEXUS-BASELINE_FAQ-REVIEW_UNREGISTERED.md",
+      "original_name": "26_11_23_1923_ID03_NEXUS-BASELINE_FAQ-REVIEW_UNREGISTERED.md",
+      "bytes": 35364,
+      "sha256": "444403823c4159c8df7cb0de163576364c1d6222da56666edeec10668eb96a92",
+      "source": "https://drive.google.com/file/d/1w_IyHkyo07JJZf6Pp69h-Fh10FKAq6jE/view",
+      "provenance": "previously_verified_ID03_snapshot",
+      "source_modified_at": null,
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/id03/26_11_23_1916_ID03_BASELINE-EVAL_RUNLOG_UNREGISTERED.md",
+      "original_name": "26_11_23_1916_ID03_BASELINE-EVAL_RUNLOG_UNREGISTERED.md",
+      "bytes": 5314,
+      "sha256": "9fb231650fa21cdb52e4dd56fd114b87e09ac2ca1f918f42726280904c73d827",
+      "source": "https://drive.google.com/file/d/1aAI7nO4ziDk1CHuA_oYCfqHOrtSZxnGA/view",
+      "provenance": "previously_verified_ID03_snapshot",
+      "source_modified_at": "2026-11-23T19:20:31.679Z",
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/id03/TEST_ID03_20261123-1916.md",
+      "original_name": "TEST_ID03_20261123-1916.md",
+      "bytes": 878,
+      "sha256": "69ab937978ee186e034aa4f6416be7cef676875ce93551d4d157ae0ecb416e12",
+      "source": "https://drive.google.com/file/d/1rrV1kwV0GiWy01LnBGFCwWIIJQ2xivF8/view",
+      "provenance": "previously_verified_ID03_snapshot",
+      "source_modified_at": null,
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/spaetere_quellen/_GAP_SNAPSHOT_20261123T193817Z.md",
+      "original_name": "_GAP_SNAPSHOT_20261123T193817Z.md",
+      "bytes": 58809,
+      "sha256": "d67a5783cf0a33732db3aec79b76c489c55c17d611a62acf866ae87c7256d664",
+      "source": "https://drive.google.com/file/d/1_o3yrBjeZIKYa6ztiwGSE9jW-bvA2sRf/view",
+      "provenance": "provider_raw_bytes_read_this_archive_run; later_claims_not_reaudited",
+      "source_modified_at": "2026-11-23T19:38:17.369Z",
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    },
+    {
+      "path": "belege/spaetere_quellen/26_11_23_2042_ID06_PROTOKOLL_CHAT-SESSION-20261123_UNREGISTERED.md",
+      "original_name": "26_11_23_2042_ID06_PROTOKOLL_CHAT-SESSION-20261123_UNREGISTERED.md",
+      "bytes": 5505,
+      "sha256": "0c7d4d0a6c4995d8f9017a9a0b172542ee418877d89601fd84b71e031c5a4b9b",
+      "source": "https://drive.google.com/file/d/1XErS3morMPsRvdMAYYQMik_0ZVZI-B7e/view",
+      "provenance": "provider_raw_bytes_read_this_archive_run; later_claims_not_reaudited",
+      "source_modified_at": "2026-11-23T19:42:36.385Z",
+      "archived_at": "2026-11-23T19:58:19+00:00"
+    }
+  ]
+}
