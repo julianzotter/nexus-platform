@@ -1,0 +1,946 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/julianzotter/nexus-platform/contracts/ft-beam/ft_beam.schema.json",
+  "title": "NEXUS FT Beam Canonical Model",
+  "description": "Candidate contract for P205/Eisteiche and reusable FT-beam CAD/BIM/FEM/QTO workflows. No engineering release implied.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "beam_id",
+    "project",
+    "provenance",
+    "units",
+    "geometry",
+    "materials",
+    "corbels",
+    "openings",
+    "reinforcement",
+    "design",
+    "quantities",
+    "qa",
+    "exports"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1.0-candidate"
+    },
+    "beam_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "name"
+      ],
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "storey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "axis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "element_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_file_id",
+        "source_uri",
+        "source_type",
+        "source_locator",
+        "retrieved_at",
+        "verification_status"
+      ],
+      "properties": {
+        "source_file_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_uri": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "xlsx",
+            "xls",
+            "google_sheet",
+            "json",
+            "dxf",
+            "ifc",
+            "pdf",
+            "other"
+          ]
+        },
+        "source_locator": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "source_hash_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "source_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parser_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "UNVERIFIED",
+            "SOURCE_IDENTIFIED",
+            "FILE_VERIFIED",
+            "REVIEWED"
+          ]
+        }
+      }
+    },
+    "units": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "length",
+        "force",
+        "moment",
+        "stress",
+        "mass",
+        "volume"
+      ],
+      "properties": {
+        "length": {
+          "const": "mm"
+        },
+        "force": {
+          "const": "kN"
+        },
+        "moment": {
+          "const": "kNm"
+        },
+        "stress": {
+          "const": "MPa"
+        },
+        "mass": {
+          "const": "kg"
+        },
+        "volume": {
+          "const": "m3"
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "length_mm",
+        "width_mm",
+        "height_mm",
+        "coordinate_system"
+      ],
+      "properties": {
+        "length_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "width_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "coordinate_system": {
+          "type": "string",
+          "enum": [
+            "LOCAL_BEAM_XYZ",
+            "PROJECT_XYZ",
+            "UNKNOWN"
+          ]
+        },
+        "origin_mm": {
+          "$ref": "#/$defs/point3"
+        },
+        "supports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/support"
+          }
+        }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "concrete",
+        "reinforcement_steel"
+      ],
+      "properties": {
+        "concrete": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "grade"
+          ],
+          "properties": {
+            "grade": {
+              "type": "string",
+              "minLength": 1
+            },
+            "density_kg_m3": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0
+            }
+          }
+        },
+        "reinforcement_steel": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "grade"
+          ],
+          "properties": {
+            "grade": {
+              "type": "string",
+              "minLength": 1
+            },
+            "density_kg_m3": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0
+            }
+          }
+        }
+      }
+    },
+    "corbels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/corbel"
+      }
+    },
+    "openings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/opening"
+      }
+    },
+    "reinforcement": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rebar_item"
+      }
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "norm_profile_id",
+        "checks",
+        "overall_status"
+      ],
+      "properties": {
+        "norm_profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/design_check"
+          }
+        },
+        "overall_status": {
+          "type": "string",
+          "enum": [
+            "NOT_RUN",
+            "PASS",
+            "FAIL",
+            "REVIEW_REQUIRED",
+            "BLOCKED"
+          ]
+        }
+      }
+    },
+    "quantities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "calculation_status"
+      ],
+      "properties": {
+        "calculation_status": {
+          "type": "string",
+          "enum": [
+            "NOT_RUN",
+            "CALCULATED",
+            "VERIFIED",
+            "BLOCKED"
+          ]
+        },
+        "concrete_m3": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "reinforcement_kg": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "reinforcement_kg_per_m3": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "beam_t": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "axis_t": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "storey_t": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "breakdown": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/quantity_item"
+          }
+        }
+      }
+    },
+    "qa": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_validation",
+        "source_readback",
+        "normative_validation",
+        "human_gate"
+      ],
+      "properties": {
+        "schema_validation": {
+          "$ref": "#/$defs/gate"
+        },
+        "source_readback": {
+          "$ref": "#/$defs/gate"
+        },
+        "cross_format_readback": {
+          "$ref": "#/$defs/gate"
+        },
+        "normative_validation": {
+          "$ref": "#/$defs/gate"
+        },
+        "independent_review": {
+          "$ref": "#/$defs/gate"
+        },
+        "human_gate": {
+          "$ref": "#/$defs/gate"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "exports": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dxf": {
+          "$ref": "#/$defs/export_ref"
+        },
+        "ifc": {
+          "$ref": "#/$defs/export_ref"
+        },
+        "glb": {
+          "$ref": "#/$defs/export_ref"
+        },
+        "html": {
+          "$ref": "#/$defs/export_ref"
+        },
+        "pdf": {
+          "$ref": "#/$defs/export_ref"
+        },
+        "bbs_csv": {
+          "$ref": "#/$defs/export_ref"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "point3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "support_id",
+        "station_mm",
+        "type"
+      ],
+      "properties": {
+        "support_id": {
+          "type": "string"
+        },
+        "station_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "BEARING",
+            "COLUMN",
+            "WALL",
+            "CORBEL",
+            "OTHER",
+            "UNKNOWN"
+          ]
+        },
+        "source_locator": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "corbel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corbel_id",
+        "side",
+        "geometry",
+        "verification_status"
+      ],
+      "properties": {
+        "corbel_id": {
+          "type": "string"
+        },
+        "side": {
+          "type": "string",
+          "enum": [
+            "LEFT",
+            "RIGHT",
+            "INTERNAL",
+            "OTHER"
+          ]
+        },
+        "geometry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "length_mm",
+            "width_mm",
+            "height_mm"
+          ],
+          "properties": {
+            "length_mm": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "width_mm": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "height_mm": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "offset_z_mm": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "UNVERIFIED",
+            "SOURCE_IDENTIFIED",
+            "VERIFIED"
+          ]
+        },
+        "source_locator": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "opening": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "opening_id",
+        "station_mm",
+        "width_mm",
+        "height_mm",
+        "verification_status"
+      ],
+      "properties": {
+        "opening_id": {
+          "type": "string"
+        },
+        "station_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "width_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "hu_mm": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "center_z_mm": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "source_column": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "UNVERIFIED",
+            "SOURCE_IDENTIFIED",
+            "VERIFIED",
+            "INVALID_GEOMETRY"
+          ]
+        },
+        "source_locator": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "rebar_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rebar_id",
+        "position_id",
+        "designation_raw",
+        "role",
+        "zone",
+        "normalization_status"
+      ],
+      "properties": {
+        "rebar_id": {
+          "type": "string"
+        },
+        "position_id": {
+          "type": "string",
+          "enum": [
+            "P1",
+            "P2",
+            "P3",
+            "P4",
+            "P5",
+            "OTHER"
+          ]
+        },
+        "opening_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "designation_raw": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "LONGITUDINAL_TOP",
+            "LONGITUDINAL_BOTTOM",
+            "STIRRUP_TOP",
+            "STIRRUP_BOTTOM",
+            "HANGER",
+            "ANCHORAGE",
+            "ADDITIONAL",
+            "UNKNOWN"
+          ]
+        },
+        "zone": {
+          "type": "string",
+          "enum": [
+            "TOP",
+            "BOTTOM",
+            "WEB",
+            "OPENING_EDGE",
+            "CORBEL",
+            "GLOBAL",
+            "UNKNOWN"
+          ]
+        },
+        "count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "diameter_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "spacing_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0
+        },
+        "legs": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "bar_length_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "anchorage_length_mm": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "shape_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization_status": {
+          "type": "string",
+          "enum": [
+            "RAW_ONLY",
+            "PARSED",
+            "GEOMETRY_RESOLVED",
+            "VERIFIED"
+          ]
+        },
+        "source_locator": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "design_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "check_type",
+        "status"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string"
+        },
+        "check_type": {
+          "type": "string"
+        },
+        "Ed": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Rd": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "utilization": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_RUN",
+            "PASS",
+            "FAIL",
+            "REVIEW_REQUIRED",
+            "BLOCKED"
+          ]
+        },
+        "standard_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "edition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "national_annex": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "clause": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_locator": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      }
+    },
+    "quantity_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item_id",
+        "category",
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "item_id": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string"
+        },
+        "basis": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_rebar_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_RUN",
+            "PASS",
+            "FAIL",
+            "INCONCLUSIVE",
+            "BLOCKED",
+            "PENDING"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reviewer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checked_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "export_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_GENERATED",
+            "GENERATED",
+            "READBACK_PASS",
+            "READBACK_FAIL"
+          ]
+        },
+        "uri": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "generator_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
