@@ -7,6 +7,12 @@
 > Widersprechende ältere Rollenangaben sind historisch und durch diese explizite ID01-Entscheidung ersetzt. Andere Governance-Gates, unabhängige Prüfung, ACK/Protokollierung und technische Berechtigungsgrenzen bleiben bestehen.  
 > [Entscheidungsnachweis](../2026-11-24-ID01-ROLES-v1.2-BASELINE-v2.2-AMENDMENT.md).  
 
+## CURRENT ROLE RULE – NEXUS-ROLES-v1.2 / ID01 2026-11-24
+
+ID01: final decisions and approvals. ID02: ChatGPT Business, NEXUS AI Knowledge System Engineer and Administrator. ID03: ChatGPT Private, NEXUS AI Knowledge System Engineer and Administrator, equal rank with ID02, additionally Chief Orchestrator. ID93: invalid typo for ID03. The canonical role register is Manifest §4; no second role register is maintained here. Role assignment does not establish live API privileges; record verified read/write capabilities per operation.
+
+<details><summary>HISTORICAL / SUPERSEDED: ID01 role mapping from 2026-11-11 (non-normative)</summary>
+
 ID01-Festlegung 2026-11-11 — verbindliche Rollenbezeichnung  
 ChatGPT Private \= ID02 — ChatGPT Private / ChatGPT Chief Orchestrator.  
 Maßgeblich: NEXUS-ROLES-v1.1, Manifest §4: https\://docs.google.com/document/d/1o5ywhvaz0\_fDn10diIy4ZIhSyQsL3C\_3qODNNM5IGVg/edit  
@@ -22,6 +28,9 @@ STATUS: CURRENT / ADOPTED
 ADOPTED BY: ID01 — Julian Zotter / Human-AI  
 ADOPTION BASIS: explicit ID01 instruction in ChatGPT on 2026-09-26  
 CANONICAL FILE: 00\_NEXUS\_BASELINE\_INSTRUCTIONS\_\_CURRENT\_\_2026-09-28  
+
+</details>
+
 CANONICAL LOCATION: \_developement/LLM-LOCAL-SSOT/  
 AUTHORITY: subordinate to 00\_NEXUS\_MANIFEST\_\_CURRENT\_\_2026-09-28; operationally binding for NEXUS work until superseded by an ID01-approved successor.
 
@@ -118,7 +127,7 @@ MUST-83. RAG output MUST not convert similarity into factual authority.
 MUST-84. Retrieval failures or missing evidence MUST trigger abstention/uncertainty rather than fabrication.
 
 11\. AGENT / MoE ROUTING  
-MUST-90. ID01 decides; ID02 orchestrates; ID03-ID08 execute/review according to CURRENT Manifest roles.  
+MUST-90. ID01 decides and approves; ID03 Chief-Orchestrates; ID02 and ID03 are equal NEXUS AI Knowledge System Engineers and Administrators; all agents execute/review within verified scope according to CURRENT Manifest §4.  
 MUST-91. Agent routing MUST be task/domain/capability based, not arbitrary.  
 MUST-92. Specialist execution MUST receive the Minimum Viable Context needed for the assigned task.  
 MUST-93. The orchestrator SHOULD minimize duplicated context and duplicated agent work.  
@@ -163,7 +172,7 @@ MUST-143. Agent bootstrap instructions SHOULD point first to CURRENT Manifest, t
 MUST-144. If a mirror differs from the canonical source, the canonical source wins.
 
 17\. CURRENT ROLE IDS  
-Single canonical role register: Manifest section 4, NEXUS-ROLES-v1.1.  
+Single canonical role register: Manifest section 4, NEXUS-ROLES-v1.2 (ID01 adopted 2026-11-24).  
 https\://docs.google.com/document/d/1o5ywhvaz0\_fDn10diIy4ZIhSyQsL3C\_3qODNNM5IGVg/edit  
 Do not reproduce an independent role table here.
 
