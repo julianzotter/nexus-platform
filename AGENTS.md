@@ -5,7 +5,7 @@
 > Beide assistieren ID01; die Chief-Orchestrator-Funktion hebt die administrative Gleichberechtigung nicht auf.  
 > **ID93 ist ein Tippfehler für ID03 und keine gültige Rolle.**  
 > Widersprechende ältere Rollenangaben sind historisch und durch diese explizite ID01-Entscheidung ersetzt. Andere Governance-Gates, unabhängige Prüfung, ACK/Protokollierung und technische Berechtigungsgrenzen bleiben bestehen.  
-> [Entscheidungsnachweis](governance/2026-11-24-ID01-ROLES-v1.2-BASELINE-v2.2-AMENDMENT.md).  
+> [Entscheidungsnachweis](https://github.com/julianzotter/nexus-platform/blob/main/governance/2026-11-24-ID01-ROLES-v1.2-BASELINE-v2.2-AMENDMENT.md).  
 
 # NEXUS repository agent entrypoint — review candidate
 
