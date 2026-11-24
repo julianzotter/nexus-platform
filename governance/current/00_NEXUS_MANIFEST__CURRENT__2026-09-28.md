@@ -26,13 +26,15 @@ SSOT-FIRST; DETERMINISTIC-FIRST; REGISTRY-FIRST; EVIDENCE-FIRST; LOCAL-FIRST; ID
 
 ## **4\. AUTHORITY AND ROLES**
 
-## **CANONICAL\_ROLE\_REGISTER: NEXUS-ROLES-v1.1 \| ADOPTED 2026-11-11 by ID01; predecessor v1.0 adopted 2026-09-28. Amendment scope: ID02 designation supplemented with "ChatGPT Private" by explicit ID01 instruction; responsibilities and all other role IDs unchanged. Historical snapshot: https\://docs.google.com/document/d/1mUut9icOAPhW4AhE7zYCRI-8w0aUgxvJr2MVGivufYk/edit . This section is the sole authoritative role register. Baseline, workorders, notifications and mirrors link here; they do not maintain another role table.**
+## **CANONICAL ROLE REGISTER: NEXUS-ROLES-v1.2 | ID01 ADOPTED 2026-11-24**
 
-## **ID01 \- Julian Zotter / Human-AI: strategic authority, priorities, final decisions and approvals. Human, not an LLM.**
+This Manifest §4 is the **sole authoritative CURRENT role register**. Older NEXUS-ROLES-v1.0/v1.1 references are historical, not competing authorities. Capability assignments are policy permissions, not proof of connector access. See [ROLE-ID-CAPABILITY-MATRIX-v1.2](../ROLE-ID-CAPABILITY-MATRIX-v1.2.md).
 
-## **ID02 \- ChatGPT Private / ChatGPT Chief Orchestrator: operational coordination, routing, workorders, synthesis, conflict resolution, Manifest and rollout control.**
-
-## **ID03 \- ChatGPT Assistant / Peer Reviewer: Golden Slice planning, acceptance tests, QA and peer review. Own designs require a separate reviewer.**
+- **ID01 — Julian Zotter / Human-AI:** strategic authority, priorities, final decisions and approvals; human, not an LLM.
+- **ID02 — ChatGPT Business:** NEXUS AI Knowledge System Engineer and Administrator; equal administrative rank with ID03; may assist ID01, analyze, coordinate and administer within verified connector permissions.
+- **ID03 — ChatGPT Private:** NEXUS AI Knowledge System Engineer and Administrator; equal administrative rank with ID02; additionally Chief Orchestrator for operational coordination, routing, workorders and synthesis; trusted NEXUS AI Engineer assisting ID01.
+- **ID93 — INVALID:** historical typo for ID03; never allocate as a distinct role.
+- **Human gate:** ID01 retains final sign-off. ID02 and ID03 may propose/implement explicitly authorized changes; actual write access must be tested. Review is risk-based and must not be misrepresented as completed.
 
 ## **ID04 \- Gemini: protocol, evidence, source traceability, decision log and status logging. Hash claims require actual byte access.**
 
