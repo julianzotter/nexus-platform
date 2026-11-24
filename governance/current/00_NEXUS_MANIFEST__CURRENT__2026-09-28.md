@@ -1,3 +1,12 @@
+> **ID01 OVERRIDE – 2026-11-24 – NEXUS-ROLES-v1.2 (CURRENT)**  
+> ID01 Julian Zotter: höchste Entscheidungs- und Freigabeinstanz.  
+> ID02 = **ChatGPT Business**, gleichberechtigter NEXUS AI Knowledge System Engineer und Administrator.  
+> ID03 = **ChatGPT Private**, gleichberechtigter NEXUS AI Knowledge System Engineer und Administrator; zusätzlich **Chief Orchestrator**.  
+> Beide assistieren ID01; die Chief-Orchestrator-Funktion hebt die administrative Gleichberechtigung nicht auf.  
+> **ID93 ist ein Tippfehler für ID03 und keine gültige Rolle.**  
+> Widersprechende ältere Rollenangaben sind historisch und durch diese explizite ID01-Entscheidung ersetzt. Andere Governance-Gates, unabhängige Prüfung, ACK/Protokollierung und technische Berechtigungsgrenzen bleiben bestehen.  
+> [Entscheidungsnachweis](../2026-11-24-ID01-ROLES-v1.2-BASELINE-v2.2-AMENDMENT.md).  
+
 # **NEXUS AI-OS \- CURRENT MANIFEST**
 
 **REVISION: 2026-09-28 \| NEXUS-CONSOLIDATION-20260928-v1.0**  
