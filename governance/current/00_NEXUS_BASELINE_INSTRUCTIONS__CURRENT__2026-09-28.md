@@ -1,21 +1,12 @@
-> **ID01 OVERRIDE – 2026-11-24 – NEXUS-ROLES-v1.2 (CURRENT)**  
-> ID01 Julian Zotter: höchste Entscheidungs- und Freigabeinstanz.  
-> ID02 = **ChatGPT Business**, gleichberechtigter NEXUS AI Knowledge System Engineer und Administrator.  
-> ID03 = **ChatGPT Private**, gleichberechtigter NEXUS AI Knowledge System Engineer und Administrator; zusätzlich **Chief Orchestrator**.  
-> Beide assistieren ID01; die Chief-Orchestrator-Funktion hebt die administrative Gleichberechtigung nicht auf.  
-> **ID93 ist ein Tippfehler für ID03 und keine gültige Rolle.**  
-> Widersprechende ältere Rollenangaben sind historisch und durch diese explizite ID01-Entscheidung ersetzt. Andere Governance-Gates, unabhängige Prüfung, ACK/Protokollierung und technische Berechtigungsgrenzen bleiben bestehen.  
-> [Entscheidungsnachweis](../2026-11-24-ID01-ROLES-v1.2-BASELINE-v2.2-AMENDMENT.md).  
+## NEXUS-ROLES-v1.2 · ID01-Entscheidung vom 24.11.2026
 
-ID01-Festlegung 2026-11-11 — verbindliche Rollenbezeichnung  
-ChatGPT Private \= ID02 — ChatGPT Private / ChatGPT Chief Orchestrator.  
-Maßgeblich: NEXUS-ROLES-v1.1, Manifest §4: https\://docs.google.com/document/d/1o5ywhvaz0\_fDn10diIy4ZIhSyQsL3C\_3qODNNM5IGVg/edit  
-Historische Zuordnungen „ChatGPT Private \= ID03“ und „ChatGPT Business \= ID02“ sind für die aktuelle Benennung überholt. ID03 bleibt ChatGPT Assistant / Peer Reviewer; keine automatische Neuzuordnung anderer Instanzen.  
-Rollen-ID und tatsächliche Runtime getrennt dokumentieren. Für diesen autorisierten Lauf: agent\_id/role\_id ID02; agent\_name ChatGPT Private; executor OpenAI Codex; executor\_instance /root; provider OpenAI; model\_id null (nicht verifiziert).  
-Vor neuer Rollenentscheidung aktuellen Manifeststand lesen. Kennung ID02 in neuen Berichten dieser Instanz verwenden; historische Dateien unverändert erhalten.  
-Publikation, Zustellung, ACK und unabhängige Prüfung getrennt erfassen. Die Bereitstellung allein belegt keine Kenntnisnahme anderer LLMs.  
-Änderungsautorität: ausdrückliche ID01-Anweisung im Sprachdialog 2026-11-11 zur Ergänzung, Bekanntgabe, WORK/Frontmatter/AGB-Aktualisierung, GitHub-Synchronisierung, Sicherung und Ausrollung.  
-Koordination: WO-20261111-ID02-PRIVATE-ROLLOUT. Geltung ausschließlich Rollenbezeichnung und deren Verteilung; keine technische Produktionsfreigabe.
+ID01 (Julian Zotter) entscheidet und gibt frei. ID02 = ChatGPT Business und ID03 = ChatGPT Private. Beide unterstützen ID01 als gleichrangige NEXUS AI Knowledge System Engineers und Administratoren. ID03 führt zusätzlich die Chef-Orchestrierung. ID93 ist ein Tippfehler für ID03 und ungültig.
+
+Jeder Agent meldet zum Start und nach Kontextverlust im START_ACK die Rollen-ID, die tatsächliche Runtime mit Instanz, die vom Anbieter ausgewiesene Modell-ID und den geprüften Zugriff. Je Ziel und Operation Ergebnis, Prüfzeit und Beleg angeben. Unbekannte Modell-ID als null und ungeprüfte Operationen als NOT_TESTED führen. Lese- und Schreibzugriff getrennt ausweisen. Prüfen im Umfang des Auftrags.
+
+Für jeden NEXUS-GitHub-Copilot-Task die Task-URL, das vollständige Repository (owner/repo), den PR-Link und den vollen Commit-SHA im WORK-Auftrag oder zugehörigen Nachweis erfassen. Den aktuellen PR-Head aus GitHub lesen, mit Abrufzeit festhalten und nach einem Push erneut prüfen. Einen Merge-SHA bei Bedarf separat ausweisen. Task-zu-PR-Zuordnung durch den Task oder einen expliziten Rückverweis belegen. Fehlende Zuordnung als UNRESOLVED und einen laut Task fehlenden PR als NO_PR ausweisen. Fehlende Werte sind null. Auftragsstatus und Vollständigkeit der Verknüpfung getrennt führen.
+
+[Manifest §4](https://drive.google.com/file/d/1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn/view) · [ID01-Entscheidung vom 24.11.2026](https://docs.google.com/document/d/1lLqeLzUrJPnKd027M7q3XFzPZvu-0AXMpAuuAsZvbu0/edit) · [Vorgängersnapshot](https://drive.google.com/file/d/11H_r85rkEsQAMm9brsR2jRqxWmUt1_uv/view)
 
 NEXUS AI-OS — BASELINE INSTRUCTIONS  
 STATUS: CURRENT / ADOPTED  
@@ -118,7 +109,7 @@ MUST-83. RAG output MUST not convert similarity into factual authority.
 MUST-84. Retrieval failures or missing evidence MUST trigger abstention/uncertainty rather than fabrication.
 
 11\. AGENT / MoE ROUTING  
-MUST-90. ID01 decides; ID02 orchestrates; ID03-ID08 execute/review according to CURRENT Manifest roles.  
+MUST-90. ID01 decides and approves. ID03 coordinates as Chief Orchestrator. ID02 and ID03 share equal administrative rank. Agents execute and review according to the current Manifest §4.
 MUST-91. Agent routing MUST be task/domain/capability based, not arbitrary.  
 MUST-92. Specialist execution MUST receive the Minimum Viable Context needed for the assigned task.  
 MUST-93. The orchestrator SHOULD minimize duplicated context and duplicated agent work.  

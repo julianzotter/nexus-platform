@@ -1,12 +1,3 @@
-> **ID01 OVERRIDE – 2026-11-24 – NEXUS-ROLES-v1.2 (CURRENT)**  
-> ID01 Julian Zotter: höchste Entscheidungs- und Freigabeinstanz.  
-> ID02 = **ChatGPT Business**, gleichberechtigter NEXUS AI Knowledge System Engineer und Administrator.  
-> ID03 = **ChatGPT Private**, gleichberechtigter NEXUS AI Knowledge System Engineer und Administrator; zusätzlich **Chief Orchestrator**.  
-> Beide assistieren ID01; die Chief-Orchestrator-Funktion hebt die administrative Gleichberechtigung nicht auf.  
-> **ID93 ist ein Tippfehler für ID03 und keine gültige Rolle.**  
-> Widersprechende ältere Rollenangaben sind historisch und durch diese explizite ID01-Entscheidung ersetzt. Andere Governance-Gates, unabhängige Prüfung, ACK/Protokollierung und technische Berechtigungsgrenzen bleiben bestehen.  
-> [Entscheidungsnachweis](../2026-11-24-ID01-ROLES-v1.2-BASELINE-v2.2-AMENDMENT.md).  
-
 # **NEXUS AI-OS \- CURRENT MANIFEST**
 
 **REVISION: 2026-09-28 \| NEXUS-CONSOLIDATION-20260928-v1.0**  
@@ -26,13 +17,15 @@ SSOT-FIRST; DETERMINISTIC-FIRST; REGISTRY-FIRST; EVIDENCE-FIRST; LOCAL-FIRST; ID
 
 ## **4\. AUTHORITY AND ROLES**
 
-## **CANONICAL\_ROLE\_REGISTER: NEXUS-ROLES-v1.1 \| ADOPTED 2026-11-11 by ID01; predecessor v1.0 adopted 2026-09-28. Amendment scope: ID02 designation supplemented with "ChatGPT Private" by explicit ID01 instruction; responsibilities and all other role IDs unchanged. Historical snapshot: https\://docs.google.com/document/d/1mUut9icOAPhW4AhE7zYCRI-8w0aUgxvJr2MVGivufYk/edit . This section is the sole authoritative role register. Baseline, workorders, notifications and mirrors link here; they do not maintain another role table.**
+Canonical role register: NEXUS-ROLES-v1.2, adopted 2026-11-24 by ID01. This section is the authoritative register. [WO-20261124-ID03-ROLES12-COPILOT](https://docs.google.com/document/d/1lLqeLzUrJPnKd027M7q3XFzPZvu-0AXMpAuuAsZvbu0/edit)
 
 ## **ID01 \- Julian Zotter / Human-AI: strategic authority, priorities, final decisions and approvals. Human, not an LLM.**
 
-## **ID02 \- ChatGPT Private / ChatGPT Chief Orchestrator: operational coordination, routing, workorders, synthesis, conflict resolution, Manifest and rollout control.**
+ID02 — ChatGPT Business. NEXUS AI Knowledge System Engineer and Administrator. Equal administrative rank with ID03. Assists ID01.
 
-## **ID03 \- ChatGPT Assistant / Peer Reviewer: Golden Slice planning, acceptance tests, QA and peer review. Own designs require a separate reviewer.**
+ID03 — ChatGPT Private. NEXUS AI Knowledge System Engineer and Administrator. Equal administrative rank with ID02. Also Chief Orchestrator. Assists ID01.
+
+ID93 — invalid typo for ID03.
 
 ## **ID04 \- Gemini: protocol, evidence, source traceability, decision log and status logging. Hash claims require actual byte access.**
 
@@ -52,9 +45,13 @@ SSOT-FIRST; DETERMINISTIC-FIRST; REGISTRY-FIRST; EVIDENCE-FIRST; LOCAL-FIRST; ID
 
 ## **5\. LEADERSHIP LOGIC**
 
-ID01 DECIDES \-\> ID02 ORCHESTRATES \-\> ID03-ID08 EXECUTE/REVIEW \-\> ID02 SYNTHESIZES \-\> ID01 APPROVES/MODIFIES/REJECTS.
+ID01 sets priorities and approves. ID03 coordinates, routes and synthesizes. ID02 and ID03 share administrative rank. Agents execute and review within their evidence-backed scope. Independent review requires a separate reviewer.
 
-## **6\. WORK AND COMMUNICATION**
+## **6. WORK AND COMMUNICATION**
+
+Jeder Agent meldet zum Start und nach Kontextverlust im START_ACK die Rollen-ID, die tatsächliche Runtime mit Instanz, die vom Anbieter ausgewiesene Modell-ID und den geprüften Zugriff. Je Ziel und Operation Ergebnis, Prüfzeit und Beleg angeben. Unbekannte Modell-ID als null und ungeprüfte Operationen als NOT_TESTED führen. Lese- und Schreibzugriff getrennt ausweisen. Prüfen im Umfang des Auftrags.
+
+Für jeden NEXUS-GitHub-Copilot-Task die Task-URL, das vollständige Repository (owner/repo), den PR-Link und den vollen Commit-SHA im WORK-Auftrag oder zugehörigen Nachweis erfassen. Den aktuellen PR-Head aus GitHub lesen, mit Abrufzeit festhalten und nach einem Push erneut prüfen. Einen Merge-SHA bei Bedarf separat ausweisen. Task-zu-PR-Zuordnung durch den Task oder einen expliziten Rückverweis belegen. Fehlende Zuordnung als UNRESOLVED und einen laut Task fehlenden PR als NO_PR ausweisen. Fehlende Werte sind null. Auftragsstatus und Vollständigkeit der Verknüpfung getrennt führen.
 
 All cross-agent work is routed through explicit workorders/tickets. Minimum states: OPEN \-\> CLAIMED \-\> RUNNING \-\> DONE; alternates BLOCKED / REVIEW\_REQUIRED / FAILED. Minimum result contract: FINDINGS \| EVIDENCE/SOURCES \| ARTIFACTS \| RISKS \| NEXT\_ACTION.
 

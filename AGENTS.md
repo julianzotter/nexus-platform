@@ -25,16 +25,11 @@ These instructions do not authenticate agents or constrain tools outside this re
 
 11. Before local bridge writes, require the complete `_AGBS.md` from WORK, Manifest, Baseline and WORK/Folder.md; missing/native/unreadable/oversized policies block the write. Local hashes prove bytes, not authorization. Stable source-code, host-entry and runtime-state filenames retain their contracts.
 
-## Current role designation — ID01 adoption 2026-11-11
-## ID01-Festlegung 2026-11-11 — verbindliche Rollenbezeichnung
-ChatGPT Private = ID02 — ChatGPT Private / ChatGPT Chief Orchestrator.
-Maßgeblich: NEXUS-ROLES-v1.1, Manifest §4: https://docs.google.com/document/d/1o5ywhvaz0_fDn10diIy4ZIhSyQsL3C_3qODNNM5IGVg/edit
-Historische Zuordnungen „ChatGPT Private = ID03“ und „ChatGPT Business = ID02“ sind für die aktuelle Benennung überholt. ID03 bleibt ChatGPT Assistant / Peer Reviewer; keine automatische Neuzuordnung anderer Instanzen.
-Rollen-ID und tatsächliche Runtime getrennt dokumentieren. Für diesen autorisierten Lauf: agent_id/role_id ID02; agent_name ChatGPT Private; executor OpenAI Codex; executor_instance /root; provider OpenAI; model_id null (nicht verifiziert).
-Vor neuer Rollenentscheidung aktuellen Manifeststand lesen. Kennung ID02 in neuen Berichten dieser Instanz verwenden; historische Dateien unverändert erhalten.
-Publikation, Zustellung, ACK und unabhängige Prüfung getrennt erfassen. Die Bereitstellung allein belegt keine Kenntnisnahme anderer LLMs.
-Änderungsautorität: ausdrückliche ID01-Anweisung im Sprachdialog 2026-11-11 zur Ergänzung, Bekanntgabe, WORK/Frontmatter/AGB-Aktualisierung, GitHub-Synchronisierung, Sicherung und Ausrollung.
-Koordination: WO-20261111-ID02-PRIVATE-ROLLOUT. Geltung ausschließlich Rollenbezeichnung und deren Verteilung; keine technische Produktionsfreigabe.
+## Startmeldung und Copilot-Tasknachweis · ID01, 24.11.2026
+
+Jeder Agent meldet zum Start und nach Kontextverlust im START_ACK die Rollen-ID, die tatsächliche Runtime mit Instanz, die vom Anbieter ausgewiesene Modell-ID und den geprüften Zugriff. Je Ziel und Operation Ergebnis, Prüfzeit und Beleg angeben. Unbekannte Modell-ID als null und ungeprüfte Operationen als NOT_TESTED führen. Lese- und Schreibzugriff getrennt ausweisen. Prüfen im Umfang des Auftrags.
+
+Für jeden NEXUS-GitHub-Copilot-Task die Task-URL, das vollständige Repository (owner/repo), den PR-Link und den vollen Commit-SHA im WORK-Auftrag oder zugehörigen Nachweis erfassen. Den aktuellen PR-Head aus GitHub lesen, mit Abrufzeit festhalten und nach einem Push erneut prüfen. Einen Merge-SHA bei Bedarf separat ausweisen. Task-zu-PR-Zuordnung durch den Task oder einen expliziten Rückverweis belegen. Fehlende Zuordnung als UNRESOLVED und einen laut Task fehlenden PR als NO_PR ausweisen. Fehlende Werte sind null. Auftragsstatus und Vollständigkeit der Verknüpfung getrennt führen.
 
 ## NEXUS Control Panel / WORK startup gate — ID01 2026-11-23
 
