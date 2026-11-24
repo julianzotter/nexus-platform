@@ -12,3 +12,13 @@ The fresh candidate must refresh successfully and access the exact WORK folder w
 Check/renewal metadata is not a Drive write/readback or sync receipt. After renewal, run the existing delivery workflow against a completed trusted monitor run and verify its resulting WORK bytes. No live renewal was performed in the cloud workspace: no client/refresh credentials were present.
 The sanitized runtime distinguishes allowlisted OAuth error types, while discarding free service descriptions. `HTTP_400` alone does not prove expiration. `invalid_grant` can have several causes; Google consent may need renewal. For external OAuth apps in **Testing**, Google documents a seven-day refresh-token lifetime for non-profile scopes; project publishing status must be inspected separately, never inferred from one error.
 Sources: [Google OAuth access and expiration](https://developers.google.com/identity/protocols/oauth2/), [Desktop OAuth and errors](https://developers.google.com/identity/protocols/oauth2/native-app).
+
+## Verify the recovery
+
+Treat these as separate checks and retain each workflow run URL in the existing work order.
+
+1. **Drive polling.** Verify a trusted [NEXUS Drive to GitHub](https://github.com/julianzotter/nexus-platform/actions/workflows/nexus-drive-poll.yml) run with an authenticated poll and persisted checkpoint. A first initialization receipt is separate from a subsequent live poll.
+2. **WORK delivery.** Use the procedure above for [NEXUS GitHub to WORK](https://github.com/julianzotter/nexus-platform/actions/workflows/nexus-delivery.yml). Confirm the exact destination file ID and compare the downloaded bytes against the artifact's SHA-256. Record any required registry readback in the existing ledger.
+3. **Monitor coverage.** Download `nexus-monitor-<run>-<attempt>` from the [monitor run](https://github.com/julianzotter/nexus-platform/actions/workflows/nexus-monitor.yml) and inspect `report.json` and `registry/coverage-per-source.json` at the run's commit. OAuth renewal restores access for the configured Drive workflows. An incomplete coverage snapshot requires its own measured inventory. Run the source inventory described in [TASK-00004](../TASK-00004-INVENTORY-AGENT-D.md) from the authorized environment with an authenticated Drive source, regenerate coverage with [`tools/coverage_stats.py`](../tools/coverage_stats.py), and review the evidence-backed delta. Keep the monitor gate closed while coverage is unknown.
+
+Track scheduler and registry recovery in [#73](https://github.com/julianzotter/nexus-platform/issues/73) and the capability and E2E writeback evidence in [#122](https://github.com/julianzotter/nexus-platform/issues/122).

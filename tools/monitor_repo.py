@@ -309,6 +309,9 @@ def main() -> int:
               "status": overall_status(checks), "checks": checks}
     write_report(report, args.report_dir)
     print(f"NEXUS monitor: {report['status']}")
+    for name, check in checks.items():
+        if check["status"] != "PASS":
+            print(f"  {name}: {check['status']}")
     return {"PASS": 0, "ATTENTION": 1, "INCOMPLETE": 2}[report["status"]]
 
 
