@@ -1,0 +1,212 @@
+{
+ "name": "NEXUS_ROLE_CAPABILITY_MATRIX",
+ "version": "1.2.1",
+ "status": "ENTWURF",
+ "as_of": "2026-11-25T00:10:00+01:00",
+ "author": "ID06",
+ "executor": "Claude Opus 5.5, claude.ai cloud session (gh REST, Google-Drive connector)",
+ "role_register_version": "NEXUS-ROLES-v1.2",
+ "role_authority": {
+  "source": "Manifest §4",
+  "repo_path": "governance/current/00_NEXUS_MANIFEST__CURRENT__2026-09-28.md",
+  "drive_id": "1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn"
+ },
+ "note": "Derived view of Manifest §4 (sole role authority). Roles/functions follow the manifest and are checked by tests; this file adds observed capabilities only. A role label grants no platform rights; a capability is per runtime, session and operation.",
+ "legend": {
+  "VERIFIED": "operation succeeded in a run whose evidence the author checked",
+  "OBSERVED": "artifacts attributed to this role exist; executing run not checked by the author",
+  "NOT_TESTED": "no current evidence",
+  "BLOCKED": "attempt failed or was denied",
+  "NONE": "inactive role (Manifest §4)",
+  "HUMAN_RELAY": "only via ID01 copy/upload"
+ },
+ "roles": [
+  {
+   "id": "ID01",
+   "actor": "Julian Zotter (human)",
+   "manifest_key": "Julian Zotter",
+   "function": "strategic authority, priorities, final decisions and approvals",
+   "status": "ACTIVE",
+   "drive_read": "OBSERVED",
+   "drive_write": "OBSERVED",
+   "github_read": "OBSERVED",
+   "github_write": "OBSERVED",
+   "merge": "OBSERVED",
+   "runtimes": [
+    "workstation",
+    "GitHub account julianzotter"
+   ],
+   "evidence": "owner of WORK files; PR #123 merged as a0d739e (2026-11-24 21:51Z)"
+  },
+  {
+   "id": "ID02",
+   "actor": "ChatGPT Business",
+   "manifest_key": "ChatGPT Business",
+   "function": "NEXUS AI Knowledge System Engineer and Administrator; equal rank with ID03; assists ID01",
+   "status": "ACTIVE",
+   "drive_read": "NOT_TESTED",
+   "drive_write": "OBSERVED",
+   "github_read": "NOT_TESTED",
+   "github_write": "NOT_TESTED",
+   "merge": "NOT_TESTED",
+   "runtimes": [
+    "chatgpt.com Business",
+    "executor per run (e.g. OpenAI Codex)"
+   ],
+   "evidence": "WORK raw MD gdrive:1z78MpMDV__ett23O1BlOpCY3HmHi1lrW named ID02 (2026-11-24 20:55); executor not checked; Business runtime untested per ID03 pass"
+  },
+  {
+   "id": "ID03",
+   "actor": "ChatGPT Private",
+   "manifest_key": "ChatGPT Private",
+   "function": "NEXUS AI Knowledge System Engineer and Administrator; equal rank with ID02; additionally Chief Orchestrator; assists ID01",
+   "status": "ACTIVE",
+   "drive_read": "OBSERVED",
+   "drive_write": "OBSERVED",
+   "github_read": "OBSERVED",
+   "github_write": "OBSERVED",
+   "merge": "NOT_TESTED",
+   "runtimes": [
+    "chatgpt.com Private (GitHub + Drive connectors)",
+    "OpenAI Codex /root",
+    "GitHub Copilot cloud agent (per task)"
+   ],
+   "evidence": "ID03 pass 2026-11-24 22:38Z: Drive read, GitHub read/write via connector (commits 1b5071b..3372255); WORK raw MD gdrive:1AqhLUApBtkwwuaLBQvfjq2shpe5iyggC; _FRONTMATTER v008 executor OpenAI Codex /root"
+  },
+  {
+   "id": "ID04",
+   "actor": "Gemini",
+   "manifest_key": "Gemini",
+   "function": "protocol, evidence, source traceability, decision log, status logging",
+   "status": "ACTIVE",
+   "drive_read": "NOT_TESTED",
+   "drive_write": "NOT_TESTED",
+   "github_read": "NOT_TESTED",
+   "github_write": "NOT_TESTED",
+   "merge": "NOT_TESTED",
+   "runtimes": [
+    "AI Studio",
+    "Colab",
+    "NotebookLM"
+   ],
+   "evidence": "historical only (capability matrix v0.1, 2026-10-14)"
+  },
+  {
+   "id": "ID05",
+   "actor": "Perplexity",
+   "manifest_key": "Perplexity",
+   "function": "targeted external research, primary sources, cross-check, contradiction search",
+   "status": "ACTIVE",
+   "drive_read": "HUMAN_RELAY",
+   "drive_write": "HUMAN_RELAY",
+   "github_read": "NOT_TESTED",
+   "github_write": "NOT_TESTED",
+   "merge": "NOT_TESTED",
+   "runtimes": [
+    "perplexity.ai"
+   ],
+   "evidence": "historical only (v0.1)"
+  },
+  {
+   "id": "ID06",
+   "actor": "Claude",
+   "manifest_key": "Claude",
+   "function": "responsible coding and implementation; parser/registry, deterministic tools, evaluation, tests, regression loops",
+   "status": "ACTIVE",
+   "drive_read": "VERIFIED",
+   "drive_write": "VERIFIED",
+   "github_read": "VERIFIED",
+   "github_write": "VERIFIED",
+   "merge": "BLOCKED",
+   "runtimes": [
+    "claude.ai cloud session + connectors",
+    "Claude Code",
+    "claude.ai scheduled tasks"
+   ],
+   "evidence": "2026-11-24 22:3xZ Opus 5.5: Drive download Manifest 1POfiQ… (sha 09c8786b); Drive write 1d8ikFWZOPEBQUjKYIdvmAbFN_nOGWcmu readback sha 38a1ad5c match; clone a0d739e; push 8326ea0; merge via API denied by session permission policy"
+  },
+  {
+   "id": "ID07",
+   "actor": "DeepSeek",
+   "manifest_key": "DeepSeek",
+   "function": "independent architecture/engineering auditor; never sole author and sole reviewer",
+   "status": "ACTIVE",
+   "drive_read": "NOT_TESTED",
+   "drive_write": "BLOCKED",
+   "github_read": "NOT_TESTED",
+   "github_write": "NOT_TESTED",
+   "merge": "NOT_TESTED",
+   "runtimes": [
+    "chat.deepseek.com",
+    "DeepSeek Harness (Windows, Drive mount G:)"
+   ],
+   "evidence": "DSH log pasted by ID01 2026-11-24: pwsh Win32 87 (ACL grant) and write tool EISDIR on G:\\Meine Ablage"
+  },
+  {
+   "id": "ID08",
+   "actor": "Ollama (local)",
+   "manifest_key": "Ollama",
+   "function": "delegated local/private model execution; optional",
+   "status": "OPTIONAL",
+   "drive_read": "NOT_TESTED",
+   "drive_write": "NOT_TESTED",
+   "github_read": "NOT_TESTED",
+   "github_write": "NOT_TESTED",
+   "merge": "NOT_TESTED",
+   "runtimes": [
+    "local workstation"
+   ],
+   "evidence": "historical only"
+  },
+  {
+   "id": "ID09",
+   "actor": "legacy DeepSeek alias",
+   "manifest_key": "INACTIVE LEGACY ALIAS",
+   "function": "inactive; no new assignment",
+   "status": "INACTIVE",
+   "drive_read": "NONE",
+   "drive_write": "NONE",
+   "github_read": "NONE",
+   "github_write": "NONE",
+   "merge": "NONE",
+   "runtimes": [],
+   "evidence": "Manifest §4"
+  },
+  {
+   "id": "ID10",
+   "actor": "Meta AI",
+   "manifest_key": "INACTIVE HISTORICAL RECORD",
+   "function": "inactive historical record",
+   "status": "INACTIVE",
+   "drive_read": "NONE",
+   "drive_write": "NONE",
+   "github_read": "NONE",
+   "github_write": "NONE",
+   "merge": "NONE",
+   "runtimes": [],
+   "evidence": "Manifest §4"
+  }
+ ],
+ "invalid_ids": {
+  "ID93": "typo for ID03"
+ },
+ "runtimes_without_role_id": [
+  {
+   "runtime": "OpenAI Codex",
+   "rule": "coding tickets under ID06 responsibility (Manifest §4) unless the work order names another role; declare executor/provider/model per run"
+  },
+  {
+   "runtime": "GitHub Copilot cloud agent / Copilot CLI",
+   "rule": "role = ordering ID recorded in the task (task URL, PR, full SHA); else UNRESOLVED"
+  },
+  {
+   "runtime": "Microsoft 365 Copilot",
+   "rule": "no role ID; ID01 decision open"
+  },
+  {
+   "runtime": "Kimi",
+   "rule": "no role ID; ID01 decision open"
+  }
+ ],
+ "superseded": "governance/ROLE-ID-CAPABILITY-MATRIX-v1.2 hand-written ID03 version (commit 25bb3a3): ID05/ID06/ID07 descriptions contradicted Manifest §4; replaced by this generated view"
+}
