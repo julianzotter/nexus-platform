@@ -1,0 +1,23 @@
+{
+  "_doc": "Zeilenmodell FT-Matrix 26.02-Linie, verifiziert gegen Vers-DRevE (SHA af4d6038…) am 23.11.2026: 92/92 Ergebnisblätter Z15–21 + Pos.1–5 Z161–169 identisch; GESAMTAUSLASTUNG Z245 (62), Z252 (7), Z156 (4OG-1), fehlt in 22 Blättern → Fallback max(Pos-Nachweis) als Teil-η. Label = Regex auf Spalten A–G, erster Treffer ab min_row.",
+  "label_cols": 7,
+  "max_row": 300,
+  "fields": {
+    "station": {"row": 10},
+    "grid":    {"row": 12},
+    "kons":    {"labels": ["^Konsole \\(1"], "min_row": 10},
+    "b":       {"labels": ["^Breite$"], "min_row": 10},
+    "h":       {"labels": ["^Gesamthöhe"], "min_row": 10},
+    "h1":      {"labels": ["^Höhe Vergussfuge"], "min_row": 10},
+    "db_b":    {"labels": ["^Breite Durchbruch"], "min_row": 10},
+    "db_h":    {"labels": ["^Höhe Durchbruch"], "min_row": 10},
+    "hu":      {"labels": ["^Höhe unten"], "min_row": 10},
+    "pos1":    {"labels": ["^Pos\\.?\\s*1\\b"], "min_row": 150},
+    "pos2":    {"labels": ["^Pos\\.?\\s*2\\b"], "min_row": 150},
+    "pos3":    {"labels": ["^Pos\\.?\\s*3\\b"], "min_row": 150},
+    "pos4":    {"labels": ["^Pos\\.?\\s*4\\b"], "min_row": 150},
+    "pos5":    {"labels": ["^Pos\\.?\\s*5\\b"], "min_row": 150},
+    "eta":     {"labels": ["^GESAMTAUSLASTUNG"], "min_row": 150, "optional": true}
+  },
+  "bt_catalog": {"sheet": "MRd", "name_row": 9, "rows": {"b": 11, "h": 12, "h1": 13, "bi": 14, "c_mm": 15, "d_bue_mm": 16}, "first_col": 7}
+}
