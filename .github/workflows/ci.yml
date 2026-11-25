@@ -27,6 +27,13 @@ jobs:
           python-version: "3.12"
       - run: python -m pip install jsonschema pytest
       - run: python -m pytest -q tests
+      - name: Report naming gate (YY_MM_DD_HHMM_ID##_THEMA_###, files added in this PR)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: python tools/naming_gate.py --base "origin/$BASE_REF"
+      - name: Role matrix and panel roles rendered from role_capability_matrix.json
+        run: python tools/render_role_matrix.py --check
       - name: Artifact registry fail-closed tests
         run: python -m pytest -q tests/test_artifact_registry_gate.py
       - run: python tools/validate_registry.py
