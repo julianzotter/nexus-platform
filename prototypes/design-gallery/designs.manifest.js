@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "7eaeef1687158b13c3ba04b6d8689d610a5031d6",
+ "commit": "e8d4f8634633ca767f65788e2895650de803a782",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -79,6 +79,22 @@ window.NEXUS_DESIGNS = {
    "tags": [
     "docs",
     "manuals"
+   ]
+  },
+  {
+   "id": "HTML-811EE960",
+   "title": "NEXUS CONTROL TOWER - Task-Manager",
+   "kind": "html",
+   "path": "local_stack/nexus_local/static/index.html",
+   "preview": "../../local_stack/nexus_local/static/index.html",
+   "sha256": "eddd1ac4f157a9b6577d754f1b4f52a93d3769896dacdd2bc31881f7ff88e1cc",
+   "bytes": 2662,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "local_stack",
+    "nexus_local",
+    "static"
    ]
   },
   {
