@@ -10,14 +10,14 @@ $ErrorActionPreference = "Stop"
 $ts  = Get-Date -Format "yyyyMMdd_HHmmss"
 $out = Join-Path $env:LOCALAPPDATA "NEXUS\local\reports"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
-$R = [ordered]@{ timestamp = (Get-Date).ToString("s"); host = $env:COMPUTERNAME; hardware = [ordered]@{}; tests = @(); state = "RUNNING" }
+$REP = [ordered]@{ timestamp = (Get-Date).ToString("s"); host = $env:COMPUTERNAME; hardware = [ordered]@{}; tests = @(); state = "RUNNING" }
 $jsonPath = "$out\hwbench_$ts.json"
-function Save { $script:R | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 $script:jsonPath }
-trap { $script:R.state = "ABORTED: $($_.Exception.Message)"; Save; Write-Host "[ABBRUCH] $($_.Exception.Message) -> $jsonPath" -ForegroundColor Red; break }
+function Save { $script:REP | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 $script:jsonPath }
+trap { $script:REP.state = "ABORTED: $($_.Exception.Message)"; Save; Write-Host "[ABBRUCH] $($_.Exception.Message) -> $jsonPath" -ForegroundColor Red; break }
 Write-Host "Zwischenstand laufend in: $jsonPath" -ForegroundColor Cyan
 
 function Add-Test($id, $name, $status, $data) {
-  $script:R.tests += [ordered]@{ id = $id; name = $name; status = $status; data = $data }
+  $script:REP.tests += [ordered]@{ id = $id; name = $name; status = $status; data = $data }
   $c = @{ PASS = "Green"; FAIL = "Red"; WARN = "Yellow"; INFO = "Cyan"; NOT_RUN = "DarkGray" }[$status]
   Write-Host ("[{0}] {1} {2}" -f $status, $id, $name) -ForegroundColor $c
   Save
@@ -40,30 +40,30 @@ $cpu = Get-CimInstance Win32_Processor | Select-Object -First 1
 $os  = Get-CimInstance Win32_OperatingSystem
 $mem = Get-CimInstance Win32_PhysicalMemory
 $dsk = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'"
-$R.hardware.system = "$($cs.Manufacturer) $($cs.Model)"
-$R.hardware.os     = "$($os.Caption) build $($os.BuildNumber)"
-$R.hardware.cpu    = [ordered]@{ name = $cpu.Name.Trim(); cores = $cpu.NumberOfCores; threads = $cpu.NumberOfLogicalProcessors; max_mhz = $cpu.MaxClockSpeed }
-$R.hardware.ram    = [ordered]@{ total_gb = [math]::Round($cs.TotalPhysicalMemory / 1GB, 1); modules = @($mem).Count; speed_mts = (@($mem | ForEach-Object { $_.ConfiguredClockSpeed }) | Measure-Object -Maximum).Maximum }
-$R.hardware.disk_c = [ordered]@{ size_gb = [math]::Round($dsk.Size / 1GB, 0); free_gb = [math]::Round($dsk.FreeSpace / 1GB, 0) }
+$REP.hardware.system = "$($cs.Manufacturer) $($cs.Model)"
+$REP.hardware.os     = "$($os.Caption) build $($os.BuildNumber)"
+$REP.hardware.cpu    = [ordered]@{ name = $cpu.Name.Trim(); cores = $cpu.NumberOfCores; threads = $cpu.NumberOfLogicalProcessors; max_mhz = $cpu.MaxClockSpeed }
+$REP.hardware.ram    = [ordered]@{ total_gb = [math]::Round($cs.TotalPhysicalMemory / 1GB, 1); modules = @($mem).Count; speed_mts = (@($mem | ForEach-Object { $_.ConfiguredClockSpeed }) | Measure-Object -Maximum).Maximum }
+$REP.hardware.disk_c = [ordered]@{ size_gb = [math]::Round($dsk.Size / 1GB, 0); free_gb = [math]::Round($dsk.FreeSpace / 1GB, 0) }
 $g = Smi "name,memory.total,driver_version,compute_cap,pcie.link.gen.max,pcie.link.width.max,power.limit"
 if ($g) {
   $p = $g -split ",\s*"
   $hdr = (& nvidia-smi 2>$null | Select-String "CUDA Version:\s*([\d.]+)").Matches
-  $R.hardware.gpu = [ordered]@{ name = $p[0]; vram_mib = [int]$p[1]; driver = $p[2]; compute_cap = $p[3]; pcie = "Gen$($p[4]) x$($p[5])"; power_limit_w = $p[6]; driver_cuda_max = $(if ($hdr) { $hdr[0].Groups[1].Value } else { "?" }) }
-  Add-Test "H01" "NVIDIA-Treiber + GPU erkannt" "PASS" $R.hardware.gpu
+  $REP.hardware.gpu = [ordered]@{ name = $p[0]; vram_mib = [int]$p[1]; driver = $p[2]; compute_cap = $p[3]; pcie = "Gen$($p[4]) x$($p[5])"; power_limit_w = $p[6]; driver_cuda_max = $(if ($hdr) { $hdr[0].Groups[1].Value } else { "?" }) }
+  Add-Test "H01" "NVIDIA-Treiber + GPU erkannt" "PASS" $REP.hardware.gpu
 } else {
   $vc = Get-CimInstance Win32_VideoController | Select-Object -First 1
-  $R.hardware.gpu = [ordered]@{ name = $vc.Name; driver = $vc.DriverVersion; note = "nvidia-smi fehlt" }
-  Add-Test "H01" "NVIDIA-Treiber + GPU erkannt" "FAIL" $R.hardware.gpu
+  $REP.hardware.gpu = [ordered]@{ name = $vc.Name; driver = $vc.DriverVersion; note = "nvidia-smi fehlt" }
+  Add-Test "H01" "NVIDIA-Treiber + GPU erkannt" "FAIL" $REP.hardware.gpu
 }
 $nvcc = Get-Command nvcc -ErrorAction SilentlyContinue
 $cudaTk = if ($nvcc) { ((& nvcc --version) | Select-String "release ([\d.]+)").Matches[0].Groups[1].Value } else { $null }
 Add-Test "H02" "CUDA-Toolkit (nvcc) - fuer Ollama NICHT noetig (bringt eigene CUDA-Runtime mit)" "INFO" @{ nvcc = $(if ($cudaTk) { $cudaTk } else { "nicht installiert" }) }
-Add-Test "H03" "Systemdaten" "INFO" ([ordered]@{ cpu = $R.hardware.cpu; ram = $R.hardware.ram; disk_c = $R.hardware.disk_c; os = $R.hardware.os })
+Add-Test "H03" "Systemdaten" "INFO" ([ordered]@{ cpu = $REP.hardware.cpu; ram = $REP.hardware.ram; disk_c = $REP.hardware.disk_c; os = $REP.hardware.os })
 
 # ---------- E: Ollama-Umgebung ----------
 try { $ver = (Invoke-RestMethod "$Api/api/version" -TimeoutSec 5).version; Add-Test "E01" "Ollama erreichbar" "PASS" @{ version = $ver; api = $Api } }
-catch { Add-Test "E01" "Ollama erreichbar" "FAIL" @{ error = "$_" }; $R.state = "ABORTED: Ollama nicht erreichbar"; Save; exit 1 }
+catch { Add-Test "E01" "Ollama erreichbar" "FAIL" @{ error = "$_" }; $REP.state = "ABORTED: Ollama nicht erreichbar"; Save; exit 1 }
 $envs = [ordered]@{}
 foreach ($k in "OLLAMA_FLASH_ATTENTION","OLLAMA_KV_CACHE_TYPE","OLLAMA_NUM_PARALLEL","OLLAMA_MAX_LOADED_MODELS","OLLAMA_KEEP_ALIVE","OLLAMA_HOST","OLLAMA_CONTEXT_LENGTH","OLLAMA_MODELS") {
   $envs[$k] = [Environment]::GetEnvironmentVariable($k, "User")
@@ -174,20 +174,20 @@ try {
 
 # ---------- Empfehlung ----------
 $best = $rows | Where-Object { $_.gpu_pct -ge 100 -and $_.eval_tps -ge 15 -and $_.eval_tokens -ge 100 } | Sort-Object ctx -Descending | Select-Object -First 1
-$R.recommendation = [ordered]@{
+$REP.recommendation = [ordered]@{
   default_model = "nexus-q35-9b-16k"
   max_ctx_100pct_gpu = $(if ($best) { "$($best.model) ($($best.ctx))" } else { "keins" })
   note = "16K bleibt Standard (schnell, Reserve fuer Embedding). Groesster 100%-GPU-Kontext nur fuer lange Dokumente."
 }
-$R.models = @((Invoke-RestMethod "$Api/api/tags").models | ForEach-Object { [ordered]@{ name = $_.name; size_gb = [math]::Round($_.size / 1e9, 2) } })
+$REP.models = @((Invoke-RestMethod "$Api/api/tags").models | ForEach-Object { [ordered]@{ name = $_.name; size_gb = [math]::Round($_.size / 1e9, 2) } })
 
 # ---------- Ausgabe ----------
 $mdPath = "$out\hwbench_$ts.md"
-$R.state = "DONE"; Save
+$REP.state = "DONE"; Save
 $md = @("# NEXUS Hardware-/Modell-Abnahme $ts", "", "| Variante | ctx | eval tok/s | prompt tok/s | GB | GPU % | VRAM MiB | CPU avg/max % | Laden s |", "|---|---|---|---|---|---|---|---|---|")
 foreach ($x in $rows) { $md += "| $($x.model) | $($x.ctx) | $($x.eval_tps) | $($x.prompt_tps) | $($x.size_gb) | $($x.gpu_pct) | $($x.vram_used_mib) | $($x.cpu_avg_pct)/$($x.cpu_max_pct) | $($x.load_s) |" }
 $md += ""; $md += "| ID | Test | Status |"; $md += "|---|---|---|"
-foreach ($t in $R.tests) { $md += "| $($t.id) | $($t.name) | $($t.status) |" }
+foreach ($t in $REP.tests) { $md += "| $($t.id) | $($t.name) | $($t.status) |" }
 $md | Set-Content -Encoding UTF8 $mdPath
 Write-Host ""; $md | ForEach-Object { Write-Host $_ }
 Write-Host "`nJSON: $jsonPath`nBitte Inhalt der JSON-Datei an ID05 senden:  Get-Content '$jsonPath' | Set-Clipboard" -ForegroundColor Green
