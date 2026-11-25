@@ -27,8 +27,21 @@ export function makeSyncRoutes({authorize,verifyCsrf,runs,runner,snapshots,origi
       if(Number(request.headers.get('Content-Length')||0)>1024)return error(413,'REQUEST_TOO_LARGE');
       try{if(!await verifyCsrf(request,user))return error(403,'CSRF_DENIED');}
       catch{return error(503,'CSRF_CHECK_UNAVAILABLE');}
-      const bytes=await request.arrayBuffer();
-      if(bytes.byteLength>1024)return error(413,'REQUEST_TOO_LARGE');
+      // Reject oversized streaming requests even without Content-Length; never buffer unbounded input.
+      let bytes;
+      try {
+        const chunks=[]; let count=0;
+        const reader=request.body?.getReader();
+        if(!reader)return error(400,'BODY_REQUIRED');
+        while(true){
+          const {value,done}=await reader.read(); if(done)break;
+          count+=value.byteLength;
+          if(count>1024){await reader.cancel();return error(413,'REQUEST_TOO_LARGE');}
+          chunks.push(value);
+        }
+        bytes=new Uint8Array(count);let offset=0;
+        for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.byteLength;}
+      }catch{return error(400,'INVALID_REQUEST_BODY');}
       // Fixed server configuration. No browser-provided Drive paths, Git refs or credentials.
       if(new TextDecoder().decode(bytes).trim()!=='{}')return error(422,'BODY_MUST_BE_EMPTY_OBJECT');
       try{
