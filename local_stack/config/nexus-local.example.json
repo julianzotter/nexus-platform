@@ -69,7 +69,15 @@
   },
   "reporter": { "enabled": true, "interval_s": 300, "daily_hour": 18, "publish_to_work": false },
   "search": { "enabled": false, "searxng_url": null },
-  "processes": [],
+  "processes": [
+    {
+      "name": "docker_mcp_gateway",
+      "enabled": false,
+      "desc": "Docker MCP Gateway (Profil nexus, Streaming :8811) - optional, Beta, Docker Desktop >= 4.62",
+      "cmd": ["docker", "mcp", "gateway", "run", "--profile", "nexus", "--transport", "streaming", "--port", "8811"],
+      "env": {}
+    }
+  ],
   "links": {
     "NEXUS Control Panel (Cloud)": "https://nexus-sync-diagnose.julianzotter.chatgpt.site",
     "Drive WORK": "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
