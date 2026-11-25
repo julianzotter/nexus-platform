@@ -13,7 +13,8 @@ function Wait-Ollama { for ($i = 0; $i -lt 60; $i++) { try { Invoke-RestMethod "
 
 # ---------------------------------------------------------------- 1 Umgebungsvariablen (Benutzer)
 $envs = [ordered]@{ OLLAMA_FLASH_ATTENTION = "1"; OLLAMA_KV_CACHE_TYPE = "q8_0"; OLLAMA_NUM_PARALLEL = "1";
-                    OLLAMA_MAX_LOADED_MODELS = "1"; OLLAMA_KEEP_ALIVE = "30m"; OLLAMA_HOST = "127.0.0.1:11434" }
+                    OLLAMA_MAX_LOADED_MODELS = "2"; OLLAMA_KEEP_ALIVE = "30m"; OLLAMA_HOST = "127.0.0.1:11434";
+                    OLLAMA_CONTEXT_LENGTH = "16384" }
 $changed = $false
 foreach ($k in $envs.Keys) {
   if ([Environment]::GetEnvironmentVariable($k, "User") -ne $envs[$k]) { [Environment]::SetEnvironmentVariable($k, $envs[$k], "User"); $changed = $true }
