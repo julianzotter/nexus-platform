@@ -1,0 +1,120 @@
+{
+  "generated_from": "registry/roles/role_capability_matrix.json",
+  "matrix_version": "1.2.1",
+  "role_register_version": "NEXUS-ROLES-v1.2",
+  "as_of": "2026-11-25T00:10:00+01:00",
+  "columns": [
+    "id",
+    "actor",
+    "function",
+    "capabilities",
+    "status"
+  ],
+  "roles": [
+    [
+      "ID01",
+      "Julian Zotter (human)",
+      "strategic authority, priorities, final decisions and approvals",
+      "drive_read=OBSERVED · drive_write=OBSERVED · github_read=OBSERVED · github_write=OBSERVED · merge=OBSERVED",
+      "OWNER"
+    ],
+    [
+      "ID02",
+      "ChatGPT Business",
+      "NEXUS AI Knowledge System Engineer and Administrator; equal rank with ID03; assists ID01",
+      "drive_read=NOT_TESTED · drive_write=OBSERVED · github_read=NOT_TESTED · github_write=NOT_TESTED · merge=NOT_TESTED",
+      "ACTIVE"
+    ],
+    [
+      "ID03",
+      "ChatGPT Private",
+      "NEXUS AI Knowledge System Engineer and Administrator; equal rank with ID02; additionally Chief Orchestrator; assists ID01",
+      "drive_read=OBSERVED · drive_write=OBSERVED · github_read=OBSERVED · github_write=OBSERVED · merge=NOT_TESTED",
+      "ACTIVE"
+    ],
+    [
+      "ID04",
+      "Gemini",
+      "protocol, evidence, source traceability, decision log, status logging",
+      "drive_read=NOT_TESTED · drive_write=NOT_TESTED · github_read=NOT_TESTED · github_write=NOT_TESTED · merge=NOT_TESTED",
+      "ACTIVE"
+    ],
+    [
+      "ID05",
+      "Perplexity",
+      "targeted external research, primary sources, cross-check, contradiction search",
+      "drive_read=HUMAN_RELAY · drive_write=HUMAN_RELAY · github_read=NOT_TESTED · github_write=NOT_TESTED · merge=NOT_TESTED",
+      "ACTIVE"
+    ],
+    [
+      "ID06",
+      "Claude",
+      "responsible coding and implementation; parser/registry, deterministic tools, evaluation, tests, regression loops",
+      "drive_read=VERIFIED · drive_write=VERIFIED · github_read=VERIFIED · github_write=VERIFIED · merge=BLOCKED",
+      "ACTIVE"
+    ],
+    [
+      "ID07",
+      "DeepSeek",
+      "independent architecture/engineering auditor; never sole author and sole reviewer",
+      "drive_read=NOT_TESTED · drive_write=BLOCKED · github_read=NOT_TESTED · github_write=NOT_TESTED · merge=NOT_TESTED",
+      "ACTIVE"
+    ],
+    [
+      "ID08",
+      "Ollama (local)",
+      "delegated local/private model execution; optional",
+      "drive_read=NOT_TESTED · drive_write=NOT_TESTED · github_read=NOT_TESTED · github_write=NOT_TESTED · merge=NOT_TESTED",
+      "AVAILABLE"
+    ],
+    [
+      "ID09",
+      "legacy DeepSeek alias",
+      "inactive; no new assignment",
+      "drive_read=NONE · drive_write=NONE · github_read=NONE · github_write=NONE · merge=NONE",
+      "UNASSIGNED"
+    ],
+    [
+      "ID10",
+      "Meta AI",
+      "inactive historical record",
+      "drive_read=NONE · drive_write=NONE · github_read=NONE · github_write=NONE · merge=NONE",
+      "UNASSIGNED"
+    ],
+    [
+      "ID93",
+      "INVALID",
+      "typo for ID03",
+      "no rights",
+      "INVALID"
+    ],
+    [
+      "—",
+      "OpenAI Codex",
+      "coding tickets under ID06 responsibility (Manifest §4) unless the work order names another role; declare executor/provider/model per run",
+      "no role ID",
+      "UNASSIGNED"
+    ],
+    [
+      "—",
+      "GitHub Copilot cloud agent / Copilot CLI",
+      "role = ordering ID recorded in the task (task URL, PR, full SHA); else UNRESOLVED",
+      "no role ID",
+      "UNASSIGNED"
+    ],
+    [
+      "—",
+      "Microsoft 365 Copilot",
+      "no role ID; ID01 decision open",
+      "no role ID",
+      "UNASSIGNED"
+    ],
+    [
+      "—",
+      "Kimi",
+      "no role ID; ID01 decision open",
+      "no role ID",
+      "UNASSIGNED"
+    ]
+  ]
+}

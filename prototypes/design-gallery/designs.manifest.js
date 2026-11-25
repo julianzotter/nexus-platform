@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "f358d45040c5bdcc9a187edfb6a4f49d18f8be4f",
+ "commit": "7ab7426aa7eecdac65189dede555f6fc06e12682",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -156,6 +156,22 @@ window.NEXUS_DESIGNS = {
    "tags": [
     "prototypes",
     "nexus-control-tower-draft-v1"
+   ]
+  },
+  {
+   "id": "HTML-7173021B",
+   "title": "NEXUS AI-OS · Control Panel v1.2.0 DRAFT",
+   "kind": "html",
+   "path": "prototypes/nexus-control-tower-draft-v1/live/index.html",
+   "preview": "../../prototypes/nexus-control-tower-draft-v1/live/index.html",
+   "sha256": "000b09081a64befa09948bcc8801565e0cec6450ffbd56cd0757ea6ffac09e11",
+   "bytes": 9000,
+   "status": "prototype_unreviewed",
+   "summary": "This is a deployable **local integration prototype**, not a deployment to the existing `chatgpt.site` project. ```powershell $env:GOOGLE_DRIVE_ACCESS_TOKEN = \"<short-lived authorized OAuth token>\" $env:GITHUB_TOKEN = \"<optional token; public GitHub metadata otherwise>\" $env:NEXUS_STATE_FILE = \"$env:LOCALAPPDATA\\NEXUS\\control-panel-state.json\" py .\\prototypes\\nexus-control-tower-draft-v1\\live\\server.py ``` Open `http:",
+   "tags": [
+    "prototypes",
+    "nexus-control-tower-draft-v1",
+    "live"
    ]
   },
   {
