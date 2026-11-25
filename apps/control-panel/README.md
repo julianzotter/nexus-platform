@@ -42,13 +42,14 @@ python tools/build_control_data.py --source-commit "$(git rev-parse HEAD)"
 - A3: Ledger-Spiegel ist Stand 2026-11-16; aktuelles Ledger liegt im Drive (`LLM-LOCAL-SSOT`) und wird nicht live gelesen.
 - `monitor.js`, `team.js` sind im Archiv enthalten, werden von `index.html` aber nicht geladen (Altbestand, unverändert übernommen).
 
-## Vorschlag: Konsolidierung der 4 Dashboards
+## Vorschlag: Konsolidierung der Dashboards (4 + ID03-Draft)
 
 | Dashboard | Ort | Zweck | Vorschlag |
 |---|---|---|---|
 | Control Panel v8 | `apps/control-panel/` (ChatGPT Sites) | öffentliche/private Statusansicht | **Kanonisch**: einzige Anzeige-Oberfläche |
 | Control Tower | `local_stack/nexus_local/control_tower.py` (127.0.0.1:8770) | lokaler Task-Manager mit Mutationen (Token) | bleibt als **lokales Schreib-Backend**; liest/schreibt dieselbe `control-data`-Struktur, eigene UI → Panel-Ansicht |
 | nexus-tower | `tools/nexus-tower/` (127.0.0.1:8765, ENTWURF) | WORK-Ordner-Status + MCP (read-only) | MCP-Tools `work_state`, `naming_check`, `gate_status` in den Control Tower übernehmen, Ordner danach archivieren |
+| Control-Panel-Draft v1.x (ID03) | `prototypes/nexus-control-tower-draft-v1/` (seit 2026-11-25 auf main) | read-only Knowledge-/WORK-Monitoring, Same-Origin-Refresh | Refresh-/Stale-Guards als Panel-Ansicht übernehmen; danach archivieren (Abstimmung mit ID03) |
 | Daten-Dashboard | `prototypes/data-dashboard/` | Prototyp KPI/Diagramme | KPI-/Chart-Bausteine als Panel-Ansicht übernehmen, Prototyp archivieren |
 
 Zielbild: **1 Datenvertrag** (`schemas/control-data.schema.json`) · **1 Generator** (`tools/build_control_data.py`) · **1 Anzeige** (Panel) · **1 lokales Backend** (Control Tower inkl. MCP).
