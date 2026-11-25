@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "e8d4f8634633ca767f65788e2895650de803a782",
+ "commit": "4293c582b3015bcc0948b92385c8b7f345ecebb7",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -125,6 +125,53 @@ window.NEXUS_DESIGNS = {
    "tags": [
     "prototypes",
     "gemini-chat"
+   ]
+  },
+  {
+   "id": "HTML-1653B8CF",
+   "title": "NEXUS AI-OS | Control Tower DRAFT-V1",
+   "kind": "html",
+   "path": "prototypes/nexus-control-tower-draft-v1/index.html",
+   "preview": "../../prototypes/nexus-control-tower-draft-v1/index.html",
+   "sha256": "3e606c9ef99e6fce1e1ad1558baf60db570583dcfecbd19708ceb3fb0915903c",
+   "bytes": 12233,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "prototypes",
+    "nexus-control-tower-draft-v1"
+   ]
+  },
+  {
+   "id": "HTML-4851E915",
+   "title": "NEXUS AI-OS | Control Tower DRAFT-V1.0.1",
+   "kind": "html",
+   "path": "prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1603_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.0.1.html",
+   "preview": "../../prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1603_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.0.1.html",
+   "sha256": "71b9686e3d5e29b43c3e84fb3cdae4ee5f732b768e0738b3ec8bccd3bb8af93c",
+   "bytes": 12241,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "prototypes",
+    "nexus-control-tower-draft-v1",
+    "releases"
+   ]
+  },
+  {
+   "id": "HTML-AB0C5E05",
+   "title": "NEXUS AI-OS · Control Panel v1.1.0 DRAFT",
+   "kind": "html",
+   "path": "prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1623_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.1.0.html",
+   "preview": "../../prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1623_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.1.0.html",
+   "sha256": "cd098dcd6851fa573334237d0c2ea4538d0289abe13306ee6a2b362a0a625cdc",
+   "bytes": 8687,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "prototypes",
+    "nexus-control-tower-draft-v1",
+    "releases"
    ]
   },
   {
