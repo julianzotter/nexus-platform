@@ -62,7 +62,7 @@ def parse_smi_csv(text: str) -> list[dict]:
 
 
 def parse_cuda_max(header: str) -> str | None:
-    m = re.search(r"CUDA Version:\s*([\d.]+)", header)
+    m = re.search(r"CUDA[^:\n|]*Version\s*:\s*([\d.]+)", header, re.IGNORECASE)
     return m.group(1) if m else None
 
 
@@ -142,6 +142,11 @@ def health_check(cfg: dict, expand: Callable, smi: Callable[[list[str]], str] = 
     # G01 driver / nvidia-smi
     try:
         header = smi([])
+        if not parse_cuda_max(header):
+            try:
+                header += "\n" + smi(["--version"])
+            except Exception:  # noqa: BLE001 - older drivers lack --version
+                pass
         gpus = parse_smi_csv(smi([f"--query-gpu={','.join(SMI_FIELDS)}", "--format=csv,noheader,nounits"]))
         if gpus:
             x = gpus[0]

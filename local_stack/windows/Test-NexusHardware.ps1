@@ -48,7 +48,8 @@ $REP.hardware.disk_c = [ordered]@{ size_gb = [math]::Round($dsk.Size / 1GB, 0); 
 $g = Smi "name,memory.total,driver_version,compute_cap,pcie.link.gen.max,pcie.link.width.max,power.limit"
 if ($g) {
   $p = $g -split ",\s*"
-  $hdr = (& nvidia-smi 2>$null | Select-String "CUDA Version:\s*([\d.]+)").Matches
+  $smiTxt = @(); foreach ($a in @(@(), @("--version"))) { try { $smiTxt += @(& nvidia-smi @a 2>$null) } catch {} }
+  $hdr = ($smiTxt | Select-String "CUDA[^:|]*Version\s*:\s*([\d.]+)").Matches
   $REP.hardware.gpu = [ordered]@{ name = $p[0]; vram_mib = [int]$p[1]; driver = $p[2]; compute_cap = $p[3]; pcie = "Gen$($p[4]) x$($p[5])"; power_limit_w = $p[6]; driver_cuda_max = $(if ($hdr) { $hdr[0].Groups[1].Value } else { "?" }) }
   Add-Test "H01" "NVIDIA-Treiber + GPU erkannt" "PASS" $REP.hardware.gpu
 } else {

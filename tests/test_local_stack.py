@@ -462,3 +462,9 @@ def test_gpu_health_check_missing_everything(tmp_path):
     r = gpu.health_check(cfg, util.expand, smi=no_smi, vcredist=lambda: None)
     assert [c["id"] for c in r["checks"]] == ["G01", "G02", "G03", "G04"]
     assert r["checks"][3]["status"] == "NOT_RUN"
+
+
+@pytest.mark.parametrize("hdr,ver", [("CUDA Version: 13.1", "13.1"), ("CUDA Version          : 13.2", "13.2"),
+                                     ("| CUDA Driver Version: 13.0 |", "13.0"), ("no cuda here", None)])
+def test_parse_cuda_max_variants(hdr, ver):
+    assert gpu.parse_cuda_max(hdr) == ver
