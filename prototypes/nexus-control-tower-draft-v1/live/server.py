@@ -99,11 +99,16 @@ def project_records(items: list[dict]) -> tuple[list[dict], list[dict]]:
     return work, reports
 
 
-def source_time(records: list[dict]) -> str:
+def source_time(records: list[dict], prs: list[dict]) -> str:
     stamps = [str(item["modifiedTime"]) for item in records if item.get("modifiedTime")]
+    stamps += [str(item["updatedAt"]) for item in prs if item.get("updatedAt")]
     if not stamps:
-        raise RuntimeError("DRIVE_SOURCE_TIMESTAMP_MISSING")
-    return max(stamps)
+        raise RuntimeError("SOURCE_TIMESTAMP_MISSING")
+    # Compare real instants, never lexicographic strings with mixed timezone offsets.
+    parsed = [(datetime.fromisoformat(s.replace("Z", "+00:00")), s) for s in stamps]
+    if any(dt.tzinfo is None for dt, _ in parsed):
+        raise RuntimeError("SOURCE_TIMEZONE_MISSING")
+    return max(parsed, key=lambda pair: pair[0])[1]
 
 
 def build_snapshot(drive: list[dict], prs: list[dict]) -> dict:
@@ -113,7 +118,7 @@ def build_snapshot(drive: list[dict], prs: list[dict]) -> dict:
                            sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     revision = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     return {"schemaVersion": "nexus-controlpanel/2",
-            "observedAt": source_time(drive), "checkedAt": now(),
+            "observedAt": source_time(drive, prs), "checkedAt": now(),
             "sourceRevision": revision, "syncStatus": "SOURCE_READ_OK",
             "workOrders": work, "reports": reports, "githubPullRequests": prs,
             "inventory": {"source": "HISTORICAL_2026_11_25",
