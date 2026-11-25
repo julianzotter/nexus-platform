@@ -1,0 +1,22 @@
+name: NEXUS Control Panel Live Adapter Tests
+on:
+  pull_request:
+    paths:
+      - "prototypes/nexus-control-tower-draft-v1/live/**"
+      - ".github/workflows/nexus-control-panel-live-tests.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Unit tests (no credentials or network)
+        run: |
+          cd prototypes/nexus-control-tower-draft-v1/live
+          python -m unittest -v test_server
