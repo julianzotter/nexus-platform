@@ -1,8 +1,10 @@
+import io
 import json
 import os
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -217,8 +219,12 @@ class MonitorTests(unittest.TestCase):
             with patch.object(sys, 'argv', args), patch.object(monitor, 'validation_checks', return_value={
                 'knowledge': {'status': 'NO_DATA'}, 'coverage': {'status': 'INCOMPLETE'}
             }), patch.object(monitor, 'inspect_prs', return_value={
-                'status': 'PASS', 'items': []}), patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': ''}):
+                'status': 'PASS', 'items': []}), patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': ''}), \
+                    redirect_stdout(io.StringIO()) as stdout:
                 self.assertEqual(monitor.main(), 2)
+            self.assertEqual(stdout.getvalue().splitlines(), [
+                "NEXUS monitor: INCOMPLETE", "  knowledge: NO_DATA", "  coverage: INCOMPLETE",
+            ])
             self.assertEqual(json.loads((Path(directory) / 'report.json').read_text())['status'], 'INCOMPLETE')
             self.assertTrue((Path(directory) / 'report.md').exists())
 
