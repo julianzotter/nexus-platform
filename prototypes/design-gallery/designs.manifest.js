@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "d6e3bc4781e5e3cba6e07586948c6c3a0b812d44",
+ "commit": "f358d45040c5bdcc9a187edfb6a4f49d18f8be4f",
  "designs": [
   {
    "id": "HTML-2FFBC04F",

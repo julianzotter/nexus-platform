@@ -14,7 +14,7 @@
                         "minItems": 5, "maxItems": 5, "items": {"type": "string"}}},
     "nexus": {
       "type": "object",
-      "required": ["sourceCommit", "inputs", "workflows", "skills", "ledger", "monitor"],
+      "required": ["sourceCommit", "inputs", "workflows", "skills", "ledger", "reportFiles", "monitor"],
       "properties": {
         "sourceCommit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
         "inputs": {"type": "array", "items": {"type": "array", "prefixItems": [{"type": "string"},
@@ -26,6 +26,10 @@
         "skills": {"type": "object", "required": ["counts", "items"],
                    "properties": {"items": {"type": "array", "items": {"type": "array", "minItems": 5, "maxItems": 5}}}},
         "ledger": {"type": "object", "required": ["entries", "nextFreeId", "lastDate", "latest"]},
+        "reportFiles": {"type": "object", "required": ["rule", "entries", "byState", "items"],
+                        "properties": {"items": {"type": "array", "items": {"type": "array", "minItems": 5, "maxItems": 5,
+                          "prefixItems": [{"type": "string"}, {"type": "string"}, {"type": "string"},
+                                          {"enum": ["REGISTERED", "NOT_IN_LEDGER", "LEDGER_PENDING", "UNREGISTERED", "NAME_NONCONFORM"]}]}}}},
         "monitor": {"type": "object", "required": ["status"],
                     "properties": {"status": {"enum": ["PASS", "INCOMPLETE", "ATTENTION", "NO_DATA", "STALE_COMMIT"]}}}
       }

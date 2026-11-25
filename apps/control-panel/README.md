@@ -32,6 +32,7 @@ python tools/build_control_data.py --source-commit "$(git rev-parse HEAD)"
 | `nexus.workflows` | `orchestrator/registry/workflow-registry.json` (17 WF) | generiert |
 | `nexus.skills` | `skills/**/SKILL.md` via `tools/skill_inventory.py` | generiert |
 | `nexus.ledger` | `governance/work-snapshot/00_ID_LEDGER.csv` (Snapshot 2026-11-16) | generiert |
+| `nexus.reportFiles` | `reports/**`, `WORK/REPORTS/**` gegen Namensregel + ID-Ledger | generiert |
 | `nexus.monitor` | `reports/monitor/nexus.snapshot.json` via `tools/export_dashboard.py` | generiert, sonst `NO_DATA` |
 | projects, orders, architecture, moe, chatTasks, computerJobs, navigation, reports, policy, links | `data/control-data.base.json` | manuell |
 

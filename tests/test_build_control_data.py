@@ -34,3 +34,11 @@ def test_build_is_deterministic_and_complete(tmp_path: Path) -> None:
 
 def test_rejects_bad_commit(tmp_path: Path) -> None:
     assert bcd.main(["--source-commit", "abc", "--out", str(tmp_path)]) == 1
+
+
+def test_report_classification() -> None:
+    ids = {"0185"}
+    assert bcd.classify_report("26_11_10_1555_ID06_STATUSREPORT_X_0185.md", ids)[2] == "REGISTERED"
+    assert bcd.classify_report("26_10_27_1815_ID06_X_0127.md", ids)[2] == "NOT_IN_LEDGER"
+    assert bcd.classify_report("26_11_25_0015_ID05_STATUS_X_LEDGER-PENDING.md", ids) == ("2026-11-25", "ID05", "LEDGER_PENDING")
+    assert bcd.classify_report("26_11_24_ID03_X_LEDGER-PENDING.md", ids)[2] == "NAME_NONCONFORM"  # HHMM missing

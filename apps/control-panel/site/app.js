@@ -196,7 +196,7 @@ function registryTable(head, rows) {
 function registryView() {
   const n = state.data.nexus;
   if (!n) return heading('NEXUS-Registry', 'Keine generierten Registry-Daten (schemaVersion 4.1.0, manuell gepflegt).', 'YELLOW');
-  const m = n.monitor, l = n.ledger, s = n.skills, w = n.workflows;
+  const m = n.monitor, l = n.ledger, s = n.skills, w = n.workflows, r = n.reportFiles;
   const monitorTone = m.status === 'PASS' ? 'GREEN' : (m.status === 'ATTENTION' ? 'RED' : 'YELLOW');
   const checks = m.checks ? Object.entries(m.checks).map(([k, v]) => `${k}: ${v}`).join(' · ') : (m.detail || '');
   return heading('NEXUS-Registry', 'Aus dem Repository generiert · Commit ' + n.sourceCommit.slice(0, 12) + ' · keine Freigabe, nur Bestand.') +
@@ -208,6 +208,8 @@ function registryView() {
       ${registryTable(['ID', 'Art', 'Status', 'Version', 'Pfad'], s.items)}</section>
     <section class="panel"><div class="panel-head"><div><h2>ID-Ledger · ${l.entries} Einträge</h2><p>Nächste freie ID ${esc(l.nextFreeId)} · letzter Eintrag ${esc(l.lastDate)} · ${esc(Object.entries(l.byValidity).map(([k, v]) => k + ' ' + v).join(' · '))}</p></div></div>
       ${registryTable(['ID', 'Datum', 'Typ', 'Titel', 'Akteur', 'Reife'], l.latest)}</section>
+    ${r ? `<section class="panel"><div class="panel-head"><div><h2>Report-Dateien · ${r.entries}</h2><p>Regel ${esc(r.rule)} · ${esc(Object.entries(r.byState).map(([k, v]) => k + ' ' + v).join(' · '))}</p></div>${badge(r.byState.REGISTERED === r.entries ? 'GREEN' : 'YELLOW')}</div>
+      ${registryTable(['Datei', 'Datum', 'Rolle', 'Ledger-Status', 'Pfad'], r.items)}</section>` : ''}
     <section class="notice"><b>Quellen (SHA-256):</b> ${n.inputs.map(([p, h]) => esc(p) + ' ' + esc(h.slice(0, 12))).join(' · ')}</section>`;
 }
 

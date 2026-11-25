@@ -42,6 +42,9 @@ ROLES = Path("registry/roles/role_capability_matrix.json")
 WORKFLOWS = Path("orchestrator/registry/workflow-registry.json")
 LEDGER = Path("governance/work-snapshot/00_ID_LEDGER.csv")
 SNAPSHOT = Path("reports/monitor/nexus.snapshot.json")
+REPORT_DIRS = (Path("reports"), Path("WORK/REPORTS"))
+# Rule YY_MM_DD_HHMM_ID##_THEMA_### (governance/current/_AGBS.md, AGENTS.md item 4); ### from the ID ledger.
+REPORT_NAME = re.compile(r"^(\d\d)_(\d\d)_(\d\d)_(\d{4})_(ID\d\d)_(.+?)_(\d{3,4}|LEDGER-PENDING|UNREGISTERED)\.[a-z0-9]+$")
 SCHEMA_VERSION = "4.2.0"
 LEDGER_LATEST = 15
 # ANNAHME: Abbildung Matrix-Status -> Panel-Badge (Panel kennt OWNER/ACTIVE/AVAILABLE/UNASSIGNED).
@@ -102,6 +105,31 @@ def build_ledger(path: Path) -> dict[str, Any]:
             "latest": [[r["ID"], r["DATE"], r["TYPE"], r["TITLE"], r["ACTOR"], r["MATURITY"]] for r in latest]}
 
 
+def classify_report(name: str, ledger_ids: set[str]) -> tuple[str, str, str]:
+    """-> (date, role, state); state in REGISTERED, NOT_IN_LEDGER, LEDGER_PENDING, UNREGISTERED, NAME_NONCONFORM."""
+    m = REPORT_NAME.match(name)
+    if not m:
+        return "", "", "NAME_NONCONFORM"
+    date, role, suffix = f"20{m[1]}-{m[2]}-{m[3]}", m[5], m[7]
+    if suffix.isdigit():
+        return date, role, "REGISTERED" if suffix.zfill(4) in ledger_ids else "NOT_IN_LEDGER"
+    return date, role, suffix.replace("-", "_")
+
+
+def build_report_files(root: Path, ledger_path: Path) -> dict[str, Any]:
+    """Report files in reports/ and WORK/REPORTS checked against the naming rule and the ID ledger."""
+    ledger_ids = {r["ID"] for r in csv.DictReader(ledger_path.read_text(encoding="utf-8").splitlines())}
+    items = []
+    for base in REPORT_DIRS:
+        for path in sorted((root / base).rglob("*")):
+            if path.is_file() and re.match(r"^\d\d_\d\d_\d\d_", path.name):
+                date, role, state = classify_report(path.name, ledger_ids)
+                items.append([path.name, date, role, state, path.relative_to(root).as_posix()])
+    items.sort(key=lambda row: (row[1], row[0]), reverse=True)
+    return {"rule": "YY_MM_DD_HHMM_ID##_THEMA_###", "entries": len(items),
+            "byState": dict(sorted(Counter(row[3] for row in items).items())), "items": items}
+
+
 def build_monitor(path: Path, commit: str) -> dict[str, Any]:
     if not path.exists():
         return {"status": "NO_DATA", "detail": "Kein Snapshot (tools/export_dashboard.py) in diesem Lauf."}
@@ -126,6 +154,7 @@ def build(root: Path, commit: str, snapshot: Path) -> dict[str, Any]:
         "inputs": [[p.as_posix(), sha256_file(root / p)] for p in inputs],
         "workflows": build_workflows(json.loads((root / WORKFLOWS).read_text(encoding="utf-8"))),
         "skills": build_skills(root), "ledger": build_ledger(root / LEDGER),
+        "reportFiles": build_report_files(root, root / LEDGER),
         "monitor": build_monitor(root / snapshot, commit)}
     schema = json.loads((root / SCHEMA).read_text(encoding="utf-8"))
     jsonschema.Draft202012Validator(schema).validate(data)
