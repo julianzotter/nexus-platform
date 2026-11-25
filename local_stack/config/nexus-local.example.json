@@ -20,6 +20,15 @@
     "keep_alive": "30m",
     "timeout_s": 300
   },
+  "gpu": {
+    "enabled": true,
+    "health_interval_s": 1800,
+    "temp_warn_c": 83,
+    "mem_warn_pct": 95,
+    "vcredist_min": "14.40",
+    "ollama_lib_dir": "%LOCALAPPDATA%\\Programs\\Ollama\\lib\\ollama",
+    "ollama_server_log": "%LOCALAPPDATA%\\Ollama\\server.log"
+  },
   "bridge_dry_run": true,
   "bridge_interval_s": 60,
   "bridges": [

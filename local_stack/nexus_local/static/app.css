@@ -24,7 +24,10 @@ button:hover{border-color:var(--acc)}
 input{background:#0d1117;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:420px;max-width:100%}
 pre{background:#0d1117;border:1px solid var(--line);border-radius:6px;padding:8px;max-height:320px;overflow:auto;font:12px/1.4 Consolas,monospace;white-space:pre-wrap;word-break:break-word}
 .kv .row,#ollama .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:5px 0}
-#ollama .k{color:var(--mut)}#ollama .v{font-variant-numeric:tabular-nums;text-align:right}
+#ollama .k,#gpu .k{color:var(--mut)}#ollama .v,#gpu .v{font-variant-numeric:tabular-nums;text-align:right}
+#gpu .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:5px 0}
+.bar{height:6px;background:#0d1117;border-radius:3px;overflow:hidden;margin:2px 0 6px}.bar>i{display:block;height:100%;background:var(--acc)}.bar>i.warn{background:var(--warn)}.bar>i.bad{background:var(--bad)}
+.alerts{margin:8px 0 0;padding-left:18px;color:var(--warn);font-size:13px}
 .ev-conflict,.ev-quarantined{color:var(--warn)}.ev-error{color:var(--bad)}.ev-copied{color:var(--ok)}
 select{background:#0d1117;color:var(--fg);border:1px solid var(--line);border-radius:6px;margin-left:8px}
 a{color:var(--acc)}

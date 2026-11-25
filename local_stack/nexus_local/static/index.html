@@ -47,6 +47,19 @@
 
   <div class="grid">
     <section class="card">
+      <h2>GPU (nvidia-smi)</h2>
+      <div id="gpu" class="kv"></div>
+      <ul id="gpualerts" class="alerts"></ul>
+    </section>
+    <section class="card">
+      <h2>GPU-Gesundheitsprüfung <button id="gpucheck" type="button">Jetzt prüfen</button></h2>
+      <table><thead><tr><th>ID</th><th>Prüfung</th><th>Status</th><th>Detail</th></tr></thead>
+        <tbody id="gpuhealth"></tbody></table>
+    </section>
+  </div>
+
+  <div class="grid">
+    <section class="card">
       <h2>Ereignisse</h2>
       <table><thead><tr><th>Zeit (UTC)</th><th>Regel</th><th>Art</th><th>Datei</th><th>Detail</th></tr></thead>
         <tbody id="events"></tbody></table>

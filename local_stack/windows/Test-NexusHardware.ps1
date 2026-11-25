@@ -10,12 +10,17 @@ $ErrorActionPreference = "Stop"
 $ts  = Get-Date -Format "yyyyMMdd_HHmmss"
 $out = Join-Path $env:LOCALAPPDATA "NEXUS\local\reports"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
-$R = [ordered]@{ timestamp = (Get-Date).ToString("s"); host = $env:COMPUTERNAME; hardware = [ordered]@{}; tests = @() }
+$R = [ordered]@{ timestamp = (Get-Date).ToString("s"); host = $env:COMPUTERNAME; hardware = [ordered]@{}; tests = @(); state = "RUNNING" }
+$jsonPath = "$out\hwbench_$ts.json"
+function Save { $script:R | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 $script:jsonPath }
+trap { $script:R.state = "ABORTED: $($_.Exception.Message)"; Save; Write-Host "[ABBRUCH] $($_.Exception.Message) -> $jsonPath" -ForegroundColor Red; break }
+Write-Host "Zwischenstand laufend in: $jsonPath" -ForegroundColor Cyan
 
 function Add-Test($id, $name, $status, $data) {
   $script:R.tests += [ordered]@{ id = $id; name = $name; status = $status; data = $data }
   $c = @{ PASS = "Green"; FAIL = "Red"; WARN = "Yellow"; INFO = "Cyan"; NOT_RUN = "DarkGray" }[$status]
   Write-Host ("[{0}] {1} {2}" -f $status, $id, $name) -ForegroundColor $c
+  Save
 }
 function Post($path, $obj, $timeout = 600) {
   $json  = $obj | ConvertTo-Json -Depth 10 -Compress
@@ -58,7 +63,7 @@ Add-Test "H03" "Systemdaten" "INFO" ([ordered]@{ cpu = $R.hardware.cpu; ram = $R
 
 # ---------- E: Ollama-Umgebung ----------
 try { $ver = (Invoke-RestMethod "$Api/api/version" -TimeoutSec 5).version; Add-Test "E01" "Ollama erreichbar" "PASS" @{ version = $ver; api = $Api } }
-catch { Add-Test "E01" "Ollama erreichbar" "FAIL" @{ error = "$_" }; $R | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 "$out\hwbench_$ts.json"; exit 1 }
+catch { Add-Test "E01" "Ollama erreichbar" "FAIL" @{ error = "$_" }; $R.state = "ABORTED: Ollama nicht erreichbar"; Save; exit 1 }
 $envs = [ordered]@{}
 foreach ($k in "OLLAMA_FLASH_ATTENTION","OLLAMA_KV_CACHE_TYPE","OLLAMA_NUM_PARALLEL","OLLAMA_MAX_LOADED_MODELS","OLLAMA_KEEP_ALIVE","OLLAMA_HOST","OLLAMA_CONTEXT_LENGTH","OLLAMA_MODELS") {
   $envs[$k] = [Environment]::GetEnvironmentVariable($k, "User")
@@ -75,6 +80,7 @@ $variants = @(
 )
 if ($PullFallback -and -not ($have -contains "qwen3.5:4b")) { & ollama pull qwen3.5:4b; $have += "qwen3.5:4b" }
 if ($have -contains "qwen3.5:4b") { $variants += @{ name = "nexus-q35-4b-32k"; from = "qwen3.5:4b"; ctx = 32768 } }
+Write-Host "Modellvarianten pruefen/anlegen ..." -ForegroundColor Cyan
 foreach ($v in $variants) {
   if (-not ($have -contains "$($v.name):latest")) {
     $mf = Join-Path $env:TEMP "Modelfile-$($v.name)"
@@ -87,6 +93,7 @@ foreach ($v in $variants) {
 $prompt = "Erklaere in 150 Woertern, wie ein lokaler LLM-Agent Dateien sicher zwischen zwei Ordnern synchronisiert."
 $rows = @()
 foreach ($v in $variants) {
+  Write-Host "Messung $($v.name) ..." -ForegroundColor Cyan
   foreach ($m in @((Invoke-RestMethod "$Api/api/ps").models)) { Post "/api/generate" @{ model = $m.name; keep_alive = 0 } 60 | Out-Null }
   Start-Sleep -Seconds 2
   $vram0 = Smi "memory.used"
@@ -175,8 +182,8 @@ $R.recommendation = [ordered]@{
 $R.models = @((Invoke-RestMethod "$Api/api/tags").models | ForEach-Object { [ordered]@{ name = $_.name; size_gb = [math]::Round($_.size / 1e9, 2) } })
 
 # ---------- Ausgabe ----------
-$jsonPath = "$out\hwbench_$ts.json"; $mdPath = "$out\hwbench_$ts.md"
-$R | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 $jsonPath
+$mdPath = "$out\hwbench_$ts.md"
+$R.state = "DONE"; Save
 $md = @("# NEXUS Hardware-/Modell-Abnahme $ts", "", "| Variante | ctx | eval tok/s | prompt tok/s | GB | GPU % | VRAM MiB | CPU avg/max % | Laden s |", "|---|---|---|---|---|---|---|---|---|")
 foreach ($x in $rows) { $md += "| $($x.model) | $($x.ctx) | $($x.eval_tps) | $($x.prompt_tps) | $($x.size_gb) | $($x.gpu_pct) | $($x.vram_used_mib) | $($x.cpu_avg_pct)/$($x.cpu_max_pct) | $($x.load_s) |" }
 $md += ""; $md += "| ID | Test | Status |"; $md += "|---|---|---|"

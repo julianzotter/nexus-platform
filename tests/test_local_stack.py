@@ -405,3 +405,60 @@ def test_report_name_format():
     from datetime import datetime, timezone
     n = reporter.report_name("ID08", "LOCALSTACK-STATUS", datetime(2026, 11, 25, 18, 5, tzinfo=timezone.utc))
     assert n == "26_11_25_1805_ID08_LOCALSTACK-STATUS_LEDGER-PENDING.md"
+
+
+# ---------------------------------------------------------------- GPU tile + health check
+from nexus_local import gpu  # noqa: E402
+
+SMI_CSV = "NVIDIA GeForce RTX 3080, 591.44, 37, 6120, 10240, 61, 182.5, 320.00, 8.6\n"
+SMI_HDR = "| NVIDIA-SMI 591.44   Driver Version: 591.44   CUDA Version: 13.1 |\n"
+
+
+def fake_smi(args):
+    return SMI_CSV if args else SMI_HDR
+
+
+def test_gpu_parse_and_probe_offload_alert():
+    g = gpu.parse_smi_csv(SMI_CSV)[0]
+    assert g["name"] == "NVIDIA GeForce RTX 3080" and g["mem_total_mib"] == 10240 and g["compute_cap"] == "8.6"
+    assert gpu.parse_cuda_max(SMI_HDR) == "13.1"
+    ps = lambda: [{"name": "qwen3.5:9b", "size": 13_000_000_000, "size_vram": 7_540_000_000, "context_length": 262144},
+                  {"name": "nexus-q35-9b-16k", "size": 5_800_000_000, "size_vram": 5_800_000_000}]
+    r = gpu.gpu_probe({}, smi=fake_smi, ps=ps)()
+    assert r["state"] == "WARN" and len(r["alerts"]) == 1 and "58% GPU" in r["alerts"][0]
+
+
+def test_gpu_probe_temp_and_vram_alerts():
+    hot = "RTX, 1, 99, 10000, 10240, 90, 300, 320, 8.6\n"
+    r = gpu.gpu_probe({"gpu": {"temp_warn_c": 85}}, smi=lambda a: hot)()
+    assert r["state"] == "WARN" and len(r["alerts"]) == 2
+
+
+def test_gpu_probe_raises_without_gpu():
+    with pytest.raises(RuntimeError):
+        gpu.gpu_probe({}, smi=lambda a: "")()
+
+
+def test_gpu_health_check_pass_and_fail(tmp_path):
+    lib = tmp_path / "lib" / "ollama"
+    (lib / "cuda_v12").mkdir(parents=True); (lib / "cuda_v13").mkdir()
+    (lib / "cuda_v13" / "ggml-cuda.dll").write_bytes(b"x")
+    log = tmp_path / "server.log"; log.write_text("level=INFO msg=ok\n")
+    cfg = {"gpu": {"ollama_lib_dir": str(lib), "ollama_server_log": str(log), "vcredist_min": "14.40"}}
+    r = gpu.health_check(cfg, util.expand, smi=fake_smi, vcredist=lambda: "14.51.36247.0")
+    st = {c["id"]: c["status"] for c in r["checks"]}
+    assert st == {"G01": "PASS", "G02": "PASS", "G03": "PASS", "G04": "PASS"} and r["state"] == "PASS"
+    assert "CUDA max 13.1" in r["checks"][0]["detail"]
+    log.write_text('msg="failure during llama-server GPU discovery" error=0xc0000005\n')
+    r = gpu.health_check(cfg, util.expand, smi=fake_smi, vcredist=lambda: "14.16.27033.0")
+    st = {c["id"]: c["status"] for c in r["checks"]}
+    assert st["G03"] == "WARN" and st["G04"] == "FAIL" and r["state"] == "FAIL"
+
+
+def test_gpu_health_check_missing_everything(tmp_path):
+    def no_smi(args):
+        raise FileNotFoundError("nvidia-smi nicht gefunden")
+    cfg = {"gpu": {"ollama_lib_dir": str(tmp_path / "nope"), "ollama_server_log": str(tmp_path / "nolog")}}
+    r = gpu.health_check(cfg, util.expand, smi=no_smi, vcredist=lambda: None)
+    assert [c["id"] for c in r["checks"]] == ["G01", "G02", "G03", "G04"]
+    assert r["checks"][3]["status"] == "NOT_RUN"

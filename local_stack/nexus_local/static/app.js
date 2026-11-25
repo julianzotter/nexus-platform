@@ -47,13 +47,13 @@
     }
   }
 
-  function renderKpis(s) {
+  function renderKpis(s, gpuState, healthState) {
     const k = $("kpis"); k.replaceChildren();
     const tasks = s.tasks || [];
     const ok = tasks.filter((t) => ["RUNNING", "EXTERNAL"].includes(t.status)).length;
     const bad = tasks.filter((t) => ["FAILED", "CIRCUIT_OPEN", "BLOCKED", "BACKOFF"].includes(t.status)).length;
     const conflicts = (s.bridges && s.bridges.event_counts) ? Object.values(s.bridges.event_counts).reduce((a, c) => a + (c.conflict || 0), 0) : 0;
-    for (const [label, val, cls] of [["Tasks aktiv", `${ok}/${tasks.length}`, "ok"], ["Probleme", bad, bad ? "bad" : "ok"], ["Konflikte gesamt", conflicts, conflicts ? "warn" : "ok"], ["Job Object", s.job_object ? "aktiv" : "aus", s.job_object ? "ok" : "warn"]]) {
+    for (const [label, val, cls] of [["Tasks aktiv", `${ok}/${tasks.length}`, "ok"], ["Probleme", bad, bad ? "bad" : "ok"], ["Konflikte gesamt", conflicts, conflicts ? "warn" : "ok"], ["Job Object", s.job_object ? "aktiv" : "aus", s.job_object ? "ok" : "warn"], ["GPU", gpuState || "-", ({ OK: "ok", WARN: "warn", FAIL: "bad" })[gpuState] || "off"], ["GPU-Check", healthState || "-", pillFor[healthState] || "off"]]) {
       const c = el("div", null, "kpi " + cls); c.append(el("div", label, "kl"), el("div", val, "kv")); k.append(c);
     }
   }
@@ -82,6 +82,43 @@
     for (const [a, v] of rows) { const r = el("div", null, "row"); r.append(el("span", a, "k"), el("span", v ?? "-", "v")); box.append(r); }
   }
 
+  const pillFor = { PASS: "ok", OK: "ok", WARN: "warn", FAIL: "bad", NOT_RUN: "off" };
+  function bar(pct) {
+    const b = el("div", null, "bar"); const i = el("i", null, pct >= 95 ? "bad" : pct >= 85 ? "warn" : "");
+    i.style.width = Math.max(0, Math.min(100, pct || 0)) + "%"; b.append(i); return b;
+  }
+  function renderGpu(tasks) {
+    const box = $("gpu"), al = $("gpualerts"); box.replaceChildren(); al.replaceChildren();
+    const t = tasks.find((x) => x.name === "gpu");
+    if (!t) { box.append(el("div", "nicht konfiguriert")); return null; }
+    const i = t.info || {};
+    if (t.status !== "EXTERNAL" || !(i.gpus || []).length) { box.append(el("div", t.last_error || t.status, "err")); return "FAIL"; }
+    for (const g of i.gpus) {
+      const memPct = g.mem_total_mib ? Math.round(100 * g.mem_used_mib / g.mem_total_mib) : 0;
+      const rows = [["GPU", g.name], ["Treiber", g.driver + " · CC " + g.compute_cap], ["Auslastung", (g.util_pct ?? "-") + " %"],
+        ["VRAM", `${g.mem_used_mib ?? "-"} / ${g.mem_total_mib ?? "-"} MiB (${memPct} %)`], ["Temperatur", (g.temp_c ?? "-") + " °C"],
+        ["Leistung", `${g.power_w ?? "-"} / ${g.power_limit_w ?? "-"} W`]];
+      for (const [a, v] of rows) {
+        const r = el("div", null, "row"); r.append(el("span", a, "k"), el("span", v, "v")); box.append(r);
+        if (a === "Auslastung") box.append(bar(g.util_pct)); if (a === "VRAM") box.append(bar(memPct));
+      }
+    }
+    for (const a of i.alerts || []) al.append(el("li", a));
+    return i.state || "OK";
+  }
+  function renderGpuHealth(tasks) {
+    const tb = $("gpuhealth"); tb.replaceChildren();
+    const t = tasks.find((x) => x.name === "gpu_health");
+    const res = t && t.info && t.info.result;
+    if (!res) { const tr = el("tr"); tr.append(el("td", "-"), el("td", t ? "noch nicht gelaufen" : "nicht konfiguriert")); tb.append(tr); return null; }
+    for (const c of res.checks || []) {
+      const tr = el("tr"); const st = el("td"); st.append(el("span", c.status, "pill " + (pillFor[c.status] || "off")));
+      tr.append(el("td", c.id), el("td", c.name), st, el("td", c.detail, "muted")); tb.append(tr);
+    }
+    return res.state;
+  }
+  $("gpucheck").addEventListener("click", async () => { try { await api("/api/task", { name: "gpu_health", action: "run_now" }); } finally { setTimeout(refresh, 1500); } });
+
   function renderEvents(ev) {
     const tb = $("events"); tb.replaceChildren();
     for (const e of ev || []) { const tr = el("tr"); tr.append(el("td", short(e.at)), el("td", e.rule), el("td", e.kind, "ev-" + e.kind), el("td", e.rel), el("td", e.detail)); tb.append(tr); }
@@ -101,7 +138,8 @@
     try {
       const s = await api("/api/status");
       $("meta").textContent = `v${s.version} · boot ${s.boot_id} · ${short(s.now)} UTC`;
-      renderKpis(s); renderTasks(s.tasks || []); renderBridges(s.bridges); renderOllama(s.tasks || []); renderEvents(s.events); renderLinks(s.links);
+      const gs = renderGpu(s.tasks || []), hs = renderGpuHealth(s.tasks || []);
+      renderKpis(s, gs, hs); renderTasks(s.tasks || []); renderBridges(s.bridges); renderOllama(s.tasks || []); renderEvents(s.events); renderLinks(s.links);
     } catch (e) { $("meta").textContent = "Verbindung fehlgeschlagen"; }
   }
   refresh(); loadLog();

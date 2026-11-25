@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from . import control_tower, git_mirror, gpt_to_skill, mcp_gateway
+from . import control_tower, git_mirror, gpt_to_skill, gpu, mcp_gateway
 from .bridge import BridgeEngine, Ledger, Rule, validate_rules
 from .reporter import Reporter
 from .supervisor import ExternalMonitorTask, PeriodicTask, ProcessTask, ServerTask, http_json
@@ -36,6 +36,13 @@ def wire(sup) -> None:
                        "MCP Streamable HTTP 127.0.0.1:%s/mcp (read-only + local_llm)" % ports.get("mcp_gateway", 8766)),
             enabled=mcp_cfg.get("enabled", True))
     sup.add(ExternalMonitorTask("ollama", ollama_probe(cfg), "Ollama (nur Überwachung, wird nie gestoppt)"))
+    gcfg = cfg.get("gpu", {})
+    obase = cfg.get("ollama", {}).get("base_url", "http://127.0.0.1:11434")
+    sup.add(ExternalMonitorTask("gpu", gpu.gpu_probe(cfg, ps=lambda: http_json(obase + "/api/ps", 3).get("models", [])),
+                                "GPU-Telemetrie (nvidia-smi) + CPU-Offload-Warnung"), enabled=gcfg.get("enabled", True))
+    sup.add(PeriodicTask("gpu_health", lambda: gpu.health_check(cfg, expand), float(gcfg.get("health_interval_s", 1800)),
+                         "GPU-Gesundheitsprüfung: Treiber, Ollama-CUDA, VC++-Runtime, server.log"),
+            enabled=gcfg.get("enabled", True))
 
     rules = [Rule.from_dict(r, expand) for r in cfg.get("bridges", [])]
     validate_rules(rules)
