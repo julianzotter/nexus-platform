@@ -1,0 +1,16 @@
+{
+  "account": "GPT-PRIVATE",
+  "gpt_id": "g-XXXXXXXX",
+  "title": "Name des Custom GPT",
+  "description": "Wofuer der Skill genutzt wird (1-2 Saetze, wird zur Skill-Beschreibung).",
+  "source_uri": "https://chatgpt.com/g/g-XXXXXXXX",
+  "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "captured_at": null,
+  "capture_status": "CONFIG_CAPTURED",
+  "knowledge": [],
+  "actions": [],
+  "tools": [],
+  "model": null,
+  "review_status": "PENDING",
+  "target_module": null
+}

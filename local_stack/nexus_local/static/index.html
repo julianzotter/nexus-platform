@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXUS CONTROL TOWER - Task-Manager</title>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header>
+  <div class="brand">NEXUS CONTROL TOWER <span class="sub">Task-Manager lokal</span></div>
+  <div id="meta" class="meta">nicht verbunden</div>
+</header>
+<main>
+  <section id="login" class="card hidden">
+    <h2>Zugang</h2>
+    <p>Starte das Dashboard mit <code>Start-NexusLocal.cmd</code> oder füge das lokale Token ein
+       (Datei <code>%LOCALAPPDATA%\NEXUS\local\token.txt</code>).</p>
+    <input id="tok" type="password" autocomplete="off" placeholder="Token">
+    <button id="tokbtn" type="button">Verbinden</button>
+  </section>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <h2>Prozesse</h2>
+    <table>
+      <thead><tr><th>Task</th><th>Typ</th><th>Status</th><th>Laufzeit</th><th>Restarts</th>
+        <th>Letzter OK</th><th>Letzter Fehler</th><th>Aktion</th></tr></thead>
+      <tbody id="tasks"></tbody>
+    </table>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Brücken (OneDrive · Drive · Git)</h2>
+      <table>
+        <thead><tr><th>Regel</th><th>Modus</th><th>Status</th><th>Kopiert</th><th>Wartet</th><th>Konflikte</th><th>Platzhalter</th></tr></thead>
+        <tbody id="bridges"></tbody>
+      </table>
+    </section>
+    <section class="card">
+      <h2>Lokales Modell (Ollama)</h2>
+      <div id="ollama" class="kv"></div>
+    </section>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Ereignisse</h2>
+      <table><thead><tr><th>Zeit (UTC)</th><th>Regel</th><th>Art</th><th>Datei</th><th>Detail</th></tr></thead>
+        <tbody id="events"></tbody></table>
+    </section>
+    <section class="card">
+      <h2>Log <select id="logsel"></select></h2>
+      <pre id="log"></pre>
+    </section>
+  </div>
+  <section class="card"><h2>Links</h2><ul id="links"></ul></section>
+</main>
+<footer>Status = Projektion des lokalen Supervisors. Kein Nachweis von Cloud-Persistenz, ACK oder Freigabe.</footer>
+<script src="/app.js"></script>
+</body>
+</html>
