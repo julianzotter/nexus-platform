@@ -50,3 +50,6 @@ Production readiness: BLOCKED.
 
 ## Decision
 Keep existing v4.1 unchanged. No production announcement. Next: provision real authorized source service; run three real Delta / Replay / Fail-closed tests; then deploy to the **existing** Sites project using its authorized editor and verify owner browser.
+
+## Follow-up 2026-11-25 16:30 CET
+Critical internal review finding corrected: GitHub PR updates now advance observedAt; timestamps are compared as timezone-aware instants, not strings. Source code commit 3430a75dae22bd3dbaaf71d833ff8a610d86b115; regression test commit 846f7559f1a1d0cec15e265b16bf36877125e9af. Updated dedicated GitHub test Action run 45645877579: SUCCESS (8 test methods). Main CI was still in progress at check. PR peer-review request comment ID 7166947401 published. Independent acceptance, actual Drive OAuth and Sites deployment still blocked/unverified.
