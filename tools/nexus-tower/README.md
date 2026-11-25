@@ -11,9 +11,9 @@ Local, read-only NEXUS Control Tower. One Python file, standard library only.
 MCP tools (all read-only): `work_state`, `naming_check`, `gate_status`.
 
 `naming_check` applies the file rule of `_AGBS.md` v005 (`YY_MM_DD_HHMM_ID##_THEMA_###`).
-Note: `AGENTS.md` item 4 in this repository states a different order
-(`YY_MM_DD_HHMM_THEMA_###_ID##`). `_AGBS.md` is the leading control file; the
-difference is reported, not resolved here.
+`AGENTS.md` item 4 and `governance/current/_AGBS.md` now state the same order.
+CI applies the same check to files added in a pull request via `tools/naming_gate.py`
+(plus a role-ID check against `registry/roles/role_capability_matrix.json`).
 
 Relation to existing code: `mcp_bridge/nexus_mcp_server.py` is a stdio MCP bridge with
 a gated write tool. This tool is HTTP, read-only and adds the naming check and the page.
