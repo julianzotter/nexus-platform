@@ -31,6 +31,12 @@ class PanelTests(unittest.TestCase):
         self.assertEqual(result["syncStatus"], "SOURCE_READ_OK")
         self.assertEqual(len(result["sourceRevision"]), 64)
 
+    def test_pr_update_advances_source_time(self) -> None:
+        prs = [{"number": 73, "title": "Sync", "updatedAt": "2026-11-25T16:00:00Z",
+                "status": "OPEN", "url": "https://github.com/julianzotter/nexus-platform/pull/73"}]
+        snap = server.build_snapshot(self.files, prs)
+        self.assertEqual(snap["observedAt"], "2026-11-25T16:00:00Z")
+
     def test_repeat_is_idempotent_revision(self) -> None:
         a = server.build_snapshot(self.files, [])["sourceRevision"]
         b = server.build_snapshot(list(reversed(self.files)), [])["sourceRevision"]
