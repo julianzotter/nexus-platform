@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "4.1.0",
+  "asOf": "2026-11-23T12:43:51Z",
+  "timezone": "Europe/Vienna",
+  "policy": {
+    "green": "Abnahmekriterium mit belegtem Nachweis erfüllt; keine automatische technische Freigabe.",
+    "yellow": "Wartet, ungeprüft, kein ACK oder abhängiges Gate offen.",
+    "red": "Fehlgeschlagen, widersprüchliche Evidenz oder technisches STOP-Gate.",
+    "release": "Tragwerksfreigabe nur nach deterministischem Rechenlauf, Readback, unabhängiger Prüfung und expliziter ID01-Freigabe."
+  },
+  "links": {
+    "work": "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+    "github": "https://github.com/julianzotter/nexus-platform",
+    "pullRequest": "https://github.com/julianzotter/nexus-platform/pull/116",
+    "teamFeed": "https://drive.google.com/file/d/1hUswc3CCUlXR8s0r0a3r7kOEF45ZlEcU/view"
+  },
+  "projects": [
+    {
+      "id": "p205",
+      "title": "P205 · Eisteiche · FT-Träger",
+      "subtitle": "Excel-Statik, Plan-/RFEM-Abgleich, Nachweise und Ausschreibung",
+      "state": "RED",
+      "release": "STOP",
+      "owner": "ID01",
+      "lead": "ID02",
+      "summary": "RevF enthält widersprüchliche Ergebniscaches und offene Quellenketten. Eine fachliche Freigabe ist nicht ableitbar.",
+      "facts": [
+        "RevE: gespeicherte Treffer >105 %: M− 19, M+ 15, V 1, Fuge 115, Konsolen 52, Durchbrüche 56.",
+        "RevF: 284 gespeicherte Fehlerzellen; 1OG-J und 2OG-J je 16 fehlende Schnittkraftwerte.",
+        "Native Windows-Excel-Vollberechnung mit Save/Close/Readback ist nicht belegt.",
+        "HESS-Prüfumfang 26.02.2026 war auszugsweise 4OG Achsen 01–04 und ist nicht auf RevF übertragbar."
+      ],
+      "gates": [
+        ["P205-G1", "Quellenidentität, Workbook-Hash und Planrevision", "RED", "Hash-/Revisionskette nicht vollständig geschlossen."],
+        ["P205-G2", "Excel Desktop E2E + OOXML-Readback", "RED", "Windows-/Excel-Lauf ausstehend."],
+        ["P205-G3", "RFEM-Schnittkräfte und Geometriezuordnung", "YELLOW", "Stab-ID, x-Stelle, Kombination, Achsen und Einheiten fehlen teilweise."],
+        ["P205-G4", "Unabhängiger Peer Review", "YELLOW", "Wartet auf reproduzierbares Rechenergebnis."],
+        ["P205-G5", "ID01-Freigabe", "RED", "Vorgelagerte Gates nicht erfüllt."]
+      ],
+      "sources": [
+        ["Peer-Review-Bericht", "https://drive.google.com/file/d/1P-1GjkltbLJ0dB8_Jy7Y_H3dy2NssSxY/view"],
+        ["True-Run-Workflow", "https://drive.google.com/file/d/12wWMpiKjCLHraSYxlp7j74rfuNwOiBIN/view"],
+        ["SQLite-Audit-DB", "https://drive.google.com/file/d/1E-cO2WYu5SnmJ3t6aD_RQMhbWm61Q38K/view"],
+        ["GitHub PR #116", "https://github.com/julianzotter/nexus-platform/pull/116"]
+      ]
+    },
+    {
+      "id": "l1",
+      "title": "SQE Eibengasse · Bauplatz L1",
+      "subtitle": "bwm · ÖSW · Tragwerkskonzept und Übertragung",
+      "state": "YELLOW",
+      "release": "BLOCKED",
+      "owner": "ID01",
+      "lead": "UNASSIGNED",
+      "summary": "Konzeptquellen sind vorhanden; aktuelle Planrevision, Verantwortungen und mehrere Systementscheidungen sind noch nicht nachweislich geschlossen.",
+      "facts": [
+        "Systemvergleich Stützenskelett versus Wandsystem ist offen.",
+        "Lastabtragung Obergeschosse in das Garagenraster und Deckensprung sind zu koordinieren.",
+        "Protokoll nennt eine Durchstanz-Auslastung 1,02 für BT2C; Primärrechnung und aktueller Planstand sind nachzureichen.",
+        "Besprechungsprotokoll kann Transkriptionsfehler enthalten und ersetzt keine freigegebene Bemessung."
+      ],
+      "gates": [
+        ["L1-G1", "Aktuelle Plan-/Modellrevision", "YELLOW", "Letztgültiger, freigegebener Stand nicht im Panel verifiziert."],
+        ["L1-G2", "Systemvergleich P1/P2", "YELLOW", "Variantenvergleich und Lastpfadentscheidung offen."],
+        ["L1-G3", "Durchstanznachweis BT2C", "RED", "Auslastung 1,02 nur im Protokoll belegt; Rechenquelle fehlt."],
+        ["L1-G4", "Zeichnung/Ausschreibung", "YELLOW", "Abhängig von G1–G3."]
+      ],
+      "sources": [
+        ["Besprechungsprotokoll L1", "https://drive.google.com/open?id=1ETpSUahtuhewnXi94gM9G-GPzcjePqDMKGtSjE6H4EQ"],
+        ["Tragwerksstudie 15.05.2026", "https://drive.google.com/file/d/1w6-wk2xjtYirTSJkW3bNq_1nL7PmTqX4/view"],
+        ["Auftrag Statik L1", "https://drive.google.com/file/d/19e-DLGNVG6OovLm4vgDfyaFJmYExDH2j/view"]
+      ]
+    },
+    {
+      "id": "ebi",
+      "title": "SQE Eibengasse · Bauplatz I",
+      "subtitle": "plus architekten · ÖSW · Hof-/Straßentrakt",
+      "state": "YELLOW",
+      "release": "BLOCKED",
+      "owner": "ID01",
+      "lead": "ID02",
+      "summary": "Technischer Arbeitsstand ist dokumentiert; Planinputs, RFEM-Validierung und Single-Writer-Betrieb bleiben offene Gates.",
+      "facts": [
+        "Hoftrakt: gemischtes Holz-/Betonsystem, dokumentierter Vorbemessungsstand.",
+        "R-01: DWG-Pläne/Schnitte 21.10.2026 und Dachzonenplan L9 sind als Eingaben nachzuführen.",
+        "R-02: dokumentierte Schwingungsreserve w₁kN = 0,241 mm gegenüber 0,25 mm erfordert RFEM6-Validierung.",
+        "R-03: Gemeinsame SQLite-Nutzung verlangt einen belegten Single-Writer."
+      ],
+      "gates": [
+        ["EBI-G1", "Planrevision/Eingaben", "YELLOW", "R-01 offen."],
+        ["EBI-G2", "RFEM6-Golden-Slice", "YELLOW", "R-02 offen; kein reproduzierbarer Solver-Run im Panel."],
+        ["EBI-G3", "SQLite Single-Writer", "YELLOW", "R-03 offen."],
+        ["EBI-G4", "ID01-Freigabe", "RED", "Vorgelagerte Gates offen."]
+      ],
+      "sources": [
+        ["Statuszettel v1.1", "https://drive.google.com/open?id=1KTMVwLzzN2FXgVu26D5KFUBmDBc43tmQrxbmIwJyqGc"],
+        ["Fragenliste Planungsbesprechung", "https://drive.google.com/file/d/1kffehGyUc6lV8y3m9PJWxv3VU4B6EUR6/view"],
+        ["Technischer Bericht v4.0-S", "https://drive.google.com/file/d/1dfRds7cOi3SfXxqx19mNFuG_X_p2OyLL/view"],
+        ["Statik V2 gezeichnet", "https://drive.google.com/file/d/1DGMUo96nGyMkzxL-FFh2RxDkJmVYx3MW/view"]
+      ]
+    },
+    {
+      "id": "nexus",
+      "title": "NEXUS AI-System",
+      "subtitle": "WORK-Watch, Registry, Skills, GitHub-Sync und Control Tower",
+      "state": "YELLOW",
+      "release": "OPERATING_WITH_GAPS",
+      "owner": "ID01",
+      "lead": "ID02",
+      "summary": "Control Panel, Audit-Artefakte und Ace Knowledge Graph sind verfügbar. Automatischer lokaler Readback, ACK-Abgleich und Registry-Reconciliation sind noch nicht vollständig belegt.",
+      "facts": [
+        "Ace Knowledge Graph wurde nach OAuth-Erneuerung erfolgreich beschrieben.",
+        "WORK-Watch ist terminiert; ein Laufzeitpunkt allein belegt keinen erfolgreichen Inhalt.",
+        "Lokaler 10-s-Watchdog liegt als Paket vor, wurde auf dem Windows-Zielsystem aber noch nicht E2E belegt.",
+        "GitHub bestätigt den Merge von PR #116 am 23.11.2026 um 13:51 MEZ."
+      ],
+      "gates": [
+        ["NX-G1", "Governance-Bootstrap", "GREEN", "AGBS, Baseline, Manifest und Ticketregister gelesen."],
+        ["NX-G2", "Ace Knowledge Graph", "GREEN", "Graph NEXUS Kontroll- und Projektsteuerung gespeichert."],
+        ["NX-G3", "Lokaler Watchdog/Windows", "YELLOW", "E2E-Livetest und echter Prozess-Readback offen."],
+        ["NX-G4", "Registry/GitHub/WORK Readback", "YELLOW", "Transaktions- und Empfangsnachweise unvollständig."]
+      ],
+      "sources": [
+        ["WORK-Ordner", "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP"],
+        ["Team-Status-Feed", "https://drive.google.com/file/d/1hUswc3CCUlXR8s0r0a3r7kOEF45ZlEcU/view"],
+        ["Multiagent-Work-Orders", "https://drive.google.com/file/d/1EEdCl7UXhYmQ6V8GRZsAfKJn__Vqy-Vr/view"]
+      ]
+    }
+  ],
+  "orders": [
+    ["P205-R02", "P0", "p205", "Windows Excel Desktop E2E und Save/Close/Readback", "ID02", "ID06", "RED", "NO_ACK", "Arbeitsmappe, erwarteten Hash und vollständiges .ps1 als Parameter starten."],
+    ["P205-R03", "P0", "p205", "Geometrie- und Bauteilzuordnung EG-F / 2OG-3", "ID02", "ID04", "YELLOW", "PENDING_ACK", "Aktuelle Schalungspläne und Positionsliste mit Hash referenzieren."],
+    ["P205-R04", "P0", "p205", "RFEM-Schnittkräfte inkl. Metadaten schließen", "ID02", "ID04/ID06", "YELLOW", "PENDING_ACK", "Modellrevision, Stab-ID, x, Kombination, Achsen, Einheiten und Vorzeichen liefern."],
+    ["P205-R06", "P0", "p205", "Alle gespeicherten Auslastungen >105 % unabhängig prüfen", "ID02", "ID03/ID07", "YELLOW", "WAITING_R02", "Nach erfolgreichem E2E mit identischem Evidence Pack prüfen."],
+    ["P205-R10", "P0", "p205", "Technische Freigabe", "ID02", "ID01", "RED", "BLOCKED", "Nur nach G1–G4 explizit entscheiden."],
+    ["L1-P1", "P1", "l1", "Abfangtragwerk und Garagenraster festlegen", "Projektprotokoll", "UNASSIGNED", "YELLOW", "NO_ACK", "Aktuelle Pläne und verantwortliche Rolle zuweisen."],
+    ["L1-P2", "P1", "l1", "Stützenskelett/Wandsystem vergleichen", "Projektprotokoll", "UNASSIGNED", "YELLOW", "NO_ACK", "Vergleichskriterien, Rechenmodelle und Entscheidungsgate definieren."],
+    ["L1-P3", "P1", "l1", "Deckensprung optimieren", "Projektprotokoll", "UNASSIGNED", "YELLOW", "NO_ACK", "Geometrie und Lastpfad am aktuellen Planstand prüfen."],
+    ["L1-P5", "P0", "l1", "Durchstanz-Auslastung 1,02 BT2C verifizieren", "Projektprotokoll", "ID01", "RED", "BLOCKED_EVIDENCE", "Primärrechnung, Eingaben, Normstand und Planreferenz bereitstellen."],
+    ["EBI-R01", "P0", "ebi", "DWG/Schnitte und Dachzonenplan in Input übernehmen", "W012 Statuszettel", "ID01", "YELLOW", "PENDING", "Planrevisionen und Ablageort bestätigen."],
+    ["EBI-R02", "P0", "ebi", "CLT-Schwingung mit RFEM6 validieren", "W012 Statuszettel", "ID06", "YELLOW", "PENDING_ACK", "Golden-Slice mit Input-/Output-Hash ausführen."],
+    ["EBI-R03", "P1", "ebi", "SQLite Single-Writer erzwingen", "W012 Statuszettel", "ID02", "YELLOW", "PENDING", "Outbox-Import und Writer-Lock testen."],
+    ["NX-M01", "P1", "nexus", "WORK-Watch und Status-Feed abgleichen", "ID01", "ID02/Automation", "YELLOW", "SCHEDULED", "Laufergebnis statt nur Laufzeitpunkt protokollieren."],
+    ["NX-M02", "P1", "nexus", "Registry/Ledger-Reconciliation", "ID02", "ID03", "YELLOW", "PENDING_ACK", "Artefakt-Hashes und Empfangs-ACKs abgleichen."],
+    ["NX-M03", "P2", "nexus", "Ace Knowledge Graph wieder anbinden", "ID01", "ID02", "GREEN", "DONE", "Erfolgreich gespeichert; künftig OAuth-Status überwachen."],
+    ["NX-M04", "P1", "nexus", "Control Panel v4.1 veröffentlichen und prüfen", "ID01", "ID02", "GREEN", "DONE", "Site-Version, Source-Commit und Deployment-Receipt sind nach erfolgreichem Rollout zu protokollieren."]
+  ],
+  "architecture": [
+    ["Daten-Layer · Google Drive Stream", "ID01 nennt ZT-Gesellschaft > 10 Projekte als lokal gemountete Quelle; in dieser Cloud-Laufzeit nicht direkt inspiziert.", "YELLOW", "Streaming arbeitet mit lokalem Cache. Gleichzeitige oder unterbrochene Schreibzugriffe auf eine SQLite-Datei können Lock-/Sync-Annahmen verletzen.", "Drive-Projektdaten standardmäßig read-only; Datenbank-Write auf echte lokale SSD; Export nur nach geschlossenem DB-Handle und Integritätscheck."],
+    ["Daten-Layer · SQLite", "P205-Audit-DB ist erzeugt, Integrität geprüft und als Artefakt in Drive/GitHub referenziert; produktiver lokaler Pfad ist nicht belegt.", "YELLOW", "Eine Artefaktkopie ist keine live betriebene Multiwriter-Datenbank. WAL-Dateien dürfen nicht getrennt kopiert werden.", "Single Writer, lokale DB, transaktionale NDJSON-Outbox, integrity_check + Hash; konsistenten Snapshot via Backup API oder VACUUM INTO exportieren."],
+    ["Programm-Layer · SCRIPTS", "Zielpfad ...\\_developement\\LLM-LOCAL-SSOT\\SCRIPTS wurde durch ID01 benannt, aber absoluter Pfad und Inhalt sind nicht verifiziert.", "YELLOW", "Ist der Pfad selbst Drive-synchronisiert, ist die behauptete lokale Trennung nicht erfüllt. Ungeprüfte Skripte dürfen keine Rechenautorität erhalten.", "Absoluten lokalen Root, Git-Commit, Python-Version, Lockfile und Script-Allowlist registrieren; Pfade per config.toml/.env, Secrets nie committen."],
+    ["Monitoring · Ampel", "Static Site und Team-Feed sind vorhanden; echte Agenten-ACKs fehlen überwiegend.", "YELLOW", "Grün kann leicht mit fachlicher Freigabe verwechselt werden; 10-s-Takt eines Watchdogs belegt nur Prozessliveness.", "Ampeldefinition erzwingen; ACTIVE nur mit ACK ≤30 s; PROCESS_ALIVE getrennt; DONE nur mit Akzeptanznachweis."],
+    ["Multi-Agent · Requests/Audit", "Work Orders enthalten Ersteller, Bearbeiter, ACK und Gate; mehrere externe Rollen sind nicht bestätigt.", "YELLOW", "LLM-Namensnennung ist keine Annahme des Auftrags. Parallele Writes in gemeinsame Ziele erzeugen Konflikte.", "Eigene Run-/ID-Pfade, unveränderliches Evidence Pack, NDJSON-Outbox, ein Ledger-Writer und explizites ACK."],
+    ["GitHub-Sync", "PR #116 ist gemergt. Der produktive Runner-Readback ist separat offen.", "YELLOW", "Projektinhalte oder Secrets könnten versehentlich publiziert werden; PR-Existenz ist kein Release.", "Allowlist für Code/Reports, Secret Scan, .gitignore, Review, Merge-Freigabe und Commit-/Readback-Receipt."],
+    ["Technische Rechenautorität", "Excel-/RFEM-Resultate sind teilweise nur als gespeicherter Cache oder Dokumentationsstand vorhanden.", "RED", "LLM-Auswertung oder Cache-Readback kann keine native Rechenengine und keine Freigabe ersetzen.", "Excel/RFEM deterministisch ausführen, Einheiten/Input/Version loggen, Ergebnis readbacken, unabhängig prüfen, ID01 freigeben."],
+    ["Ace Knowledge Graph", "OAuth-Verbindung wurde erneuert und der Kontroll-/Projektgraph gespeichert.", "GREEN", "Graph zeigt Beziehungen, ist aber keine technische Rechen- oder Registry-Autorität.", "Graph-ID/Version im Report führen und nur belegte Knoten/Relationen publizieren."]
+  ],
+  "moe": {
+    "formula": "E = 4C + 3U + 2D + X, jeweils 0…4; Priorisierung, kein Sicherheitsnachweis.",
+    "bands": "P0 ≥28 · P1 20–27 · P2 12–19 · P3 ≤11",
+    "routes": [
+      ["SOURCE_IDENTITY", "Datei, Version, Hash, Modellrevision", "ID04", "ID03 → ID01"],
+      ["EXCEL_ENGINE", "COM-E2E, OOXML-Readback", "ID06", "ID07/ID03 → ID01"],
+      ["RFEM_RESULTS", "Stab-ID, Kombination, lokale x-Achse", "ID04/ID06", "ID03 → ID01"],
+      ["GEOMETRY_PLAN", "Plan–Matrix-Zuordnung", "ID04", "ID03 → ID01"],
+      ["RED_TEAM_AUDIT", "Cache-, Hash- und Widerspruchsprüfung", "ID07", "ID03"],
+      ["RELEASE_GOVERNANCE", "AGBS, Ledger, Registry, Rollout", "ID02", "ID03 → ID01"]
+    ],
+    "signals": [
+      ["S01", "RevF widersprüchliche/veraltete Ergebniscaches", "4/4/4/4", 40, "P0", "EXCEL_ENGINE → RED_TEAM", "STOP"],
+      ["S02", "RFEM-Zuordnung ohne vollständige Metadaten", "4/4/4/4", 40, "P0", "RFEM_RESULTS → GEOMETRY_PLAN", "STOP"],
+      ["S03", "RevE-Inventar enthält >105-%-Treffer", "4/4/4/2", 38, "P0", "RED_TEAM_AUDIT", "STOP"],
+      ["S04", "L1 Durchstanzwert 1,02 nur im Protokoll", "4/3/3/4", 35, "P0", "SOURCE_IDENTITY → Fachsolver", "STOP"],
+      ["S05", "Eibengasse I RFEM-/Planinputs offen", "3/3/3/3", 30, "P0", "RFEM_RESULTS → SOURCE_IDENTITY", "BLOCKED"]
+    ]
+  },
+  "roles": [
+    ["ID01", "Julian Zotter", "Human Gate, Prioritäten, technische Freigabe", "Freigeben/ablehnen; keine automatische Substitution", "OWNER"],
+    ["ID02", "ChatGPT/Codex", "Chef-Orchestrierung, Merge, Reporting", "Keine technische Freigabe", "ACTIVE"],
+    ["ID03", "ChatGPT Peer Review", "Unabhängige Prüfung, Registry-Reconciliation", "Wartet auf Auftrag/ACK", "PENDING"],
+    ["ID04", "Gemini", "Quellen-, Plan- und Geometrieprüfung", "Kein bestätigtes ACK", "UNKNOWN"],
+    ["ID05", "Perplexity", "Öffentliche Primärquellen", "Nur bei konkreter Quellenfrage", "AVAILABLE"],
+    ["ID06", "Claude / lokaler Solver-Operator", "Excel-/RFEM-/Code-Ausführung", "Windows-E2E nicht bestätigt", "UNKNOWN"],
+    ["ID07", "DeepSeek", "Red-Team-Audit und Widerspruchsprüfung", "Kein bestätigtes ACK", "UNKNOWN"],
+    ["ID08", "Ollama · Qwen/Gemma", "Lokale Suche und Kontextaufbereitung", "Keine Rechenautorität; Runtime offen", "UNKNOWN"],
+    ["—", "Kimi / Meta AI / weitere", "Nicht registriert", "Keine Schreib- oder Freigaberechte", "UNASSIGNED"]
+  ],
+  "chatTasks": [
+    ["CHAT-CTRL-01", "Control Panel v4.1 konsolidieren", "ChatGPT/Codex · ID02", "GREEN", "Site-Implementierung, QA und Deployment-Receipt"],
+    ["CHAT-P205-01", "P205 Peer Review / SQLite / MoE / True-Run", "ChatGPT/Codex · ID02", "GREEN", "Analyseartefakte fertig; technische Freigabe ausdrücklich ausgeschlossen"],
+    ["TASK-P205-E2E", "Windows Excel Desktop E2E", "ID06 · kein ACK", "RED", "Lokaler Rechner, vollständiges .ps1 und Input-Hash erforderlich"],
+    ["TASK-L1-01", "L1 Lastpfad/Systemvergleich/Durchstanzen", "UNASSIGNED", "YELLOW", "Aktuelle Pläne, Primärrechnung und Bearbeiter fehlen"],
+    ["TASK-EBI-01", "Bauplatz I Planinput/RFEM6/Single-Writer", "ID01/ID06 · pending", "YELLOW", "R-01/R-02/R-03 schließen"],
+    ["TASK-NX-01", "WORK-Watch/Registry/ACK-Reconciliation", "ID02/ID03 · pending", "YELLOW", "Laufresultat und Readback statt bloßem Zeitstempel"]
+  ],
+  "computerJobs": [
+    ["CU-WIN-EXCEL", "Windows + Excel Desktop", "P205-Quelle read-only öffnen, CalculateFullRebuild, unveränderliche Kopie speichern, schließen und readbacken.", "RED", "UNTESTED", "ID06"],
+    ["CU-PS-AUDIT", "PowerShell 5.1+", "Parameter-/Hashprüfung und COM-/OOXML-Audit mit vollständiger Skriptdatei.", "YELLOW", "STATIC_REVIEW_DONE / E2E_PENDING", "ID06 → ID07"],
+    ["CU-SQLITE-AUDIT", "Python sqlite3", "P205 Audit-DB bauen, integrity_check, Foreign Keys und Drive-Readback.", "GREEN", "DONE", "ID02"],
+    ["CU-SITE-DEPLOY", "Sites + Git source", "Control-Panel-Commit pushen, versionieren, privat deployen und Quellencommit readbacken.", "GREEN", "DONE", "ID02"],
+    ["CU-GITHUB-PR116", "GitHub", "P205-Artefakte über PR #116 übernommen.", "GREEN", "MERGED 23.11.2026 13:51 MEZ", "ID02 → ID01"],
+    ["CU-DRIVE-IO", "Google Drive Connector", "WORK-Reports schreiben und Rohdateien readbacken; lokaler G:-Mount separat.", "YELLOW", "CLOUD_READBACK_DONE / LOCAL_MOUNT_UNVERIFIED", "ID02"],
+    ["CU-WATCHDOG", "Lokaler Windows-Dienst", "10-s-Prozessliveness und Agenten-ACKs getrennt erfassen.", "YELLOW", "PACKAGE_READY / E2E_PENDING", "ID02/ID08"]
+  ],
+  "navigation": [
+    ["Governance", "_AGBS.md", "Verbindliche Arbeits- und Freigaberegeln", "https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view", "DRIVE"],
+    ["Governance", "Freigegebene Baseline", "Kanonischer Systemstand", "https://drive.google.com/file/d/1CdwNHr6i8lMG3k8A939kiznLMw8q7J69/view", "DRIVE"],
+    ["Governance", "Manifest", "Artefakte, Rollen und Systembezüge", "https://drive.google.com/file/d/1POfiQCWHDU_7iVMj_A2X3mxNvEjR5Lvn/view", "DRIVE"],
+    ["Governance", "Ticketregister", "Aufträge, Owner und Status", "https://drive.google.com/file/d/1o1ZCZUgsCGTDOwdbJ7EbUCKOKJng1LcJLFnrRiPjYTE/view", "DRIVE"],
+    ["Kommunikation", "WORK-Zentrale", "Kanonischer operativer Ordner", "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP", "DRIVE"],
+    ["Kommunikation", "Power-Panel Teamstatus", "Maschinenlesbarer Meldesnapshot", "https://drive.google.com/file/d/1hUswc3CCUlXR8s0r0a3r7kOEF45ZlEcU/view", "DRIVE"],
+    ["Entwicklung", "NEXUS GitHub", "Code, Issues, Actions und PRs", "https://github.com/julianzotter/nexus-platform", "GITHUB"],
+    ["Entwicklung", "P205 PR #116", "Merge auf GitHub bestätigt", "https://github.com/julianzotter/nexus-platform/pull/116", "GITHUB"],
+    ["Lokal", "LLM-LOCAL-SSOT / SCRIPTS", "Absoluten lokalen Root vor Ausführung verifizieren", "...\\_developement\\LLM-LOCAL-SSOT\\SCRIPTS", "PATH"],
+    ["Lokal", "P205 FT Claude Code", "Durch ID01 belegter Windows-Pfad", "G:\\Meine Ablage\\ZT-Gesellschaft\\10_PROJEKTE\\P205_Campus_Eisteiche_BIG\\05_STATIK\\EXCEL\\JULIAN\\FT_CLaude_code", "PATH"]
+  ],
+  "reports": [
+    ["P205 kritischer Peer Review", "VERIFIED", "https://drive.google.com/file/d/1P-1GjkltbLJ0dB8_Jy7Y_H3dy2NssSxY/view"],
+    ["P205 True-Run-Workflow", "VERIFIED", "https://drive.google.com/file/d/12wWMpiKjCLHraSYxlp7j74rfuNwOiBIN/view"],
+    ["P205 Multiagent Work Orders", "VERIFIED", "https://drive.google.com/file/d/1EEdCl7UXhYmQ6V8GRZsAfKJn__Vqy-Vr/view"],
+    ["P205 Audit-DB", "VERIFIED", "https://drive.google.com/file/d/1E-cO2WYu5SnmJ3t6aD_RQMhbWm61Q38K/view"],
+    ["PowerShell Windows-Handoff", "VERIFIED", "https://drive.google.com/file/d/1P5UCX-BPILClRiQDwMoQ7ybhY9iNTOY_/view"],
+    ["Power-Panel Teamstatus", "LIVE_LINK", "https://drive.google.com/file/d/1hUswc3CCUlXR8s0r0a3r7kOEF45ZlEcU/view"],
+    ["GitHub PR #116", "MERGED", "https://github.com/julianzotter/nexus-platform/pull/116"]
+  ]
+}

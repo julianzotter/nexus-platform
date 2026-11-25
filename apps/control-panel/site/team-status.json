@@ -1,0 +1,150 @@
+{
+  "asOf": "2026-11-23T12:36:00.000Z",
+  "entries": [
+    {
+      "actor": "ChatGPT / Codex",
+      "role": "ID02",
+      "task": "Control Panel v4, Projektsteuerung und Statusdatei",
+      "folder": "NEXUS / WORK",
+      "files": [
+        "26_11_23_1045_ID02_POWER-PANEL_TEAM-AUFTRAG_LEDGER-PENDING.md",
+        "control-data.json",
+        "verify.mjs"
+      ],
+      "state": "ACTIVE",
+      "observedAt": "2026-11-23T12:36:00.000Z",
+      "next": "Site-Deployment und WORK-Readback abschließen.",
+      "source": "https://drive.google.com/file/d/1X58OaBwqHVMAp127bwA9W8Fxm940hlpF/view"
+    },
+    {
+      "actor": "Codex · P205",
+      "role": "ID02 / Teilauftrag",
+      "task": "RFEM-Quellen und Planabgleich",
+      "folder": "P205 / 05_STATIK",
+      "files": [],
+      "state": "REPORTED",
+      "observedAt": "2026-11-23T09:46:38.342Z",
+      "next": "ID01: Stab-ID, lokale x-Stelle und gültigen Modellstand zuordnen.",
+      "source": ""
+    },
+    {
+      "actor": "Codex · Site",
+      "role": "ID02 / Teilauftrag",
+      "task": "Kontrollpanel v4: P205, L1, Bauplatz I und NEXUS",
+      "folder": "Sites / dist",
+      "files": [
+        "team.js",
+        "app.js",
+        "index.html",
+        "style.css",
+        "verify.mjs",
+        "control-data.json"
+      ],
+      "state": "ACTIVE",
+      "observedAt": "2026-11-23T12:36:00.000Z",
+      "next": "Static QA bestanden; Deployment/Readback läuft.",
+      "source": ""
+    },
+    {
+      "actor": "Codex · lokaler Dienst",
+      "role": "ID02 / Teilauftrag",
+      "task": "Lokales Windows-Paket mit SQLite und Statusmeldungen",
+      "folder": "NEXUS-Control-Tower",
+      "files": [
+        "26_11_23_1045_ID02_NEXUS-Control-Tower_Laufmeldungen_v1.1.zip"
+      ],
+      "state": "COMPLETE",
+      "observedAt": "2026-11-23T09:46:38.342Z",
+      "next": "Lokaler Windows-Livetest und Anbindung echter Prozesse offen.",
+      "source": ""
+    },
+    {
+      "actor": "Julian Zotter",
+      "role": "ID01",
+      "task": "Planrevision und L-Layout entscheiden",
+      "folder": "P205",
+      "files": [],
+      "state": "BLOCKED",
+      "observedAt": null,
+      "next": "Technische Entscheidung und lokaler Modellabgleich erforderlich.",
+      "source": ""
+    },
+    {
+      "actor": "ChatGPT Assistant",
+      "role": "ID03",
+      "task": "Unabhängige Prüfung des neu berechneten Piloten",
+      "folder": "P205 / QA",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Empfang und Rebuild-Ergebnis ausstehend.",
+      "source": ""
+    },
+    {
+      "actor": "Gemini",
+      "role": "ID04",
+      "task": "Planrevisionen und Zell-Fundstellen dokumentieren",
+      "folder": "P205 / Schalplanung",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Empfangsbestätigung und Planbeleg ausstehend.",
+      "source": ""
+    },
+    {
+      "actor": "Perplexity",
+      "role": "ID05",
+      "task": "Offene Normfragen mit Primärquellen belegen",
+      "folder": "NEXUS / Quellenprüfung",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Bei konkreter Normfrage zuweisen.",
+      "source": ""
+    },
+    {
+      "actor": "Claude",
+      "role": "ID06",
+      "task": "Rebuild und Ergebniskontrolle auf Arbeitskopie",
+      "folder": "P205 / Excel",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Windows-/Excel-Run mit Datei-Readback erforderlich.",
+      "source": ""
+    },
+    {
+      "actor": "DeepSeek",
+      "role": "ID07",
+      "task": "Katalog- und Öffnungsbezüge gegenprüfen",
+      "folder": "P205 / Review",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Empfang und unabhängiger Befund ausstehend.",
+      "source": ""
+    },
+    {
+      "actor": "Ollama · Qwen / Gemma",
+      "role": "ID08",
+      "task": "Lokale Index- und RFEM-Dateisuche",
+      "folder": "Lokaler Projektrechner",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Host, Runtime und verwendetes Modell melden.",
+      "source": ""
+    },
+    {
+      "actor": "Kimi / Meta AI",
+      "role": "Ohne aktive Zuteilung",
+      "task": "Rolle und Zugriff klären",
+      "folder": "",
+      "files": [],
+      "state": "UNKNOWN",
+      "observedAt": null,
+      "next": "Bei Bedarf durch ID01 zuordnen; ID10 laut Manifest historisch.",
+      "source": ""
+    }
+  ]
+}

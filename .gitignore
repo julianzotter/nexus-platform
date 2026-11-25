@@ -240,3 +240,6 @@ mcp_bridge/.venv/
 .local-rfem-runs/
 .local-rfem-prompt.txt
 .venv-rfem/
+
+# Control Panel build output (tools/build_control_data.py)
+apps/control-panel/dist/
