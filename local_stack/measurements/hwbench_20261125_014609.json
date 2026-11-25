@@ -1,0 +1,313 @@
+﻿{
+    "timestamp":  "2026-11-25T01:46:09",
+    "host":  "JUL",
+    "hardware":  {
+                     "system":  "LENOVO 90Q900D0GF",
+                     "os":  "Microsoft Windows 11 Home build 26300",
+                     "cpu":  {
+                                 "name":  "11th Gen Intel(R) Core(TM) i9-11900K @ 3.50GHz",
+                                 "cores":  8,
+                                 "threads":  16,
+                                 "max_mhz":  3401
+                             },
+                     "ram":  {
+                                 "total_gb":  31.7,
+                                 "modules":  4,
+                                 "speed_mts":  3200
+                             },
+                     "disk_c":  {
+                                    "size_gb":  953,
+                                    "free_gb":  41
+                                },
+                     "gpu":  {
+                                 "name":  "NVIDIA GeForce RTX 3080",
+                                 "vram_mib":  10240,
+                                 "driver":  "610.60",
+                                 "compute_cap":  "8.6",
+                                 "pcie":  "Gen4 x16",
+                                 "power_limit_w":  "320.00",
+                                 "driver_cuda_max":  "?"
+                             }
+                 },
+    "tests":  [
+                  {
+                      "id":  "H01",
+                      "name":  "NVIDIA-Treiber + GPU erkannt",
+                      "status":  "PASS",
+                      "data":  {
+                                   "name":  "NVIDIA GeForce RTX 3080",
+                                   "vram_mib":  10240,
+                                   "driver":  "610.60",
+                                   "compute_cap":  "8.6",
+                                   "pcie":  "Gen4 x16",
+                                   "power_limit_w":  "320.00",
+                                   "driver_cuda_max":  "?"
+                               }
+                  },
+                  {
+                      "id":  "H02",
+                      "name":  "CUDA-Toolkit (nvcc) - fuer Ollama NICHT noetig (bringt eigene CUDA-Runtime mit)",
+                      "status":  "INFO",
+                      "data":  {
+                                   "nvcc":  "nicht installiert"
+                               }
+                  },
+                  {
+                      "id":  "H03",
+                      "name":  "Systemdaten",
+                      "status":  "INFO",
+                      "data":  {
+                                   "cpu":  {
+                                               "name":  "11th Gen Intel(R) Core(TM) i9-11900K @ 3.50GHz",
+                                               "cores":  8,
+                                               "threads":  16,
+                                               "max_mhz":  3401
+                                           },
+                                   "ram":  {
+                                               "total_gb":  31.7,
+                                               "modules":  4,
+                                               "speed_mts":  3200
+                                           },
+                                   "disk_c":  {
+                                                  "size_gb":  953,
+                                                  "free_gb":  41
+                                              },
+                                   "os":  "Microsoft Windows 11 Home build 26300"
+                               }
+                  },
+                  {
+                      "id":  "E01",
+                      "name":  "Ollama erreichbar",
+                      "status":  "PASS",
+                      "data":  {
+                                   "version":  "0.40.11",
+                                   "api":  "http://127.0.0.1:11434"
+                               }
+                  },
+                  {
+                      "id":  "E02",
+                      "name":  "Ollama-Umgebungsvariablen (User)",
+                      "status":  "PASS",
+                      "data":  {
+                                   "OLLAMA_FLASH_ATTENTION":  "1",
+                                   "OLLAMA_KV_CACHE_TYPE":  "q8_0",
+                                   "OLLAMA_NUM_PARALLEL":  null,
+                                   "OLLAMA_MAX_LOADED_MODELS":  null,
+                                   "OLLAMA_KEEP_ALIVE":  null,
+                                   "OLLAMA_HOST":  null,
+                                   "OLLAMA_CONTEXT_LENGTH":  null,
+                                   "OLLAMA_MODELS":  null
+                               }
+                  },
+                  {
+                      "id":  "Bnexus-q35-9b-16k",
+                      "name":  "Speed/GPU nexus-q35-9b-16k",
+                      "status":  "PASS",
+                      "data":  {
+                                   "model":  "nexus-q35-9b-16k",
+                                   "ctx":  16384,
+                                   "load_s":  8,
+                                   "eval_tokens":  115,
+                                   "eval_tps":  80.5,
+                                   "prompt_tps":  625,
+                                   "size_gb":  5.8,
+                                   "vram_gb":  5.8,
+                                   "gpu_pct":  100,
+                                   "vram_used_mib":  "9533",
+                                   "vram_idle_mib":  "2859",
+                                   "cpu_avg_pct":  44,
+                                   "cpu_max_pct":  44
+                               }
+                  },
+                  {
+                      "id":  "Bnexus-q35-9b-32k",
+                      "name":  "Speed/GPU nexus-q35-9b-32k",
+                      "status":  "PASS",
+                      "data":  {
+                                   "model":  "nexus-q35-9b-32k",
+                                   "ctx":  32768,
+                                   "load_s":  9.9,
+                                   "eval_tokens":  115,
+                                   "eval_tps":  44.2,
+                                   "prompt_tps":  350.6,
+                                   "size_gb":  6.16,
+                                   "vram_gb":  6.16,
+                                   "gpu_pct":  100,
+                                   "vram_used_mib":  "9602",
+                                   "vram_idle_mib":  "2872",
+                                   "cpu_avg_pct":  28,
+                                   "cpu_max_pct":  41
+                               }
+                  },
+                  {
+                      "id":  "Bnexus-q35-9b-64k",
+                      "name":  "Speed/GPU nexus-q35-9b-64k",
+                      "status":  "PASS",
+                      "data":  {
+                                   "model":  "nexus-q35-9b-64k",
+                                   "ctx":  65536,
+                                   "load_s":  9.6,
+                                   "eval_tokens":  115,
+                                   "eval_tps":  62.1,
+                                   "prompt_tps":  447.1,
+                                   "size_gb":  6.9,
+                                   "vram_gb":  6.9,
+                                   "gpu_pct":  100,
+                                   "vram_used_mib":  "9783",
+                                   "vram_idle_mib":  "2728",
+                                   "cpu_avg_pct":  51,
+                                   "cpu_max_pct":  63
+                               }
+                  },
+                  {
+                      "id":  "Bnexus-q35-4b-32k",
+                      "name":  "Speed/GPU nexus-q35-4b-32k",
+                      "status":  "PASS",
+                      "data":  {
+                                   "model":  "nexus-q35-4b-32k",
+                                   "ctx":  32768,
+                                   "load_s":  6.6,
+                                   "eval_tokens":  154,
+                                   "eval_tps":  118.1,
+                                   "prompt_tps":  630,
+                                   "size_gb":  3.82,
+                                   "vram_gb":  3.82,
+                                   "gpu_pct":  100,
+                                   "vram_used_mib":  "6717",
+                                   "vram_idle_mib":  "2175",
+                                   "cpu_avg_pct":  36,
+                                   "cpu_max_pct":  41
+                               }
+                  },
+                  {
+                      "id":  "L01",
+                      "name":  "Langer Prompt 16K: Prefill + Nadel-Test",
+                      "status":  "PASS",
+                      "data":  {
+                                   "prompt_tokens":  8194,
+                                   "prefill_tps":  3425,
+                                   "total_s":  13.9,
+                                   "answer":  "GEHEIMCODE-NEXUS-4711"
+                               }
+                  },
+                  {
+                      "id":  "F01",
+                      "name":  "Tool-Calling (work_read)",
+                      "status":  "PASS",
+                      "data":  {
+                                   "tool_calls":  "{\"id\":\"call_5oslgjbb\",\"function\":{\"index\":0,\"name\":\"work_read\",\"arguments\":{\"path\":\"Folder.md\"}}}"
+                               }
+                  },
+                  {
+                      "id":  "F02",
+                      "name":  "Strukturiertes JSON (Schema)",
+                      "status":  "PASS",
+                      "data":  {
+                                   "response":  "{\"count\": 3, \"status\": \"OK\"}"
+                               }
+                  },
+                  {
+                      "id":  "F03",
+                      "name":  "Thinking-Modus (17*23=391)",
+                      "status":  "PASS",
+                      "data":  {
+                                   "total_s":  4.5,
+                                   "think_chars":  1002,
+                                   "response":  "391"
+                               }
+                  },
+                  {
+                      "id":  "F04",
+                      "name":  "Vision/OCR (Bildtext NEXUS 42)",
+                      "status":  "PASS",
+                      "data":  {
+                                   "response":  "NEXUS 42"
+                               }
+                  },
+                  {
+                      "id":  "F05",
+                      "name":  "Embeddings (nomic-embed-text)",
+                      "status":  "PASS",
+                      "data":  {
+                                   "dims":  768
+                               }
+                  },
+                  {
+                      "id":  "S01",
+                      "name":  "Wechsel Embedding -\u003e Chat-Modell",
+                      "status":  "INFO",
+                      "data":  {
+                                   "seconds":  1.8,
+                                   "loaded":  "nexus-q35-9b-16k:latest 100%GPU; nomic-embed-text:latest 100%GPU"
+                               }
+                  }
+              ],
+    "state":  "DONE",
+    "recommendation":  {
+                           "default_model":  "nexus-q35-9b-16k",
+                           "max_ctx_100pct_gpu":  "nexus-q35-9b-64k (65536)",
+                           "note":  "16K bleibt Standard (schnell, Reserve fuer Embedding). Groesster 100%-GPU-Kontext nur fuer lange Dokumente."
+                       },
+    "models":  [
+                   {
+                       "name":  "nexus-q35-4b-32k:latest",
+                       "size_gb":  3.32
+                   },
+                   {
+                       "name":  "nexus-q35-9b-64k:latest",
+                       "size_gb":  6.55
+                   },
+                   {
+                       "name":  "nexus-q35-9b-32k:latest",
+                       "size_gb":  6.55
+                   },
+                   {
+                       "name":  "qwen3.5:4b",
+                       "size_gb":  3.32
+                   },
+                   {
+                       "name":  "nexus-q35-9b-16k:latest",
+                       "size_gb":  6.55
+                   },
+                   {
+                       "name":  "qwen3.5:9b",
+                       "size_gb":  6.55
+                   },
+                   {
+                       "name":  "qwen3-vl:4b-16k",
+                       "size_gb":  3.3
+                   },
+                   {
+                       "name":  "hhao/qwen2.5-coder-tools:latest",
+                       "size_gb":  4.68
+                   },
+                   {
+                       "name":  "EUROCODE:latest",
+                       "size_gb":  2.02
+                   },
+                   {
+                       "name":  "qwen3-vl:4b-8k",
+                       "size_gb":  3.3
+                   },
+                   {
+                       "name":  "llama3.2:latest",
+                       "size_gb":  2.02
+                   },
+                   {
+                       "name":  "nomic-embed-text:latest",
+                       "size_gb":  0.27
+                   },
+                   {
+                       "name":  "gemma3:4b",
+                       "size_gb":  3.34
+                   },
+                   {
+                       "name":  "qwen3-vl:4b",
+                       "size_gb":  3.3
+                   },
+                   {
+                       "name":  "gemma3:1b",
+                       "size_gb":  0.82
+                   }
+               ]
+}

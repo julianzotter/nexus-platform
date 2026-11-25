@@ -1,0 +1,78 @@
+{
+  "_doc": "NEXUS Local Stack Konfiguration. Wird vom Installer nach %LOCALAPPDATA%\\NEXUS\\local\\nexus-local.json kopiert (nie ueberschrieben). Pfade mit %VAR% werden expandiert.",
+  "agent_id": "ID08",
+  "executor": "nexus-local-supervisor (ID01 Windows-Workstation, Lenovo Legion T5)",
+  "runtime_dir": "%LOCALAPPDATA%\\NEXUS\\local",
+  "paths": {
+    "work": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK",
+    "history_log": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\LLM-HISTORY-LOG",
+    "repo": "%USERPROFILE%\\nexus-platform"
+  },
+  "ports": { "control_tower": 8770, "mcp_gateway": 8766, "ollama": 11434 },
+  "mcp": { "enabled": true, "require_token": true },
+  "ollama": {
+    "base_url": "http://127.0.0.1:11434",
+    "default_model": "nexus-q35-9b-16k",
+    "allowed_models": [
+      "nexus-q35-9b-16k", "nexus-q35-9b-32k", "nexus-q35-4b-32k",
+      "qwen3-vl:4b-16k", "EUROCODE:latest", "hhao/qwen2.5-coder-tools:latest"
+    ],
+    "keep_alive": "30m",
+    "timeout_s": 300
+  },
+  "gpu": {
+    "enabled": true,
+    "health_interval_s": 1800,
+    "temp_warn_c": 83,
+    "mem_warn_pct": 95,
+    "vcredist_min": "14.40",
+    "ollama_lib_dir": "%LOCALAPPDATA%\\Programs\\Ollama\\lib\\ollama",
+    "ollama_server_log": "%LOCALAPPDATA%\\Ollama\\server.log"
+  },
+  "bridge_dry_run": true,
+  "bridge_interval_s": 60,
+  "bridges": [
+    {
+      "name": "work_to_onedrive",
+      "src": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK",
+      "dst": "%OneDrive%\\NEXUS\\WORK-MIRROR",
+      "mode": "mirror",
+      "include": ["*.md", "*.json", "*.csv", "*.txt", "*.pdf", "*.xlsx", "*.docx"],
+      "exclude_dirs": ["_INBOX_ONEDRIVE"],
+      "max_files_per_cycle": 300,
+      "settle_seconds": 30
+    },
+    {
+      "name": "onedrive_inbox_to_work",
+      "src": "%OneDrive%\\NEXUS\\INBOX",
+      "dst": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK\\_INBOX_ONEDRIVE",
+      "mode": "inbox",
+      "include": ["*"],
+      "settle_seconds": 30
+    }
+  ],
+  "git_mirror": {
+    "enabled": false,
+    "interval_s": 900,
+    "approved_dir": "%OneDrive%\\NEXUS\\EXPORT-APPROVED",
+    "clone_dir": "%LOCALAPPDATA%\\NEXUS\\local\\mirror-clone",
+    "remote_url": "https://github.com/julianzotter/nexus-platform.git",
+    "base": "main",
+    "branch": "review/local-export",
+    "repo_subdir": "local_exports"
+  },
+  "gpt_to_skill": {
+    "enabled": true,
+    "interval_s": 600,
+    "exports_dir": "%LOCALAPPDATA%\\NEXUS\\local\\gpt-exports",
+    "staging_dir": "%LOCALAPPDATA%\\NEXUS\\local\\skills-staging"
+  },
+  "reporter": { "enabled": true, "interval_s": 300, "daily_hour": 18, "publish_to_work": false },
+  "search": { "enabled": false, "searxng_url": null },
+  "processes": [],
+  "links": {
+    "NEXUS Control Panel (Cloud)": "https://nexus-sync-diagnose.julianzotter.chatgpt.site",
+    "Drive WORK": "https://drive.google.com/drive/folders/1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+    "GitHub nexus-platform": "https://github.com/julianzotter/nexus-platform"
+  }
+}
