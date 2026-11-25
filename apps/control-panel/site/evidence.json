@@ -1,0 +1,777 @@
+{
+  "version": "1.0.0",
+  "observedAt": "2026-11-17T02:13:28Z",
+  "sourceCommit": "540d3fa2ac4e1330c2eed2d791b31f480e758eef",
+  "workFolderId": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+  "runs": [
+    {
+      "id": 43992097004,
+      "name": "NEXUS Drive to GitHub",
+      "sha": "540d3fa2ac4e1330c2eed2d791b31f480e758eef",
+      "date": "2026-11-17T00:59:58Z",
+      "conclusion": "failure",
+      "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43992097004",
+      "path": ".github/workflows/nexus-drive-poll.yml",
+      "number": 129,
+      "jobs": [
+        {
+          "id": 133735026334,
+          "name": "poll",
+          "conclusion": "failure",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-11-17T01:00:01Z",
+              "completed_at": "2026-11-17T01:00:03Z"
+            },
+            {
+              "name": "Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-11-17T01:00:03Z",
+              "completed_at": "2026-11-17T01:00:08Z"
+            },
+            {
+              "name": "Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-11-17T01:00:08Z",
+              "completed_at": "2026-11-17T01:00:08Z"
+            },
+            {
+              "name": "Restore Drive page token",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-11-17T01:00:08Z",
+              "completed_at": "2026-11-17T01:00:09Z"
+            },
+            {
+              "name": "Poll Drive changes (read-only)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5,
+              "started_at": "2026-11-17T01:00:09Z",
+              "completed_at": "2026-11-17T01:00:10Z"
+            },
+            {
+              "name": "Assert initialization or live poll evidence with checkpoint (fail closed)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 6,
+              "started_at": "2026-11-17T01:00:10Z",
+              "completed_at": "2026-11-17T01:00:10Z"
+            },
+            {
+              "name": "Save Drive page token",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 7,
+              "started_at": "2026-11-17T01:00:10Z",
+              "completed_at": "2026-11-17T01:00:10Z"
+            },
+            {
+              "name": "Job summary",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-11-17T01:00:10Z",
+              "completed_at": "2026-11-17T01:00:10Z"
+            },
+            {
+              "name": "Run actions/upload-artifact@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-11-17T01:00:10Z",
+              "completed_at": "2026-11-17T01:00:11Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 17,
+              "started_at": "2026-11-17T01:00:11Z",
+              "completed_at": "2026-11-17T01:00:11Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-11-17T01:00:11Z",
+              "completed_at": "2026-11-17T01:00:12Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-11-17T01:00:12Z",
+              "completed_at": "2026-11-17T01:00:12Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 43971931304,
+      "name": "NEXUS GitHub to WORK",
+      "sha": "540d3fa2ac4e1330c2eed2d791b31f480e758eef",
+      "date": "2026-11-16T22:38:02Z",
+      "conclusion": "failure",
+      "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43971931304",
+      "path": ".github/workflows/nexus-delivery.yml",
+      "number": 195,
+      "jobs": [
+        {
+          "id": 133666009112,
+          "name": "deliver",
+          "conclusion": "failure",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-11-16T22:38:06Z",
+              "completed_at": "2026-11-16T22:38:07Z"
+            },
+            {
+              "name": "Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-11-16T22:38:07Z",
+              "completed_at": "2026-11-16T22:38:09Z"
+            },
+            {
+              "name": "Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-11-16T22:38:09Z",
+              "completed_at": "2026-11-16T22:38:09Z"
+            },
+            {
+              "name": "Validate source run id",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-11-16T22:38:09Z",
+              "completed_at": "2026-11-16T22:38:09Z"
+            },
+            {
+              "name": "Restore journal from previous attempt of this delivery run",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-11-16T22:38:09Z",
+              "completed_at": "2026-11-16T22:38:10Z"
+            },
+            {
+              "name": "Check Drive credentials and exact WORK capability (read-only)",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 6,
+              "started_at": "2026-11-16T22:38:10Z",
+              "completed_at": "2026-11-16T22:38:11Z"
+            },
+            {
+              "name": "Deliver and verify raw bytes",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 7,
+              "started_at": "2026-11-16T22:38:11Z",
+              "completed_at": "2026-11-16T22:38:11Z"
+            },
+            {
+              "name": "Preserve receipts, failures and preallocated IDs",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-11-16T22:38:11Z",
+              "completed_at": "2026-11-16T22:38:12Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 15,
+              "started_at": "2026-11-16T22:38:12Z",
+              "completed_at": "2026-11-16T22:38:12Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-11-16T22:38:12Z",
+              "completed_at": "2026-11-16T22:38:12Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-11-16T22:38:12Z",
+              "completed_at": "2026-11-16T22:38:12Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 43971852486,
+      "name": "CI",
+      "sha": "540d3fa2ac4e1330c2eed2d791b31f480e758eef",
+      "date": "2026-11-16T22:37:32Z",
+      "conclusion": "success",
+      "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43971852486",
+      "path": ".github/workflows/ci.yml",
+      "number": 231,
+      "jobs": [
+        {
+          "id": 133665729036,
+          "name": "test",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-11-16T22:37:35Z",
+              "completed_at": "2026-11-16T22:37:36Z"
+            },
+            {
+              "name": "Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-11-16T22:37:36Z",
+              "completed_at": "2026-11-16T22:37:38Z"
+            },
+            {
+              "name": "Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-11-16T22:37:38Z",
+              "completed_at": "2026-11-16T22:37:38Z"
+            },
+            {
+              "name": "Run python -m pip install jsonschema pytest",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-11-16T22:37:38Z",
+              "completed_at": "2026-11-16T22:37:41Z"
+            },
+            {
+              "name": "Run python -m pytest -q tests",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-11-16T22:37:41Z",
+              "completed_at": "2026-11-16T22:37:45Z"
+            },
+            {
+              "name": "Artifact registry fail-closed tests",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-11-16T22:37:45Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "Run python tools/validate_registry.py",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "Claude.ai skill snapshot integrity (SHA-256 manifest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "Run python tools/skill_inventory.py --out \"$RUNNER_TEMP/skill-inventory\"",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "Fail on duplicate skill IDs",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "Run python tools/validate_knowledge.py --allow-empty",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "Run python tools/knowledge_health.py --allow-empty",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:46Z"
+            },
+            {
+              "name": "CPLM local invariants",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-11-16T22:37:46Z",
+              "completed_at": "2026-11-16T22:37:48Z"
+            },
+            {
+              "name": "PR69 skill packages structure and hashes",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-11-16T22:37:48Z",
+              "completed_at": "2026-11-16T22:37:48Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-11-16T22:37:48Z",
+              "completed_at": "2026-11-16T22:37:48Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-11-16T22:37:48Z",
+              "completed_at": "2026-11-16T22:37:48Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-11-16T22:37:48Z",
+              "completed_at": "2026-11-16T22:37:48Z"
+            }
+          ]
+        },
+        {
+          "id": 133665729383,
+          "name": "windows-offline-diagnostic",
+          "conclusion": "success",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-11-16T22:37:35Z",
+              "completed_at": "2026-11-16T22:37:35Z"
+            },
+            {
+              "name": "Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-11-16T22:37:35Z",
+              "completed_at": "2026-11-16T22:37:43Z"
+            },
+            {
+              "name": "Windows PowerShell 5.1 diagnostic behaviour",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-11-16T22:37:43Z",
+              "completed_at": "2026-11-16T22:37:51Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-11-16T22:37:51Z",
+              "completed_at": "2026-11-16T22:37:53Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-11-16T22:37:53Z",
+              "completed_at": "2026-11-16T22:37:54Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 43954492311,
+      "name": "CI",
+      "sha": "0390bb88652239f49fb5ddd66153e530d616e853",
+      "date": "2026-11-16T20:53:55Z",
+      "conclusion": "failure",
+      "url": "https://github.com/julianzotter/nexus-platform/actions/runs/43954492311",
+      "path": ".github/workflows/ci.yml",
+      "number": 205,
+      "jobs": [
+        {
+          "id": 133605322538,
+          "name": "test",
+          "conclusion": "failure",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-11-16T20:54:00Z",
+              "completed_at": "2026-11-16T20:54:00Z"
+            },
+            {
+              "name": "Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-11-16T20:54:00Z",
+              "completed_at": "2026-11-16T20:54:02Z"
+            },
+            {
+              "name": "Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-11-16T20:54:02Z",
+              "completed_at": "2026-11-16T20:54:02Z"
+            },
+            {
+              "name": "Run python -m pip install jsonschema pytest",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-11-16T20:54:02Z",
+              "completed_at": "2026-11-16T20:54:05Z"
+            },
+            {
+              "name": "Run python -m pytest -q tests",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-11-16T20:54:05Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Artifact registry fail-closed tests",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Run python tools/validate_registry.py",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Claude.ai skill snapshot integrity (SHA-256 manifest)",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Run python tools/skill_inventory.py --out \"$RUNNER_TEMP/skill-inventory\"",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Fail on duplicate skill IDs",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 10,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Run python tools/validate_knowledge.py --allow-empty",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Run python tools/knowledge_health.py --allow-empty",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 12,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "CPLM local invariants",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 13,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "PR69 skill packages structure and hashes",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 14,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v6",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 27,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:09Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v6",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-11-16T20:54:09Z",
+              "completed_at": "2026-11-16T20:54:10Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-11-16T20:54:10Z",
+              "completed_at": "2026-11-16T20:54:10Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "diagnostics": {
+    "delivery": {
+      "run_id": 43971931304,
+      "job_id": 133666009112,
+      "log_timestamp": "2026-11-16T22:38:11.0046050Z",
+      "operation": "oauth.token_refresh",
+      "status": "BLOCKED",
+      "reason": "OAUTH_HTTP_400_INVALID_GRANT",
+      "configured": true,
+      "missing_names": [],
+      "folder_id": "1HEcfQaf0JlsMPKXlDOz-z6yrVL72ifgP",
+      "write_test": "NOT_RUN",
+      "values_printed": false,
+      "recovery_action": "REAUTHORIZE_GOOGLE_CONSENT",
+      "recovery_authorized": false
+    },
+    "poll": {
+      "run_id": 43992097004,
+      "job_id": 133735026334,
+      "log_timestamp": "2026-11-17T01:00:10.9204235Z",
+      "operation": "oauth.token_refresh",
+      "status": "BLOCKED",
+      "reason": "OAUTH_HTTP_400_INVALID_GRANT",
+      "gate_reason": "DRIVE_POLL_NOT_OPERATIONAL",
+      "checkpoint_save": "skipped"
+    },
+    "ci_historical": {
+      "run_id": 43954492311,
+      "job_id": 133605322538,
+      "log_timestamp": "2026-11-16T20:54:09.9460187Z",
+      "duplicate_ids": [
+        "daily-recall",
+        "model-effort-router"
+      ]
+    },
+    "ci_current": {
+      "run_id": 43971852486,
+      "duplicate_gate": "success",
+      "scope": "Available CI sources at exact commit only"
+    },
+    "detail_cause": "UNVERIFIED",
+    "release": "NOT_RELEASED",
+    "registration": "REGISTRATION_PENDING"
+  },
+  "provenance": {
+    "retrievedAt": "2026-11-17T02:13:28Z",
+    "sources": [
+      {
+        "url": "https://drive.google.com/file/d/1nDjF78dq3l8PGpXsauzBz1bzHescDSwv/view",
+        "name": "Folder.md",
+        "version": "0.4.0-pilot",
+        "modifiedAt": "2026-11-16T21:50:06.607Z"
+      },
+      {
+        "url": "https://drive.google.com/file/d/10TzHQJzmqhCjfi1CLYIQyW4J2kyryFqg/view",
+        "name": "_AGBS.md",
+        "version": "v006"
+      },
+      {
+        "url": "https://github.com/julianzotter/nexus-platform/issues/73",
+        "name": "Ticket #73",
+        "state": "open"
+      }
+    ],
+    "scope": "Four selected runs; not an exhaustive history; no real-time polling; no credential values retained."
+  },
+  "monitoring": {
+    "version": "1.1.0",
+    "sources": {
+      "gates": "https://drive.google.com/file/d/1KXhtfSyEU--2RocZNRQwd0kxB7HuGpnj/view",
+      "plan": "https://drive.google.com/file/d/1xZdeCqsste6ROYrSJYpOX1UBLQ_toVQ2/view",
+      "watch": "https://drive.google.com/file/d/1NYoTZ96-TTb5lWhQr6craAtDK-kOWXM1/view"
+    },
+    "times": {
+      "gates": "2026-11-20T08:27:15+01:00",
+      "watch": "2026-11-20T08:39:05+01:00",
+      "plan": "2026-11-20T08:56:01+01:00"
+    },
+    "receipts": [
+      [
+        "Drive → GitHub",
+        "07:58",
+        "Zeitplan",
+        "OAuth-Refresh fehlgeschlagen. Checkpoint übersprungen.",
+        44691542520
+      ],
+      [
+        "GitHub → WORK",
+        "04:15",
+        "Workflow-Folge",
+        "Preflight fehlgeschlagen. Zustellung übersprungen.",
+        44666539475
+      ],
+      [
+        "Monitor",
+        "04:15",
+        "Zeitplan",
+        "Prüfumfang unvollständig. Run-ID im Bericht zugeordnet.",
+        44666486516
+      ]
+    ],
+    "gates": [
+      [
+        "P1",
+        "Registry & Ledger",
+        "Abweichung",
+        "470 von 470 JSONL-Zeilen parsebar. Für keine der fünf neuen Dateien fand der Bericht einen Registereintrag."
+      ],
+      [
+        "P2",
+        "Ticket & Laufprotokoll",
+        "Abweichung",
+        "Ticket #73 im Register blockiert. Monitor und Poller mit fehlgeschlagenen Läufen."
+      ],
+      [
+        "P3",
+        "Auftragsempfang",
+        "Ungeprüft",
+        "Nur eigener Empfang bestätigt. Empfangsbelege der Rollen ID03 bis ID08 fehlen."
+      ],
+      [
+        "P4",
+        "Unabhängige Prüfung",
+        "Abweichung",
+        "Die unabhängige ID03-Abnahme zu #73 steht aus."
+      ],
+      [
+        "P5",
+        "CI & Sync-Delta",
+        "Abweichung",
+        "CI meldet 333 bestandene, einen fehlgeschlagenen und einen übersprungenen Test. Bytevergleich und Empfangsbeleg offen."
+      ],
+      [
+        "P6",
+        "Identität & Duplikate",
+        "Abweichung",
+        "Zwei Entwürfe mit ungeklärter Rollen-ID. Abweichungen bei Titel und Zeitstempel gemeldet."
+      ],
+      [
+        "P7",
+        "Nächste Schritte",
+        "OK",
+        "Der Bericht benennt konkrete Folgeschritte für die offenen Befunde."
+      ]
+    ],
+    "packages": [
+      [
+        "AP0",
+        "Betrieb entsperren",
+        "OAuth, Zugriffsrechte und lokale Zugangsdaten klären. RFEM-Lizenzentscheidung dokumentieren.",
+        "Erfolgreicher Poller, geprüfte Berechtigungen und dokumentierte ID01-Entscheidungen."
+      ],
+      [
+        "AP1",
+        "Lokalen Stack prüfen",
+        "PostgreSQL, Ollama und FastMCP gemeinsam starten und den Healthcheck protokollieren.",
+        "Drei Neustarts mit erfolgreichem Healthcheck ohne Handeingriff."
+      ],
+      [
+        "AP2",
+        "Inventar & Suchindex",
+        "Treelist und TreeSize in den bestehenden SQLite-Katalog übernehmen. FTS5 für Pfade und Namen nutzen.",
+        "20 Suchbegriffe mit Trefferquote und Laufzeit. Ein unveränderter Folgelauf erzeugt null neue Zeilen."
+      ],
+      [
+        "AP3",
+        "Dokumente indizieren",
+        "Konvertierte Dokumente über FTS5 und pgvector mit Version und Hash erschließen.",
+        "Wiederholung ohne Duplikat, alte Revision lesbar, korrekte Fundstelle für zehn Kontrollfragen unter den ersten fünf Treffern."
+      ],
+      [
+        "AP4",
+        "Wissensobjekte prüfen",
+        "Für den P205-EC2-Pilot Konstanten, Formeln und Referenzfälle mit Quelle und Hash verknüpfen.",
+        "Solver reproduziert die dokumentierte Handrechnung. Unabhängiges Review und offene Fachabweichung sind dokumentiert."
+      ],
+      [
+        "AP5",
+        "MCP-Zugriff vergleichen",
+        "Dasselbe Wissensobjekt über SSE und stdio aus zwei Clients abrufen.",
+        "Beide Clients liefern für dieselbe Objekt-ID denselben Inhaltshash."
+      ],
+      [
+        "AP6",
+        "Ende-zu-Ende prüfen",
+        "Messgrößen gegen den Ausgangslauf vergleichen und unabhängige Abnahme einholen.",
+        "Drei aufeinanderfolgende erfolgreiche Zeitplanläufe mit Run-ID, Datei-ID und SHA-256 aus dem Readback."
+      ]
+    ]
+  }
+}

@@ -36,6 +36,10 @@ jobs:
         if: ${{ always() }}
         run: python tools/export_dashboard.py --source-commit "$GITHUB_SHA"
 
+      - name: Build Control Panel data (control-data.json, deterministic)
+        if: ${{ always() }}
+        run: python tools/build_control_data.py --source-commit "$GITHUB_SHA"
+
       - name: Skill and agent inventory (read-only)
         if: ${{ always() }}
         run: python tools/skill_inventory.py
@@ -56,6 +60,7 @@ jobs:
           path: |
             reports/monitor/
             reports/skills/
+            apps/control-panel/dist/
           if-no-files-found: error
           retention-days: 30
 

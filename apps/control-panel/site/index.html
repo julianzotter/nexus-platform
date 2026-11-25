@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111b2e">
+  <meta name="description" content="NEXUS Kontrollpanel für P205, Eibengasse und den NEXUS-Betrieb.">
+  <title>NEXUS · AEC Control Panel</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="extension.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brandmark">N</span><span>NEXUS<small>AEC CONTROL</small></span></a>
+    <div class="scope">KONTROLLRAUM <b>01</b></div>
+    <nav aria-label="Hauptnavigation">
+      <a href="#overview" data-view="overview">◉ Übersicht</a>
+      <a href="#orders" data-view="orders">☷ Work Orders <span id="orderCount"></span></a>
+      <a href="#p205" data-view="p205">▦ P205 · FT-Träger</a>
+      <a href="#l1" data-view="l1">▤ Eibengasse · L1</a>
+      <a href="#ebi" data-view="ebi">▤ Eibengasse · I</a>
+      <a href="#system" data-view="system">⌘ Systemprüfung</a>
+      <a href="#jobs" data-view="jobs">▣ Chats & Computer-Use</a>
+      <a href="#roles" data-view="roles">◎ Rollen & Capabilities</a>
+      <a href="#governance" data-view="governance">◇ Steuerdateien & Pfade</a>
+      <a href="#reports" data-view="reports">↗ Reports & Nachweise</a>
+      <a href="#registry" data-view="registry">⧉ NEXUS-Registry</a>
+      <a href="#live" data-view="live">↻ Live-Meldungen</a>
+    </nav>
+    <div class="side-foot"><i></i><div>Fail-closed<small>Human Gate · ID01</small></div></div>
+  </aside>
+  <div class="shell">
+    <header class="topbar">
+      <div>NEXUS <span>/</span> <b id="crumb">Kontrollpanel</b></div>
+      <div class="top-actions"><span class="private">Veröffentlichte Ansicht</span><button id="refresh" class="icon-btn" aria-label="Veröffentlichten Datenstand prüfen" title="Veröffentlichten Datenstand prüfen">↻</button><span class="avatar">JZ</span></div>
+    </header>
+    <p id="publication" role="status">Veröffentlichten Datenstand laden …</p>
+    <main id="app"><div class="loading">Kontrolldaten werden geprüft …</div></main>
+    <footer><span>NEXUS AI-OS · Control Panel v4.1</span><span>LLM analysiert · deterministische Software rechnet · ID01 gibt frei.</span></footer>
+  </div>
+  <div id="toast" role="status"></div>
+  <script src="proof.js" defer></script>
+  <script src="datapoint.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

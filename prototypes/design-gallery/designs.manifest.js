@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "e8d4f8634633ca767f65788e2895650de803a782",
+ "commit": "169d247c2afa4e1dd0fab3556d82a78b5656cc46",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -16,6 +16,22 @@ window.NEXUS_DESIGNS = {
     "USECASES",
     "P205_EISTEICHE",
     "FT_TRAEGER_MATRIX"
+   ]
+  },
+  {
+   "id": "HTML-EED3E925",
+   "title": "NEXUS · AEC Control Panel",
+   "kind": "html",
+   "path": "apps/control-panel/site/index.html",
+   "preview": "../../apps/control-panel/site/index.html",
+   "sha256": "c7e9702c9c11b47cb0e5f67d51c111f08922cd6bf600062ecf513b18ff774825",
+   "bytes": 2532,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "apps",
+    "control-panel",
+    "site"
    ]
   },
   {
