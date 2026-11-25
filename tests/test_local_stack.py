@@ -468,3 +468,70 @@ def test_gpu_health_check_missing_everything(tmp_path):
                                      ("| CUDA Driver Version: 13.0 |", "13.0"), ("no cuda here", None)])
 def test_parse_cuda_max_variants(hdr, ver):
     assert gpu.parse_cuda_max(hdr) == ver
+
+
+# ---------------------------------------------------------------- github_to_work
+import subprocess as _sp  # noqa: E402
+
+from nexus_local import github_bridge  # noqa: E402
+
+
+def _g(cwd, *a):
+    return _sp.run(["git", "-C", str(cwd), "-c", "user.name=t", "-c", "user.email=t@t", *a], check=True,
+                   capture_output=True, text=True).stdout.strip()
+
+
+def _gh_setup(tmp_path):
+    origin = tmp_path / "origin.git"; _sp.run(["git", "init", "-q", "--bare", "-b", "main", str(origin)], check=True)
+    up = tmp_path / "up"; _sp.run(["git", "clone", "-q", str(origin), str(up)], check=True, capture_output=True)
+    (up / "reports" / "r1").mkdir(parents=True)
+    (up / "reports" / "r1" / "a.md").write_bytes(b"# A v1\n")
+    (up / "reports" / "b.json").write_bytes(b"{}")
+    (up / "reports" / "secret.env").write_bytes(b"X=1")
+    (up / "other.md").write_bytes(b"not in prefix")
+    _g(up, "add", "-A"); _g(up, "commit", "-qm", "c1"); _g(up, "push", "-q", "origin", "HEAD:main")
+    clone = tmp_path / "clone"; _sp.run(["git", "clone", "-q", str(origin), str(clone)], check=True, capture_output=True)
+    work = tmp_path / "WORK"; work.mkdir()
+    cfg = {"github_to_work": {"enabled": True, "dry_run": False, "repo_dir": str(clone), "branch": "main",
+                              "prefix": "reports/", "dst": str(work / "_INBOX_GITHUB"), "include": ["*"]},
+           "git_mirror": {"branch": "review/local-export"}}
+    return up, clone, work, cfg
+
+
+def test_github_to_work_copy_manifest_update_and_no_worktree_change(tmp_path):
+    up, clone, work, cfg = _gh_setup(tmp_path)
+    head_before = _g(clone, "rev-parse", "HEAD")
+    r = github_bridge.run(cfg, util.expand)
+    inbox = work / "_INBOX_GITHUB"
+    assert r["copied"] == 2 and (inbox / "r1" / "a.md").read_bytes() == b"# A v1\n"
+    assert not (inbox / "secret.env").exists() and not (inbox / "other.md").exists()
+    man = json.loads((inbox / "_MANIFEST_GITHUB.json").read_text())
+    assert man["files"]["r1/a.md"]["commit"] == r["commit"] and len(man["files"]["r1/a.md"]["sha256"]) == 64
+    assert github_bridge.run(cfg, util.expand)["unchanged"] == 2  # idempotent
+    (up / "reports" / "r1" / "a.md").write_bytes(b"# A v2\n"); _g(up, "commit", "-qam", "c2"); _g(up, "push", "-q", "origin", "HEAD:main")
+    (inbox / "r1" / "a.md").write_bytes(b"# A local edit\n")
+    r = github_bridge.run(cfg, util.expand)
+    assert r["updates"] == 1 and (inbox / "r1" / "a.md").read_bytes() == b"# A local edit\n"  # never overwritten
+    side = [p.name for p in (inbox / "r1").iterdir() if ".UPDATE-" in p.name]
+    assert len(side) == 1 and (inbox / "r1" / side[0]).read_bytes() == b"# A v2\n"
+    assert _g(clone, "rev-parse", "HEAD") == head_before and not _g(clone, "status", "--porcelain")
+
+
+def test_github_to_work_dry_run_and_guards(tmp_path):
+    up, clone, work, cfg = _gh_setup(tmp_path)
+    cfg["github_to_work"]["dry_run"] = True
+    r = github_bridge.run(cfg, util.expand)
+    assert r["copied"] == 2 and not (work / "_INBOX_GITHUB").exists()
+    cfg["github_to_work"]["dry_run"] = False
+    cfg["github_to_work"]["branch"] = "review/local-export"
+    with pytest.raises(github_bridge.MirrorBlocked):
+        github_bridge.run(cfg, util.expand)
+    cfg["github_to_work"].update(branch="main", prefix="../")
+    with pytest.raises(github_bridge.MirrorBlocked):
+        github_bridge.run(cfg, util.expand)
+    cfg["github_to_work"].update(prefix="reports/", remote_url="https://github.com/x/other")
+    with pytest.raises(github_bridge.MirrorBlocked):
+        github_bridge.run(cfg, util.expand)
+    cfg["github_to_work"].update(remote_url=None, dst=str(tmp_path / "nodrive" / "_INBOX_GITHUB"))
+    assert github_bridge.run(cfg, util.expand)["status"] == "BLOCKED"
+    assert github_bridge.run({"github_to_work": {}}, util.expand)["status"] == "DISABLED"

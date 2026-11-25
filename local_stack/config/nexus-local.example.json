@@ -61,6 +61,19 @@
     "branch": "review/local-export",
     "repo_subdir": "local_exports"
   },
+  "github_to_work": {
+    "enabled": false,
+    "dry_run": true,
+    "interval_s": 900,
+    "repo_dir": "%USERPROFILE%\\nexus-platform",
+    "remote_url": "https://github.com/julianzotter/nexus-platform",
+    "branch": "main",
+    "prefix": "reports/",
+    "dst": "G:\\Meine Ablage\\_developement\\LLM-LOCAL-SSOT\\WORK\\_INBOX_GITHUB",
+    "include": ["*.md", "*.json", "*.csv", "*.html", "*.pdf", "*.png", "*.svg", "*.xlsx", "*.docx", "*.txt"],
+    "max_files_per_cycle": 100,
+    "max_bytes": 50000000
+  },
   "gpt_to_skill": {
     "enabled": true,
     "interval_s": 600,

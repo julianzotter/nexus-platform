@@ -107,3 +107,12 @@ automatisches `git push` von WORK und automatische Skill-Aktivierung. Begründun
 ## Hardware-Abnahme
 
 Einmalig `local_stack/windows/Test-NexusHardware.ps1` ausfuehren; Ergebnisse in `local_stack/MEASUREMENTS.md`.
+
+## GitHub -> Drive (github_to_work)
+
+Default aus + Probelauf. Liest `origin/<branch>:<prefix>` aus dem vorhandenen Klon (`repo_dir`) nur per
+`git fetch` + `ls-tree` + `cat-file` (Arbeitsverzeichnis bleibt unberuehrt) und schreibt create-only nach
+`WORK\_INBOX_GITHUB`. Geaenderte Dateien -> `<name>.UPDATE-<blob12>-github_to_work<ext>`. Nachweis je Datei in
+`_MANIFEST_GITHUB.json` (commit, blob, sha256). Branch = git_mirror.branch wird blockiert (keine Schleife).
+Aktivieren in `%LOCALAPPDATA%\NEXUS\local\nexus-local.json`: `"github_to_work": {"enabled": true, ...}`,
+nach Probelauf `"dry_run": false`.

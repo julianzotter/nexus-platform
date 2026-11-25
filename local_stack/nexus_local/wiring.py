@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from . import control_tower, git_mirror, gpt_to_skill, gpu, mcp_gateway
+from . import control_tower, git_mirror, github_bridge, gpt_to_skill, gpu, mcp_gateway
 from .bridge import BridgeEngine, Ledger, Rule, validate_rules
 from .reporter import Reporter
 from .supervisor import ExternalMonitorTask, PeriodicTask, ProcessTask, ServerTask, http_json
@@ -55,6 +55,11 @@ def wire(sup) -> None:
     gm = cfg.get("git_mirror", {})
     sup.add(PeriodicTask("git_mirror", lambda: git_mirror.run_mirror(cfg, expand), float(gm.get("interval_s", 900)),
                          "EXPORT-APPROVED -> GitHub review/* (nie main, nie force)"), enabled=bool(gm.get("enabled")))
+
+    gw = cfg.get("github_to_work", {})
+    sup.add(PeriodicTask("github_to_work", lambda: github_bridge.run(cfg, expand), float(gw.get("interval_s", 900)),
+                         "GitHub origin/<branch>:<prefix> -> WORK\\_INBOX_GITHUB (create-only, Manifest)"),
+            enabled=bool(gw.get("enabled")))
 
     gs = cfg.get("gpt_to_skill", {})
     sup.add(PeriodicTask("gpt_to_skill", lambda: gpt_to_skill.run(expand(gs.get("exports_dir")), expand(gs.get("staging_dir"))),

@@ -22,7 +22,7 @@ IS_WINDOWS = os.name == "nt"
 CREATE_NO_WINDOW = 0x08000000
 CREATE_NEW_PROCESS_GROUP = 0x00000200
 
-SECRET_PATTERNS = (".env", ".env.*", "*.key", "*.pem", "*.p12", "*.pfx", "*.secret", "token.json",
+SECRET_PATTERNS = (".env", ".env.*", "*.env", "*.key", "*.pem", "*.p12", "*.pfx", "*.secret", "token.json",
                    "*.token", "client_secret*.json", "credentials*.json", "drive-oauth.json",
                    "service_account*.json", "id_rsa*", "id_ed25519*", "*.kdbx")
 
