@@ -14,6 +14,15 @@ jobs:
       - name: Windows PowerShell 5.1 diagnostic behaviour
         shell: powershell
         run: .\tests\windows\test_drive_offline_check.ps1
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: P2 local reports and exit codes on Windows PowerShell 5.1
+        shell: powershell
+        run: .\tests\windows\test_verify_nexus_sync_p2.ps1
+      - name: P2 local reports and exit codes on PowerShell 7
+        shell: pwsh
+        run: .\tests\windows\test_verify_nexus_sync_p2.ps1
   test:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
