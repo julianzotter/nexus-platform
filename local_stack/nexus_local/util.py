@@ -181,7 +181,7 @@ DEFAULT_CONFIG: dict[str, Any] = {
     "executor": "nexus-local-supervisor (ID01 Windows workstation)",
     "runtime_dir": "%LOCALAPPDATA%\\NEXUS\\local",
     "paths": {},
-    "ports": {"control_tower": 8770, "mcp_gateway": 8766, "nexus_tower": 8765, "ollama": 11434},
+    "ports": {"control_tower": 8770, "mcp_gateway": 8766, "ollama": 11434},
     "services": {},
     "bridges": [],
     "git_mirror": {"enabled": False},

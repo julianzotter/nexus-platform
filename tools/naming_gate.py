@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """CI gate for the report file rule YY_MM_DD_HHMM_ID##_THEMA_### (_AGBS.md, AGENTS.md item 4).
 
-Reuses name_check() from tools/nexus-tower/nexus_tower.py and adds a role-ID check against
+Reuses name_check() from local_stack/nexus_local/naming.py and adds a role-ID check against
 registry/roles/role_capability_matrix.json (NEXUS-ROLES-v1.2; ID93 and unknown IDs fail).
 
 Usage:
@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "registry" / "roles" / "role_capability_matrix.json"
-TOWER = ROOT / "tools" / "nexus-tower" / "nexus_tower.py"
+NAMING = ROOT / "local_stack" / "nexus_local" / "naming.py"
 DATE_PREFIX = re.compile(r"^(\d\d_\d\d_\d\d_|\d{4}-\d\d-\d\d[_ ])")
 REPORT_DIRS = ("WORK/", "reports/", "docs/reports/")
 EXEMPT = {"README.md", "Folder.md", "LICENSE"}
@@ -30,8 +30,8 @@ PASS = {"konform", "Steuerdatei", "ueberholt"}
 OPEN = {"Nummer offen"}
 
 
-def _tower():
-    spec = importlib.util.spec_from_file_location("nexus_tower", TOWER)
+def _naming():
+    spec = importlib.util.spec_from_file_location("nexus_naming", NAMING)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
@@ -54,7 +54,7 @@ def is_candidate(path: str) -> bool:
 
 def judge(path: str, ids: set[str], check=None) -> tuple[str, str]:
     """Verdict for one path: (verdict, reason). Adds role-ID validation to name_check."""
-    check = check or _tower().name_check
+    check = check or _naming().name_check
     name = path.rsplit("/", 1)[-1]
     verdict, reason = check(name)
     m = re.match(r"^\d\d_\d\d_\d\d_\d{4}_(ID\d\d)_", name)
@@ -75,7 +75,7 @@ def tracked() -> list[str]:
 
 
 def evaluate(paths: list[str], strict: bool) -> tuple[list[tuple[str, str, str]], int]:
-    ids, check = valid_ids(), _tower().name_check
+    ids, check = valid_ids(), _naming().name_check
     rows = [(p, *judge(p, ids, check)) for p in paths if is_candidate(p)]
     ok = PASS if strict else PASS | OPEN
     return rows, sum(1 for r in rows if r[1] not in ok)

@@ -28,6 +28,7 @@ from pathlib import Path
 from . import __version__
 from .bridge import unsafe_rel
 from .httpguard import GuardedHandler, LoopbackServer
+from .naming import naming_report, read_gate
 from .util import SECRET_PATTERNS, sha256_bytes
 
 MODERN = ["2026-07-28"]
@@ -98,6 +99,10 @@ class Tools:
             "work_search": ("Case-insensitive text search in WORK text files (bounded).",
                             {**s(query={"type": "string", "minLength": 2}, subdir={"type": "string"}, glob={"type": "string"},
                                  limit={"type": "integer", "minimum": 1, "maximum": 100}), "required": ["query"]}),
+            "naming_check": ("Check today's WORK file names against the _AGBS.md v005 rule YY_MM_DD_HHMM_ID##_THEMA_###.",
+                             s(subdir={"type": "string"})),
+            "gate_status": ("Header (status, problems, open questions, open tasks) of the newest ID03 status report in WORK.",
+                            s(subdir={"type": "string"})),
             "repo_read": ("Read a file of the local nexus-platform clone at a git ref (max 200 kB).",
                           {**s(path={"type": "string"}, ref={"type": "string"}), "required": ["path"]}),
             "local_llm": ("Run a prompt on the local Ollama model (no cloud tokens). Output is unreviewed draft.",
@@ -211,6 +216,18 @@ class Tools:
                     hits.append({"path": str(fp.relative_to(self.work.root)).replace("\\", "/"),
                                  "snippet": text[max(0, i - 120): i + 200].replace("\r", "")})
         return {"query": query, "scanned_files": scanned, "hits": hits}
+
+    def t_naming_check(self, subdir: str = ".") -> dict:
+        base = self.work.resolve(subdir)
+        if not base.is_dir():
+            raise ToolError("NOT_A_DIRECTORY")
+        return naming_report(base)
+
+    def t_gate_status(self, subdir: str = ".") -> dict:
+        base = self.work.resolve(subdir)
+        if not base.is_dir():
+            raise ToolError("NOT_A_DIRECTORY")
+        return read_gate(base)
 
     def t_repo_read(self, path: str, ref: str = "HEAD") -> dict:
         if not self.repo_root or not (self.repo_root / ".git").exists():
