@@ -49,7 +49,7 @@ python tools/build_control_data.py --source-commit "$(git rev-parse HEAD)"
 |---|---|---|---|
 | Control Panel v8 | `apps/control-panel/` (ChatGPT Sites) | öffentliche/private Statusansicht | **Kanonisch**: einzige Anzeige-Oberfläche |
 | Control Tower | `local_stack/nexus_local/control_tower.py` (127.0.0.1:8770) | lokaler Task-Manager mit Mutationen (Token) | bleibt als **lokales Schreib-Backend**; liest/schreibt dieselbe `control-data`-Struktur, eigene UI → Panel-Ansicht |
-| nexus-tower | `tools/nexus-tower/` (127.0.0.1:8765, ENTWURF) | WORK-Ordner-Status + MCP (read-only) | MCP-Tools `work_state`, `naming_check`, `gate_status` in den Control Tower übernehmen, Ordner danach archivieren |
+| nexus-tower | `tools/nexus-tower/` (127.0.0.1:8765, ENTWURF) | WORK-Ordner-Status + MCP (read-only) | **Erledigt 2026-11-26:** `naming_check`, `gate_status` im MCP-Gateway (:8766) des Local Stack; `work_state` ≙ `work_list`; Ordner nach `archive/tools/nexus-tower/` |
 | Control-Panel-Draft v1.x (ID03) | `prototypes/nexus-control-tower-draft-v1/` (seit 2026-11-25 auf main) | read-only Knowledge-/WORK-Monitoring, Same-Origin-Refresh | Refresh-/Stale-Guards als Panel-Ansicht übernehmen; danach archivieren (Abstimmung mit ID03) |
 | Daten-Dashboard | `prototypes/data-dashboard/` | Prototyp KPI/Diagramme | KPI-/Chart-Bausteine als Panel-Ansicht übernehmen, Prototyp archivieren |
 

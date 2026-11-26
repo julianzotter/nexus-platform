@@ -82,7 +82,7 @@ DeepSeek Harness: Base URL `http://127.0.0.1:11434/v1`, Model-ID = Standardmodel
   "headers": { "Authorization": "Bearer <Inhalt von token.txt>" } } } }
 ```
 
-Tools v1: `nexus_status`, `work_list`, `work_read`, `work_search`, `repo_read`, `local_llm` (nur lesen, plus lokales Modell).
+Tools v1: `nexus_status`, `work_list`, `work_read`, `work_search`, `naming_check`, `gate_status`, `repo_read`, `local_llm` (nur lesen, plus lokales Modell). `naming_check`/`gate_status` stammen aus dem archivierten `tools/nexus-tower` (2026-11-26, siehe `archive/tools/nexus-tower/ARCHIVED.md`).
 `web_search` erscheint nur, wenn `search.enabled=true` und ein lokales SearXNG konfiguriert ist.
 Cloud-Chats (Perplexity, ChatGPT, Claude.ai) erreichen `127.0.0.1` nicht. Ein Tunnel ist bewusst nicht
 eingerichtet und braucht eine eigene ID01-Entscheidung.

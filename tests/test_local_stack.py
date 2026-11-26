@@ -322,6 +322,19 @@ def test_mcp_modern_discover_list_call(mcp):
     assert all(i["name"] != ".env" for i in r["result"]["structuredContent"]["items"])
 
 
+def test_mcp_naming_and_gate_tools(mcp):
+    """Tools moved from tools/nexus-tower (archived 2026-11-26)."""
+    port, tok = mcp
+    names = {t["name"] for t in modern(port, tok, "tools/list")[2]["result"]["tools"]}
+    assert {"naming_check", "gate_status"} <= names
+    r = modern(port, tok, "tools/call", {"name": "naming_check", "arguments": {}}, "naming_check")[2]
+    assert r["result"]["structuredContent"]["counts"] == {"Nummer offen": 1}
+    r = modern(port, tok, "tools/call", {"name": "gate_status", "arguments": {}}, "gate_status")[2]
+    assert r["result"]["structuredContent"] == {}
+    r = modern(port, tok, "tools/call", {"name": "naming_check", "arguments": {"subdir": "../x"}}, "naming_check")[2]
+    assert r["result"]["isError"] is True
+
+
 def test_mcp_modern_header_rules(mcp):
     port, tok = mcp
     assert modern(port, tok, "tools/list", hdr_pv="2025-11-25")[2]["error"]["code"] == -32020
