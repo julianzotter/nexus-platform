@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {defaults,patch,command,accept,runRequest} from './state.mjs';
+const snap=(generation=2,source='work',revision='r')=>({generation,source,revision,orders:[{id:'o',revision}],reports:[{id:'p',revision}]});
+test('static cannot replace work',()=>assert.throws(()=>accept(snap(),snap(3,'static')),/STALE_STATIC/));
+test('invalid reports atomic',()=>{const a=snap();assert.throws(()=>accept(a,{...snap(3),reports:null}));assert.equal(a.generation,2);});
+test('revision mismatch',()=>assert.throws(()=>accept(null,{...snap(),reports:[{id:'p',revision:'x'}]}),/REVISION_MISMATCH/));
+test('resume same GET',()=>assert.deepEqual(runRequest({runId:'42',key:'k'}),{method:'GET',runId:'42'}));
+test('explicit retry same key',()=>{assert.throws(()=>runRequest({key:'k'}));assert.equal(runRequest({key:'k'},true).key,'k');});
+test('older generation blocked',()=>assert.throws(()=>accept(snap(),snap(1)),/STALE_GENERATION/));
+test('missing generation blocked',()=>assert.throws(()=>accept(snap(),{...snap(),generation:null}),/STALE_GENERATION/));
+test('valid command',()=>assert.equal(patch(defaults,command('kompakt')).density,'compact'));
+test('gate mutation rejected',()=>assert.throws(()=>patch(defaults,{SYNC_VERIFIED:true})));
+test('prototype mutation rejected',()=>assert.throws(()=>patch(defaults,JSON.parse('{"__proto__":{}}'))));
+test('arbitrary code rejected',()=>assert.throws(()=>command('eval(1)')));
+test('new snapshot accepted',()=>assert.equal(accept(snap(),snap(3)).generation,3));

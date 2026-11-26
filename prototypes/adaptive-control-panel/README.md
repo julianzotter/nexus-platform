@@ -1,0 +1,3 @@
+# NEXUS Adaptive Control Panel independent prototype
+Run `python -m http.server 8080 --bind 127.0.0.1` in this directory, then open http://localhost:8080. Node 22: `node --test state.test.mjs`.
+Voice: browser-dependent speech recognition with explicit consent, preview then apply; no OpenAI Realtime connection. Local UI settings only persisted. Snapshot import uses independent schema, not live feed mapping. runRequest is tested pure logic, not wired to a real transport. No production deployment, ACL verification, server deduplication, independent third-party review or real browser tests. All gates fail closed. No arbitrary code execution. Integration target #141, backend #73. Do not merge without ID01 approval.

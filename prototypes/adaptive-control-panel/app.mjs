@@ -1,0 +1,11 @@
+import {defaults,patch,command,accept} from './state.mjs';
+const $=id=>document.getElementById(id);let state={...defaults},previous=null,proposal=null,active=null;const say=s=>{$('status').textContent=s;};
+try{state=patch(defaults,JSON.parse(localStorage.getItem('nexus-ui-v1')||'{}'));}catch{}
+const tasks=[['P0','Authentifizierter Raw-Readback'],['P1','OAuth und Delivery'],['P2','End-to-End-Abnahme']];
+function render(){document.body.dataset.density=state.density;$('gates').hidden=state.view==='vibe';$('vibe').hidden=state.view==='blocked';$('board').className=state.layout==='list'?'list':`grid c${state.columns}`;$('board').replaceChildren(...tasks.map(([p,t])=>{const e=document.createElement('article');e.textContent=`${p} | ${t} | BLOCKED`;return e;}));$('source').textContent=active?'LOCAL_UNATTESTED':'Keine';$('snapshot').textContent=active?JSON.stringify({revision:active.revision,orders:active.orders.length,reports:active.reports.length},null,2):'Keine Daten importiert.';}
+function save(){try{localStorage.setItem('nexus-ui-v1',JSON.stringify(state));}catch{}render();}
+$('cmd').oninput=()=>{proposal=null;};$('preview').onclick=()=>{try{proposal=patch(state,command($('cmd').value));say(JSON.stringify(proposal));}catch(e){proposal=null;say(e.message);}};
+$('apply').onclick=()=>{if(!proposal)return say('Vorschau erforderlich');previous=state;state=proposal;proposal=null;save();say('Ansicht aktualisiert');if('speechSynthesis'in window){const u=new SpeechSynthesisUtterance('Ansicht aktualisiert');u.lang='de-AT';speechSynthesis.speak(u);}};
+$('undo').onclick=()=>{if(previous){state=previous;previous=null;proposal=null;save();say('Ansicht wiederhergestellt');}};
+$('voice').onclick=()=>{const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return say('Spracherkennung nicht verfuegbar. Texteingabe verwenden.');if(!confirm('Spracherkennung kann Audio an den Browserdienst uebertragen. Fortfahren?'))return;const r=new R();r.lang='de-AT';r.onresult=e=>{$('cmd').value=e.results[0][0].transcript;proposal=null;$('preview').click();};r.onerror=e=>say(e.error);try{r.start();}catch(e){say(e.message);}};
+$('file').onchange=async()=>{try{const f=$('file').files[0];if(!f||f.size>5e6)throw Error('INVALID_FILE');active=accept(active,JSON.parse(await f.text()));render();say('LOCAL_UNATTESTED');}catch(e){say(e.message);}};render();
