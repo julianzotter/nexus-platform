@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "13bce22150a9d257a704f3d20106573c7e7fe9f2",
+ "commit": "066b8f3129c04abf2e8abb7c09ed6a6fa96ce8db",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -24,8 +24,24 @@ window.NEXUS_DESIGNS = {
    "kind": "html",
    "path": "apps/control-panel/site/index.html",
    "preview": "../../apps/control-panel/site/index.html",
-   "sha256": "c7e9702c9c11b47cb0e5f67d51c111f08922cd6bf600062ecf513b18ff774825",
-   "bytes": 2532,
+   "sha256": "3d45f198760f14705ee4bfc23c6c23649711f7999d5daed6c3b5a1d60f8ab456",
+   "bytes": 2645,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "apps",
+    "control-panel",
+    "site"
+   ]
+  },
+  {
+   "id": "HTML-F5F8D8A9",
+   "title": "NEXUS | WORK Sync Inspector",
+   "kind": "html",
+   "path": "apps/control-panel/site/work-sync-inspector.html",
+   "preview": "../../apps/control-panel/site/work-sync-inspector.html",
+   "sha256": "b4011cc265f4ea8e0f78120841e2cad358dff2a73c722bb28e852bb63e17e301",
+   "bytes": 8168,
    "status": "prototype_unreviewed",
    "summary": "",
    "tags": [
