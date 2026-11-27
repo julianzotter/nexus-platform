@@ -43,12 +43,12 @@ def test_second_canonical_and_prototype_without_target_fail(tmp_path: Path) -> N
     for s in reg["surfaces"]:
         if s["id"] == "UI-05":
             s["role"] = "CANONICAL_DISPLAY"
-        if s["id"] == "UI-03":
+        if s["id"] == "UI-04":
             s["consolidation_target"] = None
     (root / cus.REGISTRY).write_text(json.dumps(reg), encoding="utf-8")
     errors = cus.check(root)
     assert any(e.startswith("R2 CANONICAL_DISPLAY") for e in errors)
-    assert any(e.startswith("R3") and "UI-03" in e for e in errors)
+    assert any(e.startswith("R3") and "UI-04" in e for e in errors)
 
 
 def test_panel_data_contains_surfaces(tmp_path: Path) -> None:

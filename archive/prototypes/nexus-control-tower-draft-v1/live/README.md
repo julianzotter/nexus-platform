@@ -1,4 +1,10 @@
-# NEXUS Control Panel: read-only live adapter (DRAFT-v1.2.0)
+# NEXUS Control Panel: read-only live adapter (DRAFT-v1.2.0) · ARCHIVIERT 2026-11-27
+
+> Abgelöst (`registry/ui-surfaces.json` UI-03). Übernommen ins kanonische Panel `apps/control-panel`:
+> Aktualitäts-Guard `site/freshness.js` (Beobachtungszeit ≠ Abrufzeit, STALE statt grün).
+> Offener Befund: Standardport 8766 kollidiert mit dem Local-Stack-MCP-Gateway (`127.0.0.1:8766/mcp`);
+> ein Drive/GitHub-Metadatenabruf gehört in den Local Stack (UI-02), nicht in einen zweiten Server.
+> Unit-Tests laufen weiter (`.github/workflows/nexus-control-panel-live-tests.yml`).
 
 This is a deployable **local integration prototype**, not a deployment to the existing `chatgpt.site` project.
 
@@ -7,7 +13,7 @@ This is a deployable **local integration prototype**, not a deployment to the ex
 $env:GOOGLE_DRIVE_ACCESS_TOKEN = "<short-lived authorized OAuth token>"
 $env:GITHUB_TOKEN = "<optional token; public GitHub metadata otherwise>"
 $env:NEXUS_STATE_FILE = "$env:LOCALAPPDATA\NEXUS\control-panel-state.json"
-py .\prototypes\nexus-control-tower-draft-v1\live\server.py
+py .\archive\prototypes\nexus-control-tower-draft-v1\live\server.py
 ```
 Open `http://127.0.0.1:8766`, click ↻. Do **not** commit credentials or post them in Drive/WORK. Use the existing [NEXUS OAuth recovery runbook](https://github.com/julianzotter/nexus-platform/blob/main/docs/NEXUS-OAUTH-RECOVERY.md) to obtain a valid authorized runtime context. A short-lived token is only a pilot mechanism; a production deployment needs managed OAuth refresh/service identity.
 
@@ -30,7 +36,7 @@ Open `http://127.0.0.1:8766`, click ↻. Do **not** commit credentials or post t
 
 ## Test
 ```powershell
-cd prototypes\nexus-control-tower-draft-v1\live
+cd archive\prototypes\nexus-control-tower-draft-v1\live
 py -m unittest -v test_server
 ```
 
