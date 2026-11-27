@@ -63,10 +63,23 @@ def judge(path: str, ids: set[str], check=None) -> tuple[str, str]:
     return verdict, reason
 
 
+def new_names(name_status: str) -> list[str]:
+    """Added files, and renamed files whose file name changed. A pure folder move
+    (e.g. into archive/) keeps the reviewed historical name and is not a new artifact."""
+    paths = []
+    for line in name_status.splitlines():
+        parts = line.split("\t")
+        if parts[0] == "A":
+            paths.append(parts[1])
+        elif parts[0].startswith("R") and parts[1].rsplit("/", 1)[-1] != parts[2].rsplit("/", 1)[-1]:
+            paths.append(parts[2])
+    return paths
+
+
 def added_since(base: str) -> list[str]:
-    cmd = ["git", "-c", "core.quotepath=off", "diff", "--name-only", "--diff-filter=AR", f"{base}...HEAD"]
+    cmd = ["git", "-c", "core.quotepath=off", "diff", "--name-status", "--find-renames", "--diff-filter=AR", f"{base}...HEAD"]
     out = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True).stdout
-    return [p for p in out.splitlines() if p]
+    return new_names(out)
 
 
 def tracked() -> list[str]:

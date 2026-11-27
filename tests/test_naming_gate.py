@@ -56,3 +56,10 @@ def test_gate_passes_on_head_against_itself() -> None:
     res = subprocess.run([sys.executable, str(ROOT / "tools" / "naming_gate.py"), "--base", "HEAD"],
                          capture_output=True, text=True)
     assert res.returncode == 0, res.stdout
+
+
+def test_folder_move_is_not_a_new_name() -> None:
+    status = ("A\tWORK/REPORTS/new.md\n"
+              "R100\tprototypes/x/26_11_25_1603_ID03_X_DRAFT.html\tarchive/prototypes/x/26_11_25_1603_ID03_X_DRAFT.html\n"
+              "R095\treports/a.md\treports/b.md\n")
+    assert ng.new_names(status) == ["WORK/REPORTS/new.md", "reports/b.md"]
