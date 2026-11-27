@@ -210,6 +210,8 @@ function registryView() {
       ${registryTable(['ID', 'Datum', 'Typ', 'Titel', 'Akteur', 'Reife'], l.latest)}</section>
     ${r ? `<section class="panel"><div class="panel-head"><div><h2>Report-Dateien · ${r.entries}</h2><p>Regel ${esc(r.rule)} · ${esc(Object.entries(r.byState).map(([k, v]) => k + ' ' + v).join(' · '))}</p></div>${badge(r.byState.REGISTERED === r.entries ? 'GREEN' : 'YELLOW')}</div>
       ${registryTable(['Datei', 'Datum', 'Rolle', 'Ledger-Status', 'Pfad'], r.items)}</section>` : ''}
+    ${n.surfaces ? `<section class="panel"><div class="panel-head"><div><h2>Oberflächen · ${n.surfaces.items.length} (Registry v${esc(n.surfaces.version)})</h2><p>${esc(n.surfaces.rule)} · ${esc(Object.entries(n.surfaces.byRole).map(([k, v]) => k + ' ' + v).join(' · '))}</p></div>${badge((n.surfaces.byRole.PROTOTYPE || 0) === 0 ? 'GREEN' : 'YELLOW')}</div>
+      ${registryTable(['ID', 'Rolle', 'Titel', 'Owner', 'Status', 'Konsolidierungsziel', 'Pfad'], n.surfaces.items)}</section>` : ''}
     <section class="notice"><b>Quellen (SHA-256):</b> ${n.inputs.map(([p, h]) => esc(p) + ' ' + esc(h.slice(0, 12))).join(' · ')}</section>`;
 }
 

@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "987a0b0bea4ced9e29937325cbcc9172010287eb",
+ "commit": "e501282e7f0c238ae79784e330e45e7b0cff3806",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -312,6 +312,21 @@ window.NEXUS_DESIGNS = {
    "tags": [
     "reports",
     "2026-10-13_parsing-pipeline"
+   ]
+  },
+  {
+   "id": "HTML-6B6ECB38",
+   "title": "NEXUS · ID01 Decision Cockpit · v0.1.0",
+   "kind": "html",
+   "path": "usecases/control-panel/26_11_27_ID03_NEXUS_ID01_DECISION_PANEL_v0.1.0.html",
+   "preview": "../../usecases/control-panel/26_11_27_ID03_NEXUS_ID01_DECISION_PANEL_v0.1.0.html",
+   "sha256": "a002ef216d0e7341f8650243238fcf6451afab286e13648ee7f2e617914af973",
+   "bytes": 9536,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "usecases",
+    "control-panel"
    ]
   },
   {

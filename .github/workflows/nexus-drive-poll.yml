@@ -51,7 +51,9 @@ jobs:
           echo '```json' >> "$GITHUB_STEP_SUMMARY"
           cat reports/drive-changes/status.json >> "$GITHUB_STEP_SUMMARY" || true
           echo '```' >> "$GITHUB_STEP_SUMMARY"
-          if grep -q BLOCKED reports/drive-changes/status.json; then echo "::warning::Drive credentials missing - run tools/configure_drive_oauth.py --publish"; fi
+          if grep -q BLOCKED reports/drive-changes/status.json; then
+            echo "::warning::Drive poll blocked. Check the status reason and follow docs/operations/actions-recovery.md."
+          fi
       - uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
