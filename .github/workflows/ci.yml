@@ -46,6 +46,8 @@ jobs:
       - name: Artifact registry fail-closed tests
         run: python -m pytest -q tests/test_artifact_registry_gate.py
       - run: python tools/validate_registry.py
+      - name: UI surface gate (1 Anzeige, 1 Backend, keine undeklarierte Oberfläche)
+        run: python tools/check_ui_surfaces.py
       - name: Claude.ai skill snapshot integrity (SHA-256 manifest)
         run: cd skills/claude-ai && sha256sum -c --quiet MANIFEST.sha256
       # Structure report only; INVALID packages are reported, not gated, until frontmatter is aligned.
