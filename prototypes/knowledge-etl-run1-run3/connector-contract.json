@@ -1,0 +1,111 @@
+{
+  "version": "0.1.0",
+  "mode": "READ_ONLY",
+  "status_enum": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "UNKNOWN"
+  ],
+  "required_receipt": [
+    "operation",
+    "run_id",
+    "observed_at",
+    "source_ref",
+    "status",
+    "evidence",
+    "error"
+  ],
+  "operations": [
+    {
+      "operation": "drive.search_folder",
+      "stage": "DISCOVERY",
+      "inputs": [
+        "query"
+      ],
+      "outputs": [
+        "folder_refs"
+      ],
+      "write": false
+    },
+    {
+      "operation": "drive.list_children",
+      "stage": "INVENTORY",
+      "inputs": [
+        "folder_id",
+        "page_token"
+      ],
+      "outputs": [
+        "entries",
+        "next_page_token"
+      ],
+      "write": false
+    },
+    {
+      "operation": "drive.metadata",
+      "stage": "METADATA",
+      "inputs": [
+        "file_id"
+      ],
+      "outputs": [
+        "metadata"
+      ],
+      "write": false
+    },
+    {
+      "operation": "drive.read_content",
+      "stage": "EXTRACTION",
+      "inputs": [
+        "file_id"
+      ],
+      "outputs": [
+        "content",
+        "representation"
+      ],
+      "write": false
+    },
+    {
+      "operation": "github.read_main",
+      "stage": "REVISION",
+      "inputs": [
+        "repository"
+      ],
+      "outputs": [
+        "commit_sha"
+      ],
+      "write": false
+    },
+    {
+      "operation": "github.read_issue_comments",
+      "stage": "COMMUNICATION_QA",
+      "inputs": [
+        "repository",
+        "issue_number"
+      ],
+      "outputs": [
+        "comments"
+      ],
+      "write": false
+    },
+    {
+      "operation": "qa.correlate",
+      "stage": "ORCHESTRATION",
+      "inputs": [
+        "work_order_id",
+        "run_ids"
+      ],
+      "outputs": [
+        "evidence_links",
+        "missing_ack"
+      ],
+      "write": false
+    }
+  ],
+  "rules": [
+    "Never treat text readback as original bytes",
+    "Pin GitHub content to commit SHA",
+    "Follow pagination; mark incomplete coverage",
+    "ACK requires explicit correlated response",
+    "PASS requires observed evidence"
+  ]
+}
