@@ -1,0 +1,59 @@
+{
+  "version": "0.1.0",
+  "base": [
+    "categories.json",
+    "layers.json"
+  ],
+  "axes": {
+    "engineering_domain": [
+      "STRUCTURAL_CONCRETE",
+      "STRUCTURAL_TIMBER",
+      "COMPOSITE",
+      "NORMATIVE_KNOWLEDGE",
+      "MATERIAL_LCA",
+      "SYSTEM_ENGINEERING",
+      "UNKNOWN"
+    ],
+    "object_type": [
+      "REPORT",
+      "STANDARD",
+      "STANDARD_CLAUSE",
+      "FORMULA",
+      "MATERIAL_DATA",
+      "DATASET",
+      "SOLVER",
+      "TEST",
+      "WORK_ORDER",
+      "EVIDENCE",
+      "UNKNOWN"
+    ],
+    "source_authority": [
+      "L0",
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5",
+      "L6",
+      "UNKNOWN"
+    ],
+    "review_status": [
+      "PENDING",
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "UNKNOWN"
+    ]
+  },
+  "norm_reference_fields": [
+    "designation",
+    "edition",
+    "jurisdiction",
+    "verification_status"
+  ],
+  "rules": [
+    "Authority describes the actual source, not a cited standard",
+    "Unknown edition stays null",
+    "Review status is scoped, never technical release"
+  ]
+}
