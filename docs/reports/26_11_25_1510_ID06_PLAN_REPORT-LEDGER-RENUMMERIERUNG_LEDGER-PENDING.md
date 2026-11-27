@@ -1,6 +1,6 @@
 ---
 name: PLAN_REPORT-LEDGER-RENUMMERIERUNG
-version: 0.1.0
+version: 0.2.0
 status: ENTWURF
 timestamp: 2026-11-25T15:10:00+01:00
 agent_id: ID06
@@ -13,14 +13,14 @@ scope: Planung, keine Umbenennung ausgefuehrt
 ## TL;DR
 - Regel: `YY_MM_DD_HHMM_ID##_THEMA_###` (governance/current/_AGBS.md Z. 58; AGENTS.md Punkt 4).
 - Artefaktnummer `###` **nur aus dem ID-Ledger**, nie aus Dateinamen ableiten (_AGBS.md Z. 58, AGENTS.md Punkt 4).
-- Befund: Im Repo existiert **kein** maschinenlesbarer ID-Ledger (gesucht: `registry/`, `governance/`). Ohne Ledger keine Nummernvergabe moeglich -> **Blocker B1**.
+- B1 erledigt (ID01-Freigabe 2026-11-27): Ledger `registry/report-ledger.jsonl` angelegt, Tool `tools/report_ledger.py` (check/next/allocate), CI-Schritt `report_ledger.py check`. Nummern global, 4-stellig, eindeutig. 16 bereits vergebene Nummern (0001..0210) als `IMPORTED` reserviert; naechste freie Nummer 0211.
 - Bestand (Stand HEAD 169d247, `python tools/naming_gate.py --all --plan`): Tabelle unten. Gesamtinventar: 153 Kandidaten, 101 nicht konform (Altbestand, nicht CI-gesperrt).
 - CI-Gate wirkt nur auf **neu hinzugefuegte/umbenannte** Dateien eines PR; Altbestand bleibt bis zur Umbenennung sichtbar, aber nicht blockierend.
 
 ## Schritte
-1. **B1 Ledger anlegen (ID01-Entscheid):** `registry/report-ledger.jsonl` (eine Zeile je Artefakt: `nr`, `id`, `thema`, `path`, `sha256`, `registered_at`). Eigentuemer: ID03 (Chief Orchestrator), Freigabe ID01.
+1. ~~B1 Ledger anlegen~~ erledigt 2026-11-27: Felder `nr`, `id`, `thema`, `path`, `status` (IMPORTED/ALLOCATED/RETIRED), `registered_at`, `registered_by`, `source`.
 2. **Rollen-ID belegen** fuer `ID-UNVERIFIED`: Quelle = Frontmatter `agent_id`, sonst PR-Branch/Commit. Hinweise unten sind **unbelegt** und brauchen ID01-Bestaetigung.
-3. **Nummern ziehen:** je Datei eine Ledger-Zeile, Nummer aus Ledger-Zaehler.
+3. **Nummern ziehen:** `python tools/report_ledger.py allocate --id ID## --thema <THEMA> --path <neuer Pfad>` je Datei, im selben PR wie das `git mv`.
 4. **Umbenennen per `git mv`** in einem PR; Verweise (`grep -rl <altname>`) im selben PR nachziehen; Drive-Spiegel ueber Sync.
 5. **Gate verschaerfen:** danach `naming_gate.py --strict` im CI (LEDGER-PENDING zaehlt dann als Verstoss).
 
