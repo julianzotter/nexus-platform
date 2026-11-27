@@ -42,3 +42,16 @@ def test_report_classification() -> None:
     assert bcd.classify_report("26_10_27_1815_ID06_X_0127.md", ids)[2] == "NOT_IN_LEDGER"
     assert bcd.classify_report("26_11_25_0015_ID05_STATUS_X_LEDGER-PENDING.md", ids) == ("2026-11-25", "ID05", "LEDGER_PENDING")
     assert bcd.classify_report("26_11_24_ID03_X_LEDGER-PENDING.md", ids)[2] == "NAME_NONCONFORM"  # HHMM missing
+
+
+def test_repo_stats_match_git(tmp_path: Path) -> None:
+    commit = head()
+    stats = bcd.build_repo_stats(ROOT, commit)
+    files = subprocess.run(["git", "-C", str(ROOT), "ls-tree", "-r", "--name-only", commit], check=True,
+                           capture_output=True, text=True).stdout.splitlines()
+    commits = subprocess.run(["git", "-C", str(ROOT), "rev-list", "--count", commit], check=True,
+                             capture_output=True, text=True).stdout.strip()
+    assert stats["files"] == len(files)
+    assert stats["commits"] == int(commits)
+    assert stats == bcd.build_repo_stats(ROOT, commit)  # deterministic
+    assert len(stats["commitsPerDay"]) <= 14

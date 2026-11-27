@@ -1,4 +1,6 @@
-# NEXUS Daten-Dashboard
+# NEXUS Daten-Dashboard (ARCHIVIERT 2026-11-27)
+
+> Abgelöst durch das Control Panel (`apps/control-panel`, Ansicht `#system`, Daten `nexus.repoStats` aus `tools/build_control_data.py`). Registry: `registry/ui-surfaces.json` UI-05. Nur noch Nachweis.
 
 Eine einzelne, eigenständige HTML-Datei: KPI-Karten, vier animierte Diagramme, Filter, sortierbare Tabelle, Dialog mit den Daten per Text oder Sprache, Datei-Import/-Export. Prototyp, keine Freigabe.
 
@@ -9,8 +11,8 @@ Eine einzelne, eigenständige HTML-Datei: KPI-Karten, vier animierte Diagramme, 
 Daten neu einbetten (feste Git-Revision, deterministisch):
 
 ```sh
-python prototypes/data-dashboard/build_data.py          # HEAD
-python prototypes/data-dashboard/build_data.py <rev>    # bestimmte Revision
+python archive/prototypes/data-dashboard/build_data.py          # HEAD
+python archive/prototypes/data-dashboard/build_data.py <rev>    # bestimmte Revision
 python -m unittest tests.test_data_dashboard
 ```
 

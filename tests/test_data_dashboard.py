@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parents[1] / "prototypes" / "data-dashboard"
+HERE = Path(__file__).resolve().parents[1] / "archive" / "prototypes" / "data-dashboard"
 sys.path.insert(0, str(HERE))
 import build_data  # noqa: E402
 
