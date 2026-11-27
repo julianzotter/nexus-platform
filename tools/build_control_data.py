@@ -8,6 +8,7 @@ Generated sections:
   roles  <- registry/roles/role_capability_matrix.json (replaces the manual list)
   nexus  <- orchestrator/registry/workflow-registry.json, skills/**/SKILL.md
             (tools/skill_inventory.py), governance/work-snapshot/00_ID_LEDGER.csv,
+            registry/ui-surfaces.json,
             reports/monitor/nexus.snapshot.json (tools/export_dashboard.py, optional)
 Never fabricates approval: a missing monitor snapshot is reported as NO_DATA.
 
@@ -42,6 +43,7 @@ ROLES = Path("registry/roles/role_capability_matrix.json")
 WORKFLOWS = Path("orchestrator/registry/workflow-registry.json")
 LEDGER = Path("governance/work-snapshot/00_ID_LEDGER.csv")
 SNAPSHOT = Path("reports/monitor/nexus.snapshot.json")
+SURFACES = Path("registry/ui-surfaces.json")
 REPORT_DIRS = (Path("reports"), Path("WORK/REPORTS"))
 # Rule YY_MM_DD_HHMM_ID##_THEMA_### (governance/current/_AGBS.md, AGENTS.md item 4); ### from the ID ledger.
 REPORT_NAME = re.compile(r"^(\d\d)_(\d\d)_(\d\d)_(\d{4})_(ID\d\d)_(.+?)_(\d{3,4}|LEDGER-PENDING|UNREGISTERED)\.[a-z0-9]+$")
@@ -130,6 +132,14 @@ def build_report_files(root: Path, ledger_path: Path) -> dict[str, Any]:
             "byState": dict(sorted(Counter(row[3] for row in items).items())), "items": items}
 
 
+def build_surfaces(registry: dict[str, Any]) -> dict[str, Any]:
+    """UI surfaces (registry/ui-surfaces.json, gated by tools/check_ui_surfaces.py)."""
+    items = [[s["id"], s["role"], s["title"], s["owner"], s["status"], s.get("consolidation_target") or "–", s["path"]]
+             for s in registry["surfaces"]]
+    return {"version": registry["version"], "rule": registry["rule"],
+            "byRole": dict(sorted(Counter(i[1] for i in items).items())), "items": items}
+
+
 def build_monitor(path: Path, commit: str) -> dict[str, Any]:
     if not path.exists():
         return {"status": "NO_DATA", "detail": "Kein Snapshot (tools/export_dashboard.py) in diesem Lauf."}
@@ -145,7 +155,7 @@ def build(root: Path, commit: str, snapshot: Path) -> dict[str, Any]:
     if not re.fullmatch(r"[0-9a-f]{40}", commit):
         raise ValueError("source commit must be 40 hex")
     data = json.loads((root / BASE).read_text(encoding="utf-8"))
-    inputs = [BASE, ROLES, WORKFLOWS, LEDGER] + ([snapshot] if (root / snapshot).exists() else [])
+    inputs = [BASE, ROLES, WORKFLOWS, LEDGER, SURFACES] + ([snapshot] if (root / snapshot).exists() else [])
     data["schemaVersion"] = SCHEMA_VERSION
     data["asOf"] = commit_time(root, commit)
     data["roles"] = build_roles(json.loads((root / ROLES).read_text(encoding="utf-8")))
@@ -155,6 +165,7 @@ def build(root: Path, commit: str, snapshot: Path) -> dict[str, Any]:
         "workflows": build_workflows(json.loads((root / WORKFLOWS).read_text(encoding="utf-8"))),
         "skills": build_skills(root), "ledger": build_ledger(root / LEDGER),
         "reportFiles": build_report_files(root, root / LEDGER),
+        "surfaces": build_surfaces(json.loads((root / SURFACES).read_text(encoding="utf-8"))),
         "monitor": build_monitor(root / snapshot, commit)}
     schema = json.loads((root / SCHEMA).read_text(encoding="utf-8"))
     jsonschema.Draft202012Validator(schema).validate(data)

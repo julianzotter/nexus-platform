@@ -1,0 +1,42 @@
+{
+  "name": "NEXUS_UI_SURFACE_REGISTRY",
+  "version": "1.0.0",
+  "status": "ENTWURF",
+  "as_of": "2026-11-27",
+  "rule": "1 Datenvertrag (schemas/control-data.schema.json) · 1 Generator (tools/build_control_data.py) · 1 Anzeige (CANONICAL_DISPLAY) · 1 lokales Backend (LOCAL_BACKEND). Jede weitere HTML-Oberfläche ist PROTOTYPE mit Konsolidierungsziel, REPORT_VIEW, TOOL oder ARCHIVED. Geprüft durch tools/check_ui_surfaces.py (CI).",
+  "roles": {
+    "CANONICAL_DISPLAY": "Einzige Status-Anzeige; Daten nur aus control-data.json (generiert)",
+    "LOCAL_BACKEND": "Lokale Laufzeit mit Mutationen/MCP; eigene UI nur als Bedienoberfläche",
+    "PROTOTYPE": "Nicht freigegeben; muss consolidation_target und owner nennen",
+    "REPORT_VIEW": "Statischer Bericht/Doku-Dashboard ohne Statusanspruch",
+    "TOOL": "Eigenständiges Hilfswerkzeug ohne Statusanspruch",
+    "ARCHIVED": "Abgelöst; nur Nachweis"
+  },
+  "surfaces": [
+    {"id": "UI-01", "path": "apps/control-panel/site", "role": "CANONICAL_DISPLAY", "owner": "ID01", "status": "ENTWURF",
+     "title": "NEXUS · AEC Control Panel v8", "data": "control-data.json (tools/build_control_data.py)", "consolidation_target": null},
+    {"id": "UI-02", "path": "local_stack/nexus_local/static", "role": "LOCAL_BACKEND", "owner": "ID05", "status": "ENTWURF",
+     "title": "Local Stack Control Tower (127.0.0.1:8770) + MCP-Gateway :8766", "data": "Supervisor-Zustand (lokal)", "consolidation_target": null},
+    {"id": "UI-03", "path": "prototypes/nexus-control-tower-draft-v1", "role": "PROTOTYPE", "owner": "ID03", "status": "ENTWURF",
+     "title": "Control-Panel-Draft v1.x (read-only, Same-Origin-Refresh)", "data": "eigener Live-Adapter (live/server.py)",
+     "consolidation_target": "UI-01 #live (Refresh-/Stale-Guards); danach ARCHIVED, Abstimmung ID03"},
+    {"id": "UI-04", "path": "prototypes/adaptive-control-panel", "role": "PROTOTYPE", "owner": "VIBE", "status": "ENTWURF",
+     "title": "Adaptive Control Panel (#141/#144)", "data": "eigenes Snapshot-Schema",
+     "consolidation_target": "UI-01 Bedienschicht (Sprache, lokale UI-Settings); Snapshot-Schema auf control-data.schema.json abbilden"},
+    {"id": "UI-05", "path": "prototypes/data-dashboard", "role": "PROTOTYPE", "owner": "ID01", "status": "ENTWURF",
+     "title": "NEXUS Daten-Dashboard (Git-KPI, Diagramme)", "data": "eingebettete Git-Daten (build_data.py)",
+     "consolidation_target": "UI-01 #system (KPI-/Chart-Bausteine); danach ARCHIVED"},
+    {"id": "UI-06", "path": "prototypes/design-gallery", "role": "TOOL", "owner": "ID01", "status": "ENTWURF",
+     "title": "Design-Galerie aller HTML-Oberflächen", "data": "designs.manifest.js (build_manifest.py)", "consolidation_target": null},
+    {"id": "UI-07", "path": "prototypes/gemini-chat", "role": "TOOL", "owner": "ID04", "status": "ENTWURF",
+     "title": "Gemini-Chat-Prototyp", "data": "lokaler Server (server.mjs)", "consolidation_target": null},
+    {"id": "UI-08", "path": "prototypes/vibe-coder-v2.3", "role": "TOOL", "owner": "VIBE", "status": "ENTWURF",
+     "title": "VIBE CODER v2.3 (Import aus Drive)", "data": "keine", "consolidation_target": null},
+    {"id": "UI-09", "path": "docs/dashboards/ai-stack-teil2", "role": "REPORT_VIEW", "owner": "ID01", "status": "ENTWURF",
+     "title": "AI-Stack Teil 2 (Doku-Dashboard)", "data": "statisch", "consolidation_target": null},
+    {"id": "UI-10", "path": "docs/dashboards/google-ai-stack-serie", "role": "REPORT_VIEW", "owner": "ID01", "status": "ENTWURF",
+     "title": "Google AI-Stack Serie (Doku-Dashboard)", "data": "statisch", "consolidation_target": null},
+    {"id": "UI-11", "path": "archive/tools/nexus-tower", "role": "ARCHIVED", "owner": "ID06", "status": "SUPERSEDED",
+     "title": "nexus-tower (abgelöst durch MCP-Gateway :8766, PR #146)", "data": "keine", "consolidation_target": "UI-02"}
+  ]
+}
