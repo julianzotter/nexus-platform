@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nexus/signal-matrix-entry/1.0.0",
+  "title": "Signal matrix entry (P205 signal_energy row, contract signal-rank-1.0.0)",
+  "description": "PROPOSED ID06 2026-11-27 (#153). Mirrors P205 DDL; energy and band consistency are checked in tools/signal_rank.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["signal_id", "title", "domain", "evidence_class", "consequence", "urgency", "dependencies", "uncertainty", "energy", "priority", "release_gate"],
+  "properties": {
+    "signal_id": {"type": "string", "pattern": "^[A-Z][A-Z0-9_-]{1,31}$"},
+    "title": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "evidence_class": {"type": "string", "enum": ["VERIFIED", "DERIVED", "UNVERIFIED", "ASSUMPTION"]},
+    "consequence": {"type": "integer", "minimum": 0, "maximum": 4},
+    "urgency": {"type": "integer", "minimum": 0, "maximum": 4},
+    "dependencies": {"type": "integer", "minimum": 0, "maximum": 4},
+    "uncertainty": {"type": "integer", "minimum": 0, "maximum": 4},
+    "energy": {"type": "integer", "minimum": 0, "maximum": 40},
+    "priority": {"type": "string", "enum": ["P0", "P1", "P2", "P3"]},
+    "release_gate": {"type": "string", "minLength": 1}
+  }
+}
