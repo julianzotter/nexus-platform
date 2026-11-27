@@ -66,3 +66,10 @@ jobs:
           path: reports/delivery/
           if-no-files-found: error
           retention-days: 30
+
+      - name: Summarize failure recovery
+        if: ${{ failure() }}
+        run: |
+          echo '### Recovery' >> "$GITHUB_STEP_SUMMARY"
+          echo 'WORK delivery failed. Check the failed step and its receipt before replaying the source run.' >> "$GITHUB_STEP_SUMMARY"
+          echo "See [Actions recovery](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA}/docs/operations/actions-recovery.md)." >> "$GITHUB_STEP_SUMMARY"

@@ -64,4 +64,9 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-
+      - name: Summarize failure recovery
+        if: ${{ failure() }}
+        run: |
+          echo '### Recovery' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The monitor failed its repository checks or its evidence gate. Review the failed step and compare with CI for the same commit.' >> "$GITHUB_STEP_SUMMARY"
+          echo "See [Actions recovery](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/blob/${GITHUB_SHA}/docs/operations/actions-recovery.md)." >> "$GITHUB_STEP_SUMMARY"
