@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[1]
+ROOT = HERE.parents[2]  # archive/prototypes/data-dashboard -> repo root
 HTML = HERE / "index.html"
 MARKERS = re.compile(r"(/\*DATA:BEGIN\*/).*?(/\*DATA:END\*/)", re.S)
 

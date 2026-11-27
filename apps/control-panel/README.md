@@ -33,6 +33,7 @@ python tools/build_control_data.py --source-commit "$(git rev-parse HEAD)"
 | `nexus.skills` | `skills/**/SKILL.md` via `tools/skill_inventory.py` | generiert |
 | `nexus.ledger` | `governance/work-snapshot/00_ID_LEDGER.csv` (Snapshot 2026-11-16) | generiert |
 | `nexus.reportFiles` | `reports/**`, `WORK/REPORTS/**` gegen Namensregel + ID-Ledger | generiert |
+| `nexus.repoStats` | `git ls-tree`/`git log` am Quell-Commit (ex Daten-Dashboard) | generiert |
 | `nexus.surfaces` | `registry/ui-surfaces.json` (Gate: `tools/check_ui_surfaces.py`, CI) | generiert |
 | `nexus.monitor` | `reports/monitor/nexus.snapshot.json` via `tools/export_dashboard.py` | generiert, sonst `NO_DATA` |
 | projects, orders, architecture, moe, chatTasks, computerJobs, navigation, reports, policy, links | `data/control-data.base.json` | manuell |
@@ -52,7 +53,7 @@ python tools/build_control_data.py --source-commit "$(git rev-parse HEAD)"
 | Control Tower | `local_stack/nexus_local/control_tower.py` (127.0.0.1:8770) | lokaler Task-Manager mit Mutationen (Token) | bleibt als **lokales Schreib-Backend**; liest/schreibt dieselbe `control-data`-Struktur, eigene UI → Panel-Ansicht |
 | nexus-tower | `tools/nexus-tower/` (127.0.0.1:8765, ENTWURF) | WORK-Ordner-Status + MCP (read-only) | **Erledigt 2026-11-26:** `naming_check`, `gate_status` im MCP-Gateway (:8766) des Local Stack; `work_state` ≙ `work_list`; Ordner nach `archive/tools/nexus-tower/` |
 | Control-Panel-Draft v1.x (ID03) | `prototypes/nexus-control-tower-draft-v1/` (seit 2026-11-25 auf main) | read-only Knowledge-/WORK-Monitoring, Same-Origin-Refresh | Refresh-/Stale-Guards als Panel-Ansicht übernehmen; danach archivieren (Abstimmung mit ID03) |
-| Daten-Dashboard | `prototypes/data-dashboard/` | Prototyp KPI/Diagramme | KPI-/Chart-Bausteine als Panel-Ansicht übernehmen, Prototyp archivieren |
+| Daten-Dashboard | `archive/prototypes/data-dashboard/` | Prototyp KPI/Diagramme | **Erledigt 2026-11-27:** KPIs als `nexus.repoStats` im Panel `#system`; Prototyp archiviert |
 
 Durchgesetzt seit 2026-11-27: `registry/ui-surfaces.json` deklariert alle 11 HTML-Oberflächen (UI-01…UI-11); `tools/check_ui_surfaces.py` lässt CI scheitern bei undeklarierter Oberfläche, zweiter kanonischer Anzeige oder Prototyp ohne Owner/Konsolidierungsziel. Panel-Ansicht `#registry` zeigt die Tabelle.
 

@@ -9,7 +9,7 @@ Stand 28.10.2026. Abgeleitete Review-Sicht; keine neue kanonische Master-Registr
 - [AnythingSearch](https://drive.google.com/drive/folders/1YgSdE8x2nelUcHQ_FhPAraoKPmlB-7AM)
 - [März-Statusbericht](https://drive.google.com/file/d/1Ac-z2h9Q0vMakV13_V5SBrb2oLO6y1gh/view)
 - [April-Roadmap Rev.2](https://docs.google.com/document/d/1HH1B927AIhTuES8W_w_AHCKaSddrYqfM/edit)
-- Vorhandene Repo-Verträge: `registry/file-registry.jsonl`, `schemas/dashboard-snapshot.schema.json`, `tools/export_dashboard.py`, `prototypes/data-dashboard/README.md`.
+- Vorhandene Repo-Verträge: `registry/file-registry.jsonl`, `schemas/dashboard-snapshot.schema.json`, `tools/export_dashboard.py`, `archive/prototypes/data-dashboard/README.md`.
 
 ## Rhythmus und Status
 
