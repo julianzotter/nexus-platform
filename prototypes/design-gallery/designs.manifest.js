@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "249963660bdec05193ec6908f05455dce74e7d32",
+ "commit": "3f24eae0ac13295a4c4dd35f03dd8eae7e45f417",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -24,8 +24,8 @@ window.NEXUS_DESIGNS = {
    "kind": "html",
    "path": "apps/control-panel/site/index.html",
    "preview": "../../apps/control-panel/site/index.html",
-   "sha256": "3d45f198760f14705ee4bfc23c6c23649711f7999d5daed6c3b5a1d60f8ab456",
-   "bytes": 2645,
+   "sha256": "2cde1dda8ad5422793624ef180aab9a6e095bc7d8844951330873e0a837d527d",
+   "bytes": 2690,
    "status": "prototype_unreviewed",
    "summary": "",
    "tags": [
@@ -64,6 +64,73 @@ window.NEXUS_DESIGNS = {
     "archive",
     "prototypes",
     "data-dashboard"
+   ]
+  },
+  {
+   "id": "HTML-80593626",
+   "title": "NEXUS AI-OS | Control Tower DRAFT-V1",
+   "kind": "html",
+   "path": "archive/prototypes/nexus-control-tower-draft-v1/index.html",
+   "preview": "../../archive/prototypes/nexus-control-tower-draft-v1/index.html",
+   "sha256": "3e606c9ef99e6fce1e1ad1558baf60db570583dcfecbd19708ceb3fb0915903c",
+   "bytes": 12233,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "archive",
+    "prototypes",
+    "nexus-control-tower-draft-v1"
+   ]
+  },
+  {
+   "id": "HTML-56AD98D2",
+   "title": "NEXUS AI-OS · Control Panel v1.2.0 DRAFT",
+   "kind": "html",
+   "path": "archive/prototypes/nexus-control-tower-draft-v1/live/index.html",
+   "preview": "../../archive/prototypes/nexus-control-tower-draft-v1/live/index.html",
+   "sha256": "000b09081a64befa09948bcc8801565e0cec6450ffbd56cd0757ea6ffac09e11",
+   "bytes": 9000,
+   "status": "prototype_unreviewed",
+   "summary": "> Abgelöst (`registry/ui-surfaces.json` UI-03). Übernommen ins kanonische Panel `apps/control-panel`: > Aktualitäts-Guard `site/freshness.js` (Beobachtungszeit ≠ Abrufzeit, STALE statt grün). > Offener Befund: Standardport 8766 kollidiert mit dem Local-Stack-MCP-Gateway (`127.0.0.1:8766/mcp`); > ein Drive/GitHub-Metadatenabruf gehört in den Local Stack (UI-02), nicht in einen zweiten Server. > Unit-Tests laufen weite",
+   "tags": [
+    "archive",
+    "prototypes",
+    "nexus-control-tower-draft-v1",
+    "live"
+   ]
+  },
+  {
+   "id": "HTML-0C0C2AEF",
+   "title": "NEXUS AI-OS | Control Tower DRAFT-V1.0.1",
+   "kind": "html",
+   "path": "archive/prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1603_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.0.1.html",
+   "preview": "../../archive/prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1603_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.0.1.html",
+   "sha256": "71b9686e3d5e29b43c3e84fb3cdae4ee5f732b768e0738b3ec8bccd3bb8af93c",
+   "bytes": 12241,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "archive",
+    "prototypes",
+    "nexus-control-tower-draft-v1",
+    "releases"
+   ]
+  },
+  {
+   "id": "HTML-F0C157E5",
+   "title": "NEXUS AI-OS · Control Panel v1.1.0 DRAFT",
+   "kind": "html",
+   "path": "archive/prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1623_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.1.0.html",
+   "preview": "../../archive/prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1623_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.1.0.html",
+   "sha256": "cd098dcd6851fa573334237d0c2ea4538d0289abe13306ee6a2b362a0a625cdc",
+   "bytes": 8687,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "archive",
+    "prototypes",
+    "nexus-control-tower-draft-v1",
+    "releases"
    ]
   },
   {
@@ -176,69 +243,6 @@ window.NEXUS_DESIGNS = {
    ]
   },
   {
-   "id": "HTML-1653B8CF",
-   "title": "NEXUS AI-OS | Control Tower DRAFT-V1",
-   "kind": "html",
-   "path": "prototypes/nexus-control-tower-draft-v1/index.html",
-   "preview": "../../prototypes/nexus-control-tower-draft-v1/index.html",
-   "sha256": "3e606c9ef99e6fce1e1ad1558baf60db570583dcfecbd19708ceb3fb0915903c",
-   "bytes": 12233,
-   "status": "prototype_unreviewed",
-   "summary": "",
-   "tags": [
-    "prototypes",
-    "nexus-control-tower-draft-v1"
-   ]
-  },
-  {
-   "id": "HTML-7173021B",
-   "title": "NEXUS AI-OS · Control Panel v1.2.0 DRAFT",
-   "kind": "html",
-   "path": "prototypes/nexus-control-tower-draft-v1/live/index.html",
-   "preview": "../../prototypes/nexus-control-tower-draft-v1/live/index.html",
-   "sha256": "000b09081a64befa09948bcc8801565e0cec6450ffbd56cd0757ea6ffac09e11",
-   "bytes": 9000,
-   "status": "prototype_unreviewed",
-   "summary": "This is a deployable **local integration prototype**, not a deployment to the existing `chatgpt.site` project. ```powershell $env:GOOGLE_DRIVE_ACCESS_TOKEN = \"<short-lived authorized OAuth token>\" $env:GITHUB_TOKEN = \"<optional token; public GitHub metadata otherwise>\" $env:NEXUS_STATE_FILE = \"$env:LOCALAPPDATA\\NEXUS\\control-panel-state.json\" py .\\prototypes\\nexus-control-tower-draft-v1\\live\\server.py ``` Open `http:",
-   "tags": [
-    "prototypes",
-    "nexus-control-tower-draft-v1",
-    "live"
-   ]
-  },
-  {
-   "id": "HTML-4851E915",
-   "title": "NEXUS AI-OS | Control Tower DRAFT-V1.0.1",
-   "kind": "html",
-   "path": "prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1603_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.0.1.html",
-   "preview": "../../prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1603_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.0.1.html",
-   "sha256": "71b9686e3d5e29b43c3e84fb3cdae4ee5f732b768e0738b3ec8bccd3bb8af93c",
-   "bytes": 12241,
-   "status": "prototype_unreviewed",
-   "summary": "",
-   "tags": [
-    "prototypes",
-    "nexus-control-tower-draft-v1",
-    "releases"
-   ]
-  },
-  {
-   "id": "HTML-AB0C5E05",
-   "title": "NEXUS AI-OS · Control Panel v1.1.0 DRAFT",
-   "kind": "html",
-   "path": "prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1623_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.1.0.html",
-   "preview": "../../prototypes/nexus-control-tower-draft-v1/releases/26_11_25_1623_ID03_NEXUS-CONTROL-PANEL_DRAFT-v1.1.0.html",
-   "sha256": "cd098dcd6851fa573334237d0c2ea4538d0289abe13306ee6a2b362a0a625cdc",
-   "bytes": 8687,
-   "status": "prototype_unreviewed",
-   "summary": "",
-   "tags": [
-    "prototypes",
-    "nexus-control-tower-draft-v1",
-    "releases"
-   ]
-  },
-  {
    "id": "JS-EC5_SOLVER",
    "title": "ec5_solver.js",
    "kind": "module",
@@ -313,6 +317,21 @@ window.NEXUS_DESIGNS = {
    "tags": [
     "reports",
     "2026-10-13_parsing-pipeline"
+   ]
+  },
+  {
+   "id": "HTML-6B6ECB38",
+   "title": "NEXUS · ID01 Decision Cockpit · v0.1.0",
+   "kind": "html",
+   "path": "usecases/control-panel/26_11_27_ID03_NEXUS_ID01_DECISION_PANEL_v0.1.0.html",
+   "preview": "../../usecases/control-panel/26_11_27_ID03_NEXUS_ID01_DECISION_PANEL_v0.1.0.html",
+   "sha256": "a002ef216d0e7341f8650243238fcf6451afab286e13648ee7f2e617914af973",
+   "bytes": 9536,
+   "status": "prototype_unreviewed",
+   "summary": "",
+   "tags": [
+    "usecases",
+    "control-panel"
    ]
   },
   {

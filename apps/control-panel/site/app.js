@@ -215,11 +215,13 @@ function registryView() {
   const n = state.data.nexus;
   if (!n) return heading('NEXUS-Registry', 'Keine generierten Registry-Daten (schemaVersion 4.1.0, manuell gepflegt).', 'YELLOW');
   const m = n.monitor, l = n.ledger, s = n.skills, w = n.workflows, r = n.reportFiles;
-  const monitorTone = m.status === 'PASS' ? 'GREEN' : (m.status === 'ATTENTION' ? 'RED' : 'YELLOW');
+  const fresh = window.nexusFreshness(state.data, Date.now());
+  // A PASS from a stale observation is not shown as green (fail closed).
+  const monitorTone = m.status === 'PASS' && fresh.state === 'FRESH' ? 'GREEN' : (m.status === 'ATTENTION' || fresh.state === 'CONFLICT' ? 'RED' : 'YELLOW');
   const checks = m.checks ? Object.entries(m.checks).map(([k, v]) => `${k}: ${v}`).join(' · ') : (m.detail || '');
   return heading('NEXUS-Registry', 'Aus dem Repository generiert · Commit ' + n.sourceCommit.slice(0, 12) + ' · keine Freigabe, nur Bestand.') +
     `<section class="panel"><div class="panel-head"><div><h2>Monitor-Snapshot</h2><p>${esc(checks)}</p></div>${badge(monitorTone)}</div>
-      <p>Status <b>${esc(m.status)}</b>${m.observedAt ? ' · beobachtet ' + esc(localTime(m.observedAt)) + ' · Lauf #' + esc(m.runId) + ' · Knoten ' + esc(m.nodes) : ''}</p></section>
+      <p>Status <b>${esc(m.status)}</b> · Aktualität <b>${esc(fresh.state)}</b>${fresh.ageHours !== null ? ' (' + esc(fresh.ageHours) + ' h, Grenze ' + esc(fresh.limitHours) + ' h)' : ''}${m.observedAt ? ' · beobachtet ' + esc(localTime(m.observedAt)) + ' · Lauf #' + esc(m.runId) + ' · Knoten ' + esc(m.nodes) : ''}</p></section>
     <section class="panel"><div class="panel-head"><div><h2>Workflow-Registry v${esc(w.version)} · ${w.items.length} WF</h2><p>Pipeline: ${esc(w.pipeline.join(' → '))}</p></div></div>
       ${registryTable(['ID', 'Workflow', 'Route', 'Quelle'], w.items)}</section>
     <section class="panel"><div class="panel-head"><div><h2>Skills · ${s.items.length} Pakete</h2><p>${esc(Object.entries(s.counts).map(([k, v]) => k + ' ' + v).join(' · '))} · Prüfumfang: ${esc(s.scope)}</p></div></div>
@@ -339,7 +341,11 @@ function loadData() {
         if (proof) proof.outerHTML = orderEvidenceView();
       }
       const result = hadData ? (changed ? 'Neue Panelrevision' : 'Panelrevision unverändert') : 'Panelrevision geladen';
-      publication.textContent = result + ' · Seitenabruf ' + localTime(state.panelRead) + ' · Datenstand ' + localTime(raw.asOf) + ' (Wien) · SHA-256 ' + revision.slice(0,12) + ' · Work-Order-Beleg separat im Datenpunkt';
+      const fresh = window.nexusFreshness(raw, Date.now());
+      const freshText = fresh.state === 'NO_DATA' ? 'Monitor-Beobachtung: keine (NO_DATA)'
+        : 'Monitor-Beobachtung ' + localTime(fresh.observedAt) + ' · Alter ' + fresh.ageHours + ' h · ' + fresh.state + (fresh.state === 'FRESH' ? '' : ' (Grenze ' + fresh.limitHours + ' h)');
+      publication.classList.toggle('warn', fresh.state !== 'FRESH');
+      publication.textContent = result + ' · Seitenabruf ' + localTime(state.panelRead) + ' · Datenstand ' + localTime(raw.asOf) + ' (Wien) · ' + freshText + ' · SHA-256 ' + revision.slice(0,12) + ' · Work-Order-Beleg separat im Datenpunkt';
       return result;
     } catch (error) {
       publication.textContent = 'Abruf fehlgeschlagen · ' + (state.panelRead ? 'letzter erfolgreicher Abruf ' + localTime(state.panelRead) : 'kein bestätigter Abruf');

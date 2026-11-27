@@ -3,6 +3,7 @@
   "asOf": "2026-11-23T12:43:51Z",
   "timezone": "Europe/Vienna",
   "policy": {
+    "staleAfterHours": 2,
     "green": "Abnahmekriterium mit belegtem Nachweis erfüllt; keine automatische technische Freigabe.",
     "yellow": "Wartet, ungeprüft, kein ACK oder abhängiges Gate offen.",
     "red": "Fehlgeschlagen, widersprüchliche Evidenz oder technisches STOP-Gate.",
