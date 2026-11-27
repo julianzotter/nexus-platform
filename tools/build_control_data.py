@@ -8,7 +8,7 @@ Generated sections:
   roles  <- registry/roles/role_capability_matrix.json (replaces the manual list)
   nexus  <- orchestrator/registry/workflow-registry.json, skills/**/SKILL.md
             (tools/skill_inventory.py), governance/work-snapshot/00_ID_LEDGER.csv,
-            registry/ui-surfaces.json,
+            registry/ui-surfaces.json, git ls-tree/log at the commit (repoStats),
             reports/monitor/nexus.snapshot.json (tools/export_dashboard.py, optional)
 Never fabricates approval: a missing monitor snapshot is reported as NO_DATA.
 
@@ -140,6 +140,38 @@ def build_surfaces(registry: dict[str, Any]) -> dict[str, Any]:
             "byRole": dict(sorted(Counter(i[1] for i in items).items())), "items": items}
 
 
+def git_out(root: Path, *args: str) -> str:
+    return subprocess.run(["git", "-C", str(root), "-c", "core.quotepath=off", *args], check=True,
+                          capture_output=True, text=True, encoding="utf-8").stdout
+
+
+def build_repo_stats(root: Path, commit: str) -> dict[str, Any]:
+    """Repository KPIs at the source commit (adopted from archived data dashboard, UI-05).
+
+    Only git ls-tree / git log at a fixed commit -> deterministic.
+    """
+    folders: Counter[str] = Counter()
+    types: Counter[str] = Counter()
+    size = 0
+    for line in git_out(root, "ls-tree", "-r", "-l", commit).splitlines():
+        meta, path = line.split("\t", 1)
+        _, kind, _, blob_size = meta.split()
+        if kind != "blob":
+            continue
+        name = path.rsplit("/", 1)[-1]
+        folders[path.split("/")[0] if "/" in path else "(root)"] += 1
+        types["." + name.rsplit(".", 1)[1].lower() if "." in name.lstrip(".") else "(ohne)"] += 1
+        size += int(blob_size)
+    log = [row.split("\x1f") for row in git_out(root, "log", commit, "--format=%h\x1f%cI\x1f%P").splitlines()]
+    days = Counter(row[1][:10] for row in log)
+    last_days = sorted(days)[-14:]
+    top = lambda c: [[k, v] for k, v in sorted(c.items(), key=lambda kv: (-kv[1], kv[0]))[:8]]
+    shallow = git_out(root, "rev-parse", "--is-shallow-repository").strip() == "true"
+    return {"files": sum(folders.values()), "bytes": size, "commits": len(log), "shallow": shallow,
+            "merges": sum(len(row[2].split()) > 1 for row in log), "firstCommit": min(days) if days else None,
+            "byFolder": top(folders), "byType": top(types), "commitsPerDay": [[d, days[d]] for d in last_days]}
+
+
 def build_monitor(path: Path, commit: str) -> dict[str, Any]:
     if not path.exists():
         return {"status": "NO_DATA", "detail": "Kein Snapshot (tools/export_dashboard.py) in diesem Lauf."}
@@ -165,6 +197,7 @@ def build(root: Path, commit: str, snapshot: Path) -> dict[str, Any]:
         "workflows": build_workflows(json.loads((root / WORKFLOWS).read_text(encoding="utf-8"))),
         "skills": build_skills(root), "ledger": build_ledger(root / LEDGER),
         "reportFiles": build_report_files(root, root / LEDGER),
+        "repoStats": build_repo_stats(root, commit),
         "surfaces": build_surfaces(json.loads((root / SURFACES).read_text(encoding="utf-8"))),
         "monitor": build_monitor(root / snapshot, commit)}
     schema = json.loads((root / SCHEMA).read_text(encoding="utf-8"))

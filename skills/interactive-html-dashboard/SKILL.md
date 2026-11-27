@@ -4,7 +4,7 @@ description: Build a self-contained, browser-openable HTML dashboard with KPI ca
 ---
 
 # Interactive HTML dashboard
-Version: 0.1.0. Owner: Julian Zotter. Reference implementation: `prototypes/data-dashboard/`. A dashboard is a review artifact, not a release or an approval.
+Version: 0.1.0. Owner: Julian Zotter. Reference implementation: `archive/prototypes/data-dashboard/` (archived; repository KPIs now in `apps/control-panel` `#system`). A dashboard is a review artifact, not a release or an approval.
 
 ## Data preparation
 Produce data with a deterministic script from an identified source (git revision, file hash, query text and time). Embed it as `window.DASHBOARD_DATA` between `/*DATA:BEGIN*/` and `/*DATA:END*/`; escape `</` in the payload. Declare every column with key, label, type (`number`, `category`, `date`, `text`) and search aliases. Unknown or unmeasured values stay `null`, never zero. Show the source and revision in the header and every export.

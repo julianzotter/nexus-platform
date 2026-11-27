@@ -132,9 +132,27 @@ function projectView(id) {
     </tbody></table></div></section>` + statusPolicy();
 }
 
+// Repository KPIs (nexus.repoStats, generated; adopted from archived data dashboard UI-05).
+function repoStatsView() {
+  const r = state.data.nexus?.repoStats;
+  if (!r) return '';
+  const num = n => new Intl.NumberFormat('de-AT').format(n);
+  const list = rows => rows.map(([k, v]) => esc(k) + ' ' + num(v)).join(' · ');
+  const max = Math.max(1, ...r.commitsPerDay.map(row => row[1]));
+  const bars = r.commitsPerDay.map(([d, n]) => `<tr><td><b>${esc(d)}</b></td><td><span style="display:inline-block;height:10px;width:${Math.round(100 * n / max)}%;min-width:2px;background:var(--blue);border-radius:3px"></span></td><td>${num(n)}</td></tr>`).join('');
+  return `<section class="metrics">
+    <article><small>DATEIEN @ ${esc(state.data.nexus.sourceCommit.slice(0, 7))}</small><strong>${num(r.files)}</strong><span>${num(Math.round(r.bytes / 1024))} KiB</span></article>
+    <article><small>COMMITS</small><strong>${num(r.commits)}</strong><span>${r.shallow ? '<b class="red-text">SHALLOW-Klon: Zählung unvollständig</b>' : 'davon Merges ' + num(r.merges) + ' · seit ' + esc(r.firstCommit || '–')}</span></article>
+    <article><small>ORDNER (TOP)</small><strong>${num(r.byFolder.length)}</strong><span>${list(r.byFolder)}</span></article>
+    <article><small>DATEITYPEN (TOP)</small><strong>${num(r.byType.length)}</strong><span>${list(r.byType)}</span></article>
+  </section>
+  <section class="panel"><div class="panel-head"><div><h2>Commits pro Tag (letzte ${r.commitsPerDay.length} aktive Tage)</h2><p>git log am Quell-Commit · deterministisch</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Tag</th><th>Verlauf</th><th>Commits</th></tr></thead><tbody>${bars}</tbody></table></div></section>`;
+}
+
 function systemView() {
   const moe = state.data.moe;
-  return heading('Systemprüfung + Architektur-Matrix', 'Daten, Programme, Monitoring und Multi-Agent-Workflow – Befund, Risiko und Gate getrennt.') +
+  return heading('Systemprüfung + Architektur-Matrix', 'Daten, Programme, Monitoring und Multi-Agent-Workflow – Befund, Risiko und Gate getrennt.') + repoStatsView() +
     `<section class="panel"><div class="panel-head"><div><h2>Kritisches Architektur-Audit</h2><p>Cloud-Stream und lokale Schreibzentrale werden logisch und betrieblich getrennt.</p></div>${badge('YELLOW')}</div>
     <div class="table-wrap"><table class="matrix"><thead><tr><th>Prüfbereich</th><th>Befund aus dem Verlauf</th><th>Kritische Bewertung & Risiko</th><th>Korrekturmaßnahme (Gate)</th></tr></thead><tbody>
     ${state.data.architecture.map(row => `<tr><td><strong>${esc(row[0])}</strong>${badge(row[2])}</td><td>${esc(row[1])}</td><td>${esc(row[3])}</td><td>${esc(row[4])}</td></tr>`).join('')}

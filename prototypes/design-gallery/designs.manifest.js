@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "8afd88c826d0e074b2d36823c2eedab92d76d6f9",
+ "commit": "249963660bdec05193ec6908f05455dce74e7d32",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -48,6 +48,22 @@ window.NEXUS_DESIGNS = {
     "apps",
     "control-panel",
     "site"
+   ]
+  },
+  {
+   "id": "HTML-D4856A90",
+   "title": "NEXUS Daten-Dashboard",
+   "kind": "html",
+   "path": "archive/prototypes/data-dashboard/index.html",
+   "preview": "../../archive/prototypes/data-dashboard/index.html",
+   "sha256": "0f9fb7a685c0eed2c336f13e94ab9e7a5bfe48212e09bc57b3d36c3ddf47d5de",
+   "bytes": 120843,
+   "status": "prototype_unreviewed",
+   "summary": "> Abgelöst durch das Control Panel (`apps/control-panel`, Ansicht `#system`, Daten `nexus.repoStats` aus `tools/build_control_data.py`). Registry: `registry/ui-surfaces.json` UI-05. Nur noch Nachweis. Eine einzelne, eigenständige HTML-Datei: KPI-Karten, vier animierte Diagramme, Filter, sortierbare Tabelle, Dialog mit den Daten per Text oder Sprache, Datei-Import/-Export. Prototyp, keine Freigabe. `index.html` direkt",
+   "tags": [
+    "archive",
+    "prototypes",
+    "data-dashboard"
    ]
   },
   {
@@ -142,21 +158,6 @@ window.NEXUS_DESIGNS = {
    "tags": [
     "prototypes",
     "adaptive-control-panel"
-   ]
-  },
-  {
-   "id": "HTML-5040E922",
-   "title": "NEXUS Daten-Dashboard",
-   "kind": "html",
-   "path": "prototypes/data-dashboard/index.html",
-   "preview": "../../prototypes/data-dashboard/index.html",
-   "sha256": "0f9fb7a685c0eed2c336f13e94ab9e7a5bfe48212e09bc57b3d36c3ddf47d5de",
-   "bytes": 120843,
-   "status": "prototype_unreviewed",
-   "summary": "Eine einzelne, eigenständige HTML-Datei: KPI-Karten, vier animierte Diagramme, Filter, sortierbare Tabelle, Dialog mit den Daten per Text oder Sprache, Datei-Import/-Export. Prototyp, keine Freigabe. `index.html` direkt im Browser öffnen. Kein Server, keine CDN-Abhängigkeit, keine API-Keys. Daten neu einbetten (feste Git-Revision, deterministisch): ```sh python prototypes/data-dashboard/build_data.py          # HEAD ",
-   "tags": [
-    "prototypes",
-    "data-dashboard"
    ]
   },
   {
