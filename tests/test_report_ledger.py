@@ -41,3 +41,13 @@ def test_entry_errors() -> None:
 def test_duplicate_numbers_fail() -> None:
     errs = rl.check(rl.load() + [entry("0001")])
     assert any("already used" in e for e in errs)
+
+
+def test_rename_map_points_to_existing_files() -> None:
+    import json
+    doc = json.loads((ROOT / "registry" / "report-renames-2026-11-27.json").read_text(encoding="utf-8"))
+    nrs = {e["path"]: e["nr"] for e in rl.load()}
+    for r in doc["renames"]:
+        assert (ROOT / r["new"]).exists(), r["new"]
+        assert not (ROOT / r["old"]).exists(), r["old"]
+        assert r["new"] in nrs, r["new"]

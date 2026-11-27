@@ -13,7 +13,7 @@ Tags: #Zirkularität #Bauteilkennwerte #SeriellerWohnbau #TimberLoop #AW #WTW #G
 Keine repräsentative Häufigkeitsrangfolge. Keine Freigabe für U/Schall/Brand/GWP/LCC/Reuse; Experten-Scores sind ungeprüfte Eingangsdaten.
 ## Dateien / Drive SSOT
 - [W100_data_v0.1.json](https://drive.google.com/file/d/1nKEZvEMYtMjLIV9xyHq4utfPM3Xxt1Ws/view?usp=drivesdk)
-- [26_11_12_1931_ID02_W100-CHAT-ERGEBNISSE_LEDGER-PENDING.md](https://drive.google.com/file/d/1i6Ues0GW8QC4bDpMHcr_ByBS1ddWBGmA/view?usp=drivesdk)
+- [26_11_12_1931_ID02_W100-CHAT-ERGEBNISSE_0219.md](https://drive.google.com/file/d/1i6Ues0GW8QC4bDpMHcr_ByBS1ddWBGmA/view?usp=drivesdk)
 - [W100_BAUSYSTEME_v0.1.md](https://drive.google.com/file/d/1z9SeGK2Mr479c5rACuS24ofRibW0qEXp/view?usp=drivesdk)
 - [W100_import.sql](https://drive.google.com/file/d/1Zvblb3dwqXfQVEJMoyPgRuDR3yg69m8S/view?usp=drivesdk)
 - [W100_AUFBAUFAMILIEN_v0.1.md](https://drive.google.com/file/d/1x5jYcmqc0WqAgo9zuXpQ0oy2vIZrYzgi/view?usp=drivesdk)
