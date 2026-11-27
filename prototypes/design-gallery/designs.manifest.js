@@ -1,6 +1,6 @@
 window.NEXUS_DESIGNS = {
  "schema": "nexus-design-gallery/1",
- "commit": "066b8f3129c04abf2e8abb7c09ed6a6fa96ce8db",
+ "commit": "987a0b0bea4ced9e29937325cbcc9172010287eb",
  "designs": [
   {
    "id": "HTML-2FFBC04F",
@@ -127,6 +127,21 @@ window.NEXUS_DESIGNS = {
     "local_stack",
     "nexus_local",
     "static"
+   ]
+  },
+  {
+   "id": "HTML-E4CB17BB",
+   "title": "NEXUS Adaptive Control Panel",
+   "kind": "html",
+   "path": "prototypes/adaptive-control-panel/index.html",
+   "preview": "../../prototypes/adaptive-control-panel/index.html",
+   "sha256": "b03b5db043de7ccf03ab1449468c3091dee05fa76047e37fcd4b18bf3253cbdb",
+   "bytes": 1645,
+   "status": "prototype_unreviewed",
+   "summary": "Run `python -m http.server 8080 --bind 127.0.0.1` in this directory, then open http://localhost:8080. Node 22: `node --test state.test.mjs`. Voice: browser-dependent speech recognition with explicit consent, preview then apply; no OpenAI Realtime connection. Local UI settings only persisted. Snapshot import uses independent schema, not live feed mapping. runRequest is tested pure logic, not wired to a real transport.",
+   "tags": [
+    "prototypes",
+    "adaptive-control-panel"
    ]
   },
   {
