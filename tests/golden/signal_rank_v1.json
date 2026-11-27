@@ -1,0 +1,18 @@
+{
+  "contract": "signal-rank-1.0.0",
+  "note": "Expected values hand-derived by ID06 from P205 SIGNALS (E=4C+3U+2D+X) before running the implementation; hashes pinned after first green run.",
+  "p205_order": ["S01", "S02", "S07", "S03", "S05", "S04", "S06", "S08"],
+  "p205_select": {
+    "0": ["S01", "S02", "S07", "S03", "S05", "S04", "S08"],
+    "3": ["S01", "S02", "S07", "S03", "S05", "S04", "S08"],
+    "7": ["S01", "S02", "S07", "S03", "S05", "S04", "S06", "S08"]
+  },
+  "synthetic": [
+    {"signal_id": "T-A", "title": "tie, lower C", "domain": "TEST", "evidence_class": "ASSUMPTION", "consequence": 2, "urgency": 4, "dependencies": 0, "uncertainty": 0, "energy": 20, "priority": "P1", "release_gate": "OPEN"},
+    {"signal_id": "T-B", "title": "tie, higher C", "domain": "TEST", "evidence_class": "ASSUMPTION", "consequence": 3, "urgency": 2, "dependencies": 1, "uncertainty": 0, "energy": 20, "priority": "P1", "release_gate": "OPEN"},
+    {"signal_id": "T-C", "title": "low energy but STOP", "domain": "TEST", "evidence_class": "ASSUMPTION", "consequence": 0, "urgency": 0, "dependencies": 0, "uncertainty": 1, "energy": 1, "priority": "P3", "release_gate": "STOP"},
+    {"signal_id": "T-D", "title": "mid, not mandatory", "domain": "TEST", "evidence_class": "ASSUMPTION", "consequence": 1, "urgency": 1, "dependencies": 1, "uncertainty": 1, "energy": 10, "priority": "P3", "release_gate": "OPEN"}
+  ],
+  "synthetic_select_k1": ["T-B", "T-C"],
+  "synthetic_select_k2": ["T-B", "T-A", "T-C"]
+}
