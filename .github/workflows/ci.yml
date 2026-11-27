@@ -41,6 +41,8 @@ jobs:
         env:
           BASE_REF: ${{ github.base_ref }}
         run: python tools/naming_gate.py --base "origin/$BASE_REF"
+      - name: Report ID ledger (registry/report-ledger.jsonl) consistent with numbered files
+        run: python tools/report_ledger.py check
       - name: Role matrix and panel roles rendered from role_capability_matrix.json
         run: python tools/render_role_matrix.py --check
       - name: Artifact registry fail-closed tests
